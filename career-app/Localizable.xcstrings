@@ -1,0 +1,101 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "• %@" : {
+
+    },
+    "1" : {
+
+    },
+    "2" : {
+
+    },
+    "Add a job description by Generate a sample of job description or Copy-paste a job description" : {
+
+    },
+    "Add Job Description" : {
+
+    },
+    "Blog" : {
+
+    },
+    "blogTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blog"
+          }
+        }
+      }
+    },
+    "by %@" : {
+
+    },
+    "Company Name" : {
+
+    },
+    "Curriculum" : {
+
+    },
+    "Curriculum View" : {
+
+    },
+    "Date Range" : {
+
+    },
+    "Email" : {
+
+    },
+    "Generated Interview Questions" : {
+
+    },
+    "GitHub" : {
+
+    },
+    "LinkedIn" : {
+
+    },
+    "Location" : {
+
+    },
+    "Menu" : {
+
+    },
+    "Menu View" : {
+
+    },
+    "Name" : {
+
+    },
+    "Other Link" : {
+
+    },
+    "Perguntas" : {
+
+    },
+    "Phone" : {
+
+    },
+    "Position" : {
+
+    },
+    "Questions" : {
+
+    },
+    "SKILLS" : {
+
+    },
+    "Tap to Authorize and Show Calendar" : {
+
+    },
+    "Upload Resume" : {
+
+    },
+    "Upload Your Resume" : {
+
+    }
+  },
+  "version" : "1.0"
+}

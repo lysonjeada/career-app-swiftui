@@ -1,0 +1,38 @@
+name: iOS SPM CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Install Fastlane Dependencies
+        run: bundle install
+
+      - name: Install Swift Packages
+        run: swift package resolve
+
+      - name: Run Tests using Swift Package Manager
+        run: bundle exec fastlane test
+
+      - name: Build the App using Swift Package Manager
+        run: bundle exec fastlane build
+
