@@ -27,7 +27,7 @@ struct ContentView: View {
                 }
                 .foregroundColor(.persianBlue)
             
-            ResumeView()
+            JobApplicationTrackerView()
                 .tabItem {
                     Label(HomeStrings.resumeTitle,
                           systemImage: "book.fill")

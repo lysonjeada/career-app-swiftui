@@ -4,26 +4,37 @@
 import PackageDescription
 
 let package = Package(
-    name: "career-app",
+    name: "career-app-swiftui",
     platforms: [
-        .macOS(.v10_15),
-        .iOS(.v14)
+        .iOS(.v14),
+        .macOS(.v10_15)
     ],
     dependencies: [
-        // Dependência do swift-snapshot-testing
-        .package(
-            url: "https://github.com/pointfreeco/swift-snapshot-testing",
-            from: "1.12.0"
-        ),
+        // Dependências do projeto
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.0.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.12.0"),
+        .package(url: "https://github.com/apple/swift-syntax.git", .upToNextMajor(from: "600.0.0")),
+        .package(url: "https://github.com/apple/swift-testing.git", branch: "main") // Como você tem uma dependência de branch
     ],
     targets: [
-        .executableTarget(
-            name: "career-appUITests",
+        // Target do app principal
+        .target(
+            name: "career-app-swiftui",
             dependencies: [
-                // Adiciona a dependência do snapshot testing ao target
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
-            ]
+                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
+            ],
+            path: "Sources",
+            exclude: ["main.swift"] // Exclua arquivos não necessários
+        ),
+        .testTarget(
+            name: "CareerAppUnitTests",
+            dependencies: [
+                "career-app-swiftui",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                .product(name: "Testing", package: "swift-testing"),
+            ],
+             path: "Career App Unit Tests/Tests",
+            exclude: ["main.swift"] // Evita duplicidade
         ),
     ]
 )
-

@@ -13,7 +13,13 @@
     "Add a job description by Generate a sample of job description or Copy-paste a job description" : {
 
     },
+    "Add Job Application" : {
+
+    },
     "Add Job Description" : {
+
+    },
+    "Add New Job Application" : {
 
     },
     "Blog" : {
@@ -33,6 +39,15 @@
     "by %@" : {
 
     },
+    "Cancel" : {
+
+    },
+    "Company" : {
+
+    },
+    "Company Details" : {
+
+    },
     "Company Name" : {
 
     },
@@ -48,10 +63,25 @@
     "Email" : {
 
     },
+    "Empresa:" : {
+
+    },
     "Generated Interview Questions" : {
 
     },
     "GitHub" : {
+
+    },
+    "Interview Dates" : {
+
+    },
+    "Job Applications" : {
+
+    },
+    "Job Level" : {
+
+    },
+    "Last Interview" : {
 
     },
     "LinkedIn" : {
@@ -69,6 +99,12 @@
     "Name" : {
 
     },
+    "Next Interview" : {
+
+    },
+    "Nível:" : {
+
+    },
     "Other Link" : {
 
     },
@@ -81,13 +117,25 @@
     "Position" : {
 
     },
+    "Próxima entrevista:" : {
+
+    },
     "Questions" : {
 
     },
     "SKILLS" : {
 
     },
+    "Skills técnicas:" : {
+
+    },
     "Tap to Authorize and Show Calendar" : {
+
+    },
+    "Technical Skills" : {
+
+    },
+    "Última entrevista:" : {
 
     },
     "Upload Resume" : {

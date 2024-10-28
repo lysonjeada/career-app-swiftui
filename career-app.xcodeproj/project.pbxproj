@@ -3,17 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAB2CCB2F1600D7CF6B /* XCTest.framework */; platformFilter = ios; };
+		240092EF2CCC1CE10097FBCD /* XCTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAB2CCB2F1600D7CF6B /* XCTest.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		241917C92C6AE804004147DF /* career_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241917C82C6AE804004147DF /* career_appApp.swift */; };
 		241917CB2C6AE804004147DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241917CA2C6AE804004147DF /* ContentView.swift */; };
 		241917CD2C6AE806004147DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241917CC2C6AE806004147DF /* Assets.xcassets */; };
 		241917D02C6AE806004147DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241917CF2C6AE806004147DF /* Preview Assets.xcassets */; };
-		241917DA2C6AE807004147DF /* career_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241917D92C6AE807004147DF /* career_appTests.swift */; };
-		241917E42C6AE807004147DF /* career_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241917E32C6AE807004147DF /* career_appUITests.swift */; };
-		241917E62C6AE807004147DF /* career_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241917E52C6AE807004147DF /* career_appUITestsLaunchTests.swift */; };
+		241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241CBCE72CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift */; };
+		243B00022CCBC7DA00D7CF6B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
+		243B00062CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		243BFFFD2CCB34C500D7CF6B /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 243BFFFC2CCB34C500D7CF6B /* SnapshotTesting */; };
+		243CF7B02CCD9ABE00685B91 /* Testing in Frameworks */ = {isa = PBXBuildFile; productRef = 243CF7AF2CCD9ABE00685B91 /* Testing */; };
+		243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAD2CCB30F200D7CF6B /* Testing.framework */; platformFilter = ios; };
+		243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */; };
 		244DDAB52C797567007FB768 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB42C797567007FB768 /* CalendarView.swift */; };
 		244DDAB82C7A72A7007FB768 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB72C7A72A7007FB768 /* Article.swift */; };
 		244DDABA2C7A72C8007FB768 /* BlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB92C7A72C8007FB768 /* BlogView.swift */; };
@@ -28,35 +34,13 @@
 		2492405F2CC8664D0081E887 /* InterviewQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2492405E2CC8664D0081E887 /* InterviewQuestionsView.swift */; };
 		249240622CC86F3C0081E887 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249240612CC86F3C0081E887 /* Color.swift */; };
 		249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249240632CC9871D0081E887 /* OpenAPIResponse.swift */; };
-		249240672CC99F5C0081E887 /* InterviewGenerateQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249240662CC99F5C0081E887 /* InterviewGenerateQuestionsView.swift */; };
-		2492406A2CC9A3520081E887 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 249240692CC9A3520081E887 /* SnapshotTesting */; };
-		2492406D2CC9A4D50081E887 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2492406C2CC9A4D50081E887 /* FirebaseAnalytics */; };
-		2492406F2CC9A4D50081E887 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 2492406E2CC9A4D50081E887 /* FirebaseAnalyticsOnDeviceConversion */; };
-		249240712CC9A4D50081E887 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 249240702CC9A4D50081E887 /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		249240732CC9A4D50081E887 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 249240722CC9A4D50081E887 /* FirebaseAuth */; };
-		249240752CC9A4D50081E887 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 249240742CC9A4D50081E887 /* FirebaseCrashlytics */; };
-		249240772CC9A4D50081E887 /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 249240762CC9A4D50081E887 /* FirebaseInstallations */; };
-		249240792CC9A4D50081E887 /* FirebaseMLModelDownloader in Frameworks */ = {isa = PBXBuildFile; productRef = 249240782CC9A4D50081E887 /* FirebaseMLModelDownloader */; };
-		2492407B2CC9A4D50081E887 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2492407A2CC9A4D50081E887 /* FirebaseMessaging */; };
-		2492407D2CC9A4D50081E887 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 2492407C2CC9A4D50081E887 /* FirebasePerformance */; };
-		2492407F2CC9A4D50081E887 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 2492407E2CC9A4D50081E887 /* FirebaseRemoteConfig */; };
-		249240812CC9A4D50081E887 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 249240802CC9A4D50081E887 /* FirebaseStorage */; };
-		249240832CC9A4D50081E887 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 249240822CC9A4D50081E887 /* FirebaseStorageCombine-Community */; };
-		249240852CC9A4D50081E887 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 249240842CC9A4D50081E887 /* FirebaseVertexAI-Preview */; };
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
 		24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C4B2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D89C4D2C81834800995945 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		241917D62C6AE807004147DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 241917BD2C6AE804004147DF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 241917C42C6AE804004147DF;
-			remoteInfo = "career-app";
-		};
-		241917E02C6AE807004147DF /* PBXContainerItemProxy */ = {
+		243BFFC72CCB34B200D7CF6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 241917BD2C6AE804004147DF /* Project object */;
 			proxyType = 1;
@@ -65,17 +49,41 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		243B003A2CCBCE2000D7CF6B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				240092EF2CCC1CE10097FBCD /* XCTest.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24B356902CCBE27A005AF38D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		241917C52C6AE804004147DF /* career-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "career-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		241917C82C6AE804004147DF /* career_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appApp.swift; sourceTree = "<group>"; };
 		241917CA2C6AE804004147DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		241917CC2C6AE806004147DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		241917CF2C6AE806004147DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		241917D52C6AE807004147DF /* career-appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "career-appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		241917D92C6AE807004147DF /* career_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appTests.swift; sourceTree = "<group>"; };
-		241917DF2C6AE807004147DF /* career-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "career-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		241917E32C6AE807004147DF /* career_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appUITests.swift; sourceTree = "<group>"; };
-		241917E52C6AE807004147DF /* career_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		241CBCE72CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionsViewController.swift; sourceTree = "<group>"; };
+		243BFFAB2CCB2F1600D7CF6B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		243BFFAD2CCB30F200D7CF6B /* Testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Testing.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/Testing.framework; sourceTree = DEVELOPER_DIR; };
+		243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Career App Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationTrackerView.swift; sourceTree = "<group>"; };
 		244DDAB42C797567007FB768 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		244DDAB72C7A72A7007FB768 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		244DDAB92C7A72C8007FB768 /* BlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogView.swift; sourceTree = "<group>"; };
@@ -90,9 +98,12 @@
 		2492405E2CC8664D0081E887 /* InterviewQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionsView.swift; sourceTree = "<group>"; };
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
-		249240662CC99F5C0081E887 /* InterviewGenerateQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewGenerateQuestionsView.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Career App Unit Tests"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		241917C22C6AE804004147DF /* Frameworks */ = {
@@ -104,31 +115,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		241917D22C6AE807004147DF /* Frameworks */ = {
+		243BFFC02CCB34B200D7CF6B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		241917DC2C6AE807004147DF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2492407F2CC9A4D50081E887 /* FirebaseRemoteConfig in Frameworks */,
-				2492407B2CC9A4D50081E887 /* FirebaseMessaging in Frameworks */,
-				2492406D2CC9A4D50081E887 /* FirebaseAnalytics in Frameworks */,
-				249240832CC9A4D50081E887 /* FirebaseStorageCombine-Community in Frameworks */,
-				2492407D2CC9A4D50081E887 /* FirebasePerformance in Frameworks */,
-				249240772CC9A4D50081E887 /* FirebaseInstallations in Frameworks */,
-				249240812CC9A4D50081E887 /* FirebaseStorage in Frameworks */,
-				249240732CC9A4D50081E887 /* FirebaseAuth in Frameworks */,
-				249240792CC9A4D50081E887 /* FirebaseMLModelDownloader in Frameworks */,
-				2492406F2CC9A4D50081E887 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
-				249240852CC9A4D50081E887 /* FirebaseVertexAI-Preview in Frameworks */,
-				249240752CC9A4D50081E887 /* FirebaseCrashlytics in Frameworks */,
-				2492406A2CC9A3520081E887 /* SnapshotTesting in Frameworks */,
-				249240712CC9A4D50081E887 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */,
+				243B00022CCBC7DA00D7CF6B /* FirebaseAnalytics in Frameworks */,
+				243CF7B02CCD9ABE00685B91 /* Testing in Frameworks */,
+				240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */,
+				243BFFFD2CCB34C500D7CF6B /* SnapshotTesting in Frameworks */,
+				243B00062CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				241917C72C6AE804004147DF /* career-app */,
-				241917D82C6AE807004147DF /* career-appTests */,
-				241917E22C6AE807004147DF /* career-appUITests */,
+				243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */,
 				241917C62C6AE804004147DF /* Products */,
 				2492406B2CC9A4570081E887 /* Frameworks */,
 			);
@@ -150,8 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				241917C52C6AE804004147DF /* career-app.app */,
-				241917D52C6AE807004147DF /* career-appTests.xctest */,
-				241917DF2C6AE807004147DF /* career-appUITests.xctest */,
+				243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,6 +153,7 @@
 		241917C72C6AE804004147DF /* career-app */ = {
 			isa = PBXGroup;
 			children = (
+				243CF7B82CD0553500685B91 /* Track */,
 				249240602CC86F2C0081E887 /* Extensions */,
 				24923F982CBF4E9E0081E887 /* GoogleService-Info.plist */,
 				244DDABE2C7B9810007FB768 /* Interview */,
@@ -186,22 +181,12 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		241917D82C6AE807004147DF /* career-appTests */ = {
+		243CF7B82CD0553500685B91 /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				241917D92C6AE807004147DF /* career_appTests.swift */,
+				243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */,
 			);
-			path = "career-appTests";
-			sourceTree = "<group>";
-		};
-		241917E22C6AE807004147DF /* career-appUITests */ = {
-			isa = PBXGroup;
-			children = (
-				249240652CC99EFA0081E887 /* GenerateQuestions */,
-				241917E32C6AE807004147DF /* career_appUITests.swift */,
-				241917E52C6AE807004147DF /* career_appUITestsLaunchTests.swift */,
-			);
-			path = "career-appUITests";
+			path = Track;
 			sourceTree = "<group>";
 		};
 		244DDAB62C7A7299007FB768 /* Blog */ = {
@@ -225,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				244DDABF2C7B981A007FB768 /* GenerateQuestions */,
+				241CBCE72CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift */,
 			);
 			path = Interview;
 			sourceTree = "<group>";
@@ -256,17 +242,11 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		249240652CC99EFA0081E887 /* GenerateQuestions */ = {
-			isa = PBXGroup;
-			children = (
-				249240662CC99F5C0081E887 /* InterviewGenerateQuestionsView.swift */,
-			);
-			path = GenerateQuestions;
-			sourceTree = "<group>";
-		};
 		2492406B2CC9A4570081E887 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				243BFFAD2CCB30F200D7CF6B /* Testing.framework */,
+				243BFFAB2CCB2F1600D7CF6B /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -281,6 +261,7 @@
 				241917C12C6AE804004147DF /* Sources */,
 				241917C22C6AE804004147DF /* Frameworks */,
 				241917C32C6AE804004147DF /* Resources */,
+				24B356902CCBE27A005AF38D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -295,57 +276,33 @@
 			productReference = 241917C52C6AE804004147DF /* career-app.app */;
 			productType = "com.apple.product-type.application";
 		};
-		241917D42C6AE807004147DF /* career-appTests */ = {
+		243BFFC22CCB34B200D7CF6B /* Career App Unit Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 241917EC2C6AE807004147DF /* Build configuration list for PBXNativeTarget "career-appTests" */;
+			buildConfigurationList = 243BFFC92CCB34B200D7CF6B /* Build configuration list for PBXNativeTarget "Career App Unit Tests" */;
 			buildPhases = (
-				241917D12C6AE807004147DF /* Sources */,
-				241917D22C6AE807004147DF /* Frameworks */,
-				241917D32C6AE807004147DF /* Resources */,
+				243BFFBF2CCB34B200D7CF6B /* Sources */,
+				243BFFC02CCB34B200D7CF6B /* Frameworks */,
+				243BFFC12CCB34B200D7CF6B /* Resources */,
+				243B003A2CCBCE2000D7CF6B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				241917D72C6AE807004147DF /* PBXTargetDependency */,
+				243BFFC82CCB34B200D7CF6B /* PBXTargetDependency */,
 			);
-			name = "career-appTests";
-			productName = "career-appTests";
-			productReference = 241917D52C6AE807004147DF /* career-appTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		241917DE2C6AE807004147DF /* career-appUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 241917EF2C6AE807004147DF /* Build configuration list for PBXNativeTarget "career-appUITests" */;
-			buildPhases = (
-				241917DB2C6AE807004147DF /* Sources */,
-				241917DC2C6AE807004147DF /* Frameworks */,
-				241917DD2C6AE807004147DF /* Resources */,
+			fileSystemSynchronizedGroups = (
+				243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */,
 			);
-			buildRules = (
-			);
-			dependencies = (
-				241917E12C6AE807004147DF /* PBXTargetDependency */,
-			);
-			name = "career-appUITests";
+			name = "Career App Unit Tests";
 			packageProductDependencies = (
-				249240692CC9A3520081E887 /* SnapshotTesting */,
-				2492406C2CC9A4D50081E887 /* FirebaseAnalytics */,
-				2492406E2CC9A4D50081E887 /* FirebaseAnalyticsOnDeviceConversion */,
-				249240702CC9A4D50081E887 /* FirebaseAnalyticsWithoutAdIdSupport */,
-				249240722CC9A4D50081E887 /* FirebaseAuth */,
-				249240742CC9A4D50081E887 /* FirebaseCrashlytics */,
-				249240762CC9A4D50081E887 /* FirebaseInstallations */,
-				249240782CC9A4D50081E887 /* FirebaseMLModelDownloader */,
-				2492407A2CC9A4D50081E887 /* FirebaseMessaging */,
-				2492407C2CC9A4D50081E887 /* FirebasePerformance */,
-				2492407E2CC9A4D50081E887 /* FirebaseRemoteConfig */,
-				249240802CC9A4D50081E887 /* FirebaseStorage */,
-				249240822CC9A4D50081E887 /* FirebaseStorageCombine-Community */,
-				249240842CC9A4D50081E887 /* FirebaseVertexAI-Preview */,
+				243BFFFC2CCB34C500D7CF6B /* SnapshotTesting */,
+				243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */,
+				243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */,
+				243CF7AF2CCD9ABE00685B91 /* Testing */,
 			);
-			productName = "career-appUITests";
-			productReference = 241917DF2C6AE807004147DF /* career-appUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
+			productName = "Career App Unit Tests";
+			productReference = 243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -354,18 +311,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					241917C42C6AE804004147DF = {
 						CreatedOnToolsVersion = 15.0;
 					};
-					241917D42C6AE807004147DF = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 241917C42C6AE804004147DF;
-					};
-					241917DE2C6AE807004147DF = {
-						CreatedOnToolsVersion = 15.0;
+					243BFFC22CCB34B200D7CF6B = {
+						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 241917C42C6AE804004147DF;
 					};
 				};
@@ -383,14 +336,15 @@
 			packageReferences = (
 				24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				24B3568E2CCBE255005AF38D /* XCRemoteSwiftPackageReference "swift-syntax" */,
+				243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */,
 			);
 			productRefGroup = 241917C62C6AE804004147DF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				241917C42C6AE804004147DF /* career-app */,
-				241917D42C6AE807004147DF /* career-appTests */,
-				241917DE2C6AE807004147DF /* career-appUITests */,
+				243BFFC22CCB34B200D7CF6B /* Career App Unit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -408,14 +362,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		241917D32C6AE807004147DF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		241917DD2C6AE807004147DF /* Resources */ = {
+		243BFFC12CCB34B200D7CF6B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -429,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */,
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
@@ -438,6 +386,7 @@
 				244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */,
 				249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */,
 				2492405F2CC8664D0081E887 /* InterviewQuestionsView.swift in Sources */,
+				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* BlogView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
@@ -446,36 +395,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		241917D12C6AE807004147DF /* Sources */ = {
+		243BFFBF2CCB34B200D7CF6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				241917DA2C6AE807004147DF /* career_appTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		241917DB2C6AE807004147DF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				241917E62C6AE807004147DF /* career_appUITestsLaunchTests.swift in Sources */,
-				241917E42C6AE807004147DF /* career_appUITests.swift in Sources */,
-				249240672CC99F5C0081E887 /* InterviewGenerateQuestionsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		241917D72C6AE807004147DF /* PBXTargetDependency */ = {
+		243BFFC82CCB34B200D7CF6B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 241917C42C6AE804004147DF /* career-app */;
-			targetProxy = 241917D62C6AE807004147DF /* PBXContainerItemProxy */;
-		};
-		241917E12C6AE807004147DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 241917C42C6AE804004147DF /* career-app */;
-			targetProxy = 241917E02C6AE807004147DF /* PBXContainerItemProxy */;
+			targetProxy = 243BFFC72CCB34B200D7CF6B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -657,17 +590,17 @@
 			};
 			name = Release;
 		};
-		241917ED2C6AE807004147DF /* Debug */ = {
+		243BFFCA2CCB34B200D7CF6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9Y27K9ZT7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "lys.com.career-appTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "br.com.lys.Career-App-Unit-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -676,56 +609,22 @@
 			};
 			name = Debug;
 		};
-		241917EE2C6AE807004147DF /* Release */ = {
+		243BFFCB2CCB34B200D7CF6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9Y27K9ZT7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "lys.com.career-appTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "br.com.lys.Career-App-Unit-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/career-app.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/career-app";
-			};
-			name = Release;
-		};
-		241917F02C6AE807004147DF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "lys.com.career-appUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "career-app";
-			};
-			name = Debug;
-		};
-		241917F12C6AE807004147DF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "lys.com.career-appUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "career-app";
 			};
 			name = Release;
 		};
@@ -750,20 +649,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		241917EC2C6AE807004147DF /* Build configuration list for PBXNativeTarget "career-appTests" */ = {
+		243BFFC92CCB34B200D7CF6B /* Build configuration list for PBXNativeTarget "Career App Unit Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				241917ED2C6AE807004147DF /* Debug */,
-				241917EE2C6AE807004147DF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		241917EF2C6AE807004147DF /* Build configuration list for PBXNativeTarget "career-appUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				241917F02C6AE807004147DF /* Debug */,
-				241917F12C6AE807004147DF /* Release */,
+				243BFFCA2CCB34B200D7CF6B /* Debug */,
+				243BFFCB2CCB34B200D7CF6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -771,6 +661,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftlang/swift-testing.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
@@ -779,86 +677,44 @@
 				minimumVersion = 1.17.6;
 			};
 		};
+		24B3568E2CCBE255005AF38D /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftlang/swift-syntax.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 600.0.1;
+			};
+		};
 		24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 11.1.0;
+				minimumVersion = 11.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		249240692CC9A3520081E887 /* SnapshotTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
-			productName = SnapshotTesting;
-		};
-		2492406C2CC9A4D50081E887 /* FirebaseAnalytics */ = {
+		243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		2492406E2CC9A4D50081E887 /* FirebaseAnalyticsOnDeviceConversion */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsOnDeviceConversion;
-		};
-		249240702CC9A4D50081E887 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+		243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
-		249240722CC9A4D50081E887 /* FirebaseAuth */ = {
+		243BFFFC2CCB34C500D7CF6B /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
+			package = 249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
-		249240742CC9A4D50081E887 /* FirebaseCrashlytics */ = {
+		243CF7AF2CCD9ABE00685B91 /* Testing */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		249240762CC9A4D50081E887 /* FirebaseInstallations */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseInstallations;
-		};
-		249240782CC9A4D50081E887 /* FirebaseMLModelDownloader */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMLModelDownloader;
-		};
-		2492407A2CC9A4D50081E887 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		2492407C2CC9A4D50081E887 /* FirebasePerformance */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebasePerformance;
-		};
-		2492407E2CC9A4D50081E887 /* FirebaseRemoteConfig */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfig;
-		};
-		249240802CC9A4D50081E887 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		249240822CC9A4D50081E887 /* FirebaseStorageCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseStorageCombine-Community";
-		};
-		249240842CC9A4D50081E887 /* FirebaseVertexAI-Preview */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseVertexAI-Preview";
+			package = 243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */;
+			productName = Testing;
 		};
 		24D89C492C8175DC00995945 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
