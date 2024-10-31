@@ -20,6 +20,7 @@
 		243CF7B02CCD9ABE00685B91 /* Testing in Frameworks */ = {isa = PBXBuildFile; productRef = 243CF7AF2CCD9ABE00685B91 /* Testing */; };
 		243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAD2CCB30F200D7CF6B /* Testing.framework */; platformFilter = ios; };
 		243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */; };
+		243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243CF7BE2CD2F26800685B91 /* FullArticleListView.swift */; };
 		244DDAB52C797567007FB768 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB42C797567007FB768 /* CalendarView.swift */; };
 		244DDAB82C7A72A7007FB768 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB72C7A72A7007FB768 /* Article.swift */; };
 		244DDABA2C7A72C8007FB768 /* BlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB92C7A72C8007FB768 /* BlogView.swift */; };
@@ -84,6 +85,7 @@
 		243BFFAD2CCB30F200D7CF6B /* Testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Testing.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/Testing.framework; sourceTree = DEVELOPER_DIR; };
 		243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Career App Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationTrackerView.swift; sourceTree = "<group>"; };
+		243CF7BE2CD2F26800685B91 /* FullArticleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullArticleListView.swift; sourceTree = "<group>"; };
 		244DDAB42C797567007FB768 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		244DDAB72C7A72A7007FB768 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		244DDAB92C7A72C8007FB768 /* BlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		244DDAB62C7A7299007FB768 /* Blog */ = {
 			isa = PBXGroup;
 			children = (
+				243CF7BE2CD2F26800685B91 /* FullArticleListView.swift */,
 				244DDAB72C7A72A7007FB768 /* Article.swift */,
 				244DDAB92C7A72C8007FB768 /* BlogView.swift */,
 			);
@@ -390,6 +393,7 @@
 				244DDABA2C7A72C8007FB768 /* BlogView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
+				243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */,
 				24923FA32CC053920081E887 /* LocalizedStrings.swift in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
 			);

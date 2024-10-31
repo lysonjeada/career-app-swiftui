@@ -19,6 +19,9 @@ extension Color {
     static var backgroundGray: Color {
         .init(red: 141, green: 153, blue: 174, opacity: 1)
     }
+    static var backgroundLightGray: Color {
+        .init(red: 236, green: 236, blue: 236, opacity: 1)
+    }
     
     init(red: Int, green: Int, blue: Int) {
         self.init(

@@ -22,7 +22,7 @@
     "Add New Job Application" : {
 
     },
-    "Blog" : {
+    "Artigos" : {
 
     },
     "blogTitle" : {
@@ -70,6 +70,9 @@
 
     },
     "GitHub" : {
+
+    },
+    "Home" : {
 
     },
     "Interview Dates" : {
@@ -120,6 +123,9 @@
     "Próxima entrevista:" : {
 
     },
+    "Próximas Entrevistas" : {
+
+    },
     "Questions" : {
 
     },
@@ -135,6 +141,9 @@
     "Technical Skills" : {
 
     },
+    "Todos os Artigos" : {
+
+    },
     "Última entrevista:" : {
 
     },
@@ -142,6 +151,9 @@
 
     },
     "Upload Your Resume" : {
+
+    },
+    "Ver Mais" : {
 
     }
   },

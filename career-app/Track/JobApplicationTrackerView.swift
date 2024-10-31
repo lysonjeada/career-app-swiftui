@@ -14,7 +14,21 @@ struct JobApplication: Identifiable {
     var lastInterview: String?
     var nextInterview: String?
     var technicalSkills: String
+    var jobTitle: String?
+    
+    // Inicializador único com valores padrão
+    init(id: UUID = UUID(), company: String, level: String = "", lastInterview: String? = nil, nextInterview: String?, technicalSkills: String = "", jobTitle: String?) {
+        self.id = id
+        self.company = company
+        self.level = level
+        self.lastInterview = lastInterview
+        self.nextInterview = nextInterview
+        self.technicalSkills = technicalSkills
+        self.jobTitle = jobTitle
+    }
 }
+
+
 
 struct JobApplicationTrackerView: View {
     @State private var jobApplications = [
@@ -32,8 +46,9 @@ struct JobApplicationTrackerView: View {
             Conhecimento em CI/CD, Bluetooth API, Core Data.
             Experiência em automação com fastlane.
             Experiência em Scrum, Kanban e Rx.
-            """
-        )
+            """,
+                       jobTitle: ""
+                      )
     ]
     
     // New Job Application Inputs
@@ -117,7 +132,7 @@ struct JobApplicationTrackerView: View {
     
     // Function to add a new job
     func addNewJob() {
-        let newJob = JobApplication(company: newCompany, level: newLevel, lastInterview: newLastInterview, nextInterview: newNextInterview, technicalSkills: newTechnicalSkills)
+        let newJob = JobApplication(company: newCompany, level: newLevel, lastInterview: newLastInterview, nextInterview: newNextInterview, technicalSkills: newTechnicalSkills, jobTitle: "")
         jobApplications.append(newJob)
         clearForm()
     }
