@@ -11,102 +11,210 @@ struct BlogView: View {
         JobApplication(company: "Itaú", level: "Júnior", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
     ]
     
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    
-                    // Seção de Artigos em formato de catálogo horizontal
-                    VStack(alignment: .leading) {
-                        Text("Artigos")
-                            .font(.title)
-                            .bold()
-                            .padding(.top, 10)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Divider()
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 20) {
-                                ForEach(articles.prefix(articleLimit)) { article in
-                                    ArticleCard(article: article)
-                                        .frame(width: 200)
-                                        .onTapGesture {
-                                            if let url = URL(string: article.url) {
-                                                UIApplication.shared.open(url)
-                                            }
-                                        }
-                                }
-                                
-                                if articles.count > articleLimit {
-                                    Button(action: {
-                                        showFullArticleList.toggle()
-                                    }) {
-                                        Text("Ver Mais")
-                                            .font(.headline)
-                                            .padding()
-                                            .frame(width: 200, height: 240)
-                                            .background(Color.clear)
-                                            .cornerRadius(10)
-                                            .shadow(radius: 5)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 10)
-                                                    .stroke(Color.blue, lineWidth: 2)
-                                            )
-                                    }
-                                    .sheet(isPresented: $showFullArticleList) {
-                                        FullArticleListView(articles: articles)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                        .frame(height: 300)
-                    }
-                    .padding(.horizontal)
-                    
-                    Divider()
-                    
-                    VStack(alignment: .leading) {
-                        Text("Próximas Entrevistas")
-                            .font(.title)
-                            .bold()
-                            .padding(.top, 10)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 20) {
-                                ForEach(jobApplications) { job in
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text(job.jobTitle ?? "Sem título")
-                                            .font(.headline)
-                                        
-                                        Text(job.nextInterview ?? "N/A")
-                                            .font(.subheadline)
-                                            .foregroundColor(.secondary)
-                                        
-                                        Text(job.company)
-                                            .font(.subheadline)
-                                            .foregroundColor(.secondary)
-                                    }
-                                    .padding() // Adds padding around the content in each card
-                                    .frame(width: 180, height: 120)
-                                    .background(Color(UIColor.systemGray6))
-                                    .cornerRadius(10)
-                                    .shadow(radius: 5)
-                                }
-                            }
-                            .padding(.horizontal)
-                            .padding(.vertical, 10) // Adds spacing above and below the HStack
-                        }
-                    }
+                Spacer()
+                Divider()
+                Spacer()
+                showNextInterviews()
+                showArticlesView()
+                showJobApplications()
+            }
+            .onAppear {
+                fetchArticles()
+            }
+            .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    searchField
                 }
-                .onAppear {
-                    fetchArticles()
+                ToolbarItem(placement: .automatic) {
+                    Text("Home")
+                        .font(.title)
+                        .bold()
+                        .foregroundColor(Color.persianBlue)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    profileButton
                 }
             }
-            .navigationTitle("Home")
         }
+    }
+    
+    @ViewBuilder
+    func bla () -> some View {
+        if articles.count > articleLimit {
+            Button(action: {
+                showFullArticleList.toggle()
+            }) {
+                Text("Ver Mais")
+                    .font(.headline)
+                    .padding()
+                    .frame(width: 200, height: 240)
+                    .background(Color.clear)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.blue, lineWidth: 2)
+                    )
+            }
+            .sheet(isPresented: $showFullArticleList) {
+                FullArticleListView(articles: articles)
+            }
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func showArticlesView() -> some View {
+        VStack(alignment: .leading) {
+            Text("Artigos")
+                .font(.title2)
+                .bold()
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    ForEach(articles.prefix(articleLimit)) { article in
+                        ArticleCard(article: article)
+                            .frame(width: 200)
+                            .onTapGesture {
+                                if let url = URL(string: article.url) {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
+                    }
+                    
+                    bla()
+                    
+                }
+//                .padding(.horizontal)
+                .padding(.vertical, 10)
+            }
+//            .padding(.horizontal)
+            .cornerRadius(15)
+            .shadow(radius: 5)
+            
+        }
+        Spacer()
+        Divider()
+    }
+    
+    @ViewBuilder
+    func showNextInterviews() -> some View {
+        VStack(alignment: .leading) {
+            Text("Próximas Entrevistas")
+                .font(.title2)
+                .bold()
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    ForEach(jobApplications) { job in
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(job.jobTitle ?? "Sem título")
+                                .font(.headline)
+                            
+                            Text(job.nextInterview ?? "N/A")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                            Text(job.company)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
+                        .frame(width: 180, height: 120)
+                        .background(Color.backgroundLightGray)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                    }
+                }
+//                .padding(.horizontal)
+                .padding(.vertical, 10)
+            }
+//            .padding(.horizontal)
+        }
+        Spacer()
+        Divider()
+    }
+    
+    @ViewBuilder
+    func showJobApplications() -> some View {
+        VStack(alignment: .leading) {
+            Text("Vagas aplicadas")
+                .font(.title2)
+                .bold()
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .center)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    ForEach(jobApplications) { job in
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(job.jobTitle ?? "Sem título")
+                                .font(.headline)
+                            
+                            Text(job.nextInterview ?? "N/A")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                            Text(job.company)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
+                        .frame(width: 180, height: 120)
+                        .background(Color.backgroundLightGray)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                    }
+                }
+//                .padding(.horizontal)
+                .padding(.vertical, 10)
+            }
+//            .padding(.horizontal)
+        }
+        Spacer()
+        Divider()
+    }
+    
+    private var profileButton: some View {
+        Button(action: {
+            // Ação do botão de perfil
+        }) {
+            Image(systemName: "person.circle")
+                .resizable()
+                .clipShape(Circle())
+                .frame(width: 35, height: 35)
+                .foregroundColor(Color.persianBlue)
+        }
+    }
+    
+    private var searchField: some View {
+        HStack {
+            ZStack(alignment: .leading) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                    .padding(.leading, 8)
+                
+                Spacer()
+                
+                TextField("Pesquisar", text: $searchText)
+                    .padding(.leading, 40)
+            }
+            .padding(8)
+            .background(Color(UIColor.systemGray6))
+            .cornerRadius(10)
+        }
+        .frame(width: 200)
     }
     
     private func fetchArticles() {
@@ -136,14 +244,14 @@ struct ArticleCard: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 200, height: 120)
+                        .frame(width: 180, height: 100)
                         .clipped()
                         .cornerRadius(10)
                 } placeholder: {
                     Image("no-image-available")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 200, height: 120)
+                        .frame(width: 180, height: 100)
                         .clipped()
                         .cornerRadius(10)
                 }
@@ -151,7 +259,7 @@ struct ArticleCard: View {
                 Image("no-image-available")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 120)
+                    .frame(width: 180, height: 100)
                     .clipped()
                     .cornerRadius(10)
             }
@@ -176,15 +284,16 @@ struct ArticleCard: View {
             }
         }
         .padding()
+        .frame(width: 200, height: 240)
+        .background(Color.backgroundLightGray)
         .cornerRadius(15)
         .shadow(radius: 5)
     }
 }
 
-// Estrutura de dados Article assumida
-
-struct BlogView_Previews: PreviewProvider {
+struct BlogViewView_Previews: PreviewProvider {
     static var previews: some View {
         BlogView()
     }
 }
+

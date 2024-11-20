@@ -20,7 +20,7 @@ extension Color {
         .init(red: 141, green: 153, blue: 174, opacity: 1)
     }
     static var backgroundLightGray: Color {
-        .init(red: 236, green: 236, blue: 236, opacity: 1)
+        .init(red: 245, green: 245, blue: 245, opacity: 1)
     }
     
     init(red: Int, green: Int, blue: Int) {

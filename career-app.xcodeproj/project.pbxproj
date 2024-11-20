@@ -27,7 +27,6 @@
 		244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDABC2C7A83AE007FB768 /* ResumeView.swift */; };
 		244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAC02C7B9843007FB768 /* InterviewGenerateQuestionsView.swift */; };
 		244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAC32C7B9BFA007FB768 /* TextDocument.swift */; };
-		24923F992CBF4E9E0081E887 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24923F982CBF4E9E0081E887 /* GoogleService-Info.plist */; };
 		24923F9B2CBF4F660081E887 /* HomeStrings.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 24923F9A2CBF4F660081E887 /* HomeStrings.xcstrings */; };
 		24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24923F9C2CBF4F870081E887 /* HomeStrings.swift */; };
 		24923F9F2CBF65060081E887 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 24923F9E2CBF65060081E887 /* Localizable.xcstrings */; };
@@ -38,6 +37,7 @@
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
 		24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C4B2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D89C4D2C81834800995945 /* AppDelegate.swift */; };
+		702F26802CEE961100A6EEDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +92,6 @@
 		244DDABC2C7A83AE007FB768 /* ResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeView.swift; sourceTree = "<group>"; };
 		244DDAC02C7B9843007FB768 /* InterviewGenerateQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewGenerateQuestionsView.swift; sourceTree = "<group>"; };
 		244DDAC32C7B9BFA007FB768 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
-		24923F982CBF4E9E0081E887 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../press-reset/Zendo/Supporting Files/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24923F9A2CBF4F660081E887 /* HomeStrings.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = HomeStrings.xcstrings; sourceTree = "<group>"; };
 		24923F9C2CBF4F870081E887 /* HomeStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStrings.swift; sourceTree = "<group>"; };
 		24923F9E2CBF65060081E887 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -157,7 +157,7 @@
 			children = (
 				243CF7B82CD0553500685B91 /* Track */,
 				249240602CC86F2C0081E887 /* Extensions */,
-				24923F982CBF4E9E0081E887 /* GoogleService-Info.plist */,
+				702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */,
 				244DDABE2C7B9810007FB768 /* Interview */,
 				244DDABB2C7A83A0007FB768 /* Resume */,
 				244DDAB62C7A7299007FB768 /* Blog */,
@@ -358,10 +358,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				241917D02C6AE806004147DF /* Preview Assets.xcassets in Resources */,
-				24923F992CBF4E9E0081E887 /* GoogleService-Info.plist in Resources */,
 				24923F9F2CBF65060081E887 /* Localizable.xcstrings in Resources */,
 				241917CD2C6AE806004147DF /* Assets.xcassets in Resources */,
 				24923F9B2CBF4F660081E887 /* HomeStrings.xcstrings in Resources */,
+				702F26802CEE961100A6EEDB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
