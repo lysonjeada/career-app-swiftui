@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        let viewModel = HomeViewModel()
         TabView {
-            BlogView()
+            BlogView(viewModel: viewModel)
                 .tabItem {
                     Label(HomeStrings.blogTitle,
                           systemImage: "doc.text")
@@ -19,7 +20,7 @@ struct ContentView: View {
                 }
                 .foregroundColor(.persianBlue)
             
-            InterviewGenerateQuestionsView()
+            InterviewGenerateQuestionsView(viewModel: GenerateQuestionsViewModel())
                 .tabItem {
                     Label(HomeStrings.interviewTitle,
                           systemImage: "mic.fill")

@@ -1,22 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld" : {
+
+    },
     "• %@" : {
 
     },
-    "1" : {
-
-    },
-    "2" : {
-
-    },
-    "Add a job description by Generate a sample of job description or Copy-paste a job description" : {
+    "+" : {
 
     },
     "Add Job Application" : {
-
-    },
-    "Add Job Description" : {
 
     },
     "Add New Job Application" : {
@@ -42,6 +36,9 @@
     "Cancel" : {
 
     },
+    "carregando" : {
+
+    },
     "Company" : {
 
     },
@@ -49,6 +46,9 @@
 
     },
     "Company Name" : {
+
+    },
+    "Concluir" : {
 
     },
     "Curriculum" : {
@@ -64,6 +64,9 @@
 
     },
     "Empresa:" : {
+
+    },
+    "Entrevistas" : {
 
     },
     "Generated Interview Questions" : {
@@ -111,9 +114,6 @@
     "Other Link" : {
 
     },
-    "Perguntas" : {
-
-    },
     "Pesquisar" : {
 
     },
@@ -148,12 +148,6 @@
 
     },
     "Última entrevista:" : {
-
-    },
-    "Upload Resume" : {
-
-    },
-    "Upload Your Resume" : {
 
     },
     "Vagas aplicadas" : {

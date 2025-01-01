@@ -13,7 +13,13 @@ extension Color {
     }
     
     static var secondaryBlue: Color {
-        .init(red: 66, green: 122, blue: 161, opacity: 1)
+        .init(red: 6, green: 68, blue: 127, opacity: 1)
+    }
+    
+    static var titleSectionColor: Color {
+        .init(red: 6, green: 67, blue: 135, opacity: 1)
+//        .init(red: 6, green: 71, blue: 137, opacity: 1)
+//        .init(red: 6, green: 68, blue: 127, opacity: 1)
     }
     
     static var backgroundGray: Color {

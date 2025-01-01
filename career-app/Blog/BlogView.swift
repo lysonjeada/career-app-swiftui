@@ -1,9 +1,11 @@
 import SwiftUI
 
 struct BlogView: View {
-    @State private var articles: [Article] = []
+//    @State private var articles: [Article] = []
     @State private var showFullArticleList = false
+    @StateObject var viewModel: HomeViewModel
     private let articleLimit = 10
+    
     
     @State private var jobApplications = [
         JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
@@ -14,39 +16,47 @@ struct BlogView: View {
     @State private var searchText = ""
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                Spacer()
-                Divider()
-                Spacer()
-                showNextInterviews()
-                showArticlesView()
-                showJobApplications()
-            }
-            .onAppear {
-                fetchArticles()
-            }
-            .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    searchField
+        
+        NavigationStack {
+            switch viewModel.viewState {
+            case .loading:
+                Text("carregando")
+            case .loaded:
+                ScrollView {
+                    Spacer()
+                    Divider()
+                    Spacer()
+                    showNextInterviews()
+                    showArticlesView()
+                    showJobApplications()
                 }
-                ToolbarItem(placement: .automatic) {
-                    Text("Home")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(Color.persianBlue)
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    profileButton
+                .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        searchField
+                    }
+                    ToolbarItem(placement: .automatic) {
+                        Text("Home")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(Color.persianBlue)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        profileButton
+                    }
                 }
             }
         }
+        
+        .onAppear {
+            viewModel.fetchArticles()
+        }
+        
     }
     
     @ViewBuilder
     func bla () -> some View {
-        if articles.count > articleLimit {
+        if viewModel.articles.count > articleLimit {
             Button(action: {
                 showFullArticleList.toggle()
             }) {
@@ -63,7 +73,7 @@ struct BlogView: View {
                     )
             }
             .sheet(isPresented: $showFullArticleList) {
-                FullArticleListView(articles: articles)
+                FullArticleListView(articles: viewModel.articles)
             }
         } else {
             EmptyView()
@@ -78,10 +88,11 @@ struct BlogView: View {
                 .bold()
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(Color.titleSectionColor)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    ForEach(articles.prefix(articleLimit)) { article in
+                    ForEach(viewModel.articles.prefix(articleLimit)) { article in
                         ArticleCard(article: article)
                             .frame(width: 200)
                             .onTapGesture {
@@ -90,16 +101,12 @@ struct BlogView: View {
                                 }
                             }
                     }
-                    
                     bla()
-                    
                 }
-//                .padding(.horizontal)
                 .padding(.vertical, 10)
             }
-//            .padding(.horizontal)
             .cornerRadius(15)
-            .shadow(radius: 5)
+            //            .shadow(radius: 5)
             
         }
         Spacer()
@@ -114,6 +121,7 @@ struct BlogView: View {
                 .bold()
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(Color.titleSectionColor)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
@@ -121,6 +129,7 @@ struct BlogView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(job.jobTitle ?? "Sem título")
                                 .font(.headline)
+                                .foregroundColor(Color.secondaryBlue)
                             
                             Text(job.nextInterview ?? "N/A")
                                 .font(.subheadline)
@@ -137,10 +146,10 @@ struct BlogView: View {
                         .shadow(radius: 5)
                     }
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical, 10)
             }
-//            .padding(.horizontal)
+            //            .padding(.horizontal)
         }
         Spacer()
         Divider()
@@ -154,6 +163,7 @@ struct BlogView: View {
                 .bold()
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(Color.titleSectionColor)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
@@ -161,6 +171,7 @@ struct BlogView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(job.jobTitle ?? "Sem título")
                                 .font(.headline)
+                                .foregroundColor(Color.secondaryBlue)
                             
                             Text(job.nextInterview ?? "N/A")
                                 .font(.subheadline)
@@ -177,10 +188,10 @@ struct BlogView: View {
                         .shadow(radius: 5)
                     }
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical, 10)
             }
-//            .padding(.horizontal)
+            //            .padding(.horizontal)
         }
         Spacer()
         Divider()
@@ -216,21 +227,6 @@ struct BlogView: View {
         }
         .frame(width: 200)
     }
-    
-    private func fetchArticles() {
-        guard let url = URL(string: "https://dev.to/api/articles") else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            let decoder = JSONDecoder()
-            if let fetchedArticles = try? decoder.decode([Article].self, from: data) {
-                DispatchQueue.main.async {
-                    self.articles = fetchedArticles
-                }
-            }
-        }.resume()
-    }
 }
 
 struct ArticleCard: View {
@@ -265,8 +261,10 @@ struct ArticleCard: View {
             }
             
             Text(article.title)
+                .bold()
                 .font(.headline)
                 .lineLimit(2)
+                .foregroundColor(Color.secondaryBlue)
             
             Text(article.description)
                 .font(.subheadline)
@@ -293,7 +291,7 @@ struct ArticleCard: View {
 
 struct BlogViewView_Previews: PreviewProvider {
     static var previews: some View {
-        BlogView()
+        BlogView(viewModel: HomeViewModel())
     }
 }
 
