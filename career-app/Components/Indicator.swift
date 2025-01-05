@@ -39,7 +39,9 @@ struct Indicator: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: iconHeight)
-                            .foregroundColor(isFirstTab ? Color.gray : Color.black)
+                            .foregroundColor(Color.persianBlue)
+                            .bold()
+//                            .foregroundColor(isFirstTab ? Color.gray : Color.black)
                     }
                     .frame(width: height, height: height)
                 })
@@ -48,7 +50,7 @@ struct Indicator: View {
             }
             ForEach(0..<numberOfItems, id: \.self) { index in
                 Circle()
-                    .foregroundColor(index == currentIndex ? Color.black : Color.gray)
+                    .foregroundColor(index == currentIndex ? Color.persianBlue : Color.indicatorColor)
                     .frame(width: 8, height: 8)
             }
             if buttonsEnabled {
@@ -60,7 +62,9 @@ struct Indicator: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: iconHeight)
-                            .foregroundColor(isFirstTab ? Color.gray : Color.black)
+                            .foregroundColor(Color.persianBlue)
+                            .bold()
+//                            .foregroundColor(isFirstTab ? Color.persianBlue : Color.backgroundGray)
                     }
                     .frame(width: height, height: height)
                 })

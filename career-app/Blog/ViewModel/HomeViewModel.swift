@@ -29,19 +29,15 @@ final class HomeViewModel: ObservableObject {
     @MainActor
     func fetchArticles() {
         viewState = .loading
-        
         task = Task {
             do {
+                try await Task.sleep(nanoseconds: 2_000_000_000)
                 self.articles = try await service.fetchArticles()
                 self.viewState = .loaded
-//                self.viewState = .loaded
-//                self.articles = fetchedArticles
-                
             }
             catch {
                 
             }
         }
-        
     }
 }

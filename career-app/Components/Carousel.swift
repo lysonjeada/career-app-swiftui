@@ -13,7 +13,6 @@ fileprivate struct ItemSizePreferenceKey: PreferenceKey {
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = CGSize(width: max(value.width, nextValue().width),
                        height: max(value.height, nextValue().height))
-//        value = nextValue()
     }
 }
 
@@ -105,32 +104,69 @@ public struct Carousel<Content: View, T: Identifiable>: View {
                         })
                         .onEnded({ value in
                             let offsetX = value.translation.width * 1.65
-                            let velocityX = value.velocity.width
                             let progress = -offsetX / width
+                            let newIndex: Int
                             
-                            let shortSwipeThresold: CGFloat = 20
-                            let longSwipeThresold: CGFloat = 0.35
-                            
-                            if abs(offsetX) > shortSwipeThresold && abs(velocityX) > 400 {
-                                if offsetX > 0 {
-                                    currentIndex = max(currentIndex - 1, 0)
-                                } else {
-                                    currentIndex = min(currentIndex + 1, items.count - 1)
-                                }
-                            } else if progress >= longSwipeThresold {
-                                currentIndex = min(currentIndex + 1, items.count - 1)
-                            } else if progress < -longSwipeThresold {
-                                currentIndex = max(currentIndex - 1, 0)
+                            if progress >= 0.35 {
+                                newIndex = min(currentIndex + 1, items.count - 1)
+                            } else if progress < -0.35 {
+                                newIndex = max(currentIndex - 1, 0)
+                            } else {
+                                newIndex = currentIndex
                             }
+
+                            // Animação explícita ao alterar o índice
+                            withAnimation(.easeInOut) {
+                                currentIndex = newIndex
+                            }
+                            
                             onSwipe(currentIndex)
                         })
                         .onChanged({ value in
                             let offsetX = value.translation.width * 1.65
                             let progress = -offsetX / width
                             let roundedProgress = Int(progress.rounded())
-                            index = max(min(currentIndex + roundedProgress, items.count - 1), 0)
+                            
+                            // Atualização do índice com animação suave
+                            withAnimation(.easeInOut) {
+                                index = max(min(currentIndex + roundedProgress, items.count - 1), 0)
+                            }
                         })
                 )
+
+//                .highPriorityGesture(
+//                    DragGesture()
+//                        .updating($offset, body: { value, out, _ in
+//                            out = value.translation.width
+//                        })
+//                        .onEnded({ value in
+//                            let offsetX = value.translation.width * 1.65
+//                            let velocityX = value.velocity.width
+//                            let progress = -offsetX / width
+//                            
+//                            let shortSwipeThresold: CGFloat = 20
+//                            let longSwipeThresold: CGFloat = 0.35
+//                            
+//                            if abs(offsetX) > shortSwipeThresold && abs(velocityX) > 400 {
+//                                if offsetX > 0 {
+//                                    currentIndex = max(currentIndex - 1, 0)
+//                                } else {
+//                                    currentIndex = min(currentIndex + 1, items.count - 1)
+//                                }
+//                            } else if progress >= longSwipeThresold {
+//                                currentIndex = min(currentIndex + 1, items.count - 1)
+//                            } else if progress < -longSwipeThresold {
+//                                currentIndex = max(currentIndex - 1, 0)
+//                            }
+//                            onSwipe(currentIndex)
+//                        })
+//                        .onChanged({ value in
+//                            let offsetX = value.translation.width * 1.65
+//                            let progress = -offsetX / width
+//                            let roundedProgress = Int(progress.rounded())
+//                            index = max(min(currentIndex + roundedProgress, items.count - 1), 0)
+//                        })
+//                )
             }
             .frame(idealHeight: contentHeight)
             .animation(.easeInOut, value: currentIndex)

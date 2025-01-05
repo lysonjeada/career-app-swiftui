@@ -8,12 +8,35 @@
 import SwiftUI
 
 extension Color {
+    static var skeletonColor: Color {
+        .init(red: 235, green: 234, blue: 231, opacity: 1)
+    }
+    
+    static var indicatorColor: Color {
+        .init(red: 6, green: 20, blue: 137, opacity: 0.1)
+    }
+    static var numberBlue: Color {
+        .init(red: 6, green: 20, blue: 137, opacity: 1)
+    }
+    
+    static var descriptionGray: Color {
+        .init(red: 118, green: 113, blue: 137, opacity: 1)
+    }
+    
+    static var persianBlueWithoutOpacity: Color {
+        .init(red: 6, green: 50, blue: 137, opacity: 1)
+    }
+    
     static var persianBlue: Color {
         .init(red: 6, green: 71, blue: 137, opacity: 1)
     }
     
     static var secondaryBlue: Color {
         .init(red: 6, green: 68, blue: 127, opacity: 1)
+    }
+    
+    static var thirdBlue: Color {
+        .init(red: 6, green: 71, blue: 136, opacity: 1)
     }
     
     static var titleSectionColor: Color {

@@ -13,11 +13,10 @@ struct JobApplication: Identifiable {
     var level: String
     var lastInterview: String?
     var nextInterview: String?
-    var technicalSkills: String
+    var technicalSkills: [String]
     var jobTitle: String?
-    
-    // Inicializador único com valores padrão
-    init(id: UUID = UUID(), company: String, level: String = "", lastInterview: String? = nil, nextInterview: String?, technicalSkills: String = "", jobTitle: String?) {
+
+    init(id: UUID = UUID(), company: String, level: String = "", lastInterview: String? = nil, nextInterview: String? = nil, technicalSkills: [String] = [], jobTitle: String? = nil) {
         self.id = id
         self.company = company
         self.level = level
@@ -28,80 +27,40 @@ struct JobApplication: Identifiable {
     }
 }
 
-
-
 struct JobApplicationTrackerView: View {
     @State private var jobApplications = [
-        JobApplication(company: "PagBank", level: "Pleno", lastInterview: nil, nextInterview: "18/09/2024", technicalSkills: """
-            Experiência com aplicativos em iOS nativo.
-            Experiência em Apple Design Guidelines.
-            Experiência com auto layout e diferentes resoluções de tela.
-            Experiência com GIT.
-            Experiência em realizar testes, CodeReview e integração contínua.
-            Experiência com Swift.
-            Experiência com boas práticas de desenvolvimento (SOLID, KISS e DRY).
-            Experiência com MVVM, Clean Architecture.
-            Conhecimento em bibliotecas comuns do iOS.
-            Desejável:
-            Conhecimento em CI/CD, Bluetooth API, Core Data.
-            Experiência em automação com fastlane.
-            Experiência em Scrum, Kanban e Rx.
-            """,
-                       jobTitle: ""
-                      )
+        JobApplication(
+            company: "PagBank",
+            level: "Pleno",
+            lastInterview: "12/04",
+            nextInterview: "18/09/2024",
+            technicalSkills: [
+                "Swift", "MVVM", "Clean Architecture",
+                "Auto Layout", "Git", "CI/CD",
+                "Scrum"
+            ],
+            jobTitle: "iOS Developer"
+        )
     ]
     
-    // New Job Application Inputs
+    // Inputs para cadastrar novo job
     @State private var newCompany = ""
     @State private var newLevel = ""
     @State private var newLastInterview = ""
     @State private var newNextInterview = ""
     @State private var newTechnicalSkills = ""
-    
     @State private var showAddForm = false
     
     var body: some View {
         NavigationView {
             VStack {
-                List {
+
                     ForEach(jobApplications) { job in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text("Empresa:")
-                                    .font(.headline)
-                                Text(job.company)
-                                    .font(.subheadline)
-                            }
-                            HStack {
-                                Text("Nível:")
-                                    .font(.headline)
-                                Text(job.level)
-                                    .font(.subheadline)
-                            }
-                            HStack {
-                                Text("Última entrevista:")
-                                    .font(.headline)
-                                Text(job.lastInterview ?? "N/A")
-                                    .font(.subheadline)
-                            }
-                            HStack {
-                                Text("Próxima entrevista:")
-                                    .font(.headline)
-                                Text(job.nextInterview ?? "N/A")
-                                    .font(.subheadline)
-                            }
-                            HStack {
-                                Text("Skills técnicas:")
-                                    .font(.headline)
-                                Spacer()
-                            }
-                            Text(job.technicalSkills)
-                                .font(.subheadline)
-                                .padding(.leading, 10)
-                        }
-                        .padding()
+                        JobApplicationCard(job: job)
+                            .frame(alignment: .top)
+                            .padding(.top)
                     }
-                }
+                Spacer()
                 
                 Button(action: {
                     showAddForm.toggle()
@@ -130,14 +89,25 @@ struct JobApplicationTrackerView: View {
         }
     }
     
-    // Function to add a new job
+    // Função para adicionar um novo trabalho
     func addNewJob() {
-        let newJob = JobApplication(company: newCompany, level: newLevel, lastInterview: newLastInterview, nextInterview: newNextInterview, technicalSkills: newTechnicalSkills, jobTitle: "")
+        let technicalSkillsArray = newTechnicalSkills
+            .split(separator: ",")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        
+        let newJob = JobApplication(
+            company: newCompany,
+            level: newLevel,
+            lastInterview: newLastInterview.isEmpty ? nil : newLastInterview,
+            nextInterview: newNextInterview.isEmpty ? nil : newNextInterview,
+            technicalSkills: technicalSkillsArray,
+            jobTitle: nil
+        )
         jobApplications.append(newJob)
         clearForm()
     }
     
-    // Clear the form after submission
+    // Limpar os inputs após o cadastro
     func clearForm() {
         newCompany = ""
         newLevel = ""
@@ -147,50 +117,49 @@ struct JobApplicationTrackerView: View {
     }
 }
 
-struct AddJobApplicationForm: View {
-    @Binding var newCompany: String
-    @Binding var newLevel: String
-    @Binding var newLastInterview: String
-    @Binding var newNextInterview: String
-    @Binding var newTechnicalSkills: String
+struct JobApplicationCard: View {
+    var job: JobApplication
     
-    var addNewJob: () -> Void
-    
+    let gridColumns = [
+            GridItem(.adaptive(minimum: 80), spacing: 4),
+            GridItem(.adaptive(minimum: 80), spacing: 4),
+            GridItem(.adaptive(minimum: 80), spacing: 4)
+        ]
+
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Company Details")) {
-                    TextField("Company", text: $newCompany)
-                    TextField("Job Level", text: $newLevel)
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text(job.company)
+                        .font(.headline)
+                    Spacer()
+                    Text(job.level)
+                        .font(.subheadline)
+                    if let lastInterview = job.lastInterview {
+                        Text("Last: \(lastInterview)")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
                 }
                 
-                Section(header: Text("Interview Dates")) {
-                    TextField("Last Interview", text: $newLastInterview)
-                    TextField("Next Interview", text: $newNextInterview)
-                }
+                Text("Skills")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
                 
-                Section(header: Text("Technical Skills")) {
-                    TextEditor(text: $newTechnicalSkills)
-                        .frame(height: 150)
-                }
-                
-                Button(action: {
-                    addNewJob()
-                }) {
-                    Text("Add Job Application")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                LazyVGrid(columns: gridColumns, alignment: .leading, spacing: 8) {
+                    ForEach(job.technicalSkills, id: \.self) { skill in
+                        Text(skill)
+                            .font(.caption)
+                            .padding(8)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(8)
+                    }
                 }
             }
-            .navigationTitle("Add Job Application")
-            .navigationBarItems(trailing: Button("Cancel") {
-                UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.dismiss(animated: true)
-            })
+            .padding()
+            .background(Color.white)
+            .cornerRadius(10)
+            Divider()
         }
-    }
 }
 
 struct JobApplicationTrackerView_Previews: PreviewProvider {

@@ -23,11 +23,11 @@ public struct CardHorizontal: View {
     
     public var body: some View {
         Card() {
-            ZStack(alignment: .leading) {
+            ZStack(alignment: .top) {
                 HStack(alignment: .top, spacing: 0) {
                     HStack(alignment: .top, spacing: 8) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .center, spacing: 0) {
+                            VStack(alignment: .center, spacing: 8) {
                                 if let contentView = contentView {
                                     AnyView(contentView)
                                         .accessibilityRemoveTraits(.isStaticText)

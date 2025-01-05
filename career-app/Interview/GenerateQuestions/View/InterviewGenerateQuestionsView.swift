@@ -44,6 +44,21 @@ struct InterviewGenerateQuestionsView: View {
         "Manager"
     ]
     
+    enum ButtonType {
+        case export
+        case search
+        
+        var colorFill: Color {
+            switch self {
+            case .export:
+                // rgb(0, 115, 19)
+                return Color(red: 0, green: 94, blue: 66)
+            case .search:
+                return Color.persianBlue
+            }
+        }
+    }
+    
     @State private var jobApplications = [
         JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
         JobApplication(company: "Nubank", level: "Sênior", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
@@ -73,8 +88,10 @@ struct InterviewGenerateQuestionsView: View {
                 
                 
                 showNextInterviews()
+                    .frame(alignment: .top)
                 
             }
+            .padding(.bottom, -keyboardObserver.keyboardHeight)
             
             
             .toolbar {
@@ -97,22 +114,17 @@ struct InterviewGenerateQuestionsView: View {
     
     @ViewBuilder
     func buildCarousel() -> some View {
-        VStack {
-            Carousel(index: $currentIndex,
-                     currentIndex: $currentIndex,
-                     buttonsEnabled: $isEnabled,
-                     items: viewModel.steps) { step in
-                CardHorizontal(isFillHeight: true)
-                    .content(
-                        
-                        showTypeAndDescriptionJob(title: step.title, description: step.description, imageButton: step.imageButton, type: step.type))
-                
-            } onSwipe: { index in
-                currentIndex = index
-            }
+        Carousel(index: $currentIndex,
+                 currentIndex: $currentIndex,
+                 buttonsEnabled: $isEnabled,
+                 items: viewModel.steps) { step in
+            CardHorizontal(isFillHeight: true)
+                .content(
+                    showTypeAndDescriptionJob(title: step.title, description: step.description, imageButton: step.imageButton, type: step.type))
+            
+        } onSwipe: { index in
+            currentIndex = index
         }
-        .padding(.bottom, keyboardObserver.keyboardHeight)
-        .animation(.easeInOut, value: keyboardObserver.keyboardHeight)
         
         
     }
@@ -122,59 +134,65 @@ struct InterviewGenerateQuestionsView: View {
         VStack {
             buildHeader(title: title, description: description)
                 .padding(.top, 12)
-            Spacer()
+                .frame(alignment: .center)
+            
             
             VStack {
                 switch type {
                 case .addCurriculum:
-                    createButton(button: "rectangle.and.pencil.and.ellipsis", buttonAction: {
-                        generateInterviewQuestions()
-                        showQuestionsView = true
-                    })
+                        createButtonRow(addAction: {}, addSavedResumeAction: {})
+                    //                    createButton(button: "rectangle.and.pencil.and.ellipsis", buttonAction: {
+                    //                        generateInterviewQuestions()
+                    //                        showQuestionsView = true
+                    //                    })
                 case .addInfoJob:
-                    buildInfoJob()
+                        buildInfoJob()
                 case .addDescriptionJob:
                     buildDescriptionJob()
+    //                    .padding(.bottom, 8)
+                    
                 }
             }
-            .padding(.bottom, 24)
+                
         }
-        .frame(height: 260)
         
+        .frame(height: 328)
     }
     
     @ViewBuilder
     func buildHeader(title: String, description: String?) -> some View {
-        VStack {
+        VStack(alignment: .center) {
             Text("\(currentIndex + 1)")
+                .bold()
                 .font(.system(size: 24))
                 .foregroundColor(.persianBlue)
-                .padding(.bottom, 8)
+                .padding(.bottom, 4)
             Text(title)
-                .font(.system(size: 20))
-                .foregroundColor(.backgroundGray)
+                .font(.system(size: 24))
+                .foregroundColor(.thirdBlue)
                 .padding(.bottom, 8)
             Text(description ?? "")
-                .font(.subheadline)
+                .font(.system(size: 16))
                 .lineLimit(nil)
-                .foregroundColor(.gray)
+                .lineSpacing(2)
+//                .padding(.horizontal, 16)
+                .foregroundColor(.descriptionGray)
                 .multilineTextAlignment(.center)
             
         }
-        .frame(alignment: .top)
         
+        .frame(maxHeight: .infinity)
     }
     
     @ViewBuilder
     func buildDescriptionJob() -> some View {
         TextEditorView(text: $jobDescription)
-            .frame(height: 80)
     }
     
     @ViewBuilder
     func buildInfoJob() -> some View {
         VStack {
-            HStack {
+            VStack {
                 Menu {
                     ForEach(jobTitles, id: \.self) { title in
                         Button(action: {
@@ -189,9 +207,9 @@ struct InterviewGenerateQuestionsView: View {
                         Spacer()
                         Image(systemName: "chevron.down")
                     }
-                    .foregroundColor(.persianBlue)
+                    .foregroundColor(.persianBlueWithoutOpacity)
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlueWithoutOpacity, lineWidth: 1))
                 }
                 
                 Menu {
@@ -200,7 +218,7 @@ struct InterviewGenerateQuestionsView: View {
                             selectedSeniority = level
                         }) {
                             Text(level)
-                                .foregroundColor(.persianBlue)
+                                .foregroundColor(.persianBlueWithoutOpacity)
                         }
                     }
                 } label: {
@@ -209,12 +227,13 @@ struct InterviewGenerateQuestionsView: View {
                         Spacer()
                         Image(systemName: "chevron.down")
                     }
-                    .foregroundColor(.persianBlue)
+                    .foregroundColor(.persianBlueWithoutOpacity)
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlueWithoutOpacity, lineWidth: 1))
                 }
             }
-            .frame(height: 80)
+            .frame(height: 100)
+            .padding(.horizontal)
         }
         .padding(.horizontal)
         
@@ -243,6 +262,57 @@ struct InterviewGenerateQuestionsView: View {
         
         
     }
+    
+    @ViewBuilder
+    func createButtonRow(
+        addAction: @escaping () -> Void,
+        addSavedResumeAction: @escaping () -> Void
+    ) -> some View {
+        HStack(spacing: 24) { // Espaçamento entre os botões
+            Button(action: addAction) {
+                buttonContent(icon: "square.and.arrow.up", title: "Exportar", buttonType: .export)
+            }
+            
+            Button(action: addSavedResumeAction) {
+                buttonContent(icon: "doc.text", title: "Salvos", buttonType: .search)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func buttonContent(icon: String, title: String, buttonType: ButtonType) -> some View {
+        VStack {
+            ZStack {
+                Circle()
+                
+                    .fill(buttonType.colorFill)
+                    .frame(width: 60, height: 60)
+                    .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4) // Sombra leve
+                
+                //                VStack(spacing: 8) {
+                //                    Image(systemName: icon)
+                //                        .font(.system(size: 20, weight: .bold)) // Ícone maior
+                //                        .foregroundColor(.white)
+                //                    Text(title)
+                //                        .font(.system(size: 12, weight: .semibold))
+                //                        .foregroundColor(.white)
+                //                }
+                
+                Image(systemName: icon)
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.white)
+            }
+            .frame(alignment: .center)
+            
+            Text(title)
+                .bold()
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundColor(buttonType.colorFill)
+                .padding(.vertical)
+        }
+        
+    }
+    
     
     @ViewBuilder
     func createButton(button: String, buttonAction: @escaping () -> Void) -> some View {
@@ -391,72 +461,6 @@ struct InterviewGenerateQuestionsView: View {
                 }
             }
         }.resume()
-    }
-}
-
-struct TextEditorView: View {
-    @Binding var text: String
-    @State private var isExpanded: Bool = false
-    @StateObject private var keyboardObserver = KeyboardObserver()
-    @FocusState private var isFocused: Bool
-    
-    var body: some View {
-            ZStack {
-                // Área clicável para "fora do TextEditor"
-                Color.clear
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            if isExpanded {
-                                isExpanded = false
-                                isFocused = false // Remove o foco
-                            }
-                        }
-                    }
-                
-                VStack {
-                    TextEditor(text: $text)
-                        .frame(height: isExpanded ? 80 : 40)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.backgroundLightGray)
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.persianBlue, lineWidth: 1)
-                        )
-                        .focused($isFocused)
-                        .onChange(of: isFocused) { newValue in
-                            withAnimation(.easeInOut) {
-                                isExpanded = newValue
-                            }
-                        }
-                    if isExpanded {
-                        Button(action: {
-                            withAnimation(.easeInOut) {
-                                isExpanded = false
-                                isFocused = false
-                            }
-                        }) {
-                            Text("Concluir")
-                                .font(.footnote)
-                                .padding(.top, 8)
-                                .foregroundColor(.persianBlue)
-                        }
-                    }
-                        
-                }
-                .padding(.horizontal, isExpanded ? 16 : 72)
-//                .padding(.top, keyboardObserver.keyboardHeight)
-//                .padding(.bottom, keyboardObserver.keyboardHeight > 0 ? keyboardObserver.keyboardHeight : -120)
-                
-            }
-            
-        //        .frame(height: 120)
-        //        .frame(maxHeight: 60)
-        
-        .ignoresSafeArea()
-        //        .padding(.bottom, keyboardObserver.keyboardHeight)
-        //        .animation(.easeInOut, value: keyboardObserver.keyboardHeight)
     }
 }
 
