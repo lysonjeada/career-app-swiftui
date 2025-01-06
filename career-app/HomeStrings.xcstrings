@@ -4,10 +4,16 @@
     "blogTitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Blog"
+            "value" : "Home"
           }
         }
       }
@@ -15,6 +21,12 @@
     "interviewTitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrevistas"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26,6 +38,12 @@
     "menuTitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -37,10 +55,16 @@
     "resumeTitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Candidaturas"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Currículo"
+            "value" : "Candidaturas"
           }
         }
       }

@@ -60,9 +60,6 @@
     "Email" : {
 
     },
-    "Empresa:" : {
-
-    },
     "Entrevistas" : {
 
     },
@@ -87,6 +84,9 @@
     "Last Interview" : {
 
     },
+    "Last: %@" : {
+
+    },
     "LinkedIn" : {
 
     },
@@ -105,9 +105,6 @@
     "Next Interview" : {
 
     },
-    "Nível:" : {
-
-    },
     "Other Link" : {
 
     },
@@ -120,19 +117,16 @@
     "Position" : {
 
     },
-    "Próxima entrevista:" : {
-
-    },
     "Próximas Entrevistas" : {
 
     },
     "Questions" : {
 
     },
-    "SKILLS" : {
+    "Skills" : {
 
     },
-    "Skills técnicas:" : {
+    "SKILLS" : {
 
     },
     "Tap to Authorize and Show Calendar" : {
@@ -142,9 +136,6 @@
 
     },
     "Todos os Artigos" : {
-
-    },
-    "Última entrevista:" : {
 
     },
     "Vagas aplicadas" : {

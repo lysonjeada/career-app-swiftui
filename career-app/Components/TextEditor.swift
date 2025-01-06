@@ -16,7 +16,7 @@ struct TextEditorView: View {
     var body: some View {
             VStack {
                 TextEditor(text: $text)
-                    
+                    .frame(maxHeight: 80)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.backgroundLightGray)

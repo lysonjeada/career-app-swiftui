@@ -70,6 +70,10 @@ public struct Carousel<Content: View, T: Identifiable>: View {
         currentIndex == 0
     }
     
+    var isLastTab: Bool {
+        currentIndex == items.count - 1
+    }
+    
     private var isSingle: Bool {
         items.count == 1
     }
@@ -115,7 +119,6 @@ public struct Carousel<Content: View, T: Identifiable>: View {
                                 newIndex = currentIndex
                             }
 
-                            // Animação explícita ao alterar o índice
                             withAnimation(.easeInOut) {
                                 currentIndex = newIndex
                             }
@@ -126,47 +129,12 @@ public struct Carousel<Content: View, T: Identifiable>: View {
                             let offsetX = value.translation.width * 1.65
                             let progress = -offsetX / width
                             let roundedProgress = Int(progress.rounded())
-                            
-                            // Atualização do índice com animação suave
                             withAnimation(.easeInOut) {
                                 index = max(min(currentIndex + roundedProgress, items.count - 1), 0)
                             }
                         })
                 )
 
-//                .highPriorityGesture(
-//                    DragGesture()
-//                        .updating($offset, body: { value, out, _ in
-//                            out = value.translation.width
-//                        })
-//                        .onEnded({ value in
-//                            let offsetX = value.translation.width * 1.65
-//                            let velocityX = value.velocity.width
-//                            let progress = -offsetX / width
-//                            
-//                            let shortSwipeThresold: CGFloat = 20
-//                            let longSwipeThresold: CGFloat = 0.35
-//                            
-//                            if abs(offsetX) > shortSwipeThresold && abs(velocityX) > 400 {
-//                                if offsetX > 0 {
-//                                    currentIndex = max(currentIndex - 1, 0)
-//                                } else {
-//                                    currentIndex = min(currentIndex + 1, items.count - 1)
-//                                }
-//                            } else if progress >= longSwipeThresold {
-//                                currentIndex = min(currentIndex + 1, items.count - 1)
-//                            } else if progress < -longSwipeThresold {
-//                                currentIndex = max(currentIndex - 1, 0)
-//                            }
-//                            onSwipe(currentIndex)
-//                        })
-//                        .onChanged({ value in
-//                            let offsetX = value.translation.width * 1.65
-//                            let progress = -offsetX / width
-//                            let roundedProgress = Int(progress.rounded())
-//                            index = max(min(currentIndex + roundedProgress, items.count - 1), 0)
-//                        })
-//                )
             }
             .frame(idealHeight: contentHeight)
             .animation(.easeInOut, value: currentIndex)

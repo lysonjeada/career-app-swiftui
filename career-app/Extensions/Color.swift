@@ -39,6 +39,14 @@ extension Color {
         .init(red: 6, green: 71, blue: 136, opacity: 1)
     }
     
+    static var fourthBlue: Color {
+        .init(red: 6, green: 94, blue: 137, opacity: 1)
+    }
+    
+    static var fivethBlue: Color {
+        .init(red: 6, green: 53, blue: 77, opacity: 1)
+    }
+    
     static var titleSectionColor: Color {
         .init(red: 6, green: 67, blue: 135, opacity: 1)
 //        .init(red: 6, green: 71, blue: 137, opacity: 1)

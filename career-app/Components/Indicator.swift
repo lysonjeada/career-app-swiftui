@@ -24,53 +24,53 @@ struct Indicator: View {
     }
     
     var isFirstTab: Bool {
-        currentIndex == .zero
+        currentIndex == 0
+    }
+    
+    private var isLastTab: Bool {
+        currentIndex == numberOfItems - 1
     }
     
     var body: some View {
         HStack(alignment: .center) {
             Spacer()
-            if buttonsEnabled {
-                Button(action: {
-                    currentIndex = currentIndex - 1
-                }, label: {
-                    VStack {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: iconHeight)
-                            .foregroundColor(Color.persianBlue)
-                            .bold()
-//                            .foregroundColor(isFirstTab ? Color.gray : Color.black)
-                    }
-                    .frame(width: height, height: height)
-                })
+            Button(action: {
+                currentIndex = currentIndex - 1
+            }, label: {
+                VStack {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: iconHeight)
+                        .foregroundColor(isFirstTab ? Color.persianBlue.opacity(0.35) : Color.persianBlue)
+                        .bold()
+                    //                            .foregroundColor(isFirstTab ? Color.gray : Color.black)
+                }
                 .frame(width: height, height: height)
-                .disabled(isFirstTab)
-            }
+            })
+            .frame(width: height, height: height)
+            .disabled(isFirstTab)
             ForEach(0..<numberOfItems, id: \.self) { index in
                 Circle()
                     .foregroundColor(index == currentIndex ? Color.persianBlue : Color.indicatorColor)
                     .frame(width: 8, height: 8)
             }
-            if buttonsEnabled {
-                Button(action: {
-                    currentIndex = currentIndex + 1
-                }, label: {
-                    VStack {
-                        Image(systemName: "chevron.right")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: iconHeight)
-                            .foregroundColor(Color.persianBlue)
-                            .bold()
-//                            .foregroundColor(isFirstTab ? Color.persianBlue : Color.backgroundGray)
-                    }
-                    .frame(width: height, height: height)
-                })
+            Button(action: {
+                currentIndex = currentIndex + 1
+            }, label: {
+                VStack {
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: iconHeight)
+                        .foregroundColor(isLastTab ? Color.persianBlue.opacity(0.35) : Color.persianBlue)
+                        .bold()
+                    //                            .foregroundColor(isFirstTab ? Color.persianBlue : Color.backgroundGray)
+                }
                 .frame(width: height, height: height)
-                .disabled(isFirstTab)
-            }
+            })
+            .frame(width: height, height: height)
+            .disabled(isLastTab)
             Spacer()
         }
         .padding(8)

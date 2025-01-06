@@ -87,8 +87,8 @@ struct InterviewGenerateQuestionsView: View {
                 Spacer()
                 
                 
-                showNextInterviews()
-                    .frame(alignment: .top)
+//                showNextInterviews()
+//                    .frame(alignment: .top)
                 
             }
             .padding(.bottom, -keyboardObserver.keyboardHeight)
@@ -156,7 +156,7 @@ struct InterviewGenerateQuestionsView: View {
                 
         }
         
-        .frame(height: 328)
+        .frame(height: 296)
     }
     
     @ViewBuilder
@@ -287,16 +287,7 @@ struct InterviewGenerateQuestionsView: View {
                 
                     .fill(buttonType.colorFill)
                     .frame(width: 60, height: 60)
-                    .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4) // Sombra leve
-                
-                //                VStack(spacing: 8) {
-                //                    Image(systemName: icon)
-                //                        .font(.system(size: 20, weight: .bold)) // Ícone maior
-                //                        .foregroundColor(.white)
-                //                    Text(title)
-                //                        .font(.system(size: 12, weight: .semibold))
-                //                        .foregroundColor(.white)
-                //                }
+                    .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
                 
                 Image(systemName: icon)
                     .font(.system(size: 20, weight: .bold))
