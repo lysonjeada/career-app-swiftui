@@ -80,7 +80,7 @@ struct JobApplicationTrackerView: View {
                             
                         }
                         .padding(.horizontal, 12)
-                        .background(Color.red)
+                        .background(Color.redColor)
                         .cornerRadius(10)
                     }
                     Button(action: {
@@ -163,95 +163,57 @@ struct JobApplicationTrackerView: View {
 struct JobApplicationCard: View {
     var job: JobApplication
     
-    @ViewBuilder
-    private func buildDateText(lastInterview: String, nextInterview: String) -> some View {
-        VStack(spacing: 8) {
-            HStack {
-                Image(systemName: "arrowshape.turn.up.backward.2")
-                    .resizable()
-                    .foregroundColor(.thirdBlue.opacity(0.7))
-                    .frame(width: 20, height: 20)
-                Text(lastInterview)
-                    .font(.system(size: 20))
-                    .foregroundColor(.thirdBlue.opacity(0.7))
-            }
-            HStack {
-                Image(systemName: "arrow.forward.circle.dotted")
-                    .resizable()
-                    .bold()
-                    .foregroundColor(Color(red: 0, green: 94, blue: 66))
-                    .frame(width: 20, height: 20)
-                Text(nextInterview)
-                    .bold()
-                    .font(.system(size: 20))
-                    .foregroundColor(Color(red: 0, green: 94, blue: 66))
-            }
-        }
-    }
-    
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            // Header com informações da empresa e entrevistas
+        VStack {
             HStack(alignment: .top) {
-                Text(job.company)
-                    .font(.system(size: 28))
-                    .foregroundColor(.fivethBlue)
+                // Informações principais alinhadas à esquerda
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(job.company)
+                        .font(.system(size: 24))
+                        .foregroundColor(.fivethBlue)
+                    
+                    Text(job.level)
+                        .font(.system(size: 24))
+                        .foregroundColor(.fivethBlue)
+                    
+                    HStack {
+                        Text("Skills")
+                            .font(.system(size: 24))
+                            .foregroundColor(.fivethBlue)
+                        Spacer()
+                    }
+                }
                 
                 Spacer()
-                Button(action: {
-//                    showAddForm.toggle()
-                }) {
-                    HStack{
-                        Image(systemName: "pencil")
-                            .resizable()
-                            .clipped()
-//                            .aspectRatio(contentMode: .fill)
-                            .foregroundColor(.fourthBlue)
-                            .frame(width: 24, height: 24)
-//                        Image(systemName: "arrow.up.trash")
-//                            .bold()
-//                            .foregroundStyle(.white)
-                        Text("Editar")
-                            .font(.system(size: 24))
-                            
-                            .foregroundColor(.fourthBlue)
-                            .cornerRadius(10)
-                        
+                
+                // Botão "Editar" e datas alinhados à direita
+                VStack(alignment: .trailing, spacing: 8) {
+                    Button(action: {
+                        // Ação do botão de editar
+                    }) {
+                        HStack {
+                            Image(systemName: "pencil")
+                                .resizable()
+                                .bold()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.persianBlue)
+                            Text("Editar")
+                                .bold()
+                                .font(.system(size: 24))
+                                .foregroundColor(.persianBlue)
+                        }
                     }
                     .shadow(radius: 0.5)
                     
-                    
-//                    .padding(.horizontal, 12)
-//                    .background(Color.red)
-//                    .cornerRadius(10)
+                    if let lastInterview = job.lastInterview,
+                       let nextInterview = job.nextInterview {
+                        buildDateText(lastInterview: lastInterview, nextInterview: nextInterview)
+                    }
                 }
-                
-                
-                if let lastInterview = job.lastInterview,
-                   let nextInterview = job.nextInterview {
-                    Spacer()
-                    buildDateText(lastInterview: lastInterview, nextInterview: nextInterview)
-                }
+                .padding(.trailing, 16)
             }
-            .padding(.bottom, 16)
-            .padding(.trailing, 16)
-           
             
-            HStack(alignment: .top) {
-                Text("Skills")
-                    .font(.system(size: 24))
-                    .foregroundColor(.fivethBlue)
-                Spacer()
-                
-                Text(job.level)
-                    .font(.system(size: 24))
-                    .foregroundColor(.fivethBlue)
-                
-            }
-            .padding(.trailing, 16)
-            .padding(.bottom, 8)
-            
-            // Lista horizontal para as habilidades técnicas
+            // Lista horizontal para habilidades técnicas
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     ForEach(job.technicalSkills, id: \.self) { skill in
@@ -260,14 +222,12 @@ struct JobApplicationCard: View {
                             .font(.system(size: 16))
                             .padding(.horizontal)
                             .frame(height: 32)
-                            .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
                             .lineLimit(2)
                             .foregroundColor(.white)
-                            .background(Color.fourthBlue)
+                            .background(Color.persianBlue.opacity(0.8))
                             .cornerRadius(12)
                     }
-                    // Ícone adicional ao final da lista
                     Image(systemName: "pencil")
                         .padding(16)
                         .background(Color.gray.opacity(0.2))
@@ -287,94 +247,37 @@ struct JobApplicationCard: View {
                 .stroke(Color.descriptionGray.opacity(0.5), lineWidth: 0.7)
         )
         .cornerRadius(10)
-        
     }
-}
 
-//struct JobApplicationCard: View {
-//    var job: JobApplication
-//    
-//    let gridColumns = [
-//        GridItem(.flexible(), spacing: 4),
-//        GridItem(.flexible(), spacing: 4),
-//        GridItem(.flexible(), spacing: 4),
-//        GridItem(.flexible(), spacing: 4)
-//    ]
-//    
-//    @ViewBuilder
-//    private func buildDateText(lastInterview: String, nextInterview: String) -> some View {
-//        VStack {
-//            HStack {
-//                Image(systemName: "arrowshape.turn.up.backward.2")
-//                    .foregroundColor(.descriptionGray)
-//                Text(lastInterview)
-//                    .font(.system(size: 20))
-//                    .foregroundColor(.descriptionGray)
-//            }
-//            HStack {
-//                Image(systemName: "arrow.forward.circle.dotted")
-//                    .bold()
-//                    .foregroundColor(Color(red: 0, green: 94, blue: 66))
-//                Text(nextInterview)
-//
-//                    .font(.system(size: 20))
-//                    .foregroundColor(Color(red: 0, green: 94, blue: 66))
-//            }
-//        }
-//    }
-//    
-//    var body: some View {
-//        VStack(alignment: .leading, spacing: 8) {
-//            HStack {
-//                Text(job.company)
-//                    .font(.system(size: 20))
-//                
-//                Spacer()
-//                Text(job.level)
-//                    .font(.system(size: 20))
-//                if let lastInterview = job.lastInterview,
-//                    let nextInterview  = job.nextInterview
-//                {
-//                    Spacer()
-//                    buildDateText(lastInterview: lastInterview, nextInterview: nextInterview)
-//                    
-//                }
-//            }
-//            
-//            Text("Skills")
-//                .font(.system(size: 24))
-//                .foregroundColor(.secondary)
-//                .padding(.bottom, 8)
-//            
-//            LazyVGrid(columns: gridColumns, alignment: .leading, spacing: 8) {
-//                ForEach(job.technicalSkills, id: \.self) { skill in
-//                    Text(skill)
-//                        .bold()
-//                        .font(.system(size: 9))
-//                        .padding(8)
-//                        .frame(width: 88, height: 40, alignment: .center)
-//                        .multilineTextAlignment(.center)
-//                        .lineLimit(2)
-//                        .background(Color.gray.opacity(0.2))
-//                        .cornerRadius(12)
-//                    
-//                    
-//                    //                        .font(.caption)
-//                    //                        .padding(8)
-//                    //                        .background(Color.gray.opacity(0.2))
-//                    //                        .cornerRadius(8)
-//                }
-//                Image(systemName: "pencil")
-//                    .padding(16)
-//                    .foregroundColor(Color.black)
-//            }
-//        }
-//        .padding(.horizontal, 16)
-//        .background(Color.white)
-//        .cornerRadius(10)
-//        Divider()
-//    }
-//}
+    
+    @ViewBuilder
+    private func buildDateText(lastInterview: String, nextInterview: String) -> some View {
+        VStack(spacing: 8) {
+            HStack {
+                Image(systemName: "arrowshape.turn.up.backward.2")
+                    .resizable()
+                    .foregroundColor(.fivethBlue.opacity(0.7))
+                    .frame(width: 20, height: 20)
+                Text(lastInterview)
+                    .font(.system(size: 20))
+                    .foregroundColor(.fivethBlue.opacity(0.7))
+            }
+            HStack {
+                Image(systemName: "arrow.forward.circle.dotted")
+                    .resizable()
+                    .bold()
+                    .foregroundColor(Color(red: 0, green: 94, blue: 66))
+                    .frame(width: 20, height: 20)
+                Text(nextInterview)
+                    .bold()
+                    .font(.system(size: 20))
+                    .foregroundColor(Color(red: 0, green: 94, blue: 66))
+            }
+        }
+    }
+    
+
+}
 
 struct JobApplicationTrackerView_Previews: PreviewProvider {
     static var previews: some View {

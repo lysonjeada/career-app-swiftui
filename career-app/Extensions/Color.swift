@@ -15,6 +15,11 @@ extension Color {
     static var indicatorColor: Color {
         .init(red: 6, green: 20, blue: 137, opacity: 0.1)
     }
+    
+    static var redColor: Color {
+        .init(red: 189, green: 71, blue: 78, opacity: 1)
+    }
+    
     static var numberBlue: Color {
         .init(red: 6, green: 20, blue: 137, opacity: 1)
     }

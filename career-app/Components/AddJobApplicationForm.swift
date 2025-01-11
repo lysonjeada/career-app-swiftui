@@ -51,4 +51,9 @@ struct AddJobApplicationForm: View {
             })
         }
     }
+    
+    @ViewBuilder
+    private func addSkillView() -> some View {
+        
+    }
 }
