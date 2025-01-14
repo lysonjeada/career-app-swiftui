@@ -65,6 +65,10 @@ extension Color {
         .init(red: 245, green: 245, blue: 245, opacity: 1)
     }
     
+    static var greenButton: Color {
+        .init(red: 0, green: 94, blue: 66, opacity: 1)
+    }
+    
     init(red: Int, green: Int, blue: Int) {
         self.init(
             .sRGB,

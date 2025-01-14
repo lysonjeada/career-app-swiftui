@@ -41,6 +41,8 @@
 		703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F52D2AE710006D3086 /* LoadingCard.swift */; };
 		703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F82D2AE946006D3086 /* ArticleCard.swift */; };
 		703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75FA2D2B0593006D3086 /* AddJobApplicationForm.swift */; };
+		70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */; };
+		70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9372D35E6B400984CF7 /* DateInputField.swift */; };
 		70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288462D1B5CC3004E9033 /* HomeViewModel.swift */; };
 		70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288492D1B63F9004E9033 /* HomeService.swift */; };
 		70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2884C2D245EB2004E9033 /* Carousel.swift */; };
@@ -116,6 +118,8 @@
 		703A75F52D2AE710006D3086 /* LoadingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCard.swift; sourceTree = "<group>"; };
 		703A75F82D2AE946006D3086 /* ArticleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCard.swift; sourceTree = "<group>"; };
 		703A75FA2D2B0593006D3086 /* AddJobApplicationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobApplicationForm.swift; sourceTree = "<group>"; };
+		70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCard.swift; sourceTree = "<group>"; };
+		70C6F9372D35E6B400984CF7 /* DateInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInputField.swift; sourceTree = "<group>"; };
 		70D288462D1B5CC3004E9033 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		70D288492D1B63F9004E9033 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		70D2884C2D245EB2004E9033 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
@@ -182,7 +186,6 @@
 				70D288582D24FC73004E9033 /* Utils */,
 				70D2884B2D245EAB004E9033 /* Components */,
 				243CF7B82CD0553500685B91 /* Track */,
-				249240602CC86F2C0081E887 /* Extensions */,
 				702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */,
 				244DDABE2C7B9810007FB768 /* Interview */,
 				244DDABB2C7A83A0007FB768 /* Resume */,
@@ -309,6 +312,8 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				70C6F9372D35E6B400984CF7 /* DateInputField.swift */,
+				70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */,
 				703A75FA2D2B0593006D3086 /* AddJobApplicationForm.swift */,
 				703A75F82D2AE946006D3086 /* ArticleCard.swift */,
 				703A75F52D2AE710006D3086 /* LoadingCard.swift */,
@@ -341,6 +346,7 @@
 		70D288582D24FC73004E9033 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				249240602CC86F2C0081E887 /* Extensions */,
 				70D288592D24FC7B004E9033 /* KeyboardObserver.swift */,
 			);
 			path = Utils;
@@ -471,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
 				243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */,
 				70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */,
@@ -485,6 +492,7 @@
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
+				70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */,
 				70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */,
 				24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */,
 				244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */,
