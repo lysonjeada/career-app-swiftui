@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "%lld" : {
 
     },
@@ -16,7 +19,13 @@
     "Adicionar" : {
 
     },
+    "Adicione senioridade e cargo" : {
+
+    },
     "Apagar" : {
+
+    },
+    "Apenas digite ou selecione cada um, não é preciso preencher os dois" : {
 
     },
     "Artigos" : {
@@ -39,16 +48,16 @@
     "Cancel" : {
 
     },
+    "Cancelar" : {
+
+    },
     "Candidaturas" : {
 
     },
-    "Company" : {
-
-    },
-    "Company Details" : {
-
-    },
     "Company Name" : {
+
+    },
+    "Complementares opcionais" : {
 
     },
     "Concluir" : {
@@ -58,6 +67,9 @@
 
     },
     "Curriculum View" : {
+
+    },
+    "Datas" : {
 
     },
     "Date Range" : {
@@ -72,6 +84,12 @@
     "Entrevistas" : {
 
     },
+    "Excluir" : {
+
+    },
+    "Excluir Skill" : {
+
+    },
     "Generated Interview Questions" : {
 
     },
@@ -79,15 +97,6 @@
 
     },
     "Home" : {
-
-    },
-    "Interview Dates" : {
-
-    },
-    "Job Level" : {
-
-    },
-    "Last Interview" : {
 
     },
     "LinkedIn" : {
@@ -103,9 +112,6 @@
 
     },
     "Name" : {
-
-    },
-    "Next Interview" : {
 
     },
     "Other Link" : {
@@ -132,10 +138,13 @@
     "SKILLS" : {
 
     },
+    "Sobre a empresa" : {
+
+    },
     "Tap to Authorize and Show Calendar" : {
 
     },
-    "Technical Skills" : {
+    "Tem certeza de que deseja excluir \"%@\"?" : {
 
     },
     "Todos os Artigos" : {
@@ -145,6 +154,9 @@
 
     },
     "Ver Mais" : {
+
+    },
+    "Você também pode gerar possíveis perguntas para as próximas entrevistas" : {
 
     }
   },

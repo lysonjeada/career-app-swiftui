@@ -17,15 +17,19 @@ struct DateInputField: View {
         VStack {
             HStack {
                 ZStack(alignment: .leading) {
-                    Text(placeholder)
-                        .foregroundColor(Color.persianBlue.opacity(0.5))
-                        .padding(.leading)
+                    if dateString == "" {
+                        Text(placeholder)
+                            .foregroundColor(Color.persianBlue.opacity(0.5))
+                            .padding(.leading, 12)
+                    }
+                    
                     
                     TextField("", text: $dateString)
                         .onChange(of: dateString) { newValue in
                             validateAndUpdateDate(from: newValue)
                         }
                         .keyboardType(.numbersAndPunctuation)
+                        .padding(.leading, 12)
                         .padding(.vertical, 12)
                         .foregroundColor(isValidDate(dateString) ? .persianBlue : .red)
                         .foregroundColor(.persianBlue) // Cor do texto digitado
@@ -47,18 +51,26 @@ struct DateInputField: View {
             }
             
             if showDatePicker {
-                DatePicker(
-                    "",
-                    selection: $date,
-                    displayedComponents: .date
-                )
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .onChange(of: date) { newDate in
-                    dateString = formatDate(newDate)
+                VStack(alignment: .leading) {
+                    DatePicker(
+                        "",
+                        selection: $date,
+                        displayedComponents: .date
+                    )
+                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity)
+                    .datePickerStyle(WheelDatePickerStyle())
+//                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .onChange(of: date) { newDate in
+                        dateString = formatDate(newDate)
+                    }
+                    
+                    .background(Color.white)
+                    .cornerRadius(12)
+//                    .frame(maxWidth: .infinity, maxHeight: 200)
                 }
-                .frame(maxWidth: .infinity, maxHeight: 300)
-                .background(Color.white)
-                .cornerRadius(12)
+                
+                
             }
         }
     }

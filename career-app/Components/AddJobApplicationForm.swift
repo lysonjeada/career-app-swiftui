@@ -15,14 +15,31 @@ struct AddJobApplicationForm: View {
     @Binding var newTechnicalSkills: String
     @State private var selectedSeniority: String = "Senioridade"
     @State private var selectedRole: String = "Cargo"
+    @State private var selectedTime: String = "Carga horária"
+    @State private var selectedType: String = "Regime"
     @State private var text: String = ""
     @State var isSeniorityMenuSelected: Bool = false
-    var skills: [String] = ["swift", "cocoapods"]
+    @State private var isSelectionModeActive = false
+    @State private var selectedSkill: String? = nil
+    @State private var showAlert = false
+    @State var skills: [String] = ["swift", "cocoapods"]
     let columns = [GridItem(.flexible()),
                    GridItem(.flexible()),
                    GridItem(.flexible())]
     
     var addNewJob: () -> Void
+    
+    var jobType = [
+        "Remoto",
+        "Hibrido",
+        "Presencial"
+    ]
+    
+    var jobTime = [
+        "Tempo integral",
+        "Meio-periodo",
+        "Estágio"
+    ]
     
     var seniorityLevels = [
         "Intern",
@@ -37,7 +54,7 @@ struct AddJobApplicationForm: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading) {
-                    VStack {
+                    VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
                             Text("Adicione senioridade e cargo")
                                 .font(.system(size: 24))
@@ -122,11 +139,11 @@ struct AddJobApplicationForm: View {
                             
                             HStack {
                                 Menu {
-                                    ForEach(seniorityLevels, id: \.self) { level in
+                                    ForEach(jobTime, id: \.self) { level in
                                         Button(action: {
-                                            selectedSeniority = level
-                                            if selectedSeniority.contains(level) {
-                                                isSeniorityMenuSelected = true
+                                            selectedTime = level
+                                            if selectedTime.contains(level) {
+//                                                isSeniorityMenuSelected = true
                                             }
                                         }) {
                                             Text(level)
@@ -135,7 +152,7 @@ struct AddJobApplicationForm: View {
                                     }
                                 } label: {
                                     HStack {
-                                        Text(selectedSeniority)
+                                        Text(selectedTime)
                                         Spacer()
                                         Image(systemName: "chevron.down")
                                     }
@@ -146,9 +163,9 @@ struct AddJobApplicationForm: View {
                                 }
                                 
                                 Menu {
-                                    ForEach(seniorityLevels, id: \.self) { level in
+                                    ForEach(jobType, id: \.self) { level in
                                         Button(action: {
-                                            selectedSeniority = level
+                                            selectedType = level
                                             if selectedSeniority.contains(level) {
                                                 isSeniorityMenuSelected = true
                                             }
@@ -159,7 +176,7 @@ struct AddJobApplicationForm: View {
                                     }
                                 } label: {
                                     HStack {
-                                        Text(selectedSeniority)
+                                        Text(selectedType)
                                         Spacer()
                                         Image(systemName: "chevron.down")
                                     }
@@ -189,9 +206,32 @@ struct AddJobApplicationForm: View {
                         Divider()
                         
                         VStack(alignment: .leading) {
-                            Text("Complementares")
-                            
-                            
+                            HStack(alignment: .top) {
+                                Image("generate-image")
+                                    .resizable()
+                                    .padding(.leading, 12)
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipped()
+                                    .frame(maxWidth: 160, maxHeight: 100)
+                                    
+//                                    .clipped()
+                                    
+                                VStack(alignment: .leading) {
+                                    Text("Você também pode gerar possíveis perguntas para as próximas entrevistas")
+                                    
+                                        .padding(.bottom)
+                                    
+                                    Button(action: {
+                                        
+                                    }) {
+                                        Text("Gerar perguntas")
+                                            .foregroundColor(Color.backgroundGray)
+                                    }
+                                }
+                                
+                                    
+                            }
+                            .padding(.top, 12)
                         }
                     }
                     .navigationTitle("Add Job Application")
@@ -235,7 +275,7 @@ struct AddJobApplicationForm: View {
                 Spacer()
                 
                 Button(action: {
-                    
+                    // Adicione ação para adicionar nova skill aqui
                 }) {
                     Image(systemName: "plus")
                         .bold()
@@ -249,7 +289,7 @@ struct AddJobApplicationForm: View {
                 .padding(.trailing, 20)
                 
                 Button(action: {
-                    
+                    isSelectionModeActive.toggle()
                 }) {
                     Image(systemName: "minus")
                         .bold()
@@ -261,6 +301,7 @@ struct AddJobApplicationForm: View {
                         .cornerRadius(24)
                 }
             }
+            
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(skills, id: \.self) { skill in
@@ -270,8 +311,14 @@ struct AddJobApplicationForm: View {
                             .foregroundColor(.white)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
-                            .background(Color.persianBlue)
+                            .background(isSelectionModeActive ? Color.redColor : Color.persianBlue)
                             .cornerRadius(12)
+                            .onTapGesture {
+                                if isSelectionModeActive {
+                                    selectedSkill = skill
+                                    showAlert = true
+                                }
+                            }
                     }
                 }
                 .padding(.vertical, 12)
@@ -283,8 +330,82 @@ struct AddJobApplicationForm: View {
         }
         .padding(.top, 12)
         .padding(.horizontal, 4)
-        
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Excluir Skill"),
+                message: Text("Tem certeza de que deseja excluir \"\(selectedSkill ?? "")\"?"),
+                primaryButton: .destructive(Text("Excluir")) {
+                    if let skillToRemove = selectedSkill {
+                        if let index = skills.firstIndex(of: skillToRemove) {
+                            skills.remove(at: index)
+                        }
+                    }
+                },
+                secondaryButton: .cancel(Text("Cancelar"))
+            )
+        }
     }
+    
+//    @ViewBuilder
+//    private func addSkillView() -> some View {
+//        VStack {
+//            HStack {
+//                Text("Skills")
+//                    .font(.system(size: 24))
+//                
+//                Spacer()
+//                
+//                Button(action: {
+//                    
+//                }) {
+//                    Image(systemName: "plus")
+//                        .bold()
+//                        .frame(width: 20, height: 20)
+//                        .padding(.horizontal, 12)
+//                        .padding(.vertical, 12)
+//                        .background(Color.greenButton)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(24)
+//                }
+//                .padding(.trailing, 20)
+//                
+//                Button(action: {
+//                    
+//                }) {
+//                    Image(systemName: "minus")
+//                        .bold()
+//                        .frame(width: 20, height: 20)
+//                        .padding(.horizontal, 12)
+//                        .padding(.vertical, 12)
+//                        .background(Color.redColor)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(24)
+//                }
+//            }
+//            ScrollView {
+//                LazyVGrid(columns: columns) {
+//                    ForEach(skills, id: \.self) { skill in
+//                        Text(skill)
+//                            .bold()
+//                            .font(.system(size: 14))
+//                            .foregroundColor(.white)
+//                            .padding(.vertical, 8)
+//                            .padding(.horizontal, 16)
+//                            .background(Color.persianBlue)
+//                            .cornerRadius(12)
+//                    }
+//                }
+//                .padding(.vertical, 12)
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: 8)
+//                        .stroke(Color.persianBlue, lineWidth: 1)
+//                )
+//            }
+//        }
+//        .padding(.top, 12)
+//        .padding(.horizontal, 4)
+//        
+//    }
     
     private func menuTextColor(for level: String) -> Color {
             seniorityLevels.contains(level) ? .persianBlue : .persianBlue.opacity(0.5)
