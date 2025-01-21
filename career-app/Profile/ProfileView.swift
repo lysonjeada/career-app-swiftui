@@ -71,9 +71,7 @@ struct ProfileView: View {
                     
             }
             .padding(.horizontal, 16)
-            
             Spacer()
-            
             Button(action: {
                 saveProfile()
             }) {
@@ -92,8 +90,6 @@ struct ProfileView: View {
             }
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity)
-        
-            
             
         }
         .frame(maxHeight: .infinity)
@@ -103,7 +99,7 @@ struct ProfileView: View {
     }
 
     private func saveProfile() {
-        // Salvar as informações (pode ser em um banco de dados ou persistência local)
+        //TODO: Criar açao
         print("Perfil salvo!")
     }
 }
