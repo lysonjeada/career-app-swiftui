@@ -62,23 +62,26 @@ struct AutoScroller: View {
     let autoScrollInterval: TimeInterval = 3.0 // Intervalo para auto-scroll
     
     var body: some View {
-        VStack {
+        ZStack {
+            Color.white.ignoresSafeArea()
+            VStack {
                 TabView(selection: $selectedIndex) {
                     ForEach(Array(items.enumerated()), id: \.offset) { index, item in
                         buildCarouselItem(item: item)
-                            .padding(.horizontal, 8)
-                            .tag(index) // Garante a indexação correta
+                            .padding(.horizontal)
+                            .tag(index) 
                     }
                 }
-                .frame(maxHeight: .infinity)
+                .frame(height: 240)
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .ignoresSafeArea()
                 .onReceive(timer) { _ in
                     autoScroll()
                 }
-            buildCapsules()
-                .frame(alignment: .top)
+                buildCapsules()
+                    .padding(.bottom, 4)
+            }
         }
-        .frame(maxHeight: .infinity)
     }
     
     // MARK: - ViewBuilders
@@ -95,10 +98,9 @@ struct AutoScroller: View {
             }
             
         }
-        
         .background(VisualEffect(style: .systemThickMaterial))
         .cornerRadius(15)
-        .shadow(radius: 10)
+        .shadow(radius: 7)
     }
     
     @ViewBuilder
@@ -115,34 +117,35 @@ struct AutoScroller: View {
                     }
             }
         }
-        .padding(.top, 8)
     }
     
     @ViewBuilder
     private func buildLeading(item: CarouselItem) -> some View {
-        HStack {
-            Image(item.image)
-            //                    .resizable()
-            //                    .scaledToFill()
-            //                    .frame(maxHeight: 160)
-            //                .clipped()
-                .cornerRadius(10)
-            Text(item.description)
-                .font(.body)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
+        VStack {
+            HStack {
+                Image(item.image)
+                //                    .resizable()
+                //                    .scaledToFill()
+                //                    .frame(maxHeight: 160)
+                //                .clipped()
+                    .cornerRadius(10)
+                Text(item.description)
+                    .foregroundStyle(.black)
+                    .font(.system(size: 16))
+                    .multilineTextAlignment(.center)
+            }
+            Button(action: item.action) {
+                Text(item.buttonTitle)
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.persianBlue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
+            .padding(.bottom, 16)
         }
-        .padding(.top, 24)
-        Button(action: item.action) {
-            Text(item.buttonTitle)
-                .font(.headline)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.persianBlue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-        }
-        .padding(.bottom, 16)
+       
         .padding(.horizontal, 16)
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 
 class HomeStrings {
-    static let blogTitle = localized("blogTitle")
+    static let homeTitle = localized("homeTitle")
     static let interviewTitle = localized("interviewTitle")
     static let menuTitle = localized("menuTitle")
     static let resumeTitle = localized("resumeTitle")

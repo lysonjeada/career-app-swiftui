@@ -11,9 +11,9 @@ struct ContentView: View {
     var body: some View {
         let viewModel = HomeViewModel()
         TabView {
-            BlogView(viewModel: viewModel)
+            HomeView(viewModel: viewModel)
                 .tabItem {
-                    Label(HomeStrings.blogTitle,
+                    Label(HomeStrings.homeTitle,
                           systemImage: "doc.text")
                     .foregroundColor(.persianBlue)
                     
