@@ -37,6 +37,8 @@
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
 		24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C4B2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D89C4D2C81834800995945 /* AppDelegate.swift */; };
+		701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC142D389542003F6F86 /* AutoScroller.swift */; };
+		701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */; };
 		702F26802CEE961100A6EEDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */; };
 		703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F52D2AE710006D3086 /* LoadingCard.swift */; };
 		703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F82D2AE946006D3086 /* ArticleCard.swift */; };
@@ -114,6 +116,8 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		701CBC142D389542003F6F86 /* AutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScroller.swift; sourceTree = "<group>"; };
+		701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEqualHeightHStack.swift; sourceTree = "<group>"; };
 		702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		703A75F52D2AE710006D3086 /* LoadingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCard.swift; sourceTree = "<group>"; };
 		703A75F82D2AE946006D3086 /* ArticleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCard.swift; sourceTree = "<group>"; };
@@ -189,7 +193,7 @@
 				702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */,
 				244DDABE2C7B9810007FB768 /* Interview */,
 				244DDABB2C7A83A0007FB768 /* Resume */,
-				244DDAB62C7A7299007FB768 /* Blog */,
+				244DDAB62C7A7299007FB768 /* Home */,
 				241917C82C6AE804004147DF /* career_appApp.swift */,
 				241917CC2C6AE806004147DF /* Assets.xcassets */,
 				241917CE2C6AE806004147DF /* Preview Content */,
@@ -219,14 +223,14 @@
 			path = Track;
 			sourceTree = "<group>";
 		};
-		244DDAB62C7A7299007FB768 /* Blog */ = {
+		244DDAB62C7A7299007FB768 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				703A75F72D2AE72A006D3086 /* View */,
 				70D288482D1B63F2004E9033 /* Network */,
 				70D288452D1B5CAA004E9033 /* ViewModel */,
 			);
-			path = Blog;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		244DDABB2C7A83A0007FB768 /* Resume */ = {
@@ -312,6 +316,8 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */,
+				701CBC142D389542003F6F86 /* AutoScroller.swift */,
 				70C6F9372D35E6B400984CF7 /* DateInputField.swift */,
 				70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */,
 				703A75FA2D2B0593006D3086 /* AddJobApplicationForm.swift */,
@@ -484,11 +490,13 @@
 				703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */,
 				70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */,
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
+				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
+				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,

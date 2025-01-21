@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Sem nome (160 x 120 px) (3).png",
+      "filename" : "Sem nome (160 x 120 px) (160 x 120 px) (1).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,8 +17,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "compression-type" : "automatic"
   }
 }

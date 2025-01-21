@@ -174,44 +174,69 @@ struct BlogView: View {
     
     @ViewBuilder
     func showJobApplications() -> some View {
-        VStack(alignment: .leading) {
-            Text("Vagas aplicadas")
-                .font(.title2)
-                .bold()
-                .padding(.top, 10)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(Color.titleSectionColor)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(jobApplications) { job in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(job.jobTitle ?? "Sem título")
-                                .font(.headline)
-                                .foregroundColor(Color.secondaryBlue)
-                            
-                            Text(job.nextInterview ?? "N/A")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
-                            Text(job.company)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding()
-                        .frame(width: 180, height: 120)
-                        .background(Color.backgroundLightGray)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                    }
-                }
-                //                .padding(.horizontal)
-                .padding(.vertical, 10)
-            }
-            //            .padding(.horizontal)
-        }
-        Spacer()
-        Divider()
+//        VStack(alignment: .leading) {
+//            Text("Vagas aplicadas")
+//                .font(.title2)
+//                .bold()
+//                .padding(.top, 10)
+//                .frame(maxWidth: .infinity, alignment: .center)
+//                .foregroundColor(Color.titleSectionColor)
+//            
+//            ScrollView(.horizontal, showsIndicators: false) {
+//                HStack(spacing: 20) {
+//                    ForEach(jobApplications) { job in
+//                        VStack(alignment: .leading, spacing: 8) {
+//                            Text(job.jobTitle ?? "Sem título")
+//                                .font(.headline)
+//                                .foregroundColor(Color.secondaryBlue)
+//                            
+//                            Text(job.nextInterview ?? "N/A")
+//                                .font(.subheadline)
+//                                .foregroundColor(.secondary)
+//                            
+//                            Text(job.company)
+//                                .font(.subheadline)
+//                                .foregroundColor(.secondary)
+//                        }
+//                        .padding()
+//                        .frame(width: 180, height: 120)
+//                        .background(Color.backgroundLightGray)
+//                        .cornerRadius(10)
+//                        .shadow(radius: 5)
+//                    }
+//                }
+//                //                .padding(.horizontal)
+//                .padding(.vertical, 10)
+//            }
+//            //            .padding(.horizontal)
+//        }
+//        VStack {
+//            AutoScroller(
+//                items: [
+//                    CarouselItem(
+//                        image: "resume-image",
+//                        description: "Create a stunning resume with our powerful tools.",
+//                        buttonTitle: "Learn More",
+//                        action: { print("Resume button tapped") }
+//                    ),
+//                    CarouselItem(
+//                        cardType: CarouselItem.CardType.leading,
+//                        image: "generate-image",
+//                        description: "Generate interview questions tailored to your skills.",
+//                        buttonTitle: "Generate Now",
+//                        action: { print("Generate button tapped") }
+//                    ),
+//                    CarouselItem(
+//                        image: "generate-resume",
+//                        description: "Explore our tools to help you achieve career success.",
+//                        buttonTitle: "Explore",
+//                        action: { print("Explore button tapped") }
+//                    )
+//                ])
+//        }
+//        
+//        Spacer()
+//        Divider()
     }
     
     private var profileButton: some View {

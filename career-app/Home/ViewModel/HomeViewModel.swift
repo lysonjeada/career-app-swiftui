@@ -31,7 +31,6 @@ final class HomeViewModel: ObservableObject {
         viewState = .loading
         task = Task {
             do {
-                try await Task.sleep(nanoseconds: 2_000_000_000)
                 self.articles = try await service.fetchArticles()
                 self.viewState = .loaded
             }

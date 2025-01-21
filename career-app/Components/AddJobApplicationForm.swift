@@ -51,197 +51,229 @@ struct AddJobApplicationForm: View {
     ]
     
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 16) {
-                VStack(alignment: .leading) {
+        VStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
-                            Text("Adicione senioridade e cargo")
-                                .font(.system(size: 24))
-                                .fixedSize(horizontal: false, vertical: true)
-                                .lineLimit(nil)
-                                .padding(.bottom, 4)
-                            
-                            Text("Apenas digite ou selecione cada um, não é preciso preencher os dois")
-                                .font(.system(size: 16))
-                                .foregroundStyle(.gray)
-                                .fixedSize(horizontal: false, vertical: true)
-                            
-                            HStack {
-                                testFieldTest(placeholder: "Senioridade", value: $newLevel)
+                            VStack(alignment: .leading) {
+                                Text("Adicione senioridade e cargo")
+                                    .font(.system(size: 24))
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .lineLimit(nil)
+                                    .padding(.bottom, 4)
                                 
+                                Text("Apenas digite ou selecione cada um, não é preciso preencher os dois")
+                                    .font(.system(size: 16))
+                                    .foregroundStyle(.gray)
+                                    .fixedSize(horizontal: false, vertical: true)
                                 
-                                Menu {
-                                    ForEach(seniorityLevels, id: \.self) { level in
-                                        Button(action: {
-                                            selectedSeniority = level
-                                            if selectedSeniority.contains(level) {
-                                                isSeniorityMenuSelected = true
+                                HStack {
+                                    testFieldTest(placeholder: "Senioridade", value: $newLevel)
+                                    
+                                    
+                                    Menu {
+                                        ForEach(seniorityLevels, id: \.self) { level in
+                                            Button(action: {
+                                                selectedSeniority = level
+                                                if selectedSeniority.contains(level) {
+                                                    isSeniorityMenuSelected = true
+                                                }
+                                            }) {
+                                                Text(level)
+                                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
                                             }
-                                        }) {
-                                            Text(level)
-                                                .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
                                         }
+                                    } label: {
+                                        HStack {
+                                            Text(selectedSeniority)
+                                            Spacer()
+                                            Image(systemName: "chevron.down")
+                                        }
+                                        .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 12)
+                                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
                                     }
-                                } label: {
-                                    HStack {
-                                        Text(selectedSeniority)
-                                        Spacer()
-                                        Image(systemName: "chevron.down")
+                                }
+                                
+                                HStack {
+                                    testFieldTest(placeholder: "Cargo", value: $newLevel)
+                                    
+                                    
+                                    Menu {
+                                        ForEach(seniorityLevels, id: \.self) { level in
+                                            Button(action: {
+                                                selectedSeniority = level
+                                                if selectedSeniority.contains(level) {
+                                                    isSeniorityMenuSelected = true
+                                                }
+                                            }) {
+                                                Text(level)
+                                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                            }
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Text(selectedRole)
+                                            Spacer()
+                                            Image(systemName: "chevron.down")
+                                        }
+                                        .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 12)
+                                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
                                     }
-                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 12)
-                                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
+                                }
+                            }
+                            Divider()
+                            .padding(.bottom, 12)
+                            
+                            VStack(alignment: .leading) {
+                                Text("Sobre a empresa")
+                                    .font(.system(size: 24))
+                                testFieldTest(placeholder: "Empresa", value: $newCompany)
+                                    .padding(.bottom, 12)
+                                Text("Complementares opcionais")
+                                    .font(.system(size: 16))
+                                    .foregroundStyle(.gray)
+                                
+                                HStack {
+                                    Menu {
+                                        ForEach(jobTime, id: \.self) { level in
+                                            Button(action: {
+                                                selectedTime = level
+                                                if selectedTime.contains(level) {
+    //                                                isSeniorityMenuSelected = true
+                                                }
+                                            }) {
+                                                Text(level)
+                                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                            }
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Text(selectedTime)
+                                            Spacer()
+                                            Image(systemName: "chevron.down")
+                                        }
+                                        .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 12)
+                                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
+                                    }
+                                    
+                                    Menu {
+                                        ForEach(jobType, id: \.self) { level in
+                                            Button(action: {
+                                                selectedType = level
+                                                if selectedSeniority.contains(level) {
+                                                    isSeniorityMenuSelected = true
+                                                }
+                                            }) {
+                                                Text(level)
+                                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                            }
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Text(selectedType)
+                                            Spacer()
+                                            Image(systemName: "chevron.down")
+                                        }
+                                        .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 12)
+                                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
+                                    }
                                 }
                             }
                             
-                            HStack {
-                                testFieldTest(placeholder: "Cargo", value: $newLevel)
-                                
-                                
-                                Menu {
-                                    ForEach(seniorityLevels, id: \.self) { level in
-                                        Button(action: {
-                                            selectedSeniority = level
-                                            if selectedSeniority.contains(level) {
-                                                isSeniorityMenuSelected = true
-                                            }
-                                        }) {
-                                            Text(level)
-                                                .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                        }
-                                    }
-                                } label: {
-                                    HStack {
-                                        Text(selectedRole)
-                                        Spacer()
-                                        Image(systemName: "chevron.down")
-                                    }
-                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 12)
-                                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
-                                }
-                            }
-                        }
-                        Divider()
-                        .padding(.bottom, 12)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Sobre a empresa")
-                                .font(.system(size: 24))
-                            testFieldTest(placeholder: "Empresa", value: $newCompany)
-                                .padding(.bottom, 12)
-                            Text("Complementares opcionais")
-                                .font(.system(size: 16))
-                                .foregroundStyle(.gray)
+                            Divider()
                             
-                            HStack {
-                                Menu {
-                                    ForEach(jobTime, id: \.self) { level in
-                                        Button(action: {
-                                            selectedTime = level
-                                            if selectedTime.contains(level) {
-//                                                isSeniorityMenuSelected = true
-                                            }
-                                        }) {
-                                            Text(level)
-                                                .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                        }
-                                    }
-                                } label: {
-                                    HStack {
-                                        Text(selectedTime)
-                                        Spacer()
-                                        Image(systemName: "chevron.down")
-                                    }
-                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 12)
-                                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
-                                }
-                                
-                                Menu {
-                                    ForEach(jobType, id: \.self) { level in
-                                        Button(action: {
-                                            selectedType = level
-                                            if selectedSeniority.contains(level) {
-                                                isSeniorityMenuSelected = true
-                                            }
-                                        }) {
-                                            Text(level)
-                                                .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                        }
-                                    }
-                                } label: {
-                                    HStack {
-                                        Text(selectedType)
-                                        Spacer()
-                                        Image(systemName: "chevron.down")
-                                    }
-                                    .foregroundColor(isSeniorityMenuSelected ? .persianBlue : .persianBlue.opacity(0.5))
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 12)
-                                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.persianBlue, lineWidth: 1))
-                                }
-                            }
-                        }
-                        
-                        Divider()
-                        
-                        
-                        addSkillView()
-                        Divider()
-                        .padding(.bottom, 12)
+                            
+                            addSkillView()
+                            Divider()
+                            .padding(.bottom, 12)
 
-                        VStack(alignment: .leading) {
-                            Text("Datas")
-                                .font(.system(size: 24))
-                            
-                            DateInputField(placeholder: "Próxima entrevista")
-                            DateInputField(placeholder: "Entrevista passada")
-                        }
-                        
-                        Divider()
-                        
-                        VStack(alignment: .leading) {
-                            HStack(alignment: .top) {
-                                Image("generate-image")
-                                    .resizable()
-                                    .padding(.leading, 12)
-                                    .aspectRatio(contentMode: .fill)
-                                    .clipped()
-                                    .frame(maxWidth: 160, maxHeight: 100)
-                                    
-//                                    .clipped()
-                                    
-                                VStack(alignment: .leading) {
-                                    Text("Você também pode gerar possíveis perguntas para as próximas entrevistas")
-                                    
-                                        .padding(.bottom)
-                                    
-                                    Button(action: {
-                                        
-                                    }) {
-                                        Text("Gerar perguntas")
-                                            .foregroundColor(Color.backgroundGray)
-                                    }
-                                }
+                            VStack(alignment: .leading) {
+                                Text("Datas")
+                                    .font(.system(size: 24))
                                 
-                                    
+                                DateInputField(placeholder: "Próxima entrevista")
+                                DateInputField(placeholder: "Entrevista passada")
                             }
-                            .padding(.top, 12)
+                            
+                            Divider()
+                            
+                            VStack(alignment: .leading) {
+                                HStack(alignment: .top) {
+                                    Image("generate-image")
+                                        .resizable()
+                                        .padding(.leading, 12)
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipped()
+                                        .frame(maxWidth: 140, maxHeight: 100)
+                                        
+    //                                    .clipped()
+                                        
+                                    VStack(alignment: .leading) {
+                                        Text("Você também pode gerar possíveis perguntas para as próximas entrevistas")
+                                        
+                                            .padding(.bottom)
+                                        
+                                        Button(action: {
+                                            
+                                        }) {
+                                            Text("Gerar perguntas")
+                                                .foregroundColor(Color.backgroundGray)
+                                        }
+                                    }
+                                    
+                                        
+                                }
+                                .padding(.top, 12)
+                            }
+                            Divider()
                         }
+                        .navigationTitle("Add Job Application")
+                        .navigationBarItems(trailing: Button("Cancel") {
+                            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.dismiss(animated: true)
+                        })
                     }
-                    .navigationTitle("Add Job Application")
-                    .navigationBarItems(trailing: Button("Cancel") {
-                        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.dismiss(animated: true)
-                    })
                 }
             }
+            .padding(.horizontal, 16)
+            
+            
+            Button(action: {
+                
+            }) {
+                VStack {
+                    Text("Adicionar")
+                        .bold()
+                        .padding(.vertical, 12)
+                        .foregroundColor(Color.white)
+                        .background(Color.greenButton)
+                        .frame(maxWidth: .infinity)
+                }
+                
+                .frame(maxWidth: .infinity)
+                
+                .background(Color.greenButton)
+                .background(Color.clear)
+                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.greenButton, lineWidth: 1)
+                                    )
+                    
+            }
+            .cornerRadius(12)
+            .padding(.horizontal, 16)
+            .frame(alignment: .bottom)
+            .padding(.bottom, 8)
         }
-        .padding(.horizontal, 16)
+        
     }
     
     @ViewBuilder
@@ -280,8 +312,8 @@ struct AddJobApplicationForm: View {
                     Image(systemName: "plus")
                         .bold()
                         .frame(width: 20, height: 20)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
                         .background(Color.greenButton)
                         .foregroundColor(.white)
                         .cornerRadius(24)
@@ -294,8 +326,8 @@ struct AddJobApplicationForm: View {
                     Image(systemName: "minus")
                         .bold()
                         .frame(width: 20, height: 20)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
                         .background(Color.redColor)
                         .foregroundColor(.white)
                         .cornerRadius(24)
