@@ -72,6 +72,8 @@ struct ProfileView: View {
             }
             .padding(.horizontal, 16)
             Spacer()
+            buildNotes()
+            Spacer()
             Button(action: {
                 saveProfile()
             }) {
@@ -101,6 +103,29 @@ struct ProfileView: View {
     private func saveProfile() {
         //TODO: Criar açao
         print("Perfil salvo!")
+    }
+    
+    @ViewBuilder
+    private func buildNotes() -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                
+                Text("Notas")
+                
+                Spacer()
+                
+                Button {
+                    //TODO: Exibir texto
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.persianBlue)
+                }
+            }
+            
+            Text("Anote dificuldades, dúvidas, assuntos a serem estudadas. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!")
+            
+            
+        }
     }
 }
 

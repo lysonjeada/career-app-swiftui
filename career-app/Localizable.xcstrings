@@ -90,6 +90,9 @@
     "Excluir Skill" : {
 
     },
+    "Experiência Profissional" : {
+
+    },
     "Generated Interview Questions" : {
 
     },
@@ -102,7 +105,16 @@
     "Home" : {
 
     },
+    "Informações pessoais" : {
+
+    },
+    "Instituição de Ensino" : {
+
+    },
     "LinkedIn" : {
+
+    },
+    "Links" : {
 
     },
     "Location" : {
@@ -117,13 +129,22 @@
     "Name" : {
 
     },
+    "Nome" : {
+
+    },
     "Other Link" : {
+
+    },
+    "Perfil" : {
 
     },
     "Pesquisar" : {
 
     },
     "Phone" : {
+
+    },
+    "Portfólio" : {
 
     },
     "Position" : {
@@ -133,6 +154,12 @@
 
     },
     "Questions" : {
+
+    },
+    "Salvar" : {
+
+    },
+    "Selecionar Foto" : {
 
     },
     "Skills" : {
@@ -151,6 +178,9 @@
 
     },
     "Todos os Artigos" : {
+
+    },
+    "Vagas aplicadas" : {
 
     },
     "Ver Mais" : {

@@ -41,6 +41,7 @@
 		701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */; };
 		701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */; };
 		701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1C2D3F3F9C003F6F86 /* ImagePicker.swift */; };
+		701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1E2D41B41E003F6F86 /* ProfileNotesView.swift */; };
 		702F26802CEE961100A6EEDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */; };
 		703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F52D2AE710006D3086 /* LoadingCard.swift */; };
 		703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F82D2AE946006D3086 /* ArticleCard.swift */; };
@@ -122,6 +123,7 @@
 		701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEqualHeightHStack.swift; sourceTree = "<group>"; };
 		701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		701CBC1C2D3F3F9C003F6F86 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		701CBC1E2D41B41E003F6F86 /* ProfileNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNotesView.swift; sourceTree = "<group>"; };
 		702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		703A75F52D2AE710006D3086 /* LoadingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCard.swift; sourceTree = "<group>"; };
 		703A75F82D2AE946006D3086 /* ArticleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCard.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				701CBC1E2D41B41E003F6F86 /* ProfileNotesView.swift */,
 				701CBC1C2D3F3F9C003F6F86 /* ImagePicker.swift */,
 				701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */,
 				701CBC142D389542003F6F86 /* AutoScroller.swift */,
@@ -511,6 +514,7 @@
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
 				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
+				701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
