@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileNotesView: View {
     @State private var isDescriptionExpanded: Bool = false
     @State private var selectedNoteIndex: Int? = nil
-    @State private var notes: [String] = ["Primeira anotação", "Segunda anotação", "Terceira anotação"]
+    @State private var notes: [String] = ["Primeira anotação Primeira anotação Primeira anotação Primeira anotação", "Segunda anotação", "Terceira anotação"]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -40,13 +40,14 @@ struct ProfileNotesView: View {
 
             if selectedNoteIndex == nil {
                 HStack(spacing: 8) {
-                    ForEach(0..<min(3, notes.count), id: \.\self) { index in
+                    ForEach(0..<min(3, notes.count), id: \.self) { index in
                         Text(notes[index])
-                            .lineLimit(1)
+                            .lineLimit(nil)
                             .truncationMode(.tail)
-                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .frame(maxWidth: .infinity, maxHeight: 80)
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(8)
+                            
                             .onTapGesture {
                                 withAnimation {
                                     selectedNoteIndex = index
@@ -54,9 +55,10 @@ struct ProfileNotesView: View {
                             }
                     }
                 }
+                
             } else {
                 VStack(spacing: 8) {
-                    ForEach(0..<notes.count, id: \.\self) { index in
+                    ForEach(0..<notes.count, id: \.self) { index in
                         if index == selectedNoteIndex {
                             TextEditor(text: $notes[index])
                                 .frame(height: 100)
@@ -81,24 +83,29 @@ struct ProfileNotesView: View {
             }
 
             Button {
-                // Navegar para o fluxo de notas
+                // TODO: Navegar para o fluxo de notas
             } label: {
-                HStack {
+                HStack(spacing: 8) {
                     Image("notes")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-
+                        .frame(width: 44, height: 44)
+                        .scaledToFit()
+                        .fixedSize()
+                        .clipped()
                     Text("Ir para notas")
                         .foregroundColor(.white)
-                        .fontWeight(.semibold)
+                        .font(.system(size: 16, weight: .semibold))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.persianBlue)
                 .cornerRadius(8)
             }
-            .padding(.top, 16)
+            .padding(.horizontal, 12)
+//            .padding(.top, 16)
         }
         .padding()
     }

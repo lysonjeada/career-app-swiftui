@@ -125,8 +125,7 @@ struct JobApplicationTrackerView: View {
                     newLevel: $newLevel,
                     newLastInterview: $newLastInterview,
                     newNextInterview: $newNextInterview,
-                    newTechnicalSkills: $newTechnicalSkills,
-                    addNewJob: addNewJob
+                    newTechnicalSkills: $newTechnicalSkills
                 )
             }
         }

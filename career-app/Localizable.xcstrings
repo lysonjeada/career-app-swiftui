@@ -13,19 +13,22 @@
     "+" : {
 
     },
-    "Add Job Application" : {
+    "Adicionar" : {
 
     },
-    "Adicionar" : {
+    "Adicionar Candidatura" : {
+
+    },
+    "Adicionar Skill" : {
 
     },
     "Adicione senioridade e cargo" : {
 
     },
-    "Apagar" : {
+    "Anote dificuldades, dúvidas, assuntos a serem estudados. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!" : {
 
     },
-    "Apenas digite ou selecione cada um, não é preciso preencher os dois" : {
+    "Apagar" : {
 
     },
     "Artigos" : {
@@ -45,19 +48,10 @@
     "by %@" : {
 
     },
-    "Cancel" : {
-
-    },
-    "Cancelar" : {
-
-    },
     "Candidaturas" : {
 
     },
     "Company Name" : {
-
-    },
-    "Complementares opcionais" : {
 
     },
     "Concluir" : {
@@ -84,19 +78,13 @@
     "Entrevistas" : {
 
     },
-    "Excluir" : {
-
-    },
-    "Excluir Skill" : {
-
-    },
     "Experiência Profissional" : {
 
     },
-    "Generated Interview Questions" : {
+    "Fechar" : {
 
     },
-    "Gerar perguntas" : {
+    "Generated Interview Questions" : {
 
     },
     "GitHub" : {
@@ -109,6 +97,9 @@
 
     },
     "Instituição de Ensino" : {
+
+    },
+    "Ir para notas" : {
 
     },
     "LinkedIn" : {
@@ -130,6 +121,9 @@
 
     },
     "Nome" : {
+
+    },
+    "Notas" : {
 
     },
     "Other Link" : {
@@ -162,6 +156,9 @@
     "Selecionar Foto" : {
 
     },
+    "Selecione Skills" : {
+
+    },
     "Skills" : {
 
     },
@@ -174,9 +171,6 @@
     "Tap to Authorize and Show Calendar" : {
 
     },
-    "Tem certeza de que deseja excluir \"%@\"?" : {
-
-    },
     "Todos os Artigos" : {
 
     },
@@ -184,9 +178,6 @@
 
     },
     "Ver Mais" : {
-
-    },
-    "Você também pode gerar possíveis perguntas para as próximas entrevistas" : {
 
     }
   },
