@@ -19,9 +19,6 @@
     "Adicionar Candidatura" : {
 
     },
-    "Adicionar Skill" : {
-
-    },
     "Adicione senioridade e cargo" : {
 
     },
@@ -85,6 +82,9 @@
 
     },
     "Generated Interview Questions" : {
+
+    },
+    "Gerar perguntas" : {
 
     },
     "GitHub" : {
@@ -178,6 +178,9 @@
 
     },
     "Ver Mais" : {
+
+    },
+    "Você também pode gerar possíveis perguntas para as próximas entrevistas" : {
 
     }
   },

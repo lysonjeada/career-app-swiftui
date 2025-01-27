@@ -43,7 +43,8 @@ struct JobApplicationTrackerView: View {
         )
     ]
     
-    // Inputs para cadastrar novo job
+    @StateObject private var viewModel = AddJobApplicationViewModel()
+    
     @State private var newCompany = ""
     @State private var newLevel = ""
     @State private var newLastInterview = ""
@@ -55,7 +56,7 @@ struct JobApplicationTrackerView: View {
         NavigationView {
             VStack {
                 
-                ForEach(jobApplications) { job in
+                ForEach(viewModel.jobApplications) { job in
                     JobApplicationCard(job: job)
                         .frame(alignment: .top)
                         .padding(.top, 16)
@@ -108,6 +109,9 @@ struct JobApplicationTrackerView: View {
                 }
                 .padding(.horizontal)
                 
+            }
+            .onAppear {
+                viewModel.fetchJobApplications()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

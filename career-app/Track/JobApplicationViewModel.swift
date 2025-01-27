@@ -9,6 +9,7 @@ import Foundation
 
 class AddJobApplicationViewModel: ObservableObject {
     private let service = JobApplicationService()
+    @Published var jobApplications: [JobApplication] = []
     
     func addJobApplication(company: String, level: String, lastInterview: String, nextInterview: String, technicalSkills: [String]) {
         let request = JobApplicationRequest(
@@ -28,4 +29,25 @@ class AddJobApplicationViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchJobApplications() {
+            service.fetchJobApplications { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let applications):
+                        self.jobApplications = applications.map { app in
+                            JobApplication(
+                                company: app.company,
+                                level: app.level,
+                                lastInterview: app.lastInterview,
+                                nextInterview: app.nextInterview,
+                                technicalSkills: app.technicalSkills
+                            )
+                        }
+                    case .failure(let error):
+                        print("Failed to fetch job applications: \(error)")
+                    }
+                }
+            }
+        }
 }
