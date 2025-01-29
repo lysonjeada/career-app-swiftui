@@ -13,40 +13,48 @@ struct ArticleCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             let coverImageUrl = article.cover_image ?? ""
-            if let url = URL(string: coverImageUrl), !coverImageUrl.isEmpty {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 80)
-                        .frame(maxWidth: 180)
-                        .clipped()
-                        .cornerRadius(10)
-                        .padding(.top, 4)
-                        .padding(.horizontal, 16)
-                } placeholder: {
+            HStack {
+                if let url = URL(string: coverImageUrl), !coverImageUrl.isEmpty {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60, height: 60, alignment: .leading)
+                            .clipped()
+                            .cornerRadius(10)
+                            
+                    } placeholder: {
+                        Image("no-image-available")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 80, alignment: .leading)
+                            .clipped()
+                            .cornerRadius(10)
+                    }
+                } else {
                     Image("no-image-available")
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 180, height: 100)
+                        .scaledToFill()
+                        .frame(width: 60, height: 60, alignment: .leading)
                         .clipped()
-                        .cornerRadius(10)
+                        .cornerRadius(2)
+
+
                 }
-            } else {
-                Image("no-image-available")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 180, height: 80, alignment: .center)
-                    .clipped()
-                    .cornerRadius(10)
+                
+               
+                    
+                
+                Text(article.title)
+                    .bold()
+                    .font(.system(size: 12))
+                    .lineLimit(3)
+                    .foregroundColor(Color.secondaryBlue)
             }
+            .padding(.top, 4)
+            .padding(.horizontal, 16)
             
-            Text(article.title)
-                .bold()
-                .font(.system(size: 16))
-                .lineLimit(2)
-                .foregroundColor(Color.secondaryBlue)
-                .padding(.horizontal, 16)
+            
             
             Text(article.description)
                 .font(.system(size: 12))
@@ -67,8 +75,6 @@ struct ArticleCard: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 4)
         }
-//        .padding()
-//        .frame(width: 200, height: 240)
         .background(Color.backgroundLightGray)
         .cornerRadius(15)
         .shadow(radius: 5)

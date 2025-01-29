@@ -148,29 +148,36 @@ struct HomeView: View {
                 .padding(.top, 4)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.titleSectionColor)
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     ForEach(jobApplications) { job in
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(job.nextInterview ?? "N/A")
-                                .font(.system(size: 16))
-                                .bold()
-                                .foregroundColor(Color.secondaryBlue)
-//                                .foregroundColor(.secondary)
-                            
+                            if let nextInterview = job.nextInterview,
+                               let formattedDate = formatDate(nextInterview) {
+                                HStack {
+                                    Image(systemName: "calendar.badge.clock")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.persianBlue)
+                                    Text(formattedDate)
+                                        .font(.system(size: 16))
+                                        .bold()
+                                        .foregroundColor(Color.persianBlue)
+                                }
+                            } else {
+                                Text("N/A")
+                                    .font(.system(size: 16))
+                                    .bold()
+                                    .foregroundColor(Color.persianBlue)
+                            }
                             Text(job.jobTitle ?? "Sem título")
                                 .font(.system(size: 12))
                                 .foregroundColor(Color.secondaryBlue)
-                            
-                            
                             Text(job.company)
                                 .font(.system(size: 12))
                                 .foregroundColor(.secondary)
                         }
                         .padding(.vertical, 24)
-                        .padding(.horizontal, 16)
-//                        .frame(width: 180, height: 120)
+                        .padding(.horizontal, 20)
                         .background(Color.backgroundLightGray)
                         .cornerRadius(10)
                         .shadow(radius: 5)
@@ -210,7 +217,7 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 24)
                         .padding(.vertical, 16)
-//                        .frame(width: 180, height: 120)
+                        //                        .frame(width: 180, height: 120)
                         .background(Color.backgroundLightGray)
                         .cornerRadius(10)
                         .shadow(radius: 5)
@@ -272,6 +279,19 @@ struct HomeView: View {
             .cornerRadius(10)
         }
         .frame(width: 200)
+    }
+    
+    func formatDate(_ dateString: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "dd/MM/yyyy"
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "dd/MM"
+        
+        if let date = inputFormatter.date(from: dateString) {
+            return outputFormatter.string(from: date)
+        }
+        return nil
     }
 }
 
