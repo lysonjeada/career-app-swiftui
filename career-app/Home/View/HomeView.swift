@@ -1,11 +1,9 @@
 import SwiftUI
 
 struct HomeView: View {
-    //    @State private var articles: [Article] = []
     @State private var showFullArticleList = false
     @StateObject var viewModel: HomeViewModel
     private let articleLimit = 10
-    
     
     @State private var jobApplications = [
         JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
@@ -14,18 +12,6 @@ struct HomeView: View {
     ]
     
     @State private var searchText = ""
-    
-//    private var profileButton: some View {
-//        Button(action: {
-//            // Ação do botão de perfil
-//        }) {
-//            Image(systemName: "person.circle")
-//                .resizable()
-//                .clipShape(Circle())
-//                .frame(width: 35, height: 35)
-//                .foregroundColor(Color.persianBlue)
-//        }
-//    }
     
     private var profileButton: some View {
         NavigationLink(destination: ProfileView()) {
@@ -38,14 +24,13 @@ struct HomeView: View {
     }
     
     var body: some View {
-        
         NavigationStack {
             switch viewModel.viewState {
             case .loading:
                 VStack {
                     buildJobsLoading()
                     buildArticlesLoading()
-                    buildJobsAppliedLoading()
+                    buildCarouselLoading()
                 }
             case .loaded:
                 ScrollView {
@@ -54,8 +39,8 @@ struct HomeView: View {
                     Spacer()
                     showNextInterviews()
                     showArticlesView()
-                    showJobApplications()
                     showJobApplication()
+                    showJobApplications()
                 }
                 .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
                 .toolbar {
@@ -90,12 +75,12 @@ struct HomeView: View {
     }
     
     @ViewBuilder
-    func buildJobsAppliedLoading() -> some View {
-        LoadingCard(style: .job, title: "Vagas aplicadas")
+    func buildCarouselLoading() -> some View {
+        LoadingCard(style: .carousel, title: nil)
     }
     
     @ViewBuilder
-    func bla () -> some View {
+    func buildShowMoreButton() -> some View {
         if viewModel.articles.count > articleLimit {
             Button(action: {
                 showFullArticleList.toggle()
@@ -103,15 +88,17 @@ struct HomeView: View {
                 Text("Ver Mais")
                     .font(.headline)
                     .padding()
-                    .frame(width: 200, height: 240)
+                    .frame(width: 120, height: 120)
                     .background(Color.clear)
+                    .foregroundColor(Color.persianBlue)
                     .cornerRadius(10)
-                    .shadow(radius: 5)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.blue, lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 60)
+                            .stroke(Color.persianBlue, lineWidth: 2)
                     )
             }
+            .padding(.trailing, 16)
+            .shadow(radius: 1)
             .sheet(isPresented: $showFullArticleList) {
                 FullArticleListView(articles: viewModel.articles)
             }
@@ -126,7 +113,7 @@ struct HomeView: View {
             Text("Artigos")
                 .font(.title2)
                 .bold()
-                .padding(.top, 10)
+                .padding(.top, 4)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.titleSectionColor)
             
@@ -141,9 +128,8 @@ struct HomeView: View {
                                 }
                             }
                     }
-                    bla()
+                    buildShowMoreButton()
                 }
-                .padding(.vertical, 10)
             }
             .cornerRadius(15)
             //            .shadow(radius: 5)
@@ -159,7 +145,7 @@ struct HomeView: View {
             Text("Próximas Entrevistas")
                 .font(.title2)
                 .bold()
-                .padding(.top, 10)
+                .padding(.top, 4)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.titleSectionColor)
             
@@ -167,27 +153,30 @@ struct HomeView: View {
                 HStack(spacing: 20) {
                     ForEach(jobApplications) { job in
                         VStack(alignment: .leading, spacing: 8) {
+                            Text(job.nextInterview ?? "N/A")
+                                .font(.system(size: 16))
+                                .bold()
+                                .foregroundColor(Color.secondaryBlue)
+//                                .foregroundColor(.secondary)
+                            
                             Text(job.jobTitle ?? "Sem título")
-                                .font(.headline)
+                                .font(.system(size: 12))
                                 .foregroundColor(Color.secondaryBlue)
                             
-                            Text(job.nextInterview ?? "N/A")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
                             
                             Text(job.company)
-                                .font(.subheadline)
+                                .font(.system(size: 12))
                                 .foregroundColor(.secondary)
                         }
-                        .padding()
-                        .frame(width: 180, height: 120)
+                        .padding(.vertical, 24)
+                        .padding(.horizontal, 16)
+//                        .frame(width: 180, height: 120)
                         .background(Color.backgroundLightGray)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                     }
                 }
-                //                .padding(.horizontal)
-                .padding(.vertical, 10)
+                .padding(.vertical, 4)
             }
             //            .padding(.horizontal)
         }
@@ -201,7 +190,7 @@ struct HomeView: View {
             Text("Vagas aplicadas")
                 .font(.title2)
                 .bold()
-                .padding(.top, 10)
+                .padding(.top, 4)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.titleSectionColor)
             
@@ -210,19 +199,18 @@ struct HomeView: View {
                     ForEach(jobApplications) { job in
                         VStack(alignment: .leading, spacing: 8) {
                             Text(job.jobTitle ?? "Sem título")
-                                .font(.headline)
+                                .font(.system(size: 20))
                                 .foregroundColor(Color.secondaryBlue)
-                            
-                            Text(job.nextInterview ?? "N/A")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
                             Text(job.company)
-                                .font(.subheadline)
+                                .font(.system(size: 16))
+                                .foregroundColor(.secondary)
+                            Text(job.nextInterview ?? "N/A")
+                                .font(.system(size: 12))
                                 .foregroundColor(.secondary)
                         }
-                        .padding()
-                        .frame(width: 180, height: 120)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+//                        .frame(width: 180, height: 120)
                         .background(Color.backgroundLightGray)
                         .cornerRadius(10)
                         .shadow(radius: 5)
@@ -231,7 +219,6 @@ struct HomeView: View {
                 //                .padding(.horizontal)
                 .padding(.vertical, 10)
             }
-            //            .padding(.horizontal)
         }
         Spacer()
         Divider()
@@ -244,8 +231,8 @@ struct HomeView: View {
                 items: [
                     CarouselItem(
                         image: "resume-image",
-                        description: "Create a stunning resume with our powerful tools.",
-                        buttonTitle: "Learn More",
+                        description: "Gere dicas e otimize seu curriculo a partir do seu currículo do LinkedIN",
+                        buttonTitle: "Faça o download do seu currículo",
                         action: { print("Resume button tapped") }
                     ),
                     CarouselItem(
@@ -267,8 +254,6 @@ struct HomeView: View {
         Spacer()
         Divider()
     }
-    
-    
     
     private var searchField: some View {
         HStack {

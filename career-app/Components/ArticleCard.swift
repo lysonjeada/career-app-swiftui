@@ -18,9 +18,12 @@ struct ArticleCard: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 180, height: 100)
+                        .frame(height: 80)
+                        .frame(maxWidth: 180)
                         .clipped()
                         .cornerRadius(10)
+                        .padding(.top, 4)
+                        .padding(.horizontal, 16)
                 } placeholder: {
                     Image("no-image-available")
                         .resizable()
@@ -33,21 +36,24 @@ struct ArticleCard: View {
                 Image("no-image-available")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 180, height: 100)
+                    .frame(width: 180, height: 80, alignment: .center)
                     .clipped()
                     .cornerRadius(10)
             }
             
             Text(article.title)
                 .bold()
-                .font(.headline)
+                .font(.system(size: 16))
                 .lineLimit(2)
                 .foregroundColor(Color.secondaryBlue)
+                .padding(.horizontal, 16)
             
             Text(article.description)
-                .font(.subheadline)
+                .font(.system(size: 12))
                 .foregroundColor(.secondary)
                 .lineLimit(3)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 4)
             
             HStack {
                 Text(article.readable_publish_date)
@@ -58,11 +64,18 @@ struct ArticleCard: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 4)
         }
-        .padding()
-        .frame(width: 200, height: 240)
+//        .padding()
+//        .frame(width: 200, height: 240)
         .background(Color.backgroundLightGray)
         .cornerRadius(15)
         .shadow(radius: 5)
     }
+}
+
+#Preview {
+    let article = Article(id: 1, title: "Titutlo", description: "LoremIpsumLoremIpsum LoremIpsumLoremIpsum LoremIpsumLoremIpsum LoremIpsumLoremIpsum", readable_publish_date: "", url: "", cover_image: nil, user: .init(name: "lys", profile_image: ""))
+    ArticleCard(article: article)
 }

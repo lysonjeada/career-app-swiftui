@@ -10,16 +10,17 @@ import SwiftUI
 struct LoadingCard: View {
     
     let style: CardStyle
-    let title: String
+    let title: String?
     
     enum CardStyle {
         case article
         case job
+        case carousel
     }
     
     var body: some View {
         VStack {
-            Text(title)
+            Text(title ?? "")
                 .font(.title2)
                 .bold()
                 .padding(.top, 10)
@@ -31,6 +32,8 @@ struct LoadingCard: View {
                 buildArticle()
             case .job:
                 buildJob()
+            case .carousel:
+                buildCarousel()
             }
         }
     }
@@ -108,6 +111,29 @@ struct LoadingCard: View {
             .padding(.vertical)
         }
     }
+    
+    @ViewBuilder
+    private func buildCarousel() -> some View {
+            HStack(spacing: 16) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.skeletonColor)
+                            .frame(height: 100)
+                            .clipped()
+                            .padding(.bottom, 16)
+                        
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.skeletonColor)
+                            .frame(height: 40)
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical)
+    }
 }
 
 #Preview {
@@ -116,6 +142,9 @@ struct LoadingCard: View {
         Spacer()
         Divider()
         LoadingCard(style: .article, title: "Artigos")
+        Spacer()
+        Divider()
+        LoadingCard(style: .carousel, title: nil)
     }
     
 }

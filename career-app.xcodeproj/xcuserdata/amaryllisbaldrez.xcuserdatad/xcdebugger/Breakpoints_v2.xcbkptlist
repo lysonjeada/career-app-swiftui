@@ -82,36 +82,6 @@
             endingLineNumber = "35"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "BF50B6F9-6B80-4C29-8DBB-AEFCD31F6E38 - 8f1ac4a39cbbb274"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "career_app.Indicator.body.getter : some"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/Components/Indicator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35">
-               </Location>
-               <Location
-                  uuid = "BF50B6F9-6B80-4C29-8DBB-AEFCD31F6E38 - 6588b77849c70b62"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.disabled(Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, &lt;&lt;opaque return type of SwiftUI.View.disabled(Swift.Bool) -&gt; some&gt;&gt;.0, SwiftUI.Spacer)&gt; in career_app.Indicator.body.getter : some"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/Components/Indicator.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -144,36 +114,6 @@
             endingLineNumber = "35"
             landmarkName = "fetchJobApplications()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8F8D3498-06E6-47FA-9404-7C40C1DEC041 - 79fe4db5cbd367f7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;career_app.JobApplicationRequest&gt;, Swift.Error&gt;) -&gt; () in career_app.AddJobApplicationViewModel.fetchJobApplications() -&gt; ()"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/Track/JobApplicationViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35">
-               </Location>
-               <Location
-                  uuid = "8F8D3498-06E6-47FA-9404-7C40C1DEC041 - ae052f5cef271a12"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;Swift.Array&lt;career_app.JobApplicationRequest&gt;, Swift.Error&gt;) -&gt; () in career_app.AddJobApplicationViewModel.fetchJobApplications() -&gt; ()"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/Track/JobApplicationViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
