@@ -205,9 +205,15 @@ struct HomeView: View {
                 HStack(spacing: 20) {
                     ForEach(jobApplications) { job in
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(job.jobTitle ?? "Sem título")
-                                .font(.system(size: 20))
-                                .foregroundColor(Color.secondaryBlue)
+                            HStack {
+                                Image(systemName: "person.bubble.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color.persianBlue)
+                                Text(job.jobTitle ?? "Sem título")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color.secondaryBlue)
+                            }
+                            
                             Text(job.company)
                                 .font(.system(size: 16))
                                 .foregroundColor(.secondary)

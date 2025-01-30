@@ -46,6 +46,8 @@ struct ProfileView: View {
             
             VStack {
                 Text("Informações pessoais")
+                    .bold()
+                    .foregroundColor(.persianBlue)
                 
                 VStack(alignment: .leading) {
                     TextField("Nome", text: $name)
@@ -59,6 +61,8 @@ struct ProfileView: View {
             
             VStack {
                 Text("Links")
+                    .bold()
+                    .foregroundColor(.persianBlue)
                 
                 VStack(alignment: .leading) {
                     TextField("GitHub", text: $githubLink)

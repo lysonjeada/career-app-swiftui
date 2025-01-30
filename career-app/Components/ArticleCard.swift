@@ -27,7 +27,7 @@ struct ArticleCard: View {
                         Image("no-image-available")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: 80, alignment: .leading)
+                            .frame(height: 56, alignment: .leading)
                             .clipped()
                             .cornerRadius(10)
                     }
@@ -35,7 +35,7 @@ struct ArticleCard: View {
                     Image("no-image-available")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 60, height: 60, alignment: .leading)
+                        .frame(width: 56, height: 56, alignment: .leading)
                         .clipped()
                         .cornerRadius(2)
 
@@ -70,6 +70,7 @@ struct ArticleCard: View {
                 Spacer()
                 Text("by \(article.user.name)")
                     .font(.caption)
+                    .lineLimit(1)
                     .foregroundColor(.secondary)
             }
             .padding(.horizontal, 16)

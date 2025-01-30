@@ -16,6 +16,8 @@ struct ProfileNotesView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Notas")
+                    .bold()
+                    .foregroundColor(.persianBlue)
                     .font(.headline)
                 
                 Spacer()
@@ -26,6 +28,7 @@ struct ProfileNotesView: View {
                     }
                 } label: {
                     Image(systemName: "chevron.down")
+                        .bold()
                         .rotationEffect(.degrees(isDescriptionExpanded ? 180 : 0))
                         .foregroundColor(.persianBlue)
                 }
@@ -46,7 +49,7 @@ struct ProfileNotesView: View {
                             .truncationMode(.tail)
                             .frame(maxWidth: .infinity, maxHeight: 80)
                         
-                            .background(Color.gray.opacity(0.2))
+                            .background(Color.white)
                             .cornerRadius(8)
                             .font(.system(size: 12))
                             .overlay(
@@ -61,6 +64,7 @@ struct ProfileNotesView: View {
                             }
                     }
                 }
+                .padding(.bottom, 4)
             } else {
                 VStack(spacing: 8) {
                     ForEach(0..<notes.count, id: \.self) { index in
@@ -85,7 +89,9 @@ struct ProfileNotesView: View {
                         }
                     }
                 }
+                .padding(.bottom, 4)
             }
+            
             Button {
                 // TODO: Navegar para o fluxo de notas
             } label: {
