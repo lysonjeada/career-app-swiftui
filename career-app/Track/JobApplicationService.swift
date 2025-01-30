@@ -16,7 +16,7 @@ struct JobApplicationRequest: Codable {
 }
 
 class JobApplicationService {
-    private let baseURL = "https://career-app-vapor-3e22c9ffa7af.herokuapp.com"
+    private let baseURL = "career-app-vapor.vercel.app"
     
     func createJobApplication(_ jobApplication: JobApplicationRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/job-applications") else { return }

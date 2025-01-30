@@ -11,15 +11,15 @@ struct ProfileNotesView: View {
     @State private var isDescriptionExpanded: Bool = false
     @State private var selectedNoteIndex: Int? = nil
     @State private var notes: [String] = ["Primeira anotação Primeira anotação Primeira anotação Primeira anotação", "Segunda anotação", "Terceira anotação"]
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Notas")
                     .font(.headline)
-
+                
                 Spacer()
-
+                
                 Button {
                     withAnimation {
                         isDescriptionExpanded.toggle()
@@ -30,14 +30,14 @@ struct ProfileNotesView: View {
                         .foregroundColor(.persianBlue)
                 }
             }
-
+            
             if isDescriptionExpanded {
                 Text("Anote dificuldades, dúvidas, assuntos a serem estudados. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.bottom, 8)
             }
-
+            
             if selectedNoteIndex == nil {
                 HStack(spacing: 8) {
                     ForEach(0..<min(3, notes.count), id: \.self) { index in
@@ -45,9 +45,15 @@ struct ProfileNotesView: View {
                             .lineLimit(nil)
                             .truncationMode(.tail)
                             .frame(maxWidth: .infinity, maxHeight: 80)
+                        
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(8)
-                            
+                            .font(.system(size: 12))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.persianBlue, lineWidth: 1)
+                            )
+                            .foregroundColor(.black)
                             .onTapGesture {
                                 withAnimation {
                                     selectedNoteIndex = index
@@ -55,7 +61,6 @@ struct ProfileNotesView: View {
                             }
                     }
                 }
-                
             } else {
                 VStack(spacing: 8) {
                     ForEach(0..<notes.count, id: \.self) { index in
@@ -81,33 +86,33 @@ struct ProfileNotesView: View {
                     }
                 }
             }
-
             Button {
                 // TODO: Navegar para o fluxo de notas
             } label: {
                 HStack(spacing: 8) {
-                    Image("notes")
+                    Image(systemName: "applepencil.and.scribble")
                         .resizable()
-                        .frame(width: 44, height: 44)
+                        .foregroundStyle(.white)
+                    //                        .frame(width: 44, height: 44)
                         .scaledToFit()
                         .fixedSize()
                         .clipped()
+                        .padding(.leading, 4)
+                        .frame(alignment: .center)
                     Text("Ir para notas")
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .semibold))
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
-                .padding(.vertical, 4)
-                .padding(.horizontal, 12)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 4)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.persianBlue)
                 .cornerRadius(8)
             }
-            .padding(.horizontal, 12)
-//            .padding(.top, 16)
         }
-        .padding()
+        .padding(.horizontal, 8)
     }
 }
 
