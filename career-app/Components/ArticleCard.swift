@@ -38,13 +38,7 @@ struct ArticleCard: View {
                         .frame(width: 56, height: 56, alignment: .leading)
                         .clipped()
                         .cornerRadius(2)
-
-
                 }
-                
-               
-                    
-                
                 Text(article.title)
                     .bold()
                     .font(.system(size: 12))
@@ -53,9 +47,6 @@ struct ArticleCard: View {
             }
             .padding(.top, 4)
             .padding(.horizontal, 16)
-            
-            
-            
             Text(article.description)
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
@@ -78,7 +69,11 @@ struct ArticleCard: View {
         }
         .background(Color.backgroundLightGray)
         .cornerRadius(15)
-        .shadow(radius: 5)
+        .shadow(radius: 3)
+        .overlay(
+                RoundedRectangle(cornerRadius: 20) // Arredonda os cantos da borda
+                    .stroke(Color.backgroundLightGray, lineWidth: 1) // Define a cor e a espessura da borda
+            )
     }
 }
 

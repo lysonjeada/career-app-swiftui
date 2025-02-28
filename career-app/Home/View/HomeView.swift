@@ -110,12 +110,34 @@ struct HomeView: View {
     @ViewBuilder
     func showArticlesView() -> some View {
         VStack(alignment: .leading) {
-            Text("Artigos")
-                .font(.title2)
-                .bold()
-                .padding(.top, 4)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(Color.titleSectionColor)
+            VStack(alignment: .center) {
+                Text("Artigos")
+                    .font(.title2)
+                    .bold()
+                    .padding(.top, 4)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundColor(Color.titleSectionColor)
+                    .padding(.bottom, 1)
+                
+                Button(action: {
+                    let stringURL = "https://dev.to/"
+                    if let url = URL(string: stringURL) {
+                        UIApplication.shared.open(url)
+                    }
+                    
+                    //TODO:
+                }) {
+                    HStack {
+                        Text("Abrir dev.to")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.persianBlue)
+                        Image(systemName: "plus.magnifyingglass")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.persianBlue)
+                    }
+                }
+            }
+            
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
@@ -131,6 +153,7 @@ struct HomeView: View {
                     buildShowMoreButton()
                 }
             }
+            .padding(.top, 2)
             .cornerRadius(15)
             //            .shadow(radius: 5)
             
@@ -207,10 +230,11 @@ struct HomeView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Image(systemName: "person.bubble.fill")
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 16))
                                     .foregroundColor(Color.persianBlue)
                                 Text(job.jobTitle ?? "Sem título")
-                                    .font(.system(size: 20))
+                                    .bold()
+                                    .font(.system(size: 16))
                                     .foregroundColor(Color.secondaryBlue)
                             }
                             
