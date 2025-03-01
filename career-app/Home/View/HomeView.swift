@@ -124,16 +124,16 @@ struct HomeView: View {
                     if let url = URL(string: stringURL) {
                         UIApplication.shared.open(url)
                     }
-                    
-                    //TODO:
                 }) {
                     HStack {
                         Text("Abrir dev.to")
                             .font(.system(size: 12))
                             .foregroundColor(Color.persianBlue)
+                            .shadow(radius: 0.5)
                         Image(systemName: "plus.magnifyingglass")
                             .font(.system(size: 12))
                             .foregroundColor(Color.persianBlue)
+                            .shadow(radius: 0.5)
                     }
                 }
             }

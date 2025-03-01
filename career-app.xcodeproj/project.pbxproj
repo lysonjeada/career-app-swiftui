@@ -37,6 +37,7 @@
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
 		24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C4B2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D89C4D2C81834800995945 /* AppDelegate.swift */; };
+		7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7016E7AC2D73A0F200300611 /* SceneDelegate.swift */; };
 		701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC142D389542003F6F86 /* AutoScroller.swift */; };
 		701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */; };
 		701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */; };
@@ -122,6 +123,7 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7016E7AC2D73A0F200300611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		701CBC142D389542003F6F86 /* AutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScroller.swift; sourceTree = "<group>"; };
 		701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEqualHeightHStack.swift; sourceTree = "<group>"; };
 		701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		241917C72C6AE804004147DF /* career-app */ = {
 			isa = PBXGroup;
 			children = (
+				7016E7AC2D73A0F200300611 /* SceneDelegate.swift */,
 				701CBC192D3F3F62003F6F86 /* Profile */,
 				70D288582D24FC73004E9033 /* Utils */,
 				70D2884B2D245EAB004E9033 /* Components */,
@@ -524,6 +527,7 @@
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
 				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
+				7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */,
 				70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */,
 				701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
