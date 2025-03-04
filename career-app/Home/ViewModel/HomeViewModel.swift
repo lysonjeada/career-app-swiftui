@@ -8,7 +8,12 @@
 import Foundation
 import SwiftUI
 
+protocol HomeViewModelCoordinatorDelegate: AnyObject {
+    
+}
+
 final class HomeViewModel: ObservableObject {
+    weak var coordinatorDelegate: HomeViewModelCoordinatorDelegate?
     
     enum State: Equatable {
         case loading
