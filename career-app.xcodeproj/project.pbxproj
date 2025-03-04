@@ -71,6 +71,20 @@
 			remoteGlobalIDString = 241917C42C6AE804004147DF;
 			remoteInfo = "career-app";
 		};
+		70A76C612D77BB8200C5B709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 241917BD2C6AE804004147DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70A76C502D77BB8000C5B709;
+			remoteInfo = CareerAppExample;
+		};
+		70A76C6B2D77BB8200C5B709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 241917BD2C6AE804004147DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70A76C502D77BB8000C5B709;
+			remoteInfo = CareerAppExample;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -124,6 +138,7 @@
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7016E7AC2D73A0F200300611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7016E7AE2D73CF5300300611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		701CBC142D389542003F6F86 /* AutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScroller.swift; sourceTree = "<group>"; };
 		701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEqualHeightHStack.swift; sourceTree = "<group>"; };
 		701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -136,6 +151,9 @@
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DC82D45C22D005F4933 /* JobApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationViewModel.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
+		70A76C512D77BB8000C5B709 /* CareerAppExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CareerAppExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70A76C602D77BB8200C5B709 /* CareerAppExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CareerAppExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		70A76C6A2D77BB8200C5B709 /* CareerAppExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CareerAppExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCard.swift; sourceTree = "<group>"; };
 		70C6F9372D35E6B400984CF7 /* DateInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInputField.swift; sourceTree = "<group>"; };
 		70D288462D1B5CC3004E9033 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -151,6 +169,9 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Career App Unit Tests"; sourceTree = "<group>"; };
+		70A76C522D77BB8000C5B709 /* CareerAppExample */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExample; sourceTree = "<group>"; };
+		70A76C632D77BB8200C5B709 /* CareerAppExampleTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExampleTests; sourceTree = "<group>"; };
+		70A76C6D2D77BB8200C5B709 /* CareerAppExampleUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExampleUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +197,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		70A76C4E2D77BB8000C5B709 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C5D2D77BB8200C5B709 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C672D77BB8200C5B709 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -184,6 +226,9 @@
 			children = (
 				241917C72C6AE804004147DF /* career-app */,
 				243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */,
+				70A76C522D77BB8000C5B709 /* CareerAppExample */,
+				70A76C632D77BB8200C5B709 /* CareerAppExampleTests */,
+				70A76C6D2D77BB8200C5B709 /* CareerAppExampleUITests */,
 				241917C62C6AE804004147DF /* Products */,
 				2492406B2CC9A4570081E887 /* Frameworks */,
 			);
@@ -194,6 +239,9 @@
 			children = (
 				241917C52C6AE804004147DF /* career-app.app */,
 				243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */,
+				70A76C512D77BB8000C5B709 /* CareerAppExample.app */,
+				70A76C602D77BB8200C5B709 /* CareerAppExampleTests.xctest */,
+				70A76C6A2D77BB8200C5B709 /* CareerAppExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,6 +249,7 @@
 		241917C72C6AE804004147DF /* career-app */ = {
 			isa = PBXGroup;
 			children = (
+				7016E7AE2D73CF5300300611 /* Info.plist */,
 				7016E7AC2D73A0F200300611 /* SceneDelegate.swift */,
 				701CBC192D3F3F62003F6F86 /* Profile */,
 				70D288582D24FC73004E9033 /* Utils */,
@@ -440,6 +489,74 @@
 			productReference = 243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		70A76C502D77BB8000C5B709 /* CareerAppExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70A76C722D77BB8200C5B709 /* Build configuration list for PBXNativeTarget "CareerAppExample" */;
+			buildPhases = (
+				70A76C4D2D77BB8000C5B709 /* Sources */,
+				70A76C4E2D77BB8000C5B709 /* Frameworks */,
+				70A76C4F2D77BB8000C5B709 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				70A76C522D77BB8000C5B709 /* CareerAppExample */,
+			);
+			name = CareerAppExample;
+			packageProductDependencies = (
+			);
+			productName = CareerAppExample;
+			productReference = 70A76C512D77BB8000C5B709 /* CareerAppExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		70A76C5F2D77BB8200C5B709 /* CareerAppExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70A76C752D77BB8200C5B709 /* Build configuration list for PBXNativeTarget "CareerAppExampleTests" */;
+			buildPhases = (
+				70A76C5C2D77BB8200C5B709 /* Sources */,
+				70A76C5D2D77BB8200C5B709 /* Frameworks */,
+				70A76C5E2D77BB8200C5B709 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70A76C622D77BB8200C5B709 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				70A76C632D77BB8200C5B709 /* CareerAppExampleTests */,
+			);
+			name = CareerAppExampleTests;
+			packageProductDependencies = (
+			);
+			productName = CareerAppExampleTests;
+			productReference = 70A76C602D77BB8200C5B709 /* CareerAppExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		70A76C692D77BB8200C5B709 /* CareerAppExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70A76C782D77BB8200C5B709 /* Build configuration list for PBXNativeTarget "CareerAppExampleUITests" */;
+			buildPhases = (
+				70A76C662D77BB8200C5B709 /* Sources */,
+				70A76C672D77BB8200C5B709 /* Frameworks */,
+				70A76C682D77BB8200C5B709 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70A76C6C2D77BB8200C5B709 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				70A76C6D2D77BB8200C5B709 /* CareerAppExampleUITests */,
+			);
+			name = CareerAppExampleUITests;
+			packageProductDependencies = (
+			);
+			productName = CareerAppExampleUITests;
+			productReference = 70A76C6A2D77BB8200C5B709 /* CareerAppExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -447,7 +564,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					241917C42C6AE804004147DF = {
@@ -456,6 +573,17 @@
 					243BFFC22CCB34B200D7CF6B = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 241917C42C6AE804004147DF;
+					};
+					70A76C502D77BB8000C5B709 = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					70A76C5F2D77BB8200C5B709 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 70A76C502D77BB8000C5B709;
+					};
+					70A76C692D77BB8200C5B709 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 70A76C502D77BB8000C5B709;
 					};
 				};
 			};
@@ -481,6 +609,9 @@
 			targets = (
 				241917C42C6AE804004147DF /* career-app */,
 				243BFFC22CCB34B200D7CF6B /* Career App Unit Tests */,
+				70A76C502D77BB8000C5B709 /* CareerAppExample */,
+				70A76C5F2D77BB8200C5B709 /* CareerAppExampleTests */,
+				70A76C692D77BB8200C5B709 /* CareerAppExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -499,6 +630,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		243BFFC12CCB34B200D7CF6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C4F2D77BB8000C5B709 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C5E2D77BB8200C5B709 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C682D77BB8200C5B709 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -562,6 +714,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		70A76C4D2D77BB8000C5B709 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C5C2D77BB8200C5B709 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70A76C662D77BB8200C5B709 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -569,6 +742,16 @@
 			isa = PBXTargetDependency;
 			target = 241917C42C6AE804004147DF /* career-app */;
 			targetProxy = 243BFFC72CCB34B200D7CF6B /* PBXContainerItemProxy */;
+		};
+		70A76C622D77BB8200C5B709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70A76C502D77BB8000C5B709 /* CareerAppExample */;
+			targetProxy = 70A76C612D77BB8200C5B709 /* PBXContainerItemProxy */;
+		};
+		70A76C6C2D77BB8200C5B709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70A76C502D77BB8000C5B709 /* CareerAppExample */;
+			targetProxy = 70A76C6B2D77BB8200C5B709 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -703,6 +886,7 @@
 				DEVELOPMENT_TEAM = Y9Y27K9ZT7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "career-app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -732,6 +916,7 @@
 				DEVELOPMENT_TEAM = Y9Y27K9ZT7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "career-app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -788,6 +973,134 @@
 			};
 			name = Release;
 		};
+		70A76C732D77BB8200C5B709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CareerAppExample/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lys.CareerAppExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		70A76C742D77BB8200C5B709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CareerAppExample/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lys.CareerAppExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		70A76C762D77BB8200C5B709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lys.CareerAppExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CareerAppExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CareerAppExample";
+			};
+			name = Debug;
+		};
+		70A76C772D77BB8200C5B709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lys.CareerAppExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CareerAppExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CareerAppExample";
+			};
+			name = Release;
+		};
+		70A76C792D77BB8200C5B709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lys.CareerAppExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CareerAppExample;
+			};
+			name = Debug;
+		};
+		70A76C7A2D77BB8200C5B709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lys.CareerAppExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CareerAppExample;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -814,6 +1127,33 @@
 			buildConfigurations = (
 				243BFFCA2CCB34B200D7CF6B /* Debug */,
 				243BFFCB2CCB34B200D7CF6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70A76C722D77BB8200C5B709 /* Build configuration list for PBXNativeTarget "CareerAppExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70A76C732D77BB8200C5B709 /* Debug */,
+				70A76C742D77BB8200C5B709 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70A76C752D77BB8200C5B709 /* Build configuration list for PBXNativeTarget "CareerAppExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70A76C762D77BB8200C5B709 /* Debug */,
+				70A76C772D77BB8200C5B709 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70A76C782D77BB8200C5B709 /* Build configuration list for PBXNativeTarget "CareerAppExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70A76C792D77BB8200C5B709 /* Debug */,
+				70A76C7A2D77BB8200C5B709 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
