@@ -55,7 +55,40 @@ struct JobApplicationTrackerView: View {
     var body: some View {
         NavigationView {
             VStack {
-                
+                if viewModel.jobApplications.isEmpty {
+                    VStack(alignment: .center) {
+                        Text("Nada foi encontrado :(")
+                            .bold()
+                            .font(.system(size: 28))
+                            .foregroundColor(.persianBlue)
+                        VStack(alignment: .trailing) {
+                            Text("Parece que você ainda não adicionou\nnenhuma candidatura.\nAqui é onde você pode gerenciar\nsuas inscrições em vagas\nde forma organizada.")
+                                .foregroundColor(.persianBlue)
+                                .lineLimit(nil)
+                                .italic()
+                                .font(.system(size: 16))
+                                .padding(.top, 20)
+    //                            .padding(.horizontal, 28)
+                            VStack(alignment: .trailing) {
+                                Text("Clique aqui e adicione")
+                                    .bold()
+                                    .foregroundColor(.persianBlue)
+                                    .font(.system(size: 16))
+                                    
+                                    .padding(.horizontal, 16)
+                                Image("arrow-down")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 120, height: 160, alignment: .center)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    
+                            }
+                            .padding(.top, 100)
+                        }
+                    }
+                    .padding(.top, 160)
+                }
                 ForEach(viewModel.jobApplications) { job in
                     JobApplicationCard(job: job)
                         .frame(alignment: .top)
@@ -84,26 +117,52 @@ struct JobApplicationTrackerView: View {
                         .background(Color.redColor)
                         .cornerRadius(10)
                     }
+                    
                     Button(action: {
                         showAddForm.toggle()
                     }) {
-                        HStack {
-                            Image(systemName: "plus")
-                                .bold()
-                                .foregroundStyle(.white)
-                            Text("Adicionar")
-                                .bold()
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .foregroundColor(.white)
+                        if viewModel.jobApplications.isEmpty {
+                            VStack {
+                                HStack {
+                                    Image(systemName: "plus")
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                    Text("Adicionar")
+                                        .bold()
+                                        .font(.headline)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                    
+                                }
+                                .padding(.horizontal, 12)
+                                .background(Color(red: 0, green: 94, blue: 66))
                                 .cornerRadius(10)
-                            
+                            }
+                            .padding(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.persianBlue, lineWidth: 3) // Adiciona borda com largura 1
+                                )
+                        } else {
+                            HStack {
+                                Image(systemName: "plus")
+                                    .bold()
+                                    .foregroundStyle(.white)
+                                Text("Adicionar")
+                                    .bold()
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                
+                            }
+                            .padding(.horizontal, 12)
+                            .background(Color(red: 0, green: 94, blue: 66))
+                            .cornerRadius(10)
                         }
-                        .padding(.horizontal, 12)
-                        .background(Color(red: 0, green: 94, blue: 66))
-                        .cornerRadius(10)
-                        
                     }
                     
                 }

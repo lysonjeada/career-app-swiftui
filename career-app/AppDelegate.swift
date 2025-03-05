@@ -8,7 +8,42 @@
 import FirebaseCore
 import SwiftUI
 
+class DeepLinkManager: ObservableObject {
+    @Published var selectedTab: TabSelection = .home
+    
+    func handleDeepLink(url: URL) {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+              let host = components.host else { return }
+        
+        switch host {
+        case "home":
+            print("home selecionada")
+            selectedTab = .home
+        case "interview":
+            print("interview selecionada")
+            selectedTab = .interview
+        case "tracker":
+            print("tracker selecionada")
+            selectedTab = .tracker
+        case "menu":
+            print("menu selecionada")
+            selectedTab = .menu
+        default:
+            break
+        }
+    }
+}
+
+enum TabSelection: Hashable {
+    case home
+    case interview
+    case tracker
+    case menu
+}
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var deepLinkManager = DeepLinkManager()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configurações globais do app
         FirebaseApp.configure()
@@ -21,19 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Extrai o host (tela) e os parâmetros do URL
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-              let host = components.host else {
-            return false
-        }
-        
-        // Exemplo: meuapp://produto/123
-        if host == "produto", let productID = components.path.split(separator: "/").last {
-            print("Abrindo tela do produto com ID: \(productID)")
-            // Navegue para a tela do produto
-            return true
-        }
-        
-        return false
+        deepLinkManager.handleDeepLink(url: url)
+        return true
     }
 }
