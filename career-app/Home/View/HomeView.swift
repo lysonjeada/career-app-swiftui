@@ -145,6 +145,8 @@ struct HomeView: View {
                         ArticleCard(article: article)
                             .frame(width: 200)
                             .onTapGesture {
+                                //TODO: Chamar um metodo na view model que abra uma view de detalhes com nome, imagem maior e texto com scroll view
+                                viewModel.goToArticleDetail(articleId: article.id)
                                 if let url = URL(string: article.url) {
                                     UIApplication.shared.open(url)
                                 }

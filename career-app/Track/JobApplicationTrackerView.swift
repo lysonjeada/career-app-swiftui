@@ -51,16 +51,18 @@ struct JobApplicationTrackerView: View {
     @State private var newNextInterview = ""
     @State private var newTechnicalSkills = ""
     @State private var showAddForm = false
+    @State private var isAnimating = false
     
     var body: some View {
         NavigationView {
             VStack {
                 if viewModel.jobApplications.isEmpty {
-                    VStack(alignment: .center) {
+                    VStack(alignment: .trailing) {
                         Text("Nada foi encontrado :(")
                             .bold()
                             .font(.system(size: 28))
                             .foregroundColor(.persianBlue)
+                            .padding(.top, 120)
                         VStack(alignment: .trailing) {
                             Text("Parece que você ainda não adicionou\nnenhuma candidatura.\nAqui é onde você pode gerenciar\nsuas inscrições em vagas\nde forma organizada.")
                                 .foregroundColor(.persianBlue)
@@ -68,26 +70,37 @@ struct JobApplicationTrackerView: View {
                                 .italic()
                                 .font(.system(size: 16))
                                 .padding(.top, 20)
-    //                            .padding(.horizontal, 28)
+                                .padding(.bottom, 100)
+                                .frame(alignment: .trailing)
+                            //                            .padding(.horizontal, 28)
                             VStack(alignment: .trailing) {
                                 Text("Clique aqui e adicione")
                                     .bold()
                                     .foregroundColor(.persianBlue)
                                     .font(.system(size: 16))
-                                    
                                     .padding(.horizontal, 16)
+                                    .padding(.bottom, 40)
+                                    .shadow(color: .persianBlue, radius: 0.3, x: 0, y: 0)
                                 Image("arrow-down")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 120, height: 160, alignment: .center)
                                     .clipped()
                                     .cornerRadius(10)
-                                    
+                                    .shadow(color: .persianBlue, radius: 1, x: 0, y: 0)
+                                    .offset(y: isAnimating ? -10 : 10)
+                                    .animation(
+                                        Animation.easeInOut(duration: 1.0)
+                                            .repeatForever(autoreverses: true),
+                                        value: isAnimating
+                                    )
+                                    .onAppear {
+                                        isAnimating = true
+                                    }
+                                
                             }
-                            .padding(.top, 100)
                         }
                     }
-                    .padding(.top, 160)
                 }
                 ForEach(viewModel.jobApplications) { job in
                     JobApplicationCard(job: job)
@@ -141,10 +154,12 @@ struct JobApplicationTrackerView: View {
                                 .cornerRadius(10)
                             }
                             .padding(8)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.persianBlue, lineWidth: 3) // Adiciona borda com largura 1
-                                )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.persianBlue, lineWidth: 3)
+                                    .shadow(color: .persianBlue, radius: 1, x: 0, y: 0)
+                            )
+                            
                         } else {
                             HStack {
                                 Image(systemName: "plus")

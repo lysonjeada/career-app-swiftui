@@ -51,6 +51,9 @@
     "Candidaturas" : {
 
     },
+    "Clique aqui e adicione" : {
+
+    },
     "Company Name" : {
 
     },
@@ -114,13 +117,10 @@
     "Location" : {
 
     },
-    "Menu" : {
-
-    },
-    "Menu View" : {
-
-    },
     "N/A" : {
+
+    },
+    "Nada foi encontrado :(" : {
 
     },
     "Name" : {
@@ -133,6 +133,9 @@
 
     },
     "Other Link" : {
+
+    },
+    "Parece que você ainda não adicionou\nnenhuma candidatura.\nAqui é onde você pode gerenciar\nsuas inscrições em vagas\nde forma organizada." : {
 
     },
     "Perfil" : {

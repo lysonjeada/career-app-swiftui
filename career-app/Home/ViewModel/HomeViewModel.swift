@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 protocol HomeViewModelCoordinatorDelegate: AnyObject {
-    
+    func goToArticleDetail(articleId: Int)
 }
 
 final class HomeViewModel: ObservableObject {
@@ -43,5 +43,9 @@ final class HomeViewModel: ObservableObject {
                 
             }
         }
+    }
+    
+    func goToArticleDetail(articleId: Int) {
+        coordinatorDelegate?.goToArticleDetail(articleId: articleId)
     }
 }

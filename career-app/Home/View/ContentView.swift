@@ -53,19 +53,8 @@ struct CurriculumView: View {
     }
 }
 
-struct MenuView: View {
-    var body: some View {
-        Text("Menu View")
-            .font(.largeTitle)
-            .navigationTitle("Menu")
-    }
-}
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-
-
-

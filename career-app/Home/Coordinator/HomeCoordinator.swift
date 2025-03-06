@@ -20,4 +20,17 @@ final class HomeCoordinator: Coordinator {
         let viewController = UIHostingController(rootView: view)
         self.viewController = viewController
     }
+    
+    private func presentArticleDetail(with articleId: Int) {
+        // TODO: Criar view model, view, view controller e setar modal presentation style para dar o present pela nv
+    }
+    
+}
+
+extension HomeCoordinator: HomeViewModelCoordinatorDelegate {
+    func goToArticleDetail(articleId: Int) {
+        presentArticleDetail(with: articleId)
+    }
+    
+    
 }
