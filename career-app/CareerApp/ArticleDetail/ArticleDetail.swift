@@ -21,22 +21,23 @@ struct ArticleDetail: Codable {
     let collectionId: Int?
     let publishedTimestamp: String
     let language: String
-    let subforemId: Int
+    let subforemId: Int?
     let positiveReactionsCount: Int
-    let coverImage: String
-    let socialImage: String
-    let canonicalUrl: String
+    let coverImage: String?
+    let socialImage: String?
+    let canonicalUrl: String?
     let createdAt: String
     let editedAt: String?
     let crosspostedAt: String?
     let publishedAt: String
-    let lastCommentAt: String
+    let lastCommentAt: String?
     let readingTimeMinutes: Int
-    let tagList: String
+    let tagList: String?
     let tags: [String]
     let bodyHtml: String
     let bodyMarkdown: String
     let user: UserDetail
+    let organization: Organization?
 
     enum CodingKeys: String, CodingKey {
         case typeOf = "type_of"
@@ -68,6 +69,7 @@ struct ArticleDetail: Codable {
         case bodyHtml = "body_html"
         case bodyMarkdown = "body_markdown"
         case user
+        case organization
     }
 }
 
@@ -75,9 +77,9 @@ struct UserDetail: Codable {
     let name: String
     let username: String
     let twitterUsername: String?
-    let githubUsername: String
+    let githubUsername: String?
     let userId: Int
-    let websiteUrl: String
+    let websiteUrl: String?
     let profileImage: String
     let profileImage90: String
 
@@ -88,6 +90,22 @@ struct UserDetail: Codable {
         case githubUsername = "github_username"
         case userId = "user_id"
         case websiteUrl = "website_url"
+        case profileImage = "profile_image"
+        case profileImage90 = "profile_image_90"
+    }
+}
+
+struct Organization: Codable {
+    let name: String
+    let username: String
+    let slug: String
+    let profileImage: String
+    let profileImage90: String
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case username
+        case slug
         case profileImage = "profile_image"
         case profileImage90 = "profile_image_90"
     }

@@ -37,7 +37,6 @@ final class HomeViewModel: ObservableObject {
         task = Task {
             do {
                 self.articles = try await service.fetchArticles()
-                print(articles)
                 self.viewState = .loaded
             }
             catch {

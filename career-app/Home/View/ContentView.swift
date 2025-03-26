@@ -41,6 +41,7 @@ struct ContentView: View {
                 }
                 .tag(TabSelection.menu)
         }
+        
         .navigationDestination(for: Route.self) { route in
             switch route {
             case .articleDetail(let articleId):

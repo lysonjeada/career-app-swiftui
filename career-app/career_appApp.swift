@@ -14,15 +14,7 @@ struct career_appApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $appCoordinator.path) {
-                appCoordinator.view()
-                    .navigationDestination(
-                        for: HomeCoordinator.self
-                    ) { coordinator in
-                        coordinator.view()
-                    }
-            }
-            .environmentObject(appCoordinator)
+            CoordinatorView()
         }
     }
     

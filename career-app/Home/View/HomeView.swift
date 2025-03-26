@@ -4,6 +4,7 @@ struct HomeView: View {
     @State private var showFullArticleList = false
     @StateObject var viewModel: HomeViewModel
     private let articleLimit = 10
+    @EnvironmentObject private var coordinator: Coordinator
     
     @State private var jobApplications = [
         JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
@@ -155,7 +156,8 @@ struct HomeView: View {
                             .frame(width: 200)
                             .onTapGesture {
                                 //TODO: Chamar um metodo na view model que abra uma view de detalhes com nome, imagem maior e texto com scroll view
-                                viewModel.goToArticleDetail(articleId: article.id)
+                                coordinator.push(page: .articleDetail(id: article.id))
+//                                viewModel.goToArticleDetail(articleId: article.id)
                                 //                                if let url = URL(string: article.url) {
                                 //                                    UIApplication.shared.open(url)
                                 //                                }

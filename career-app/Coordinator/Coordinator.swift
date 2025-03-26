@@ -46,6 +46,7 @@ class Coordinator: ObservableObject {
         switch page {
         case .main: HomeView(viewModel: .init(), output: .init(goToMainScreen: { }, goToForgotPassword: { }))
         case .login: LoginView()
+        case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
         }
     }
     
@@ -54,6 +55,7 @@ class Coordinator: ObservableObject {
 enum AppPages: Hashable {
     case main
     case login
+    case articleDetail(id: Int)
 }
 
 enum Sheet: String, Identifiable {
