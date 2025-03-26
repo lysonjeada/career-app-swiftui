@@ -1,23 +1,19 @@
 //
-//  HomeViewModel.swift
+//  ArticleDetailViewModel.swift
 //  career-app
 //
-//  Created by Amaryllis Baldrez on 24/12/24.
+//  Created by Amaryllis Baldrez on 06/03/25.
 //
 
 import Foundation
 import SwiftUI
 
-protocol HomeViewModelCoordinatorDelegate: AnyObject {
+protocol ArticleDetailViewModelCoordinatorDelegate: AnyObject {
     func goToArticleDetail(articleId: Int)
 }
 
-final class HomeViewModel: ObservableObject {
-    weak var coordinatorDelegate: HomeViewModelCoordinatorDelegate? {
-        didSet {
-            print("coordinatorDelegate foi atribuído: \(coordinatorDelegate != nil)")
-        }
-    }
+final class ArticleDetailViewModel: ObservableObject {
+    weak var coordinatorDelegate: ArticleDetailViewModelCoordinatorDelegate?
     
     enum State: Equatable {
         case loading
@@ -26,18 +22,22 @@ final class HomeViewModel: ObservableObject {
     
     @Published private(set) var viewState: State = .loading
     
-    private(set) var articles: [Article] = []
+    private(set) var article: ArticleDetail?
     private var task: Task <Void, Never>?
+    var articleId: Int
     
-    private var service: HomeService = HomeService()
+    private var service: ArticleService = ArticleService()
+    
+    init(articleId: Int) {
+        self.articleId = articleId
+    }
     
     @MainActor
     func fetchArticles() {
         viewState = .loading
         task = Task {
             do {
-                self.articles = try await service.fetchArticles()
-                print(articles)
+                self.article = try await service.fetchArticle(id: articleId)
                 self.viewState = .loaded
             }
             catch {

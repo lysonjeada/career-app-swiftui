@@ -41,22 +41,50 @@ enum TabSelection: Hashable {
     case menu
 }
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var deepLinkManager = DeepLinkManager()
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Configurações globais do app
-        FirebaseApp.configure()
-        return true
-    }
-    
-    // Adicione este método para suportar cenas
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        deepLinkManager.handleDeepLink(url: url)
-        return true
-    }
-}
+//class AppDelegate: UIResponder, UIApplicationDelegate {
+//    var window: UIWindow?
+//    var appCoordinator: Coordinator?
+//    let navigationController = UINavigationController()
+//    var homeCoordinator: HomeCoordinator?
+//    
+//    var deepLinkManager = DeepLinkManager()
+//    
+//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        // Configurações globais do app
+//        FirebaseApp.configure()
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        
+//        // Cria o HomeCoordinator e mantém uma referência forte
+//        homeCoordinator = HomeCoordinator()
+//        
+//        // Define o viewController inicial
+//        if let viewController = homeCoordinator?.start() {
+//            window?.rootViewController = viewController
+//        }
+//        
+//        // Torna a janela visível
+//        window?.makeKeyAndVisible()
+//        
+//        return true
+//        
+//        //        let careerAppModule = CareerAppModule()
+//        //
+//        //        // Obtém o Coordinator inicial (por exemplo, o HomeCoordinator)
+//        //        if let initialCoordinator = careerAppModule.coordinator(for: FlowLocation(path: "home")) {
+//        //            appCoordinator = initialCoordinator
+//        //
+//        //            window?.rootViewController = initialCoordinator.start()
+//        //            window?.makeKeyAndVisible()
+//        //        }
+//    }
+//    
+//    // Adicione este método para suportar cenas
+//    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+//        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+//    }
+//    
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        deepLinkManager.handleDeepLink(url: url)
+//        return true
+//    }
+//}

@@ -13,6 +13,13 @@ struct HomeView: View {
     
     @State private var searchText = ""
     
+    struct Output {
+        var goToMainScreen: () -> Void
+        var goToForgotPassword: () -> Void
+    }
+    
+    var output: Output
+    
     private var profileButton: some View {
         NavigationLink(destination: ProfileView()) {
             Image(systemName: "person.circle")
@@ -60,6 +67,8 @@ struct HomeView: View {
             }
         }
         .onAppear {
+            //            viewModel.coordinatorDelegate = coordinator
+            //            viewModel.coordinatorDelegate = coordinator
             viewModel.fetchArticles()
         }
     }
@@ -147,9 +156,9 @@ struct HomeView: View {
                             .onTapGesture {
                                 //TODO: Chamar um metodo na view model que abra uma view de detalhes com nome, imagem maior e texto com scroll view
                                 viewModel.goToArticleDetail(articleId: article.id)
-                                if let url = URL(string: article.url) {
-                                    UIApplication.shared.open(url)
-                                }
+                                //                                if let url = URL(string: article.url) {
+                                //                                    UIApplication.shared.open(url)
+                                //                                }
                             }
                     }
                     buildShowMoreButton()
@@ -331,7 +340,7 @@ struct HomeView: View {
 
 struct BlogViewView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: HomeViewModel())
+        HomeView(viewModel: HomeViewModel(), output: .init(goToMainScreen: { }, goToForgotPassword: { }))
     }
 }
 

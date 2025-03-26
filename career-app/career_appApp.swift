@@ -10,23 +10,27 @@ import FirebaseAnalytics
 
 @main
 struct career_appApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
-    init() {
-        logSeeInicialScreenEvent()
-    }
+    @StateObject private var appCoordinator = AppCoordinator(path: NavigationPath())
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack(path: $appCoordinator.path) {
+                appCoordinator.view()
+                    .navigationDestination(
+                        for: HomeCoordinator.self
+                    ) { coordinator in
+                        coordinator.view()
+                    }
+            }
+            .environmentObject(appCoordinator)
         }
     }
     
     func logSeeInicialScreenEvent() {
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-          AnalyticsParameterItemID: "id",
-          AnalyticsParameterItemName: "viu-tela-inicial",
-          AnalyticsParameterContentType: "cont",
+            AnalyticsParameterItemID: "id",
+            AnalyticsParameterItemName: "viu-tela-inicial",
+            AnalyticsParameterContentType: "cont",
         ])
     }
 }

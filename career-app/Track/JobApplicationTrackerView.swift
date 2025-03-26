@@ -81,6 +81,15 @@ struct JobApplicationTrackerView: View {
                                     .padding(.horizontal, 16)
                                     .padding(.bottom, 40)
                                     .shadow(color: .persianBlue, radius: 0.3, x: 0, y: 0)
+                                    .offset(y: isAnimating ? -10 : 10)
+                                    .animation(
+                                        Animation.easeInOut(duration: 1.0)
+                                            .repeatForever(autoreverses: true),
+                                        value: isAnimating
+                                    )
+                                    .onAppear {
+                                        isAnimating = true
+                                    }
                                 Image("arrow-down")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

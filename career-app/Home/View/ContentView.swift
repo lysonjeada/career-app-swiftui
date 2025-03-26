@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var deepLinkManager = DeepLinkManager()
+    @StateObject var viewModel: HomeViewModel
     
     var body: some View {
-        let viewModel = HomeViewModel()
         TabView(selection: $deepLinkManager.selectedTab) {
-            HomeView(viewModel: viewModel)
+            HomeView(viewModel: viewModel, output: .init(goToMainScreen: { }, goToForgotPassword: { }))
                 .tabItem {
                     Label(HomeStrings.homeTitle, systemImage: "doc.text")
                         .foregroundColor(.persianBlue)
@@ -41,7 +41,14 @@ struct ContentView: View {
                 }
                 .tag(TabSelection.menu)
         }
-        .environmentObject(deepLinkManager)
+        .navigationDestination(for: Route.self) { route in
+            switch route {
+            case .articleDetail(let articleId):
+                ArticleDetailView(viewModel: ArticleDetailViewModel(articleId: articleId))
+            }
+        }
+        
+        //        .environmentObject(deepLinkManager)
     }
 }
 
@@ -55,6 +62,6 @@ struct CurriculumView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: .init())
     }
 }
