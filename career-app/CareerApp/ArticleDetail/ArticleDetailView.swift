@@ -31,7 +31,7 @@ struct ArticleDetailView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        VStack {
             switch viewModel.viewState {
             case .loading:
                 VStack {
@@ -49,25 +49,14 @@ struct ArticleDetailView: View {
                     }
                     
                 }
-                //                VStack {
-                //                    ScrollView {
-                //                        if let bodyHtml = viewModel.article?.bodyHtml,
-                //                           let attributedString = bodyHtml.htmlToAttributedString {
-                //                            Text(attributedString)
-                //                                .font(.body)
-                //                                .padding(.vertical, 8)
-                //                        } else {
-                //                            Text("Erro ao carregar o conteúdo.")
-                //                                .foregroundColor(.red)
-                //                        }
-                //                    }
-                //                }
                 
             }
         }
         .onAppear {
             viewModel.fetchArticles()
         }
+        
+            
     }
     
     func decodeHTMLEntities(_ string: String) -> String {

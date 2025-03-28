@@ -41,7 +41,7 @@ final class ArticleDetailViewModel: ObservableObject {
                 self.viewState = .loaded
             }
             catch {
-                
+                print(error)
             }
         }
     }

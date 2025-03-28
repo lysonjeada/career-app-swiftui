@@ -69,75 +69,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "89519A78-2417-4962-9B86-97B3B3D4D075"
+            uuid = "192B1B28-DF5C-4B0F-BD26-984730D8C932"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "career-app/CareerApp/ArticleDetail/ArticleDetailViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "fetchArticles()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "89519A78-2417-4962-9B86-97B3B3D4D075 - 5090ccc0a75b9682"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in career_app.ArticleDetailViewModel.fetchArticles() -&gt; ()"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/ArticleDetail/ArticleDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-               <Location
-                  uuid = "89519A78-2417-4962-9B86-97B3B3D4D075 - 8e239f4b03b62d88"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in career_app.ArticleDetailViewModel.fetchArticles() -&gt; ()"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/ArticleDetail/ArticleDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-               <Location
-                  uuid = "89519A78-2417-4962-9B86-97B3B3D4D075 - ebd34ef2c824a9c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in career_app.ArticleDetailViewModel.fetchArticles() -&gt; ()"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/ArticleDetail/ArticleDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-               <Location
-                  uuid = "89519A78-2417-4962-9B86-97B3B3D4D075 - dfb3e11def91a89f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for closure #1 () async -&gt; () in career_app.ArticleDetailViewModel.fetchArticles() -&gt; ()"
-                  moduleName = "career-app.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/ArticleDetail/ArticleDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
