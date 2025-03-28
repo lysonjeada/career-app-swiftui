@@ -39,16 +39,43 @@ struct ArticleDetailView: View {
                 }
             case .loaded:
                 VStack {
-                    Text(viewModel.article?.title ?? "Não encontrado")
-                    Text(viewModel.article?.description ?? "Não encontrado")
-                        .lineLimit(nil)
-                    VStack {
-                        ScrollView {
-                            Text(.init(viewModel.article?.bodyMarkdown ?? ""))
+                    VStack(alignment: .leading) {
+                        Text(viewModel.article?.title ?? "Não encontrado")
+                            .bold()
+                            .font(.system(size: 24))
+                            .lineLimit(nil)
+                            .padding(.bottom, 4)
+                            .padding(.top, 16)
+                        Text(viewModel.article?.description ?? "Não encontrado")
+                            .font(.system(size: 20))
+                            .lineLimit(nil)
+                            .padding(.bottom, 8)
+                        TagCloudView(tags: viewModel.article?.tags ?? [])
+                            .padding(.bottom, 9)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(viewModel.article?.user?.name ?? "Não encontrado")
+                                    .font(.system(size: 16))
+                                Spacer()
+                                Text(viewModel.article?.user?.username ?? "Não encontrado")
+                                    .font(.system(size: 16))
+                            }
+                            
                         }
+                        VStack {
+                            ScrollView {
+                                if let body = viewModel.article?.bodyHtml {
+                                    Text(body)
+                                }
+    //                            Text(viewModel.article?.bodyMarkdown ?? "")
+                            }
+                        }
+                        
                     }
-                    
+                    .padding(.horizontal, 16)
                 }
+                
                 
             }
         }
