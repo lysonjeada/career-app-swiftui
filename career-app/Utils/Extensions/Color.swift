@@ -36,6 +36,14 @@ extension Color {
         .init(red: 6, green: 71, blue: 137, opacity: 1)
     }
     
+    static var persianPaleBlue:Color {
+        .init(red: 140/255, green: 180/255, blue: 220/255)
+    }
+    
+    static var lighterBlue:Color {
+        .init(red: 180/255, green: 210/255, blue: 230/255)
+    }
+    
     static var secondaryBlue: Color {
         .init(red: 6, green: 68, blue: 127, opacity: 1)
     }

@@ -62,25 +62,22 @@ struct AutoScroller: View {
     let autoScrollInterval: TimeInterval = 3.0 // Intervalo para auto-scroll
     
     var body: some View {
-        ZStack {
-            Color.white.ignoresSafeArea()
-            VStack {
-                TabView(selection: $selectedIndex) {
-                    ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-                        buildCarouselItem(item: item)
-                            .padding(.horizontal)
-                            .tag(index) 
-                    }
+        VStack {
+            TabView(selection: $selectedIndex) {
+                ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                    buildCarouselItem(item: item)
+                        .padding(.horizontal)
+                        .tag(index)
                 }
-                .frame(height: 240)
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .ignoresSafeArea()
-                .onReceive(timer) { _ in
-                    autoScroll()
-                }
-                buildCapsules()
-                    .padding(.bottom, 4)
             }
+            .frame(height: 240)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .ignoresSafeArea()
+            .onReceive(timer) { _ in
+                autoScroll()
+            }
+            buildCapsules()
+                .padding(.bottom, 4)
         }
     }
     
@@ -92,7 +89,7 @@ struct AutoScroller: View {
             switch item.cardType {
             case .center:
                 buildLeading(item: item)
-//                buildCenter(item: item)
+                //                buildCenter(item: item)
             case .leading:
                 buildLeading(item: item)
             }
@@ -145,7 +142,7 @@ struct AutoScroller: View {
             }
             .padding(.bottom, 16)
         }
-       
+        
         .padding(.horizontal, 16)
     }
     

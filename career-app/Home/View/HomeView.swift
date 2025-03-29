@@ -33,43 +33,52 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            switch viewModel.viewState {
-            case .loading:
-                VStack {
-                    buildJobsLoading()
-                    buildArticlesLoading()
-                    buildCarouselLoading()
+            ZStack {
+                // Fundo Persian Blue para toda a tela
+                Color.white
+                    .edgesIgnoringSafeArea(.all)
+                
+                // Conteúdo principal
+                switch viewModel.viewState {
+                case .loading:
+                    VStack {
+                        buildJobsLoading()
+                        buildArticlesLoading()
+                        buildCarouselLoading()
+                    }
+                    
+                case .loaded:
+                    ScrollView {
+                        Spacer()
+                        Divider()
+                            .background(Color.white.opacity(1 )) // Divisor mais visível
+                        Spacer()
+                        showNextInterviews()
+                        showArticlesView()
+                        showJobApplication()
+                        showJobApplications()
+                    }
+                    /*.background(Color.persianBlue)*/ // Garante que o scroll view também tenha o fundo
                 }
-            case .loaded:
-                ScrollView {
-                    Spacer()
-                    Divider()
-                    Spacer()
-                    showNextInterviews()
-                    showArticlesView()
-                    showJobApplication()
-                    showJobApplications()
+            }
+            .toolbarBackground(Color.white, for: .navigationBar) // Barra de navegação semi-transparente
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    searchField
                 }
-                .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        searchField
-                    }
-                    ToolbarItem(placement: .automatic) {
-                        Text("Home")
-                            .font(.title)
-                            .bold()
-                            .foregroundColor(Color.persianBlue)
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        profileButton
-                    }
+                ToolbarItem(placement: .automatic) {
+                    Text("HOME")
+                        .font(.system(size: 24))
+                        .bold()
+                        .foregroundColor(.persianBlue) // Texto em branco para contraste
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    profileButton
+                        .foregroundColor(.white) // Ícone do perfil em branco
                 }
             }
         }
         .onAppear {
-            //            viewModel.coordinatorDelegate = coordinator
-            //            viewModel.coordinatorDelegate = coordinator
             viewModel.fetchArticles()
         }
     }
@@ -250,7 +259,6 @@ struct HomeView: View {
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.secondaryBlue)
                             }
-                            
                             Text(job.company)
                                 .font(.system(size: 16))
                                 .foregroundColor(.secondary)
@@ -260,13 +268,11 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 24)
                         .padding(.vertical, 16)
-                        //                        .frame(width: 180, height: 120)
                         .background(Color.backgroundLightGray)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                     }
                 }
-                //                .padding(.horizontal)
                 .padding(.vertical, 10)
             }
         }
