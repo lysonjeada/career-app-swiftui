@@ -54,97 +54,123 @@ struct JobApplicationTrackerView: View {
     @State private var isAnimating = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                if viewModel.jobApplications.isEmpty {
-                    VStack(alignment: .trailing) {
-                        Text("Nada foi encontrado :(")
-                            .bold()
-                            .font(.system(size: 28))
-                            .foregroundColor(.persianBlue)
-                            .padding(.top, 120)
+        NavigationStack {
+            ScrollView {
+                VStack {
+                    if viewModel.jobApplications.isEmpty {
                         VStack(alignment: .trailing) {
-                            Text("Parece que você ainda não adicionou\nnenhuma candidatura.\nAqui é onde você pode gerenciar\nsuas inscrições em vagas\nde forma organizada.")
+                            Text("Nada foi encontrado :(")
+                                .bold()
+                                .font(.system(size: 28))
                                 .foregroundColor(.persianBlue)
-                                .lineLimit(nil)
-                                .italic()
-                                .font(.system(size: 16))
-                                .padding(.top, 20)
-                                .padding(.bottom, 100)
-                                .frame(alignment: .trailing)
-                            //                            .padding(.horizontal, 28)
+                                .padding(.top, 49)
                             VStack(alignment: .trailing) {
-                                Text("Clique aqui e adicione")
-                                    .bold()
+                                Text("Parece que você ainda não adicionou\nnenhuma candidatura.\nAqui é onde você pode gerenciar\nsuas inscrições em vagas\nde forma organizada.")
                                     .foregroundColor(.persianBlue)
+                                    .lineLimit(nil)
+                                    .italic()
                                     .font(.system(size: 16))
-                                    .padding(.horizontal, 16)
-                                    .padding(.bottom, 40)
-                                    .shadow(color: .persianBlue, radius: 0.3, x: 0, y: 0)
-                                    .offset(y: isAnimating ? -10 : 10)
-                                    .animation(
-                                        Animation.easeInOut(duration: 1.0)
-                                            .repeatForever(autoreverses: true),
-                                        value: isAnimating
-                                    )
-                                    .onAppear {
-                                        isAnimating = true
-                                    }
-                                Image("arrow-down")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 120, height: 160, alignment: .center)
-                                    .clipped()
-                                    .cornerRadius(10)
-                                    .shadow(color: .persianBlue, radius: 1, x: 0, y: 0)
-                                    .offset(y: isAnimating ? -10 : 10)
-                                    .animation(
-                                        Animation.easeInOut(duration: 1.0)
-                                            .repeatForever(autoreverses: true),
-                                        value: isAnimating
-                                    )
-                                    .onAppear {
-                                        isAnimating = true
-                                    }
-                                
+                                    .padding(.top, 20)
+                                    .padding(.bottom, 100)
+                                    .frame(alignment: .trailing)
+                                //                            .padding(.horizontal, 28)
+                                VStack(alignment: .trailing) {
+                                    Text("Clique aqui e adicione")
+                                        .bold()
+                                        .foregroundColor(.persianBlue)
+                                        .font(.system(size: 16))
+                                        .padding(.horizontal, 16)
+                                        .padding(.top, 40)
+                                        .shadow(color: .persianBlue, radius: 0.3, x: 0, y: 0)
+                                        .offset(y: isAnimating ? -10 : 10)
+                                        .animation(
+                                            Animation.easeInOut(duration: 1.0)
+                                                .repeatForever(autoreverses: true),
+                                            value: isAnimating
+                                        )
+                                        .onAppear {
+                                            isAnimating = true
+                                        }
+                                    Image("arrow-down")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 120, height: 160, alignment: .center)
+                                        .clipped()
+                                        .cornerRadius(10)
+                                        .shadow(color: .persianBlue, radius: 1, x: 0, y: 0)
+                                        .offset(y: isAnimating ? -10 : 10)
+                                        .animation(
+                                            Animation.easeInOut(duration: 1.0)
+                                                .repeatForever(autoreverses: true),
+                                            value: isAnimating
+                                        )
+                                        .onAppear {
+                                            isAnimating = true
+                                        }
+                                    
+                                }
                             }
                         }
                     }
-                }
-                ForEach(viewModel.jobApplications) { job in
-                    JobApplicationCard(job: job)
-                        .frame(alignment: .top)
-                        .padding(.top, 16)
-                }
-                Spacer()
-                
-                HStack {
-                    Button(action: {
-                        showAddForm.toggle()
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.up.trash")
-                                .bold()
-                                .foregroundStyle(.white)
-                            Text("Apagar")
-                                .bold()
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                            
-                        }
-                        .padding(.horizontal, 12)
-                        .background(Color.redColor)
-                        .cornerRadius(10)
+                    ForEach(viewModel.jobApplications) { job in
+                        JobApplicationCard(job: job)
+                            .frame(alignment: .top)
+                            .padding(.top, 16)
                     }
+                    Spacer()
                     
-                    Button(action: {
-                        showAddForm.toggle()
-                    }) {
-                        if viewModel.jobApplications.isEmpty {
-                            VStack {
+                    HStack {
+                        Button(action: {
+                            showAddForm.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.up.trash")
+                                    .bold()
+                                    .foregroundStyle(.white)
+                                Text("Apagar")
+                                    .bold()
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                
+                            }
+                            .padding(.horizontal, 12)
+                            .background(Color.redColor)
+                            .cornerRadius(10)
+                        }
+                        
+                        Button(action: {
+                            showAddForm.toggle()
+                        }) {
+                            if viewModel.jobApplications.isEmpty {
+                                VStack {
+                                    HStack {
+                                        Image(systemName: "plus")
+                                            .bold()
+                                            .foregroundStyle(.white)
+                                        Text("Adicionar")
+                                            .bold()
+                                            .font(.headline)
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                        
+                                    }
+                                    .padding(.horizontal, 12)
+                                    .background(Color(red: 0, green: 94, blue: 66))
+                                    .cornerRadius(10)
+                                }
+                                .padding(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.persianBlue, lineWidth: 3)
+                                        .shadow(color: .persianBlue, radius: 1, x: 0, y: 0)
+                                )
+                                
+                            } else {
                                 HStack {
                                     Image(systemName: "plus")
                                         .bold()
@@ -162,58 +188,35 @@ struct JobApplicationTrackerView: View {
                                 .background(Color(red: 0, green: 94, blue: 66))
                                 .cornerRadius(10)
                             }
-                            .padding(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.persianBlue, lineWidth: 3)
-                                    .shadow(color: .persianBlue, radius: 1, x: 0, y: 0)
-                            )
-                            
-                        } else {
-                            HStack {
-                                Image(systemName: "plus")
-                                    .bold()
-                                    .foregroundStyle(.white)
-                                Text("Adicionar")
-                                    .bold()
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                                
-                            }
-                            .padding(.horizontal, 12)
-                            .background(Color(red: 0, green: 94, blue: 66))
-                            .cornerRadius(10)
                         }
+                        
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
                     
                 }
-                .padding(.horizontal)
-                
-            }
-            .onAppear {
-                viewModel.fetchJobApplications()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Candidaturas")
-                        .bold()
-                        .font(.system(size: 28))
-                        .foregroundColor(.persianBlue)
+                .onAppear {
+                    viewModel.fetchJobApplications()
                 }
-            }
-            
-            .sheet(isPresented: $showAddForm) {
-                AddJobApplicationForm(
-                    newCompany: $newCompany,
-                    newLevel: $newLevel,
-                    newLastInterview: $newLastInterview,
-                    newNextInterview: $newNextInterview,
-                    newTechnicalSkills: $newTechnicalSkills
-                )
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Text("Candidaturas")
+                            .bold()
+                            .font(.system(size: 28))
+                            .foregroundColor(.persianBlue)
+                    }
+                }
+                
+                .sheet(isPresented: $showAddForm) {
+                    AddJobApplicationForm(
+                        newCompany: $newCompany,
+                        newLevel: $newLevel,
+                        newLastInterview: $newLastInterview,
+                        newNextInterview: $newNextInterview,
+                        newTechnicalSkills: $newTechnicalSkills
+                    )
+                }
             }
         }
     }

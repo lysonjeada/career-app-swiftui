@@ -10,46 +10,108 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var deepLinkManager = DeepLinkManager()
     @StateObject var viewModel: HomeViewModel
+    @State private var searchText = ""
+    
+    private var navigationTitle: String {
+        return deepLinkManager.title
+    }
+    
+    private var profileButton: some View {
+        NavigationLink(destination: ProfileView()) {
+            Image(systemName: "person.circle")
+                .resizable()
+                .clipShape(Circle())
+                .frame(width: 28, height: 28)
+                .foregroundColor(Color.persianBlue)
+        }
+    }
+    
+    private var searchField: some View {
+        HStack {
+            ZStack(alignment: .leading) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                    .padding(.leading, 8)
+                
+                Spacer()
+                
+                TextField("Pesquisar", text: $searchText)
+                    .padding(.leading, 40)
+            }
+            .padding(8)
+            .background(Color(UIColor.systemGray6))
+            .cornerRadius(10)
+        }
+        .frame(width: 200)
+    }
     
     var body: some View {
-        TabView(selection: $deepLinkManager.selectedTab) {
-            HomeView(viewModel: viewModel, output: .init(goToMainScreen: { }, goToForgotPassword: { }))
+        NavigationStack {
+            TabView(selection: $deepLinkManager.selectedTab) {
+            
+                HomeView(viewModel: viewModel, output: .init(goToMainScreen: { }, goToForgotPassword: { }))
+                        
                 .tabItem {
                     Label(HomeStrings.homeTitle, systemImage: "doc.text")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.home)
-            
-            InterviewGenerateQuestionsView(viewModel: GenerateQuestionsViewModel())
+                
+                NavigationStack {
+                    InterviewGenerateQuestionsView(viewModel: GenerateQuestionsViewModel())
+                }
                 .tabItem {
                     Label(HomeStrings.interviewTitle, systemImage: "mic.fill")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.interview)
-            
-            JobApplicationTrackerView()
+                
+                NavigationStack {
+                    JobApplicationTrackerView()
+                }
                 .tabItem {
                     Label(HomeStrings.resumeTitle, systemImage: "book.fill")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.tracker)
-            
-            MenuView()
+                
+                NavigationStack {
+                    MenuView()
+                }
                 .tabItem {
                     Label(HomeStrings.menuTitle, systemImage: "line.horizontal.3")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.menu)
+            }
         }
-        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                searchField
+            }
+            ToolbarItem(placement: .principal) {
+                Text(deepLinkManager.title)
+                    .font(.system(size: 20, weight: .bold))
+                    .bold()
+                    .foregroundColor(.white)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                profileButton
+                    .foregroundColor(.persianBlue)
+            }
+            
+        }
+        .toolbarBackground(Color.persianBlue, for: .navigationBar)
+        .toolbarColorScheme(.light, for: .navigationBar)
+        .navigationBarTitleDisplayMode(.inline)
+            
         .navigationDestination(for: Route.self) { route in
             switch route {
             case .articleDetail(let articleId):
                 ArticleDetailView(viewModel: ArticleDetailViewModel(articleId: articleId))
             }
         }
-        
-        //        .environmentObject(deepLinkManager)
+        .accentColor(.persianBlue)
     }
 }
 

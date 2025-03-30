@@ -112,44 +112,6 @@ final class HomeCoordinator: Hashable {
         navigationPath.append(value)
     }
     
-//    weak var delegate: CoordinatorDelegate?
-//    var childCoordinator: Coordinator?
-//    var viewController: UIViewController!
-//    var navigationController: UINavigationController?
-//    
-//    @Published var navigationPath = NavigationPath()
-//    
-//    private var viewModel: HomeViewModel!
-//    
-//    init() {
-//        viewModel = HomeViewModel()
-//        self.navigationController = UINavigationController(rootViewController: UIHostingController(rootView: HomeView(viewModel:  .constant(self.viewModel))))
-//        let view = HomeView(viewModel: .constant(self.viewModel))
-//        let viewController = UIHostingController(rootView: view)
-//        viewModel.coordinatorDelegate = self
-//        navigationController?.pushViewController(viewController, animated: true)
-//    }
-//    
-//    public func start() -> UIViewController {
-//        viewModel = HomeViewModel()
-//        let view = HomeView(viewModel:  .constant(self.viewModel))
-//        let viewController = UIHostingController(rootView: view)
-//        self.navigationController = UINavigationController(rootViewController: viewController)
-//        viewModel.coordinatorDelegate = self
-//        self.viewController = viewController
-//        return viewController
-//    }
-//    
-//    private func presentArticleDetail(with articleId: Int) {
-//        let viewModel = ArticleDetailViewModel(articleId: articleId)
-//        viewModel.coordinatorDelegate = self
-//        let view = ArticleDetailView(viewModel: viewModel)
-////        let viewController = UIHostingController(rootView: view)
-////        viewController.modalPresentationStyle = .fullScreen
-//        navigationPath.append(Route.articleDetail(articleId: viewModel.articleId))
-//        
-//        // TODO: Criar view model, view, view controller e setar modal presentation style para dar o present pela nv
-//    }
 }
 
 enum Route: Hashable {

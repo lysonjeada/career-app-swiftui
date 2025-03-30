@@ -5,6 +5,7 @@ struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     private let articleLimit = 10
     @EnvironmentObject private var coordinator: Coordinator
+    @StateObject var deepLinkManager = DeepLinkManager()
     
     @State private var jobApplications = [
         JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
@@ -26,19 +27,13 @@ struct HomeView: View {
             Image(systemName: "person.circle")
                 .resizable()
                 .clipShape(Circle())
-                .frame(width: 35, height: 35)
+                .frame(width: 28, height: 28)
                 .foregroundColor(Color.persianBlue)
         }
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Fundo Persian Blue para toda a tela
-                Color.white
-                    .edgesIgnoringSafeArea(.all)
-                
-                // Conteúdo principal
+            VStack {
                 switch viewModel.viewState {
                 case .loading:
                     VStack {
@@ -46,41 +41,32 @@ struct HomeView: View {
                         buildArticlesLoading()
                         buildCarouselLoading()
                     }
-                    
                 case .loaded:
                     ScrollView {
-                        Spacer()
-                        Divider()
-                            .background(Color.white.opacity(1 )) // Divisor mais visível
-                        Spacer()
-                        showNextInterviews()
-                        showArticlesView()
-                        showJobApplication()
-                        showJobApplications()
+                        VStack(spacing: 16) {
+                            Divider()
+                                .background(Color.gray.opacity(0.3))
+                            showNextInterviews()
+                            showArticlesView()
+                            showJobApplication()
+                            showJobApplications()
+                        }
+                        .navigationTitle(Text("testeee"))
                     }
-                    /*.background(Color.persianBlue)*/ // Garante que o scroll view também tenha o fundo
+                    
                 }
+                    
             }
-            .toolbarBackground(Color.white, for: .navigationBar) // Barra de navegação semi-transparente
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    searchField
-                }
-                ToolbarItem(placement: .automatic) {
-                    Text("HOME")
-                        .font(.system(size: 24))
-                        .bold()
-                        .foregroundColor(.persianBlue) // Texto em branco para contraste
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    profileButton
-                        .foregroundColor(.white) // Ícone do perfil em branco
-                }
-            }
-        }
+            
         .onAppear {
             viewModel.fetchArticles()
         }
+        
+    }
+    
+    @ViewBuilder
+    func buildHomeView() -> some View {
+        
     }
     
     @ViewBuilder
@@ -133,7 +119,6 @@ struct HomeView: View {
                 Text("Artigos")
                     .font(.title2)
                     .bold()
-                    .padding(.top, 4)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(Color.titleSectionColor)
                     .padding(.bottom, 1)
@@ -163,10 +148,11 @@ struct HomeView: View {
                     ForEach(viewModel.articles.prefix(articleLimit)) { article in
                         ArticleCard(article: article)
                             .frame(width: 200)
+                            .padding(.vertical, 2)
                             .onTapGesture {
                                 //TODO: Chamar um metodo na view model que abra uma view de detalhes com nome, imagem maior e texto com scroll view
                                 coordinator.push(page: .articleDetail(id: article.id))
-//                                viewModel.goToArticleDetail(articleId: article.id)
+                                //                                viewModel.goToArticleDetail(articleId: article.id)
                                 //                                if let url = URL(string: article.url) {
                                 //                                    UIApplication.shared.open(url)
                                 //                                }
@@ -180,7 +166,6 @@ struct HomeView: View {
             //            .shadow(radius: 5)
             
         }
-        Spacer()
         Divider()
     }
     
@@ -190,7 +175,6 @@ struct HomeView: View {
             Text("Próximas Entrevistas")
                 .font(.title2)
                 .bold()
-                .padding(.top, 4)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.titleSectionColor)
             ScrollView(.horizontal, showsIndicators: false) {
@@ -228,11 +212,11 @@ struct HomeView: View {
                         .shadow(radius: 5)
                     }
                 }
-                .padding(.vertical, 4)
+                .padding(.vertical, 2)
             }
             //            .padding(.horizontal)
         }
-        Spacer()
+        
         Divider()
     }
     
@@ -276,7 +260,7 @@ struct HomeView: View {
                 .padding(.vertical, 10)
             }
         }
-        Spacer()
+        
         Divider()
     }
     
@@ -307,7 +291,7 @@ struct HomeView: View {
                 ])
         }
         
-        Spacer()
+        
         Divider()
     }
     
