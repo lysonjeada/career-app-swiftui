@@ -48,6 +48,9 @@
     "by %@" : {
 
     },
+    "Cadastre-se" : {
+
+    },
     "Candidaturas" : {
 
     },
@@ -58,12 +61,6 @@
 
     },
     "Concluir" : {
-
-    },
-    "Curriculum" : {
-
-    },
-    "Curriculum View" : {
 
     },
     "Datas" : {
@@ -78,10 +75,22 @@
     "Email" : {
 
     },
+    "EMAIL" : {
+
+    },
+    "Entrar sem login" : {
+
+    },
     "Entrevistas" : {
 
     },
+    "Esqueceu a senha?" : {
+
+    },
     "Experiência Profissional" : {
+
+    },
+    "Faça o login para continuar" : {
 
     },
     "Fechar" : {
@@ -115,6 +124,9 @@
 
     },
     "Location" : {
+
+    },
+    "Log in" : {
 
     },
     "Login" : {
@@ -174,6 +186,9 @@
     "Selecione Skills" : {
 
     },
+    "SENHA" : {
+
+    },
     "Skills" : {
 
     },
@@ -184,9 +199,6 @@
 
     },
     "Tap to Authorize and Show Calendar" : {
-
-    },
-    "testeee" : {
 
     },
     "Todos os Artigos" : {

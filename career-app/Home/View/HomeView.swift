@@ -36,10 +36,13 @@ struct HomeView: View {
             VStack {
                 switch viewModel.viewState {
                 case .loading:
-                    VStack {
-                        buildJobsLoading()
-                        buildArticlesLoading()
-                        buildCarouselLoading()
+                    ScrollView {
+                        VStack {
+                            buildJobsLoading()
+                            buildArticlesLoading()
+                            buildJobsLoading()
+                            buildCarouselLoading()
+                        }
                     }
                 case .loaded:
                     ScrollView {
@@ -51,7 +54,6 @@ struct HomeView: View {
                             showJobApplication()
                             showJobApplications()
                         }
-                        .navigationTitle(Text("testeee"))
                     }
                     
                 }

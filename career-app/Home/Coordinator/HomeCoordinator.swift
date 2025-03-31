@@ -59,24 +59,25 @@ final class HomeCoordinator: Hashable {
     }
 
     private func loginView() -> some View {
-        let viewModel = HomeViewModel()
-        let loginView = HomeView(
-            viewModel: viewModel,
-            output:
-                .init(
-                    goToMainScreen: {
-                        self.output?.goToMainScreen()
-                    },
-                    goToForgotPassword:  {
-                        self.push(
-                            HomeCoordinator(
-                                page: .forgotPassword,
-                                navigationPath: self.$navigationPath
-                            )
-                        )
-                    }
-                )
-        )
+//        let viewModel = HomeViewModel()
+//        let loginView = HomeView(
+//            viewModel: viewModel,
+//            output:
+//                .init(
+//                    goToMainScreen: {
+//                        self.output?.goToMainScreen()
+//                    },
+//                    goToForgotPassword:  {
+//                        self.push(
+//                            HomeCoordinator(
+//                                page: .forgotPassword,
+//                                navigationPath: self.$navigationPath
+//                            )
+//                        )
+//                    }
+//                )
+//        )
+        let loginView = LoginView()
         return loginView
     }
 

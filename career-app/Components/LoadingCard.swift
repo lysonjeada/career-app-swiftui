@@ -77,18 +77,20 @@ struct LoadingCard: View {
             HStack(spacing: 16) {
                 ForEach(1...2, id: \.self) { _ in
                     VStack(alignment: .leading, spacing: 8) {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.skeletonColor)
-                            .frame(height: 100)
-                            .clipped()
-                        
+                        HStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.skeletonColor)
+                                .frame(width: 80, height: 80)
+                                
+                                .clipped()
+                            
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.skeletonColor)
+                                .frame(height: 40)
+                        }
                         RoundedRectangle(cornerRadius: 5)
                             .fill(Color.skeletonColor)
-                            .frame(height: 16)
-                        
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.skeletonColor)
-                            .frame(height: 24)
+                            .frame(height: 32)
                         
                         HStack {
                             RoundedRectangle(cornerRadius: 5)
@@ -102,13 +104,14 @@ struct LoadingCard: View {
                                 .frame(width: 40, height: 14, alignment: .trailing)
                         }
                     }
-                    .padding()
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 16)
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(radius: 5)
                 }
             }
-            .padding(.vertical)
+            .padding(.vertical, 8)
         }
     }
     
@@ -139,10 +142,8 @@ struct LoadingCard: View {
 #Preview {
     VStack {
         LoadingCard(style: .job, title: "Próximas Entrevistas")
-        Spacer()
         Divider()
         LoadingCard(style: .article, title: "Artigos")
-        Spacer()
         Divider()
         LoadingCard(style: .carousel, title: nil)
     }

@@ -9,13 +9,13 @@ import FirebaseCore
 import SwiftUI
 
 class DeepLinkManager: ObservableObject {
-    @Published var selectedTab: TabSelection = .home {
+    @Published var selectedTab: TabSelection = .login {
         didSet {
             updateTitle()
         }
     }
     
-    @Published var title: String = "HOME"
+    @Published var title: String = "Login"
     
     private func updateTitle() {
         switch selectedTab {
@@ -27,6 +27,8 @@ class DeepLinkManager: ObservableObject {
             title = "Tracker"
         case .menu:
             title = "Menu"
+        case .login:
+            title = "Login"
         }
     }
     
@@ -62,6 +64,7 @@ class DeepLinkManager: ObservableObject {
         case interview
         case tracker
         case menu
+        case login
     }
     
     //class AppDelegate: UIResponder, UIApplicationDelegate {

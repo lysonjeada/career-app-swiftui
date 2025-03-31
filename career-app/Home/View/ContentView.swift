@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var deepLinkManager = DeepLinkManager()
+    @EnvironmentObject var coordinator: Coordinator
+    @EnvironmentObject var deepLinkManager: DeepLinkManager
     @StateObject var viewModel: HomeViewModel
     @State private var searchText = ""
     
@@ -22,7 +23,7 @@ struct ContentView: View {
                 .resizable()
                 .clipShape(Circle())
                 .frame(width: 28, height: 28)
-                .foregroundColor(Color.persianBlue)
+                .foregroundColor(Color.white)
         }
     }
     
@@ -46,82 +47,71 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            TabView(selection: $deepLinkManager.selectedTab) {
+        TabView(selection: $deepLinkManager.selectedTab) {
             
-                HomeView(viewModel: viewModel, output: .init(goToMainScreen: { }, goToForgotPassword: { }))
-                        
+            HomeView(viewModel: viewModel, output: .init(goToMainScreen: { }, goToForgotPassword: { }))
+            
                 .tabItem {
                     Label(HomeStrings.homeTitle, systemImage: "doc.text")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.home)
-                
-                NavigationStack {
-                    InterviewGenerateQuestionsView(viewModel: GenerateQuestionsViewModel())
-                }
+                .toolbarBackground(Color.persianBlue, for:
+                        .tabBar) // Fundo azul para a TabBar
+                .toolbarColorScheme(.light, for: .tabBar) // Garante ícones claros
+                .tint(.white)
+            
+            
+            InterviewGenerateQuestionsView(viewModel: GenerateQuestionsViewModel())
                 .tabItem {
                     Label(HomeStrings.interviewTitle, systemImage: "mic.fill")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.interview)
-                
-                NavigationStack {
-                    JobApplicationTrackerView()
-                }
+                .toolbarBackground(.visible, for: .tabBar)
+            
+            
+            JobApplicationTrackerView()
+            
                 .tabItem {
                     Label(HomeStrings.resumeTitle, systemImage: "book.fill")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.tracker)
-                
-                NavigationStack {
-                    MenuView()
-                }
+            
+            
+            MenuView()
+            
                 .tabItem {
                     Label(HomeStrings.menuTitle, systemImage: "line.horizontal.3")
                         .foregroundColor(.persianBlue)
                 }
                 .tag(TabSelection.menu)
-            }
+                
         }
+        
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 searchField
             }
             ToolbarItem(placement: .principal) {
-                Text(deepLinkManager.title)
-                    .font(.system(size: 20, weight: .bold))
+                Text(navigationTitle)
+                    .font(.system(size: 20))
                     .bold()
                     .foregroundColor(.white)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 profileButton
-                    .foregroundColor(.persianBlue)
             }
-            
         }
         .toolbarBackground(Color.persianBlue, for: .navigationBar)
         .toolbarColorScheme(.light, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
-            
-        .navigationDestination(for: Route.self) { route in
-            switch route {
-            case .articleDetail(let articleId):
-                ArticleDetailView(viewModel: ArticleDetailViewModel(articleId: articleId))
-            }
-        }
-        .accentColor(.persianBlue)
+        .navigationBarBackButtonHidden(true) 
     }
+    
 }
 
-struct CurriculumView: View {
-    var body: some View {
-        Text("Curriculum View")
-            .font(.largeTitle)
-            .navigationTitle("Curriculum")
-    }
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

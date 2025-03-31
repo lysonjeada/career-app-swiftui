@@ -12,6 +12,7 @@ class Coordinator: ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
     @Published var sheet: Sheet?
     @Published var fullScreenCover: FullScreenCover?
+    @Published var isLoggedIn: Bool = false
     
     func push(page: AppPages) {
         path.append(page)
@@ -42,14 +43,21 @@ class Coordinator: ObservableObject {
     }
     
     @ViewBuilder
+    func buildRootView() -> some View {
+        if isLoggedIn {
+            ContentView(viewModel: .init()) // Sua TabView principal
+        } else {
+            LoginView()
+        }
+    }
+    
+    @ViewBuilder
     func build(page: AppPages) -> some View {
         switch page {
         case .main: ContentView(viewModel: .init())
             /*HomeView(viewModel: .init(), output: .init(goToMainScreen: { }, goToForgotPassword: { }))*/
         case .login: LoginView()
         case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
-//        case .addJob(let newCompany, let newLevel, let newLastInterview, let newNextInterview, let newTechnicalSkills):
-//            AddJobApplicationForm(newCompany: .constant(newCompany), newLevel: .constant(newLevel), newLastInterview: .constant(newLastInterview), newNextInterview: .constant(newNextInterview), newTechnicalSkills: .constant(newTechnicalSkills))
         }
     }
     
@@ -59,11 +67,11 @@ enum AppPages: Hashable {
     case main
     case login
     case articleDetail(id: Int)
-//    case addJob(newCompany: String,
-//                newLevel: String,
-//                newLastInterview: String,
-//                newNextInterview: String,
-//                newTechnicalSkills: String)
+    //    case addJob(newCompany: String,
+    //                newLevel: String,
+    //                newLastInterview: String,
+    //                newNextInterview: String,
+    //                newTechnicalSkills: String)
 }
 
 enum Sheet: String, Identifiable {
