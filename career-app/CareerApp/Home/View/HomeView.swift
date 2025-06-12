@@ -281,10 +281,10 @@ struct HomeView: View {
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.secondaryBlue)
                             }
-                            Text(job.company)
+                            Text((job.company))
                                 .font(.system(size: 16))
                                 .foregroundColor(.secondary)
-                            Text(job.nextInterview ?? "N/A")
+                            Text("📆 \(job.nextInterview ?? "N/A")")
                                 .font(.system(size: 12))
                                 .foregroundColor(.secondary)
                         }

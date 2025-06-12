@@ -33,8 +33,13 @@ struct SkillSelectionView: View {
             .navigationTitle("Selecione Skills")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Fechar") {
+                    Button(action: {
+                        // Fecha a view
                         UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.dismiss(animated: true)
+                    }) {
+                        Image(systemName: "xmark") // Ícone "X" do SF Symbols
+                            .font(.system(size: 17, weight: .bold))
+                            .foregroundColor(.persianBlue)
                     }
                 }
             }

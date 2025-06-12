@@ -34,6 +34,7 @@ struct AddJobApplicationForm: View {
                         Text("Adicione senioridade e cargo")
                             .font(.system(size: 24))
                             .padding(.bottom, 4)
+                            .padding(.top, 16)
                         
                         HStack {
                             testFieldTest(placeholder: "Senioridade", value: $newLevel)
@@ -50,7 +51,7 @@ struct AddJobApplicationForm: View {
                         Text("Sobre a empresa")
                             .font(.system(size: 24))
                         
-                        testFieldTest(placeholder: "Empresa", value: $newCompany)
+                        testFieldTest(placeholder: "Nome da empresa", value: $newCompany)
                         
                         Divider().padding(.vertical)
                         
@@ -58,8 +59,7 @@ struct AddJobApplicationForm: View {
                         
                         Divider().padding(.vertical)
                         
-                        
-                        
+                    
                         VStack(alignment: .leading) {
                             Text("Datas")
                                 .font(.system(size: 24))
