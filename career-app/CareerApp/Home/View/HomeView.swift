@@ -33,33 +33,33 @@ struct HomeView: View {
     }
     
     var body: some View {
-            VStack {
-                switch viewModel.viewState {
-                case .loading:
-                    ScrollView {
-                        VStack {
-                            buildJobsLoading()
-                            buildArticlesLoading()
-                            buildJobsLoading()
-                            buildCarouselLoading()
-                        }
+        VStack {
+            switch viewModel.viewState {
+            case .loading:
+                ScrollView {
+                    VStack {
+                        buildJobsLoading()
+                        buildArticlesLoading()
+                        buildJobsLoading()
+                        buildCarouselLoading()
                     }
-                case .loaded:
-                    ScrollView {
-                        VStack(spacing: 16) {
-                            Divider()
-                                .background(Color.gray.opacity(0.3))
-                            showNextInterviews()
-                            showArticlesView()
-                            showJobApplication()
-                            showJobApplications()
-                        }
-                    }
-                    
                 }
-                    
+            case .loaded:
+                ScrollView {
+                    VStack(spacing: 16) {
+                        Divider()
+                            .background(Color.gray.opacity(0.3))
+                        showNextInterviews()
+                        showArticlesView()
+                        showJobApplication()
+                        showJobApplications()
+                    }
+                }
+                
             }
             
+        }
+        
         .onAppear {
             viewModel.fetchArticles()
         }
@@ -173,49 +173,85 @@ struct HomeView: View {
     
     @ViewBuilder
     func showNextInterviews() -> some View {
-        VStack(alignment: .leading) {
-            Text("Próximas Entrevistas")
-                .font(.title2)
-                .bold()
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(Color.titleSectionColor)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(jobApplications) { job in
-                        VStack(alignment: .leading, spacing: 8) {
-                            if let nextInterview = job.nextInterview,
-                               let formattedDate = formatDate(nextInterview) {
-                                HStack {
-                                    Image(systemName: "calendar.badge.clock")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.persianBlue)
-                                    Text(formattedDate)
-                                        .font(.system(size: 16))
-                                        .bold()
-                                        .foregroundColor(Color.persianBlue)
+        VStack {
+            VStack(alignment: .leading) {
+                Text("Próximas Entrevistas")
+                    .font(.title2)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundColor(Color.titleSectionColor)
+                if !coordinator.isLoggedIn {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(jobApplications) { job in
+                                VStack(alignment: .leading, spacing: 8) {
+                                    if let nextInterview = job.nextInterview,
+                                       let formattedDate = formatDate(nextInterview) {
+                                        HStack {
+                                            Image(systemName: "calendar.badge.clock")
+                                                .font(.system(size: 16))
+                                                .foregroundColor(Color.persianBlue)
+                                            Text(formattedDate)
+                                                .font(.system(size: 16))
+                                                .bold()
+                                                .foregroundColor(Color.persianBlue)
+                                        }
+                                    } else {
+                                        Text("N/A")
+                                            .font(.system(size: 16))
+                                            .bold()
+                                            .foregroundColor(Color.persianBlue)
+                                    }
+                                    Text(job.jobTitle ?? "Sem título")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color.secondaryBlue)
+                                    Text(job.company)
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.secondary)
                                 }
-                            } else {
-                                Text("N/A")
-                                    .font(.system(size: 16))
-                                    .bold()
-                                    .foregroundColor(Color.persianBlue)
+                                .padding(.vertical, 24)
+                                .padding(.horizontal, 20)
+                                .background(Color.backgroundLightGray)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
                             }
-                            Text(job.jobTitle ?? "Sem título")
-                                .font(.system(size: 12))
-                                .foregroundColor(Color.secondaryBlue)
-                            Text(job.company)
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
                         }
-                        .padding(.vertical, 24)
-                        .padding(.horizontal, 20)
-                        .background(Color.backgroundLightGray)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
+                        .padding(.vertical, 2)
                     }
                 }
-                .padding(.vertical, 2)
             }
+            if coordinator.isLoggedIn {
+                VStack(alignment: .center) {
+                    Image(systemName: "exclamationmark.magnifyingglass")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.persianLightBlue)
+                    Text("Nenhuma entrevista cadastrada")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.black)
+                        .padding(.bottom, 4)
+                    Text("Faça o login para cadastrar\ne consultar entrevistas")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color.descriptionGray)
+                        .padding(.bottom, 8)
+                    Button(action: {
+                        let stringURL = "https://dev.to/"
+                        if let url = URL(string: stringURL) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        
+                        Text("Fazer login")
+                            .font(.system(size: 18))
+                            .foregroundColor(Color.persianBlue)
+                            .shadow(radius: 0.5)
+                        
+                    }
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 20)
+            }
+
             //            .padding(.horizontal)
         }
         

@@ -20,9 +20,7 @@ let package = Package(
         // Target do app principal
         .target(
             name: "career-app-swiftui",
-            dependencies: [
-                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
-            ],
+            dependencies: [],
             path: "Sources",
             exclude: ["main.swift"] // Exclua arquivos não necessários
         ),

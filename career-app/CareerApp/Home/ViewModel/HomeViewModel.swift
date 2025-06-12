@@ -13,11 +13,7 @@ protocol HomeViewModelCoordinatorDelegate: AnyObject {
 }
 
 final class HomeViewModel: ObservableObject {
-    weak var coordinatorDelegate: HomeViewModelCoordinatorDelegate? {
-        didSet {
-            print("coordinatorDelegate foi atribuído: \(coordinatorDelegate != nil)")
-        }
-    }
+    weak var coordinatorDelegate: HomeViewModelCoordinatorDelegate?
     
     enum State: Equatable {
         case loading

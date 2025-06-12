@@ -35,7 +35,7 @@ struct ArticleDetail: Codable {
     let tagList: String?
     let tags: [String]?
     let bodyHtml: String?
-    let bodyMarkdown: String?
+    let bodyMarkdown: String? 
     let user: UserDetail?
     let organization: Organization?
     

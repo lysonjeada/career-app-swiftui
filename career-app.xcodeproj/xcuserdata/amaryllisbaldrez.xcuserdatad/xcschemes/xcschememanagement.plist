@@ -4,15 +4,19 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Career App Unit Tests.xcscheme_^#shared#^_</key>
+		<key>Career App Unit Tests.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>CareerAppExample.xcscheme_^#shared#^_</key>
+		<key>CareerAppExample.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
 		</dict>
 		<key>CareerAppExamplee.xcscheme_^#shared#^_</key>
 		<dict>
@@ -22,15 +26,17 @@
 		<key>Promises (Playground).xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>career-app.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>career-appUITests.xcscheme_^#shared#^_</key>
+		<key>career-appUITests.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
