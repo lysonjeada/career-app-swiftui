@@ -31,14 +31,33 @@ struct QuestionsGeneratorStep: Codable {
 }
 
 final class GenerateQuestionsViewModel: ObservableObject {
-    private(set) var steps: [QuestionsGeneratorStep.Step]
+    @Published var generatedQuestions: [Question] = []
     
-    init() {
+    private(set) var steps: [QuestionsGeneratorStep.Step]
+    var service: APIServiceProtocol
+    
+    private var task: Task<Void, Never>?
+    
+    init(service: APIServiceProtocol = APIService()) {
         self.steps = [
             .init(title: "Faça o download do seu currículo", description: "Certifique-se de que seu currículo está atualizado e com suas habilidades bem expostas.", imageButton: "doc.fill", type: .addCurriculum),
-            .init(title: "Selecione cargo e senioridade", description: "Adicione cargo e senioridade correspondente a vaga", imageButton: "chevron.down", type: .addInfoJob),
+            .init(title: "Selecione cargo e senioridade", description: "Adicione cargo e senioridade correspondente à vaga", imageButton: "chevron.down", type: .addInfoJob),
             .init(title: "Adicione mais informações", description: "Adicione a descrição e/ou mais informações da vaga, isso ajuda o gerador de perguntas a ser mais assertivo", imageButton: "chevron.down", type: .addDescriptionJob)
         ]
+        self.service = service
     }
     
+    @MainActor
+    func generateQuestions() {
+        task = Task {
+            do {
+                let result = try await service.request(.listAllQuestions, as: [Question].self)
+                
+                self.generatedQuestions = result
+            } catch {
+                print("❌ Erro ao buscar perguntas: \(error)")
+            }
+        }
+    }
 }
+

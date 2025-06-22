@@ -62,6 +62,11 @@
 		70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC62D447223005F4933 /* JobApplicationService.swift */; };
 		70740DC92D45C23B005F4933 /* JobApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC82D45C22D005F4933 /* JobApplicationViewModel.swift */; };
 		70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DCA2D45C268005F4933 /* SkillSelectionView.swift */; };
+		70819E082E034AD3007815BE /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E072E034ACD007815BE /* APIConstants.swift */; };
+		70819E0A2E034B27007815BE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E092E034B07007815BE /* APIService.swift */; };
+		70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E0B2E036B8B007815BE /* TechStepAPI.swift */; };
+		70819E0E2E036EB8007815BE /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E0D2E036EAF007815BE /* Question.swift */; };
+		70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */; };
 		70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C832D77BCF000C5B709 /* CareerAppModule.swift */; };
 		70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */; };
 		70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C892D77C00700C5B709 /* Coordinator.swift */; };
@@ -168,6 +173,11 @@
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DC82D45C22D005F4933 /* JobApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationViewModel.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
+		70819E072E034ACD007815BE /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		70819E092E034B07007815BE /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		70819E0B2E036B8B007815BE /* TechStepAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechStepAPI.swift; sourceTree = "<group>"; };
+		70819E0D2E036EAF007815BE /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsAnswersSheet.swift; sourceTree = "<group>"; };
 		70A76C832D77BCF000C5B709 /* CareerAppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAppModule.swift; sourceTree = "<group>"; };
 		70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		70A76C892D77C00700C5B709 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -341,6 +351,7 @@
 		244DDABF2C7B981A007FB768 /* GenerateQuestions */ = {
 			isa = PBXGroup;
 			children = (
+				70819E0F2E0373C2007815BE /* Sheet */,
 				70D288572D247FA6004E9033 /* View */,
 				70D288562D247F93004E9033 /* ViewModel */,
 				244DDAC22C7B9B98007FB768 /* Resume */,
@@ -390,6 +401,14 @@
 				244DDAB92C7A72C8007FB768 /* HomeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		70819E0F2E0373C2007815BE /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */,
+			);
+			path = Sheet;
 			sourceTree = "<group>";
 		};
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
@@ -462,6 +481,10 @@
 		70D288482D1B63F2004E9033 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				70819E0D2E036EAF007815BE /* Question.swift */,
+				70819E0B2E036B8B007815BE /* TechStepAPI.swift */,
+				70819E092E034B07007815BE /* APIService.swift */,
+				70819E072E034ACD007815BE /* APIConstants.swift */,
 				700512FB2DFB3903008CF3AF /* HTTPMethod.swift */,
 				700512F92DFB38BE008CF3AF /* CareerURL.swift */,
 				700512F72DFB38A7008CF3AF /* CareerAPI.swift */,
@@ -659,13 +682,17 @@
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
 				70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */,
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
+				70819E0A2E034B27007815BE /* APIService.swift in Sources */,
 				243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */,
 				70740DC92D45C23B005F4933 /* JobApplicationViewModel.swift in Sources */,
+				70819E082E034AD3007815BE /* APIConstants.swift in Sources */,
 				70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */,
 				70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */,
+				70819E0E2E036EB8007815BE /* Question.swift in Sources */,
 				703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */,
 				70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */,
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
+				70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */,
 				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
@@ -705,6 +732,7 @@
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
 				70A76C8C2D77C04F00C5B709 /* CoordinatorPresenter.swift in Sources */,
 				70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */,
+				70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */,
 				243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */,
 				70A76C8F2D7928E400C5B709 /* MenuView.swift in Sources */,
 				24923FA32CC053920081E887 /* LocalizedStrings.swift in Sources */,

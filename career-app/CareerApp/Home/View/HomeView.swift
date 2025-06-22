@@ -8,9 +8,9 @@ struct HomeView: View {
     @StateObject var deepLinkManager = DeepLinkManager()
     
     @State private var jobApplications = [
-        JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
-        JobApplication(company: "Nubank", level: "Sênior", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
-        JobApplication(company: "Itaú", level: "Júnior", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
+        JobApplication(company: "PagBank", level: "Pleno", role: "iOS Developer", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
+        JobApplication(company: "Nubank", level: "Sênior", role: "iOS Developer", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
+        JobApplication(company: "Itaú", level: "Júnior", role: "iOS Developer", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
     ]
     
     @State private var searchText = ""
@@ -228,7 +228,7 @@ struct HomeView: View {
                         .foregroundColor(.persianLightBlue)
                     Text("Nenhuma entrevista cadastrada")
                         .font(.system(size: 16))
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.adaptiveBlack)
                         .padding(.bottom, 4)
                     Text("Faça o login para cadastrar\ne consultar entrevistas")
                         .font(.system(size: 14))
@@ -283,10 +283,10 @@ struct HomeView: View {
                             }
                             Text((job.company))
                                 .font(.system(size: 16))
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.descriptionGray)
                             Text("📆 \(job.nextInterview ?? "N/A")")
                                 .font(.system(size: 12))
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.descriptionGray)
                         }
                         .padding(.horizontal, 24)
                         .padding(.vertical, 16)

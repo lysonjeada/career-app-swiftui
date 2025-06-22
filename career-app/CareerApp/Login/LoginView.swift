@@ -61,11 +61,10 @@ struct LoginView: View {
                 Text("Entrar sem login")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.white)
                     .foregroundColor(.persianBlue)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.persianBlue, lineWidth: 1)
+                            .stroke(Color.persianBlue, lineWidth: 2)
                     )
             }
             HStack {

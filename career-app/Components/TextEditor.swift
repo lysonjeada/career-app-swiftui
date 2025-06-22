@@ -12,6 +12,7 @@ struct TextEditorView: View {
     @State private var isExpanded: Bool = false
     @StateObject private var keyboardObserver = KeyboardObserver()
     @FocusState private var isFocused: Bool
+    var action: () -> Void
     
     var body: some View {
             VStack {
@@ -36,6 +37,7 @@ struct TextEditorView: View {
                         withAnimation(.easeInOut) {
                             isExpanded = false
                             isFocused = false
+                            action()
                         }
                     }) {
                         Text("Concluir")

@@ -10,7 +10,7 @@ import SwiftUI
 
 final public class InterviewQuestionsViewController: UIViewController {
     private lazy var mainView: UIView = {
-        let view = InterviewQuestionsView(questions: [])
+        let view = InterviewQuestionsView()
         let controller = UIHostingController(rootView: view)
         addChild(controller)
         controller.view.translatesAutoresizingMaskIntoConstraints = false

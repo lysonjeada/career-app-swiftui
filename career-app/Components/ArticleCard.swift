@@ -49,7 +49,7 @@ struct ArticleCard: View {
             .padding(.horizontal, 16)
             Text(article.description)
                 .font(.system(size: 12))
-                .foregroundColor(.secondary)
+                .foregroundColor(.descriptionGray)
                 .lineLimit(3)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 4)
@@ -57,12 +57,12 @@ struct ArticleCard: View {
             HStack {
                 Text(article.readable_publish_date)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.descriptionGray)
                 Spacer()
                 Text("by \(article.user.name)")
                     .font(.caption)
                     .lineLimit(1)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.descriptionGray)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 4)

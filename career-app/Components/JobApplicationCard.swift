@@ -16,18 +16,27 @@ struct JobApplicationCard: View {
                 // Informações principais alinhadas à esquerda
                 VStack(alignment: .leading) {
                     Text(job.company)
-                        .font(.system(size: 24))
+                        .font(.system(size: 22))
                         .foregroundColor(.fivethBlue)
                         .padding(.bottom, 2)
                     
-                    Text(job.level)
-                        .font(.system(size: 24))
-                        .foregroundColor(.fivethBlue)
-                        .padding(.bottom, 8)
+                    HStack(spacing: 4) {
+                        Text(job.role)
+                            .font(.system(size: 20))
+                            .foregroundColor(.fivethBlue)
+                            .bold()
+                        
+                        Text(job.level)
+                            .font(.system(size: 20))
+                            .foregroundColor(.fivethBlue)
+                            .bold()
+                    }
+                    .padding(.bottom, 4)
                     
                     HStack {
                         Text("Skills")
-                            .font(.system(size: 22))
+                            .italic()
+                            .font(.system(size: 20))
                             .foregroundColor(.fivethBlue)
                         Spacer()
                     }
@@ -48,7 +57,7 @@ struct JobApplicationCard: View {
                                 .foregroundColor(.persianBlue)
                             Text("Editar")
                                 .bold()
-                                .font(.system(size: 24))
+                                .font(.system(size: 20))
                                 .foregroundColor(.persianBlue)
                         }
                     }
@@ -107,9 +116,9 @@ struct JobApplicationCard: View {
                 Image(systemName: "arrowshape.turn.up.backward.2")
                     .resizable()
                     .foregroundColor(.fivethBlue.opacity(0.7))
-                    .frame(width: 20, height: 20)
+                    .frame(width: 16, height: 16)
                 Text(lastInterview)
-                    .font(.system(size: 20))
+                    .font(.system(size: 16))
                     .foregroundColor(.fivethBlue.opacity(0.7))
             }
             HStack {
@@ -117,10 +126,10 @@ struct JobApplicationCard: View {
                     .resizable()
                     .bold()
                     .foregroundColor(Color(red: 0, green: 94, blue: 66))
-                    .frame(width: 20, height: 20)
+                    .frame(width: 16, height: 16)
                 Text(nextInterview)
                     .bold()
-                    .font(.system(size: 20))
+                    .font(.system(size: 16))
                     .foregroundColor(Color(red: 0, green: 94, blue: 66))
             }
         }

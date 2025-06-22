@@ -23,6 +23,7 @@ struct InterviewGenerateQuestionsView: View {
     @StateObject var viewModel: GenerateQuestionsViewModel
     @State private var maxHeight: CGFloat = 0
     @StateObject private var keyboardObserver = KeyboardObserver()
+    @State private var showingNotesAlert = false
     
     let jobTitles = [
         "Full Stack Developer",
@@ -60,9 +61,9 @@ struct InterviewGenerateQuestionsView: View {
     }
     
     @State private var jobApplications = [
-        JobApplication(company: "PagBank", level: "Pleno", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
-        JobApplication(company: "Nubank", level: "Sênior", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
-        JobApplication(company: "Itaú", level: "Júnior", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
+        JobApplication(company: "PagBank", level: "Pleno", role: "iOS Developer", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
+        JobApplication(company: "Nubank", level: "Sênior", role: "iOS Developer", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
+        JobApplication(company: "Itaú", level: "Júnior", role: "iOS Developer", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
     ]
     
     private var profileButton: some View {
@@ -79,21 +80,19 @@ struct InterviewGenerateQuestionsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                buildCarousel()
-                    .frame(alignment: .top)
-                
-                Divider()
-                Spacer()
-                
-                
-//                showNextInterviews()
-//                    .frame(alignment: .top)
-                
+            ScrollView {
+                VStack {
+                    buildCarousel()
+                        .frame(alignment: .top)
+                    Divider()
+                        .padding(.bottom, 16)
+                    createNotesInterview()
+                }
+                .padding(.bottom, -keyboardObserver.keyboardHeight)
             }
-            .padding(.bottom, -keyboardObserver.keyboardHeight)
-            
-            
+            .sheet(isPresented: $showQuestionsView) {
+                GenerateQuestionsAnswersSheet(generatedQuestions: viewModel.generatedQuestions, showQuestionsView: $showQuestionsView)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("Entrevistas")
@@ -140,20 +139,20 @@ struct InterviewGenerateQuestionsView: View {
             VStack {
                 switch type {
                 case .addCurriculum:
-                        createButtonRow(addAction: {}, addSavedResumeAction: {})
+                    createButtonRow(addAction: {}, addSavedResumeAction: {})
                     //                    createButton(button: "rectangle.and.pencil.and.ellipsis", buttonAction: {
                     //                        generateInterviewQuestions()
                     //                        showQuestionsView = true
                     //                    })
                 case .addInfoJob:
-                        buildInfoJob()
+                    buildInfoJob()
                 case .addDescriptionJob:
                     buildDescriptionJob()
-    //                    .padding(.bottom, 8)
+                    //                    .padding(.bottom, 8)
                     
                 }
             }
-                
+            
         }
         
         .frame(height: 296)
@@ -175,7 +174,7 @@ struct InterviewGenerateQuestionsView: View {
                 .font(.system(size: 16))
                 .lineLimit(nil)
                 .lineSpacing(2)
-//                .padding(.horizontal, 16)
+            //                .padding(.horizontal, 16)
                 .foregroundColor(.descriptionGray)
                 .multilineTextAlignment(.center)
             
@@ -186,7 +185,12 @@ struct InterviewGenerateQuestionsView: View {
     
     @ViewBuilder
     func buildDescriptionJob() -> some View {
-        TextEditorView(text: $jobDescription)
+        TextEditorView(text: $jobDescription, action: { actionDescriptionJob() })
+    }
+    
+    private func actionDescriptionJob() {
+        viewModel.generateQuestions()
+        showQuestionsView = true
     }
     
     @ViewBuilder
@@ -239,20 +243,76 @@ struct InterviewGenerateQuestionsView: View {
         
     }
     
-    //    @ViewBuilder
-    //    func createStepHeader(stepText: String,
-    //                          stepTitle: String,
-    //                          button: String,
-    //                          description: String,
-    //                          buttonAction: @escaping () -> Void) -> some View {
-    //        VStack(alignment: .center) {
-    //            createTextHeader(stepText: stepText, stepTitle: stepTitle, description: description)
-    //                .padding(.bottom, 16)
-    //
-    //
-    //            createButton(button: button, buttonAction: buttonAction)
-    //        }
-    //    }
+    @ViewBuilder
+    func createNotesInterview() -> some View {
+        GeometryReader { geometry in
+            VStack(alignment: .leading, spacing: 16) {
+                // Content
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("✏️ Faça anotações no pré, durante ou pós entrevista.")
+                        .bold()
+                        .font(.system(size: min(geometry.size.width * 0.05, 20))) // Responsive font size
+                        .foregroundColor(.adaptiveBlack)
+                    Text("Aproveite os momentos de pré entrevista para anotar sobre você e seus projetos, durante a entrevista anote pontos a melhorar/o que não soube responder e pós entrevista pensar os pontos a melhorar e o que deu certo!")
+                        .font(.system(size: min(geometry.size.width * 0.03, 12)))
+                        .foregroundColor(.descriptionGray)
+                }
+                .padding(.bottom, 8)
+                
+                HStack(spacing: 12) {
+                    Button(action: {
+                        // Try to open Notes app
+                        let notesSchemes = ["mobilenotes://", "notes://"]
+                        var opened = false
+                        for scheme in notesSchemes {
+                            if let url = URL(string: scheme), UIApplication.shared.canOpenURL(url) {
+                                UIApplication.shared.open(url, options: [:]) { success in
+                                    if !success { showNotesUnavailableAlert() }
+                                }
+                                opened = true
+                                break
+                            }
+                        }
+                        if !opened { showNotesUnavailableAlert() }
+                    }) {
+                        Text("Notas do Celular")
+                            .font(.system(size: 16))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: geometry.size.height * 0.15) // 6% of container height
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.blue)
+                    
+                    Button(action: {
+                        // Open your app's notes
+                    }) {
+                        Text("Notas do App")
+                            .font(.system(size: 16))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: geometry.size.height * 0.15) // Same height as first button
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.blue)
+                }
+                .frame(height: geometry.size.height * 0.16) // Slightly taller container for buttons
+            }
+            .padding()
+            .background(Color.backgroundLightGray)
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 3)
+            .padding(.horizontal)
+        }
+        .frame(height: 200) // Fixed height for the entire card
+        .alert("Notas não disponível", isPresented: $showingNotesAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("O aplicativo de notas não pôde ser aberto. Você pode acessá-lo manualmente.")
+        }
+    }
+    
+    private func showNotesUnavailableAlert() {
+        showingNotesAlert = true
+    }
     
     @ViewBuilder
     func createTextHeader(stepText: String,
@@ -395,64 +455,66 @@ struct InterviewGenerateQuestionsView: View {
         }
     }
     
-    func generateInterviewQuestions() {
-        let messages: [[String: String]] = [
-            ["role": "system", "content": "You are a helpful assistant that generates interview questions based on resume information, job title, seniority, and job description."],
-            ["role": "user", "content": """
-                    I have the following resume text:
-                    \(resumeText)
-                    
-                    The job title is \(selectedJobTitle) and the seniority level is \(selectedSeniority).
-                    
-                    The job description is:
-                    \(jobDescription)
-                    
-                    Please generate potential interview questions based on these details.
-                    """
-            ]
-        ]
-        
-        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
-        var request = URLRequest(url: url)
-        
-        if let apiKey = ProcessInfo.processInfo.environment["API_KEY"]  {
-            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        }
-        
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let json: [String: Any] = [
-            "model": "gpt-3.5-turbo",
-            "messages": messages,
-            "max_tokens": 150,
-            "temperature": 0.7
-        ]
-        
-        let jsonData = try! JSONSerialization.data(withJSONObject: json)
-        request.httpBody = jsonData
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Erro: \(error.localizedDescription)")
-                return
-            }
-            
-            if let data = data {
-                let decoder = JSONDecoder()
-                do {
-                    let openAIResponse = try decoder.decode(OpenAIResponse.self, from: data)
-                    let content = openAIResponse.choices.first?.message.content ?? ""
-                    
-                    DispatchQueue.main.async {
-                        self.questions = content.split(separator: "\n").map { String($0) }
-                    }
-                } catch {
-                    print("Erro ao decodificar a resposta: \(error)")
-                }
-            }
-        }.resume()
-    }
+    
+    
+    //    func generateInterviewQuestions() {
+    //        let messages: [[String: String]] = [
+    //            ["role": "system", "content": "You are a helpful assistant that generates interview questions based on resume information, job title, seniority, and job description."],
+    //            ["role": "user", "content": """
+    //                    I have the following resume text:
+    //                    \(resumeText)
+    //
+    //                    The job title is \(selectedJobTitle) and the seniority level is \(selectedSeniority).
+    //
+    //                    The job description is:
+    //                    \(jobDescription)
+    //
+    //                    Please generate potential interview questions based on these details.
+    //                    """
+    //            ]
+    //        ]
+    //
+    //        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+    //        var request = URLRequest(url: url)
+    //
+    //        if let apiKey = ProcessInfo.processInfo.environment["API_KEY"]  {
+    //            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+    //        }
+    //
+    //        request.httpMethod = "POST"
+    //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    //
+    //        let json: [String: Any] = [
+    //            "model": "gpt-3.5-turbo",
+    //            "messages": messages,
+    //            "max_tokens": 150,
+    //            "temperature": 0.7
+    //        ]
+    //
+    //        let jsonData = try! JSONSerialization.data(withJSONObject: json)
+    //        request.httpBody = jsonData
+    //
+    //        URLSession.shared.dataTask(with: request) { data, response, error in
+    //            if let error = error {
+    //                print("Erro: \(error.localizedDescription)")
+    //                return
+    //            }
+    //
+    //            if let data = data {
+    //                let decoder = JSONDecoder()
+    //                do {
+    //                    let openAIResponse = try decoder.decode(OpenAIResponse.self, from: data)
+    //                    let content = openAIResponse.choices.first?.message.content ?? ""
+    //
+    //                    DispatchQueue.main.async {
+    //                        self.questions = content.split(separator: "\n").map { String($0) }
+    //                    }
+    //                } catch {
+    //                    print("Erro ao decodificar a resposta: \(error)")
+    //                }
+    //            }
+    //        }.resume()
+    //    }
 }
 
 struct InterviewGenerateQuestionsView_Previews: PreviewProvider {

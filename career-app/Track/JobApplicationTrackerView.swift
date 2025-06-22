@@ -11,16 +11,18 @@ struct JobApplication: Identifiable {
     var id = UUID()
     var company: String
     var level: String
+    var role: String
     var lastInterview: String?
     var nextInterview: String?
     var technicalSkills: [String]
     var jobTitle: String?
     
-    init(id: UUID = UUID(), company: String, level: String = "", lastInterview: String? = nil, nextInterview: String? = nil, technicalSkills: [String] = [], jobTitle: String? = nil) {
+    init(id: UUID = UUID(), company: String, level: String = "",role: String, lastInterview: String? = nil, nextInterview: String? = nil, technicalSkills: [String] = [], jobTitle: String? = nil) {
         self.id = id
         self.company = company
         self.level = level
         self.lastInterview = lastInterview
+        self.role = role
         self.nextInterview = nextInterview
         self.technicalSkills = technicalSkills
         self.jobTitle = jobTitle
@@ -32,6 +34,7 @@ struct JobApplicationTrackerView: View {
         JobApplication(
             company: "PagBank",
             level: "Pleno",
+            role: "iOS Developer",
             lastInterview: "12/04",
             nextInterview: "18/09",
             technicalSkills: [
@@ -47,6 +50,7 @@ struct JobApplicationTrackerView: View {
     
     @State private var newCompany = ""
     @State private var newLevel = ""
+    @State private var newRole = ""
     @State private var newLastInterview = ""
     @State private var newNextInterview = ""
     @State private var newTechnicalSkills = ""
@@ -116,6 +120,7 @@ struct JobApplicationTrackerView: View {
                         JobApplicationCard(job: job)
                             .frame(alignment: .top)
                             .padding(.top, 16)
+                            .padding(.horizontal, 12)
                     }
                     Spacer()
                     
@@ -230,6 +235,7 @@ struct JobApplicationTrackerView: View {
         let newJob = JobApplication(
             company: newCompany,
             level: newLevel,
+            role: newRole,
             lastInterview: newLastInterview.isEmpty ? nil : newLastInterview,
             nextInterview: newNextInterview.isEmpty ? nil : newNextInterview,
             technicalSkills: technicalSkillsArray,

@@ -4,13 +4,23 @@
     "" : {
 
     },
+    "%@. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@. %2$@"
+          }
+        }
+      }
+    },
     "%lld" : {
 
     },
-    "• %@" : {
+    "+" : {
 
     },
-    "+" : {
+    "✏️ Faça anotações no pré, durante ou pós entrevista." : {
 
     },
     "📆 %@" : {
@@ -32,6 +42,9 @@
 
     },
     "Apagar" : {
+
+    },
+    "Aproveite os momentos de pré entrevista para anotar sobre você e seus projetos, durante a entrevista anote pontos a melhorar/o que não soube responder e pós entrevista pensar os pontos a melhorar e o que deu certo!" : {
 
     },
     "Artigos" : {
@@ -102,7 +115,7 @@
     "Fazer login" : {
 
     },
-    "Generated Interview Questions" : {
+    "Gerar Mais" : {
 
     },
     "Gerar perguntas" : {
@@ -159,6 +172,21 @@
     "Notas" : {
 
     },
+    "Notas do App" : {
+
+    },
+    "Notas do Celular" : {
+
+    },
+    "Notas não disponível" : {
+
+    },
+    "O aplicativo de notas não pôde ser aberto. Você pode acessá-lo manualmente." : {
+
+    },
+    "OK" : {
+
+    },
     "Other Link" : {
 
     },
@@ -166,6 +194,9 @@
 
     },
     "Perfil" : {
+
+    },
+    "Perguntas Geradas" : {
 
     },
     "Pesquisar" : {
@@ -183,10 +214,10 @@
     "Próximas Entrevistas" : {
 
     },
-    "Questions" : {
+    "Salvar" : {
 
     },
-    "Salvar" : {
+    "Salvar Todas" : {
 
     },
     "Selecionar Foto" : {

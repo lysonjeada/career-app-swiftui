@@ -20,7 +20,7 @@ class DeepLinkManager: ObservableObject {
     private func updateTitle() {
         switch selectedTab {
         case .home:
-            title = "Home"
+            title = "TechStep"
         case .interview:
             title = "Entrevistas"
         case .tracker:

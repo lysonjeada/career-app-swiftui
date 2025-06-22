@@ -47,12 +47,6 @@ struct TagCloudView: View {
     }
 }
 
-// Extensão com variações do Persian Blue
-extension Color {
-    static let persianLightBlue = Color(red: 100/255, green: 160/255, blue: 220/255)
-    static let persianLighterBlue = Color(red: 150/255, green: 190/255, blue: 235/255)
-}
-
 // Componente auxiliar WrapStack (mantido igual)
 struct WrapStack: Layout {
     var alignment: Alignment = .center

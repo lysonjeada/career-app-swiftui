@@ -14,6 +14,7 @@ class AddJobApplicationViewModel: ObservableObject {
     func addJobApplication(company: String, level: String, lastInterview: String, nextInterview: String, technicalSkills: [String]) {
         let request = JobApplicationRequest(
             company: company,
+            role: "",
             level: level,
             lastInterview: lastInterview.isEmpty ? nil : lastInterview,
             nextInterview: nextInterview.isEmpty ? nil : nextInterview,
@@ -39,6 +40,7 @@ class AddJobApplicationViewModel: ObservableObject {
                             JobApplication(
                                 company: app.company,
                                 level: app.level,
+                                role: app.role,
                                 lastInterview: app.lastInterview,
                                 nextInterview: app.nextInterview,
                                 technicalSkills: app.technicalSkills
