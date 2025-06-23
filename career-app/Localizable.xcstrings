@@ -67,6 +67,9 @@
     "Cadastre-se" : {
 
     },
+    "Cancelar" : {
+
+    },
     "Candidaturas" : {
 
     },
@@ -77,6 +80,9 @@
 
     },
     "Concluir" : {
+
+    },
+    "Confirmar" : {
 
     },
     "Datas" : {
@@ -100,10 +106,10 @@
     "Entrevistas" : {
 
     },
-    "Esqueceu a senha?" : {
+    "Erro ao salvar" : {
 
     },
-    "Experiência Profissional" : {
+    "Esqueceu a senha?" : {
 
     },
     "Faça o login para cadastrar\ne consultar entrevistas" : {
@@ -124,12 +130,6 @@
     "GitHub" : {
 
     },
-    "Informações pessoais" : {
-
-    },
-    "Instituição de Ensino" : {
-
-    },
     "IR ATÉ O ARTIGO" : {
 
     },
@@ -137,9 +137,6 @@
 
     },
     "LinkedIn" : {
-
-    },
-    "Links" : {
 
     },
     "Location" : {
@@ -164,9 +161,6 @@
 
     },
     "Nenhuma entrevista cadastrada" : {
-
-    },
-    "Nome" : {
 
     },
     "Notas" : {
@@ -205,16 +199,10 @@
     "Phone" : {
 
     },
-    "Portfólio" : {
-
-    },
     "Position" : {
 
     },
     "Próximas Entrevistas" : {
-
-    },
-    "Salvar" : {
 
     },
     "Salvar Todas" : {
@@ -251,6 +239,9 @@
 
     },
     "Você também pode gerar possíveis perguntas para as próximas entrevistas" : {
+
+    },
+    "Voltar" : {
 
     }
   },

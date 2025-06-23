@@ -17,16 +17,6 @@ struct ContentView: View {
         return deepLinkManager.title
     }
     
-    private var profileButton: some View {
-        NavigationLink(destination: ProfileView()) {
-            Image(systemName: "person.circle")
-                .resizable()
-                .clipShape(Circle())
-                .frame(width: 28, height: 28)
-                .foregroundColor(.white)
-        }
-    }
-    
     private var searchField: some View {
         HStack {
             ZStack(alignment: .leading) {
@@ -102,7 +92,15 @@ struct ContentView: View {
                         .foregroundColor(.white)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    profileButton
+                    Button(action: {
+                        coordinator.push(page: .profile)
+                    }) {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 28, height: 28)
+                            .foregroundColor(.white)
+                    }
                 }
             }
             .toolbarBackground(Color.persianBlue, for: .navigationBar)

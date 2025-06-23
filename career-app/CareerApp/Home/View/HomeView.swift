@@ -22,16 +22,6 @@ struct HomeView: View {
     
     var output: Output
     
-    private var profileButton: some View {
-        NavigationLink(destination: ProfileView()) {
-            Image(systemName: "person.circle")
-                .resizable()
-                .clipShape(Circle())
-                .frame(width: 28, height: 28)
-                .foregroundColor(Color.persianBlue)
-        }
-    }
-    
     var body: some View {
         VStack {
             switch viewModel.viewState {

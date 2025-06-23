@@ -58,6 +58,8 @@ class Coordinator: ObservableObject {
             /*HomeView(viewModel: .init(), output: .init(goToMainScreen: { }, goToForgotPassword: { }))*/
         case .login: LoginView()
         case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
+        case .profile:
+            ProfileView(coordinator: self)
         }
     }
     
@@ -67,6 +69,7 @@ enum AppPages: Hashable {
     case main
     case login
     case articleDetail(id: Int)
+    case profile
     //    case addJob(newCompany: String,
     //                newLevel: String,
     //                newLastInterview: String,

@@ -102,15 +102,14 @@ struct ArticleDetailView: View {
                 viewModel.fetchArticles()
             }
         }
-        .navigationBarTitle("", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: backButton)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
+            ToolbarItem(placement: .topBarLeading) {
                 Text(viewModel.article?.title ?? "")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .lineLimit(1)
+                    .bold()
+                    .font(.system(size: 28))
+                    .foregroundColor(.persianBlue)
             }
         }
     }

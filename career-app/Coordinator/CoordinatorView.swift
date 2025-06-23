@@ -8,19 +8,9 @@
 import SwiftUI
 
 struct CoordinatorView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject var coordinator: Coordinator
     @EnvironmentObject private var deepLinkManager: DeepLinkManager
     @State private var searchText = ""
-    
-    private var profileButton: some View {
-        NavigationLink(destination: ProfileView()) {
-            Image(systemName: "person.circle")
-                .resizable()
-                .clipShape(Circle())
-                .frame(width: 28, height: 28)
-                .foregroundColor(Color.white)
-        }
-    }
     
     private var searchField: some View {
         HStack {
@@ -54,5 +44,6 @@ struct CoordinatorView: View {
                     }
                 }
         }
+        
     }
 }

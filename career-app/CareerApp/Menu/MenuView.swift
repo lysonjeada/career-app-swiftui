@@ -31,13 +31,17 @@ struct MenuView: View {
                 }
                 .background(Color.backgroundLightGray)
             }
-            .padding(.top, 4)
-            .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
-            .navigationTitle("Menu")
-            .navigationBarTitleDisplayMode(.automatic)
-            .background(Color.backgroundLightGray)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Menu")
+                        .bold()
+                        .font(.system(size: 28))
+                        .foregroundColor(.persianBlue)
+                }
+            }
         }
-        .background(Color.backgroundLightGray)
+//        .background(Color.backgroundLightGray)
         
     }
 }

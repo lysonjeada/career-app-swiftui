@@ -76,6 +76,9 @@
 		70A76C942D7A8C3800C5B709 /* ArticleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C932D7A8C3100C5B709 /* ArticleDetailViewModel.swift */; };
 		70A76C962D7A8C5300C5B709 /* ArticleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C952D7A8C4C00C5B709 /* ArticleService.swift */; };
 		70A76C982D7A8F2500C5B709 /* ArticleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C972D7A8F1D00C5B709 /* ArticleDetail.swift */; };
+		70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70B08FCC2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld */; };
+		70B08FD12E0A1B15002D8FE2 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 70B08FD02E0A1B15002D8FE2 /* CropViewController */; };
+		70B08FD32E0A1B15002D8FE2 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 70B08FD22E0A1B15002D8FE2 /* TOCropViewController */; };
 		70BC021E2D862EA10069A179 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC021D2D862E9F0069A179 /* LoginView.swift */; };
 		70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC021F2D9464410069A179 /* AppCoordinator.swift */; };
 		70BC02222D9464980069A179 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC02212D9464940069A179 /* MainView.swift */; };
@@ -187,6 +190,7 @@
 		70A76C932D7A8C3100C5B709 /* ArticleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewModel.swift; sourceTree = "<group>"; };
 		70A76C952D7A8C4C00C5B709 /* ArticleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleService.swift; sourceTree = "<group>"; };
 		70A76C972D7A8F1D00C5B709 /* ArticleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetail.swift; sourceTree = "<group>"; };
+		70B08FCD2E09D7FF002D8FE2 /* CareerApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareerApp.xcdatamodel; sourceTree = "<group>"; };
 		70BC021D2D862E9F0069A179 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		70BC021F2D9464410069A179 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		70BC02212D9464940069A179 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -228,9 +232,11 @@
 			files = (
 				24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */,
 				702E953B2D9F4FA200C5EF1D /* FirebaseCore in Frameworks */,
+				70B08FD32E0A1B15002D8FE2 /* TOCropViewController in Frameworks */,
 				702E953F2D9F4FC400C5EF1D /* FirebaseCrashlytics in Frameworks */,
 				24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				702E953D2D9F4FBF00C5EF1D /* FirebaseAuth in Frameworks */,
+				70B08FD12E0A1B15002D8FE2 /* CropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,15 +288,13 @@
 				70A76C822D77BCDE00C5B709 /* CareerApp */,
 				7016E7AE2D73CF5300300611 /* Info.plist */,
 				7016E7AC2D73A0F200300611 /* SceneDelegate.swift */,
-				701CBC192D3F3F62003F6F86 /* Profile */,
 				70D288582D24FC73004E9033 /* Utils */,
-				70D2884B2D245EAB004E9033 /* Components */,
-				243CF7B82CD0553500685B91 /* Track */,
 				702F267F2CEE961100A6EEDB /* GoogleService-Info.plist */,
 				244DDABE2C7B9810007FB768 /* Interview */,
 				244DDABB2C7A83A0007FB768 /* Resume */,
 				241917C82C6AE804004147DF /* career_appApp.swift */,
 				241917CC2C6AE806004147DF /* Assets.xcassets */,
+				70B08FCC2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld */,
 				241917CE2C6AE806004147DF /* Preview Content */,
 				244DDAB42C797567007FB768 /* CalendarView.swift */,
 				24D89C4D2C81834800995945 /* AppDelegate.swift */,
@@ -388,6 +392,7 @@
 		701CBC192D3F3F62003F6F86 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				70B08FC72E09C9FA002D8FE2 /* Model */,
 				701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */,
 			);
 			path = Profile;
@@ -414,11 +419,14 @@
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
 			isa = PBXGroup;
 			children = (
+				701CBC192D3F3F62003F6F86 /* Profile */,
+				70D2884B2D245EAB004E9033 /* Components */,
 				244DDAB62C7A7299007FB768 /* Home */,
 				70BC021C2D862E910069A179 /* Login */,
 				70A76C902D7A8BFF00C5B709 /* ArticleDetail */,
 				70A76C8D2D7928D700C5B709 /* Menu */,
 				70A76C832D77BCF000C5B709 /* CareerAppModule.swift */,
+				243CF7B82CD0553500685B91 /* Track */,
 			);
 			path = CareerApp;
 			sourceTree = "<group>";
@@ -460,6 +468,13 @@
 				70A76C912D7A8C1B00C5B709 /* ArticleDetailView.swift */,
 			);
 			path = ArticleDetail;
+			sourceTree = "<group>";
+		};
+		70B08FC72E09C9FA002D8FE2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		70BC021C2D862E910069A179 /* Login */ = {
@@ -568,6 +583,8 @@
 				702E953A2D9F4FA200C5EF1D /* FirebaseCore */,
 				702E953C2D9F4FBF00C5EF1D /* FirebaseAuth */,
 				702E953E2D9F4FC400C5EF1D /* FirebaseCrashlytics */,
+				70B08FD02E0A1B15002D8FE2 /* CropViewController */,
+				70B08FD22E0A1B15002D8FE2 /* TOCropViewController */,
 			);
 			productName = "career-app";
 			productReference = 241917C52C6AE804004147DF /* career-app.app */;
@@ -638,6 +655,7 @@
 				249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				24B3568E2CCBE255005AF38D /* XCRemoteSwiftPackageReference "swift-syntax" */,
 				243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */,
+				70B08FCF2E0A1AF3002D8FE2 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 241917C62C6AE804004147DF /* Products */;
 			projectDirPath = "";
@@ -739,6 +757,7 @@
 				70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */,
 				702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */,
 				703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */,
+				70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1041,6 +1060,14 @@
 				minimumVersion = 11.4.0;
 			};
 		};
+		70B08FCF2E0A1AF3002D8FE2 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1104,7 +1131,30 @@
 			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
+		70B08FD02E0A1B15002D8FE2 /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70B08FCF2E0A1AF3002D8FE2 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		70B08FD22E0A1B15002D8FE2 /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70B08FCF2E0A1AF3002D8FE2 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
+		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		70B08FCC2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				70B08FCD2E09D7FF002D8FE2 /* CareerApp.xcdatamodel */,
+			);
+			currentVersion = 70B08FCD2E09D7FF002D8FE2 /* CareerApp.xcdatamodel */;
+			path = CareerApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 241917BD2C6AE804004147DF /* Project object */;
 }
