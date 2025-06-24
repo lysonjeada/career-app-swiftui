@@ -109,16 +109,16 @@ struct ProfileView: View {
     
     private var personalInfoSection: some View {
         SectionView(title: "Informações pessoais") {
-            customTextField("Nome", text: $name)
-            customTextField("Experiência Profissional", text: $experience)
-            customTextField("Instituição de Ensino", text: $institution)
+            CustomTextField("Nome", text: $name)
+            CustomTextField("Experiência Profissional", text: $experience)
+            CustomTextField("Instituição de Ensino", text: $institution)
         }
     }
     
     private var linksSection: some View {
         SectionView(title: "Links") {
-            customTextField("GitHub", text: $githubLink, keyboard: .URL)
-            customTextField("Portfólio", text: $portfolioLink, keyboard: .URL)
+            CustomTextField("GitHub", text: $githubLink, keyboard: .URL)
+            CustomTextField("Portfólio", text: $portfolioLink, keyboard: .URL)
         }
     }
     
@@ -141,34 +141,6 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)  // Ocupa metade do espaço
         }
         .padding(.horizontal, 16)
-    }
-    
-    // MARK: - Helper Components
-    
-    private func SectionView(title: String, @ViewBuilder content: () -> some View) -> some View {
-        VStack(alignment: .center, spacing: 8) {
-            Text(title)
-                .font(.system(size: 20))
-                .bold()
-                .foregroundColor(.persianBlue)
-            
-            Group(content: content)
-        }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 2)
-    }
-    
-    private func customTextField(_ placeholder: String,
-                                 text: Binding<String>,
-                                 keyboard: UIKeyboardType = .default) -> some View {
-        VStack(alignment: .leading) {
-            Text(placeholder)
-                .font(.system(size: 18))
-                .foregroundColor(.persianBlue)
-            TextField(placeholder, text: text)
-                .keyboardType(keyboard)
-                .textFieldStyle(PersianBlueTextFieldStyle())
-        }
     }
     
     // MARK: - Core Data Operations
@@ -247,49 +219,6 @@ struct ProfileView: View {
     private func buildNotes() -> some View {
         ProfileNotesView()
     }
-    
-    private func customTextField(_ placeholder: String,
-                                 text: Binding<String>,
-                                 keyboard: UIKeyboardType = .default,
-                                 hasIncludeButton: Bool = false,
-                                 hasExcludeButton: Bool = false) -> some View {
-        VStack {
-            HStack {
-                Text(placeholder)
-                    .foregroundColor(.persianBlue)
-                
-                Spacer()
-                
-                if hasIncludeButton || hasExcludeButton {
-                    HStack(spacing: 8) {
-                        if hasExcludeButton {
-                            Button(action: {}) {
-                                Image(systemName: "minus.circle.fill")
-                                    .foregroundColor(.red)
-                                    .font(.system(size: 20))
-                            }
-                        }
-                        
-                        if hasIncludeButton {
-                            Button(action: {}) {
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 20))
-                            }
-                        }
-                    }
-                }
-            }
-            
-            TextField(placeholder, text: text)
-                .keyboardType(keyboard)
-                .padding(12)
-                .background(Color.persianBlue.opacity(0.1))
-                .foregroundColor(.persianBlue)
-                .cornerRadius(8)
-                .accentColor(.persianBlue)
-        }
-    }
 }
 
 extension View {
@@ -342,6 +271,36 @@ struct PersianBlueTextFieldStyle: TextFieldStyle {
     }
 }
 
+struct SectionView<Content: View>: View {
+    let title: String
+    let alignment: HorizontalAlignment
+    let spacing: CGFloat
+    let content: () -> Content
+    
+    init(title: String,
+         alignment: HorizontalAlignment = .center,
+         spacing: CGFloat = 8,
+         @ViewBuilder content: @escaping () -> Content) {
+        self.title = title
+        self.alignment = alignment
+        self.spacing = spacing
+        self.content = content
+    }
+    
+    var body: some View {
+        VStack(alignment: alignment, spacing: spacing) {
+            Text(title)
+                .font(.system(size: 20))
+                .bold()
+                .foregroundColor(.persianBlue)
+            
+            Group(content: content)
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 2)
+    }
+}
+
 struct ActionButton: View {
     let title: String
     let isLoading: Bool
@@ -369,6 +328,32 @@ struct ActionButton: View {
         }
         .disabled(isLoading)
         .frame(maxWidth: .infinity)
+    }
+}
+
+struct CustomTextField: View {
+    let placeholder: String
+    @Binding var text: String
+    let keyboardType: UIKeyboardType
+    
+    init(_ placeholder: String,
+         text: Binding<String>,
+         keyboard: UIKeyboardType = .default) {
+        self.placeholder = placeholder
+        self._text = text
+        self.keyboardType = keyboard
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(placeholder)
+                .font(.system(size: 18))
+                .foregroundColor(.persianBlue)
+            
+            TextField(placeholder, text: $text)
+                .keyboardType(keyboardType)
+                .textFieldStyle(PersianBlueTextFieldStyle())
+        }
     }
 }
 
