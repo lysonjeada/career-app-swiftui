@@ -75,6 +75,7 @@ struct ProfileView: View {
                             Circle()
                                 .stroke(Color.persianBlue, lineWidth: 2)
                         )
+                        .overlay(cameraIcon)
                         .foregroundColor(.persianBlue)
                 }
             }
@@ -83,11 +84,12 @@ struct ProfileView: View {
             if profileImage != nil {
                 Button(action: deleteProfileImage) {
                     Image(systemName: "trash.fill")
+                        .frame(width: 24, height: 24)
                         .foregroundColor(.white)
                         .padding(6)
-                        .background(Color.red)
+                        .background(Color.red.opacity(0.8))
                         .clipShape(Circle())
-                        .offset(x: -10, y: 0)  // Ajuste do offset para posicionar corretamente
+                        .offset(x: -10, y: 4)  // Ajuste do offset para posicionar corretamente
                 }
             }
         }
@@ -97,11 +99,12 @@ struct ProfileView: View {
     
     private var cameraIcon: some View {
         Image(systemName: "camera.fill")
+            .frame(width: 24, height: 24)
             .foregroundColor(.white)
             .padding(6)
             .background(Color.persianBlue.opacity(0.8))
             .clipShape(Circle())
-            .offset(x: 35, y: 35)
+            .offset(x: 45, y: 35)
     }
     
     private var personalInfoSection: some View {
