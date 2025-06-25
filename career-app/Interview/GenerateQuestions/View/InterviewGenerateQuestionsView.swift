@@ -113,19 +113,22 @@ struct InterviewGenerateQuestionsView: View {
     
     @ViewBuilder
     func buildCarousel() -> some View {
-        Carousel(index: $currentIndex,
-                 currentIndex: $currentIndex,
-                 buttonsEnabled: $isEnabled,
-                 items: viewModel.steps) { step in
+        NativeCarousel(
+            currentIndex: $currentIndex,
+            items: viewModel.steps
+        ) { step in
             CardHorizontal(isFillHeight: true)
                 .content(
-                    showTypeAndDescriptionJob(title: step.title, description: step.description, imageButton: step.imageButton, type: step.type))
-            
+                    showTypeAndDescriptionJob(
+                        title: step.title,
+                        description: step.description,
+                        imageButton: step.imageButton,
+                        type: step.type
+                    )
+                )
         } onSwipe: { index in
             currentIndex = index
         }
-        
-        
     }
     
     @ViewBuilder
@@ -167,7 +170,7 @@ struct InterviewGenerateQuestionsView: View {
                 .foregroundColor(.persianBlue)
                 .padding(.bottom, 4)
             Text(title)
-                .font(.system(size: 24))
+                .font(.system(size: 22))
                 .foregroundColor(.thirdBlue)
                 .padding(.bottom, 8)
             Text(description ?? "")
@@ -189,7 +192,13 @@ struct InterviewGenerateQuestionsView: View {
     }
     
     private func actionDescriptionJob() {
-        viewModel.generateQuestions()
+        guard let resumeURL = resumeFileURL else { return }
+        viewModel.generateQuestions(
+            resumeURL: resumeURL,
+            jobTitle: selectedJobTitle,
+            seniority: selectedSeniority,
+            description: jobDescription
+        )
         showQuestionsView = true
     }
     
@@ -328,15 +337,37 @@ struct InterviewGenerateQuestionsView: View {
         addAction: @escaping () -> Void,
         addSavedResumeAction: @escaping () -> Void
     ) -> some View {
-        HStack(spacing: 24) { // Espaçamento entre os botões
-            Button(action: addAction) {
-                buttonContent(icon: "square.and.arrow.up", title: "Exportar", buttonType: .export)
-            }
-            
-            Button(action: addSavedResumeAction) {
-                buttonContent(icon: "doc.text", title: "Salvos", buttonType: .search)
+        Button(action: {
+            importing = true
+        }) {
+            buttonContent(icon: "square.and.arrow.up", title: "Exportar", buttonType: .export)
+        }
+        .fileImporter(
+            isPresented: $importing,
+            allowedContentTypes: [.pdf],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                if let selected = urls.first {
+                    resumeFileURL = selected
+                }
+            case .failure(let error):
+                print("Erro ao importar arquivo:", error.localizedDescription)
             }
         }
+
+//        Button(action: addAction) {
+//            buttonContent(icon: "square.and.arrow.up", title: "Exportar", buttonType: .export)
+//        }
+        //TODO: Implementar botão de salvo
+        //        HStack(spacing: 24) { // Espaçamento entre os botões
+        //
+        //
+        //            Button(action: addSavedResumeAction) {
+        //                buttonContent(icon: "doc.text", title: "Salvos", buttonType: .search)
+        //            }
+        //        }
     }
     
     @ViewBuilder
@@ -344,7 +375,6 @@ struct InterviewGenerateQuestionsView: View {
         VStack {
             ZStack {
                 Circle()
-                
                     .fill(buttonType.colorFill)
                     .frame(width: 60, height: 60)
                     .shadow(color: .gray.opacity(0.3), radius: 4, x: 0, y: 4)
@@ -455,66 +485,9 @@ struct InterviewGenerateQuestionsView: View {
         }
     }
     
-    
-    
-    //    func generateInterviewQuestions() {
-    //        let messages: [[String: String]] = [
-    //            ["role": "system", "content": "You are a helpful assistant that generates interview questions based on resume information, job title, seniority, and job description."],
-    //            ["role": "user", "content": """
-    //                    I have the following resume text:
-    //                    \(resumeText)
-    //
-    //                    The job title is \(selectedJobTitle) and the seniority level is \(selectedSeniority).
-    //
-    //                    The job description is:
-    //                    \(jobDescription)
-    //
-    //                    Please generate potential interview questions based on these details.
-    //                    """
-    //            ]
-    //        ]
-    //
-    //        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
-    //        var request = URLRequest(url: url)
-    //
-    //        if let apiKey = ProcessInfo.processInfo.environment["API_KEY"]  {
-    //            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-    //        }
-    //
-    //        request.httpMethod = "POST"
-    //        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    //
-    //        let json: [String: Any] = [
-    //            "model": "gpt-3.5-turbo",
-    //            "messages": messages,
-    //            "max_tokens": 150,
-    //            "temperature": 0.7
-    //        ]
-    //
-    //        let jsonData = try! JSONSerialization.data(withJSONObject: json)
-    //        request.httpBody = jsonData
-    //
-    //        URLSession.shared.dataTask(with: request) { data, response, error in
-    //            if let error = error {
-    //                print("Erro: \(error.localizedDescription)")
-    //                return
-    //            }
-    //
-    //            if let data = data {
-    //                let decoder = JSONDecoder()
-    //                do {
-    //                    let openAIResponse = try decoder.decode(OpenAIResponse.self, from: data)
-    //                    let content = openAIResponse.choices.first?.message.content ?? ""
-    //
-    //                    DispatchQueue.main.async {
-    //                        self.questions = content.split(separator: "\n").map { String($0) }
-    //                    }
-    //                } catch {
-    //                    print("Erro ao decodificar a resposta: \(error)")
-    //                }
-    //            }
-    //        }.resume()
-    //    }
+    func generateInterviewQuestions() {
+        
+    }
 }
 
 struct InterviewGenerateQuestionsView_Previews: PreviewProvider {

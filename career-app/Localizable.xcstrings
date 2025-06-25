@@ -4,16 +4,6 @@
     "" : {
 
     },
-    "%@. %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@. %2$@"
-          }
-        }
-      }
-    },
     "%lld" : {
 
     },
@@ -41,13 +31,16 @@
     "Anote dificuldades, dúvidas, assuntos a serem estudados. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!" : {
 
     },
-    "Apagar" : {
-
-    },
     "Aproveite os momentos de pré entrevista para anotar sobre você e seus projetos, durante a entrevista anote pontos a melhorar/o que não soube responder e pós entrevista pensar os pontos a melhorar e o que deu certo!" : {
 
     },
     "Artigos" : {
+
+    },
+    "Atualizar" : {
+
+    },
+    "Atualizar Candidatura" : {
 
     },
     "blogTitle" : {
@@ -73,7 +66,7 @@
     "Candidaturas" : {
 
     },
-    "Clique aqui e adicione" : {
+    "Clique para adicionar" : {
 
     },
     "Company Name" : {
@@ -184,7 +177,7 @@
     "Other Link" : {
 
     },
-    "Parece que você ainda não adicionou\nnenhuma candidatura.\nAqui é onde você pode gerenciar\nsuas inscrições em vagas\nde forma organizada." : {
+    "Parece que você ainda não adicionou\nnenhuma candidatura." : {
 
     },
     "Perfil" : {

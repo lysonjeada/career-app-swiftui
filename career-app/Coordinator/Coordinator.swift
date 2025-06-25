@@ -60,6 +60,10 @@ class Coordinator: ObservableObject {
         case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
         case .profile:
             ProfileView(coordinator: self)
+        case .addJob:
+            AddJobApplicationForm(newCompany: .constant(""), newLevel: .constant(""), newLastInterview: .constant(""), newNextInterview: .constant(""), newTechnicalSkills: .constant(""))
+        case .editJob:
+            EditJobApplicationView(company: .constant(""), level: .constant(""), lastInterview: .constant(""), nextInterview: .constant(""), technicalSkills: .constant(""), coordinator: self)
         }
     }
     
@@ -70,6 +74,8 @@ enum AppPages: Hashable {
     case login
     case articleDetail(id: Int)
     case profile
+    case addJob
+    case editJob
     //    case addJob(newCompany: String,
     //                newLevel: String,
     //                newLastInterview: String,

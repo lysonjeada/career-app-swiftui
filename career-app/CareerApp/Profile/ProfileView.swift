@@ -303,9 +303,24 @@ struct SectionView<Content: View>: View {
 
 struct ActionButton: View {
     let title: String
-    let isLoading: Bool
+    let icon: String?       // Novo parâmetro opcional
+    let isLoading: Bool     // Novo parâmetro com default
     let color: Color
     let action: () -> Void
+    
+    init(
+        title: String,
+        icon: String? = nil,           // Default = nil
+        isLoading: Bool = false,       // Default = false
+        color: Color,
+        action: @escaping () -> Void
+    ) {
+        self.title = title
+        self.icon = icon
+        self.isLoading = isLoading
+        self.color = color
+        self.action = action
+    }
     
     var body: some View {
         Button(action: action) {
@@ -314,22 +329,27 @@ struct ActionButton: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(0.8)
+                } else if let iconName = icon {
+                    Image(systemName: iconName)
+                        .foregroundStyle(.white)
                 }
+                
                 Text(title)
-                    .frame(maxWidth: .infinity)  // Garante que o texto também expanda
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding()
             .foregroundStyle(.white)
             .background(color)
             .font(.headline)
             .cornerRadius(12)
-            .frame(maxWidth: .infinity, minHeight: 50)  // Altura mínima consistente
+            .frame(maxWidth: .infinity, minHeight: 50)
             .animation(.easeInOut, value: isLoading)
         }
         .disabled(isLoading)
         .frame(maxWidth: .infinity)
     }
 }
+
 
 struct CustomTextField: View {
     let placeholder: String

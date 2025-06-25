@@ -90,7 +90,7 @@ struct CardHorizontal_Previews: PreviewProvider {
     
     static var previews: some View {
         CardHorizontal()
-            .content(showTypeAndDescriptionJob(title: "Faça o download do seu currículo", description: "Certifique-se de que seu currículo está atualizado e co suas habilidades bem expostas, isso ajuda o gerador de perguntas a ser mais assertivo.", imageButton: "doc.fill", type: .addCurriculum))
+            .content(showTypeAndDescriptionJob(title: "Faça o download do seu\ncurrículo", description: "Certifique-se de que seu currículo está atualizado e co suas habilidades bem expostas, isso ajuda o gerador de perguntas a ser mais assertivo.", imageButton: "doc.fill", type: .addCurriculum))
     }
     
     @ViewBuilder

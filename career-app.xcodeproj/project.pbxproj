@@ -31,7 +31,6 @@
 		24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24923F9C2CBF4F870081E887 /* HomeStrings.swift */; };
 		24923F9F2CBF65060081E887 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 24923F9E2CBF65060081E887 /* Localizable.xcstrings */; };
 		24923FA32CC053920081E887 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24923FA22CC053920081E887 /* LocalizedStrings.swift */; };
-		2492405F2CC8664D0081E887 /* InterviewQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2492405E2CC8664D0081E887 /* InterviewQuestionsView.swift */; };
 		249240622CC86F3C0081E887 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249240612CC86F3C0081E887 /* Color.swift */; };
 		249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249240632CC9871D0081E887 /* OpenAPIResponse.swift */; };
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
@@ -67,6 +66,8 @@
 		70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E0B2E036B8B007815BE /* TechStepAPI.swift */; };
 		70819E0E2E036EB8007815BE /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E0D2E036EAF007815BE /* Question.swift */; };
 		70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */; };
+		7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */; };
+		708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */; };
 		70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C832D77BCF000C5B709 /* CareerAppModule.swift */; };
 		70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */; };
 		70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C892D77C00700C5B709 /* Coordinator.swift */; };
@@ -152,7 +153,6 @@
 		24923F9C2CBF4F870081E887 /* HomeStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStrings.swift; sourceTree = "<group>"; };
 		24923F9E2CBF65060081E887 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		24923FA22CC053920081E887 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
-		2492405E2CC8664D0081E887 /* InterviewQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewQuestionsView.swift; sourceTree = "<group>"; };
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +181,8 @@
 		70819E0B2E036B8B007815BE /* TechStepAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechStepAPI.swift; sourceTree = "<group>"; };
 		70819E0D2E036EAF007815BE /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsAnswersSheet.swift; sourceTree = "<group>"; };
+		7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJobApplicationView.swift; sourceTree = "<group>"; };
+		708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewGenerateQuestionsViewModel.swift; sourceTree = "<group>"; };
 		70A76C832D77BCF000C5B709 /* CareerAppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAppModule.swift; sourceTree = "<group>"; };
 		70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		70A76C892D77C00700C5B709 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */,
 				702E952F2D984F1D00C5EF1D /* LoadingView.swift */,
 				702E952D2D984E1C00C5EF1D /* ArticleDetailButton.swift */,
 				702E952B2D97627000C5EF1D /* TagCloudView.swift */,
@@ -545,7 +548,7 @@
 		70D288572D247FA6004E9033 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2492405E2CC8664D0081E887 /* InterviewQuestionsView.swift */,
+				708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */,
 				244DDAC02C7B9843007FB768 /* InterviewGenerateQuestionsView.swift */,
 			);
 			path = View;
@@ -712,6 +715,7 @@
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
 				70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */,
 				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
+				708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */,
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
@@ -719,6 +723,7 @@
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
 				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
 				70A76C942D7A8C3800C5B709 /* ArticleDetailViewModel.swift in Sources */,
+				7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */,
 				7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */,
 				70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */,
 				700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */,
@@ -739,7 +744,6 @@
 				70A76C982D7A8F2500C5B709 /* ArticleDetail.swift in Sources */,
 				70D2885C2D28841F004E9033 /* TextEditor.swift in Sources */,
 				249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */,
-				2492405F2CC8664D0081E887 /* InterviewQuestionsView.swift in Sources */,
 				70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */,
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
@@ -911,6 +915,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "career-app/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Este app precisa acessar dispositivos da rede local para funcionar corretamente.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -940,6 +945,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "career-app/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Este app precisa acessar dispositivos da rede local para funcionar corretamente.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

@@ -216,3 +216,52 @@ struct Carousel_Previews: PreviewProvider {
         .shadow(radius: 4)
     }
 }
+
+struct NativeCarousel<T: Identifiable, Content: View>: View {
+    @Binding var currentIndex: Int
+    let items: [T]
+    let onSwipe: (Int) -> Void
+    let content: (T) -> Content
+
+    init(
+        currentIndex: Binding<Int>,
+        items: [T],
+        @ViewBuilder content: @escaping (T) -> Content,
+        onSwipe: @escaping (Int) -> Void = { _ in }
+    ) {
+        self._currentIndex = currentIndex
+        self.items = items
+        self.content = content
+        self.onSwipe = onSwipe
+    }
+
+    var body: some View {
+        VStack(spacing: 16) {
+            TabView(selection: $currentIndex) {
+                ForEach(items.indices, id: \.self) { index in
+                    content(items[index])
+                        .padding(.horizontal, 16)
+                        .tag(index)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(height: 320)
+            .animation(.easeInOut(duration: 0.3), value: currentIndex)
+            .onChange(of: currentIndex) { newIndex in
+                onSwipe(newIndex)
+            }
+
+            if items.count > 1 {
+                HStack(spacing: 8) {
+                    ForEach(0..<items.count, id: \.self) { index in
+                        Circle()
+                            .fill(index == currentIndex ? Color.persianBlue : Color.gray.opacity(0.3))
+                            .frame(width: 8, height: 8)
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+    }
+}

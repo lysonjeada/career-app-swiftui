@@ -12,87 +12,68 @@ struct DateInputField: View {
     @State private var showDatePicker = false
     @State private var internalDate: Date = Date()
     let placeholder: String
-
+    
     var body: some View {
         VStack {
             HStack {
                 ZStack(alignment: .leading) {
                     if dateString.isEmpty {
                         Text(placeholder)
-                            .foregroundColor(Color.persianBlue.opacity(0.5))
+                            .foregroundColor(Color(.systemGray))
                             .padding(.leading, 12)
                     }
-
+                    
                     TextField("", text: $dateString)
-                        .onChange(of: dateString) { newValue in
-                            validateAndUpdateDate(from: newValue)
-                        }
+                        .onChange(of: dateString, perform: validateAndUpdateDate)
                         .keyboardType(.numbersAndPunctuation)
                         .padding(.leading, 12)
                         .padding(.vertical, 12)
-                        .foregroundColor(isValidDate(dateString) ? .persianBlue : .red)
+                        .foregroundColor(isValidDate(dateString) ? .primary : .red)
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.persianBlue, lineWidth: 1)
                 )
                 .padding(.trailing, 8)
-
-                Button(action: {
-                    showDatePicker.toggle()
-                }) {
+                
+                Button(action: { showDatePicker.toggle() }) {
                     Image(systemName: "calendar")
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundColor(.persianBlue)
                 }
             }
-
+            
             if showDatePicker {
-                VStack(alignment: .leading) {
-                    DatePicker(
-                        "",
-                        selection: $internalDate,
-                        displayedComponents: .date
-                    )
-                    .datePickerStyle(WheelDatePickerStyle())
-                    .onChange(of: internalDate) { newDate in
-                        dateString = formatDate(newDate)
-                    }
-                    .background(Color.white)
+                DatePicker("", selection: $internalDate, displayedComponents: .date)
+                    .datePickerStyle(.graphical)
+                    .onChange(of: internalDate) { dateString = formatDate($0) }
+                    .background(Color(.systemBackground))
                     .cornerRadius(12)
-                }
             }
         }
-        .onAppear {
-            if let parsedDate = parseDate(from: dateString) {
-                internalDate = parsedDate
-            }
-        }
+        .onAppear { if let date = parseDate(from: dateString) { internalDate = date } }
     }
-
+    
     private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        return formatter.string(from: date)
+        DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
     }
-
+    
     private func parseDate(from text: String) -> Date? {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.dateStyle = .short
         return formatter.date(from: text)
     }
-
+    
     private func validateAndUpdateDate(from text: String) {
-        if let parsedDate = parseDate(from: text) {
-            internalDate = parsedDate
-        }
+        if let date = parseDate(from: text) { internalDate = date }
     }
-
+    
     private func isValidDate(_ text: String) -> Bool {
         parseDate(from: text) != nil
     }
 }
+
 
 struct DateInputField_Previews: PreviewProvider {
     static var previews: some View {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GenerateQuestionsAnswersSheet: View {
-    var generatedQuestions: [Question] = []
+    var generatedQuestions: [String] = []
     @Binding var showQuestionsView: Bool
     
     var body: some View {
@@ -33,21 +33,20 @@ struct GenerateQuestionsAnswersSheet: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
-                    ForEach(generatedQuestions) { question in
+                    ForEach(generatedQuestions.indices, id: \.self) { index in
+                        let question = generatedQuestions[index]
                         HStack(alignment: .top, spacing: 8) {
-                            Text("\(question.id). \(question.question)")
+                            Text(question)
                                 .font(.body)
                                 .padding(.vertical, 4)
 
                             Spacer()
 
                             Button(action: {
-//                                viewModel.toggleFavorite(for: question.id)
+                                // Ex: viewModel.toggleFavorite(for: index)
                             }) {
                                 Image(systemName: "star.fill")
                                     .foregroundColor(.yellow)
-//                                Image(systemName: viewModel.isFavorite(questionID: question.id) ? "star.fill" : "star")
-//                                    .foregroundColor(.yellow)
                             }
                         }
                         .padding(.horizontal)

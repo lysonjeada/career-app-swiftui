@@ -51,7 +51,7 @@ struct ContentView: View {
                     }
                     .tag(TabSelection.interview)
 
-                JobApplicationTrackerView()
+                JobApplicationTrackerView(coordinator: coordinator)
                     .tabItem {
                         Label(HomeStrings.resumeTitle, systemImage: "book.fill")
                     }
