@@ -126,7 +126,13 @@
     "Fazer login" : {
 
     },
+    "Fechar" : {
+
+    },
     "Feedback do Currículo" : {
+
+    },
+    "Feedback gerado!" : {
 
     },
     "Gerar Mais" : {
@@ -225,6 +231,9 @@
     "SENHA" : {
 
     },
+    "Seu currículo foi analisado. Deseja visualizar o feedback?" : {
+
+    },
     "Skills" : {
 
     },
@@ -241,6 +250,9 @@
 
     },
     "Vagas aplicadas" : {
+
+    },
+    "Ver agora" : {
 
     },
     "Ver Mais" : {

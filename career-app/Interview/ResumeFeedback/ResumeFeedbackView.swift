@@ -11,15 +11,33 @@ struct ResumeFeedbackView: View {
     @StateObject var viewModel: ResumeFeedbackViewModel
     @State private var importing = false
     @State private var resumeFileURL: URL?
+    @State private var isLoading: Bool = false
     @State private var didExportResume: Bool = false
     @State private var showingFeedbackSheet = false
-    
+    @State private var showReadyAlert = false
+
     var body: some View {
         ScrollView {
             createView()
         }
         .sheet(isPresented: $showingFeedbackSheet) {
             FeedbackSheetView(viewModel: viewModel)
+        }
+        .alert("Feedback gerado!", isPresented: $showReadyAlert) {
+            Button("Ver agora") {
+                showingFeedbackSheet = true
+            }
+            Button("Fechar", role: .cancel) { }
+        } message: {
+            Text("Seu currículo foi analisado. Deseja visualizar o feedback?")
+        }
+        .onChange(of: viewModel.viewState) {
+            if viewModel.viewState == .loaded {
+                showReadyAlert = true
+                isLoading = false
+            } else if viewModel.viewState == .loading || viewModel.viewState == .polling {
+                isLoading = true
+            }
         }
         .padding()
     }
@@ -32,8 +50,10 @@ struct ResumeFeedbackView: View {
                 .font(.system(size: 22))
                 .foregroundColor(.thirdBlue)
                 .padding(.bottom, 8)
+            
             createButtonRow()
                 .padding(.top, 4)
+
             Text("Iremos ler seu currículo e retornar o que poderia ser melhorado, estar mais claro, palavras-chave, etc")
                 .font(.system(size: 16))
                 .foregroundColor(.descriptionGray)
@@ -41,15 +61,11 @@ struct ResumeFeedbackView: View {
                 .lineSpacing(2)
                 .padding(.horizontal)
                 .padding(.bottom, 16)
-            if didExportResume {
+
+            if didExportResume && viewModel.viewState == .idle {
                 Button {
                     if let url = resumeFileURL {
                         viewModel.submitResumeFeedback(resumeURL: url)
-                        
-                        // Aguarda pequeno tempo e abre o sheet se tiver sucesso
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            showingFeedbackSheet = true
-                        }
                     }
                 } label: {
                     Text("Enviar")
@@ -60,10 +76,16 @@ struct ResumeFeedbackView: View {
                 }
                 .animation(.easeInOut, value: didExportResume)
             }
+            
+            if isLoading {
+                ProgressView()
+                TypewriterText(fullText: "Enviando currículo...\nVocê será alertado quando for carregado", typingSpeed: 0.25)
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 16)
+            }
         }
-        
     }
-    
+
     @ViewBuilder
     func createButtonRow() -> some View {
         Button(action: {
@@ -184,6 +206,28 @@ struct FeedbackSheetView: View {
     }
 }
 
+struct TypewriterText: View {
+    let fullText: String
+    let typingSpeed: Double // segundos por caractere
+    @State private var displayedText: String = ""
+
+    var body: some View {
+        Text(displayedText)
+            .onAppear {
+                displayedText = ""
+                var charIndex = 0.0
+                for letter in fullText {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + charIndex * typingSpeed) {
+                        displayedText.append(letter)
+                    }
+                    charIndex += 1
+                }
+            }
+            .font(.body)
+            .multilineTextAlignment(.center)
+            .animation(.easeInOut, value: displayedText)
+    }
+}
 
 
 //struct FeedbackSheetView: View {
