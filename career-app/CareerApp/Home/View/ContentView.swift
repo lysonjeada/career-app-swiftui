@@ -45,7 +45,8 @@ struct ContentView: View {
                     }
                     .tag(TabSelection.home)
                 
-                InterviewGenerateQuestionsView(viewModel: GenerateQuestionsViewModel())
+                InterviewAssistantView(viewModel: GenerateQuestionsViewModel(),
+                                       resumeFeedbackViewModel: ResumeFeedbackViewModel())
                     .tabItem {
                         Label(HomeStrings.interviewTitle, systemImage: "mic.fill")
                     }

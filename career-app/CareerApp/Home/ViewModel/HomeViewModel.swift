@@ -13,6 +13,7 @@ protocol HomeViewModelCoordinatorDelegate: AnyObject {
 }
 
 final class HomeViewModel: ObservableObject {
+    @Published var selectedTag: String = "Todos"
     weak var coordinatorDelegate: HomeViewModelCoordinatorDelegate?
     
     enum State: Equatable {
@@ -28,15 +29,14 @@ final class HomeViewModel: ObservableObject {
     private var service: HomeService = HomeService()
     
     @MainActor
-    func fetchArticles() {
+    func fetchArticles(tag: String? = nil) {
         viewState = .loading
         task = Task {
             do {
-                self.articles = try await service.fetchArticles()
+                self.articles = try await service.fetchArticles(tag: tag)
                 self.viewState = .loaded
-            }
-            catch {
-                
+            } catch {
+                print("Erro ao buscar artigos:", error)
             }
         }
     }

@@ -10,6 +10,8 @@ import UniformTypeIdentifiers
 import PDFKit
 
 struct InterviewGenerateQuestionsView: View {
+    
+    @FocusState private var keyboardFocused: Bool
     @State private var selectedJobTitle: String = "Cargo"
     @State private var selectedSeniority: String = "Senioridade"
     @State private var jobDescription: String = ""
@@ -19,6 +21,7 @@ struct InterviewGenerateQuestionsView: View {
     @State private var questions: [String] = []
     @State private var showQuestionsView = false
     @State private var currentIndex: Int = 0
+    @State private var didExportResume: Bool = false
     @State var isEnabled = true
     @StateObject var viewModel: GenerateQuestionsViewModel
     @State private var maxHeight: CGFloat = 0
@@ -53,7 +56,7 @@ struct InterviewGenerateQuestionsView: View {
             switch self {
             case .export:
                 // rgb(0, 115, 19)
-                return Color(red: 0, green: 94, blue: 66)
+                return Color.persianBlue
             case .search:
                 return Color.persianBlue
             }
@@ -79,36 +82,61 @@ struct InterviewGenerateQuestionsView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack {
-                    buildCarousel()
-                        .frame(alignment: .top)
-                    Divider()
-                        .padding(.bottom, 16)
-                    createNotesInterview()
-                }
-                .padding(.bottom, -keyboardObserver.keyboardHeight)
-            }
-            .sheet(isPresented: $showQuestionsView) {
-                GenerateQuestionsAnswersSheet(generatedQuestions: viewModel.generatedQuestions, showQuestionsView: $showQuestionsView)
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Entrevistas")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(Color.persianBlue)
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    profileButton
-                }
-            }
-            .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            //            .padding(.bottom, keyboardObserver.keyboardHeight)
-            //            .animation(.easeInOut, value: keyboardObserver.keyboardHeight)
+        VStack {
+            buildCarousel()
+                .frame(alignment: .top)
+            Divider()
+                .padding(.bottom, 16)
+            
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                // the Spacer will push the Done button to the far right of the keyboard as pictured.
+                Spacer()
+                
+                Button(action: {
+                    keyboardFocused = false
+                }, label: {
+                    Text("Done")
+                })
+                
+            }
+        }
+        .ignoresSafeArea(.keyboard)
+        .gesture(DragGesture().onChanged { _ in
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        })
+//        .padding(.bottom, -keyboardObserver.keyboardHeight)
+        .sheet(isPresented: $showQuestionsView) {
+            GenerateQuestionsAnswersSheet(showQuestionsView: $showQuestionsView, viewModel: viewModel, selectedJobTitle: $selectedJobTitle, selectedSeniority: $selectedSeniority, jobDescription: $jobDescription, resumeFileURL: $resumeFileURL)
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                // the Spacer will push the Done button to the far right of the keyboard as pictured.
+                Spacer()
+                
+                if keyboardFocused {
+                    Button(action: {
+                        keyboardFocused = false
+                    }, label: {
+                        Text("Done")
+                    })
+                }
+            }
+            ToolbarItem(placement: .topBarLeading) {
+                Text("Entrevistas")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(Color.persianBlue)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                profileButton
+            }
+        }
+        .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        //            .padding(.bottom, keyboardObserver.keyboardHeight)
+        //            .animation(.easeInOut, value: keyboardObserver.keyboardHeight)
     }
     
     @ViewBuilder
@@ -133,72 +161,57 @@ struct InterviewGenerateQuestionsView: View {
     
     @ViewBuilder
     func showTypeAndDescriptionJob(title: String, description: String?, imageButton: String, type: QuestionsGeneratorStep.Step.StepType) -> some View {
-        VStack {
+        VStack(spacing: 16) {
             buildHeader(title: title, description: description)
-                .padding(.top, 12)
-                .frame(alignment: .center)
             
-            
-            VStack {
-                switch type {
-                case .addCurriculum:
-                    createButtonRow(addAction: {}, addSavedResumeAction: {})
-                    //                    createButton(button: "rectangle.and.pencil.and.ellipsis", buttonAction: {
-                    //                        generateInterviewQuestions()
-                    //                        showQuestionsView = true
-                    //                    })
-                case .addInfoJob:
-                    buildInfoJob()
-                case .addDescriptionJob:
-                    buildDescriptionJob()
-                    //                    .padding(.bottom, 8)
-                    
-                }
+            switch type {
+            case .addCurriculum:
+                createButtonRow(addAction: {}, addSavedResumeAction: {})
+                    .padding(.top)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                
+            case .addInfoJob:
+                buildInfoJob()
+            case .addDescriptionJob:
+                buildDescriptionJob()
             }
-            
         }
-        
-        .frame(height: 296)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
+    
     
     @ViewBuilder
     func buildHeader(title: String, description: String?) -> some View {
-        VStack(alignment: .center) {
+        VStack(spacing: 8) {
             Text("\(currentIndex + 1)")
                 .bold()
                 .font(.system(size: 24))
                 .foregroundColor(.persianBlue)
-                .padding(.bottom, 4)
+            
             Text(title)
                 .font(.system(size: 22))
                 .foregroundColor(.thirdBlue)
-                .padding(.bottom, 8)
+            
             Text(description ?? "")
                 .font(.system(size: 16))
-                .lineLimit(nil)
-                .lineSpacing(2)
-            //                .padding(.horizontal, 16)
                 .foregroundColor(.descriptionGray)
                 .multilineTextAlignment(.center)
-            
+                .lineSpacing(2)
+                .padding(.horizontal)
         }
-        
-        .frame(maxHeight: .infinity)
+        .frame(maxWidth: .infinity)
+        .multilineTextAlignment(.center)
     }
+    
     
     @ViewBuilder
     func buildDescriptionJob() -> some View {
-        TextEditorView(text: $jobDescription, action: { actionDescriptionJob() })
+        TextEditorView(text: $jobDescription, action: actionDescriptionJob)
+            .focused($keyboardFocused)
     }
     
     private func actionDescriptionJob() {
         guard let resumeURL = resumeFileURL else { return }
-        viewModel.generateQuestions(
-            resumeURL: resumeURL,
-            jobTitle: selectedJobTitle,
-            seniority: selectedSeniority,
-            description: jobDescription
-        )
         showQuestionsView = true
     }
     
@@ -252,84 +265,10 @@ struct InterviewGenerateQuestionsView: View {
         
     }
     
-    @ViewBuilder
-    func createNotesInterview() -> some View {
-        GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 16) {
-                // Content
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("✏️ Faça anotações no pré, durante ou pós entrevista.")
-                        .bold()
-                        .font(.system(size: min(geometry.size.width * 0.05, 20))) // Responsive font size
-                        .foregroundColor(.adaptiveBlack)
-                    Text("Aproveite os momentos de pré entrevista para anotar sobre você e seus projetos, durante a entrevista anote pontos a melhorar/o que não soube responder e pós entrevista pensar os pontos a melhorar e o que deu certo!")
-                        .font(.system(size: min(geometry.size.width * 0.03, 12)))
-                        .foregroundColor(.descriptionGray)
-                }
-                .padding(.bottom, 8)
-                
-                HStack(spacing: 12) {
-                    Button(action: {
-                        // Try to open Notes app
-                        let notesSchemes = ["mobilenotes://", "notes://"]
-                        var opened = false
-                        for scheme in notesSchemes {
-                            if let url = URL(string: scheme), UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.open(url, options: [:]) { success in
-                                    if !success { showNotesUnavailableAlert() }
-                                }
-                                opened = true
-                                break
-                            }
-                        }
-                        if !opened { showNotesUnavailableAlert() }
-                    }) {
-                        Text("Notas do Celular")
-                            .font(.system(size: 16))
-                            .frame(maxWidth: .infinity)
-                            .frame(height: geometry.size.height * 0.15) // 6% of container height
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.blue)
-                    
-                    Button(action: {
-                        // Open your app's notes
-                    }) {
-                        Text("Notas do App")
-                            .font(.system(size: 16))
-                            .frame(maxWidth: .infinity)
-                            .frame(height: geometry.size.height * 0.15) // Same height as first button
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.blue)
-                }
-                .frame(height: geometry.size.height * 0.16) // Slightly taller container for buttons
-            }
-            .padding()
-            .background(Color.backgroundLightGray)
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 3)
-            .padding(.horizontal)
-        }
-        .frame(height: 200) // Fixed height for the entire card
-        .alert("Notas não disponível", isPresented: $showingNotesAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text("O aplicativo de notas não pôde ser aberto. Você pode acessá-lo manualmente.")
-        }
-    }
+    
     
     private func showNotesUnavailableAlert() {
         showingNotesAlert = true
-    }
-    
-    @ViewBuilder
-    func createTextHeader(stepText: String,
-                          stepTitle: String,
-                          description: String) -> some View {
-        
-        
-        
     }
     
     @ViewBuilder
@@ -340,7 +279,11 @@ struct InterviewGenerateQuestionsView: View {
         Button(action: {
             importing = true
         }) {
-            buttonContent(icon: "square.and.arrow.up", title: "Exportar", buttonType: .export)
+            buttonContent(
+                icon: didExportResume ? "checkmark.circle.fill" : "square.and.arrow.up",
+                title: didExportResume ? "Exportado!" : "Exportar",
+                buttonType: .export
+            )
         }
         .fileImporter(
             isPresented: $importing,
@@ -351,23 +294,17 @@ struct InterviewGenerateQuestionsView: View {
             case .success(let urls):
                 if let selected = urls.first {
                     resumeFileURL = selected
+                    didExportResume = true
+                    
+                    // (Opcional) Voltar para o estado original depois de 2 segundos
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        didExportResume = false
+                    }
                 }
             case .failure(let error):
                 print("Erro ao importar arquivo:", error.localizedDescription)
             }
         }
-
-//        Button(action: addAction) {
-//            buttonContent(icon: "square.and.arrow.up", title: "Exportar", buttonType: .export)
-//        }
-        //TODO: Implementar botão de salvo
-        //        HStack(spacing: 24) { // Espaçamento entre os botões
-        //
-        //
-        //            Button(action: addSavedResumeAction) {
-        //                buttonContent(icon: "doc.text", title: "Salvos", buttonType: .search)
-        //            }
-        //        }
     }
     
     @ViewBuilder
@@ -414,79 +351,6 @@ struct InterviewGenerateQuestionsView: View {
                 }
             }
         }
-    }
-    
-    
-    
-    @ViewBuilder
-    func showNextInterviews() -> some View {
-        VStack {
-            Text("Próximas Entrevistas")
-                .font(.system(size: 24))
-                .padding(.top, 16)
-                .bold()
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(Color.titleSectionColor)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(jobApplications) { job in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(job.jobTitle ?? "Sem título")
-                                .font(.headline)
-                                .foregroundColor(Color.secondaryBlue)
-                            
-                            Text(job.nextInterview ?? "N/A")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
-                            Text(job.company)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding()
-                        .background(Color.backgroundLightGray)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                    }
-                    .padding(.vertical, 16)
-                    .padding(.horizontal)
-                }
-                //                .padding(.horizontal)
-                
-            }
-            //            .padding(.bottom, 16)
-            
-            //            .padding(.horizontal)
-        }
-        
-        .background(Color.backgroundLightGray)
-        .cornerRadius(4)
-        //        .shadow(radius: 2)
-        //        .padding(.bottom, 80)
-        //        .padding()
-        //        Spacer()
-        //        Divider()
-    }
-    
-    func convertToText(url: URL) {
-        if let pdfDocument = PDFDocument(url: url) {
-            let pageCount = pdfDocument.pageCount
-            var fullText = ""
-            
-            for pageIndex in 0..<pageCount {
-                if let page = pdfDocument.page(at: pageIndex) {
-                    if let pageText = page.string {
-                        fullText += pageText
-                    }
-                }
-            }
-            resumeText = fullText // Store the extracted resume text
-        }
-    }
-    
-    func generateInterviewQuestions() {
-        
     }
 }
 

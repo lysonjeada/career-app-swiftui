@@ -39,6 +39,7 @@
 		700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F72DFB38A7008CF3AF /* CareerAPI.swift */; };
 		700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F92DFB38BE008CF3AF /* CareerURL.swift */; };
 		700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512FB2DFB3903008CF3AF /* HTTPMethod.swift */; };
+		701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011435F2E0C66800082EF47 /* JobApplicationTrackerListViewModel.swift */; };
 		7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7016E7AC2D73A0F200300611 /* SceneDelegate.swift */; };
 		701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC142D389542003F6F86 /* AutoScroller.swift */; };
 		701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC162D3F0F3F003F6F86 /* MyEqualHeightHStack.swift */; };
@@ -58,6 +59,11 @@
 		703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F52D2AE710006D3086 /* LoadingCard.swift */; };
 		703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75F82D2AE946006D3086 /* ArticleCard.swift */; };
 		703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A75FA2D2B0593006D3086 /* AddJobApplicationForm.swift */; };
+		70566B2F2E0EFE9600ED701F /* ArticlesHorizontalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B2E2E0EFE8E00ED701F /* ArticlesHorizontalList.swift */; };
+		70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B302E0F089B00ED701F /* InterviewAssistantView.swift */; };
+		70566B342E0F0A1600ED701F /* ResumeFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */; };
+		70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */; };
+		70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B382E0F0E4200ED701F /* InterviewService.swift */; };
 		70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC62D447223005F4933 /* JobApplicationService.swift */; };
 		70740DC92D45C23B005F4933 /* JobApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC82D45C22D005F4933 /* JobApplicationViewModel.swift */; };
 		70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DCA2D45C268005F4933 /* SkillSelectionView.swift */; };
@@ -159,6 +165,7 @@
 		700512F72DFB38A7008CF3AF /* CareerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAPI.swift; sourceTree = "<group>"; };
 		700512F92DFB38BE008CF3AF /* CareerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerURL.swift; sourceTree = "<group>"; };
 		700512FB2DFB3903008CF3AF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		7011435F2E0C66800082EF47 /* JobApplicationTrackerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationTrackerListViewModel.swift; sourceTree = "<group>"; };
 		7016E7AC2D73A0F200300611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7016E7AE2D73CF5300300611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		701CBC142D389542003F6F86 /* AutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScroller.swift; sourceTree = "<group>"; };
@@ -173,6 +180,11 @@
 		703A75F52D2AE710006D3086 /* LoadingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCard.swift; sourceTree = "<group>"; };
 		703A75F82D2AE946006D3086 /* ArticleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCard.swift; sourceTree = "<group>"; };
 		703A75FA2D2B0593006D3086 /* AddJobApplicationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobApplicationForm.swift; sourceTree = "<group>"; };
+		70566B2E2E0EFE8E00ED701F /* ArticlesHorizontalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesHorizontalList.swift; sourceTree = "<group>"; };
+		70566B302E0F089B00ED701F /* InterviewAssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAssistantView.swift; sourceTree = "<group>"; };
+		70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackView.swift; sourceTree = "<group>"; };
+		70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackViewModel.swift; sourceTree = "<group>"; };
+		70566B382E0F0E4200ED701F /* InterviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewService.swift; sourceTree = "<group>"; };
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DC82D45C22D005F4933 /* JobApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationViewModel.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
@@ -319,6 +331,7 @@
 		243CF7B82CD0553500685B91 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				7011435F2E0C66800082EF47 /* JobApplicationTrackerListViewModel.swift */,
 				70740DC82D45C22D005F4933 /* JobApplicationViewModel.swift */,
 				70740DC62D447223005F4933 /* JobApplicationService.swift */,
 				243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */,
@@ -348,6 +361,9 @@
 		244DDABE2C7B9810007FB768 /* Interview */ = {
 			isa = PBXGroup;
 			children = (
+				70566B372E0F0E3E00ED701F /* Service */,
+				70566B322E0F09C100ED701F /* ResumeFeedback */,
+				70566B302E0F089B00ED701F /* InterviewAssistantView.swift */,
 				244DDABF2C7B981A007FB768 /* GenerateQuestions */,
 				241CBCE72CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift */,
 			);
@@ -408,6 +424,23 @@
 				244DDAB92C7A72C8007FB768 /* HomeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		70566B322E0F09C100ED701F /* ResumeFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */,
+				70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */,
+			);
+			path = ResumeFeedback;
+			sourceTree = "<group>";
+		};
+		70566B372E0F0E3E00ED701F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				70566B382E0F0E4200ED701F /* InterviewService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		70819E0F2E0373C2007815BE /* Sheet */ = {
@@ -514,6 +547,7 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				70566B2E2E0EFE8E00ED701F /* ArticlesHorizontalList.swift */,
 				7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */,
 				702E952F2D984F1D00C5EF1D /* LoadingView.swift */,
 				702E952D2D984E1C00C5EF1D /* ArticleDetailButton.swift */,
@@ -700,6 +734,7 @@
 				70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */,
 				70BC02222D9464980069A179 /* MainView.swift in Sources */,
 				70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */,
+				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
 				70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */,
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
@@ -709,6 +744,7 @@
 				70819E082E034AD3007815BE /* APIConstants.swift in Sources */,
 				70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */,
 				70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */,
+				70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */,
 				70819E0E2E036EB8007815BE /* Question.swift in Sources */,
 				703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */,
 				70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */,
@@ -719,6 +755,7 @@
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
+				701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */,
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
 				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
@@ -741,6 +778,7 @@
 				24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */,
 				702E952C2D97627900C5EF1D /* TagCloudView.swift in Sources */,
 				244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */,
+				70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */,
 				70A76C982D7A8F2500C5B709 /* ArticleDetail.swift in Sources */,
 				70D2885C2D28841F004E9033 /* TextEditor.swift in Sources */,
 				249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */,
@@ -748,12 +786,14 @@
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
 				700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */,
+				70566B2F2E0EFE9600ED701F /* ArticlesHorizontalList.swift in Sources */,
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
 				70A76C8C2D77C04F00C5B709 /* CoordinatorPresenter.swift in Sources */,
 				70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */,
+				70566B342E0F0A1600ED701F /* ResumeFeedbackView.swift in Sources */,
 				70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */,
 				243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */,
 				70A76C8F2D7928E400C5B709 /* MenuView.swift in Sources */,

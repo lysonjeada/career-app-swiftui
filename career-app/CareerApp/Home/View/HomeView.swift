@@ -45,15 +45,11 @@ struct HomeView: View {
                         showJobApplications()
                     }
                 }
-                
             }
-            
         }
-        
         .onAppear {
             viewModel.fetchArticles()
         }
-        
     }
     
     @ViewBuilder
@@ -77,88 +73,8 @@ struct HomeView: View {
     }
     
     @ViewBuilder
-    func buildShowMoreButton() -> some View {
-        if viewModel.articles.count > articleLimit {
-            Button(action: {
-                showFullArticleList.toggle()
-            }) {
-                Text("Ver Mais")
-                    .font(.headline)
-                    .padding()
-                    .frame(width: 120, height: 120)
-                    .background(Color.clear)
-                    .foregroundColor(Color.persianBlue)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 60)
-                            .stroke(Color.persianBlue, lineWidth: 2)
-                    )
-            }
-            .padding(.trailing, 16)
-            .shadow(radius: 1)
-            .sheet(isPresented: $showFullArticleList) {
-                FullArticleListView(articles: viewModel.articles)
-            }
-        } else {
-            EmptyView()
-        }
-    }
-    
-    @ViewBuilder
     func showArticlesView() -> some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .center) {
-                Text("Artigos")
-                    .font(.title2)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .foregroundColor(Color.titleSectionColor)
-                    .padding(.bottom, 1)
-                
-                Button(action: {
-                    let stringURL = "https://dev.to/"
-                    if let url = URL(string: stringURL) {
-                        UIApplication.shared.open(url)
-                    }
-                }) {
-                    HStack {
-                        Text("Abrir dev.to")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.persianBlue)
-                            .shadow(radius: 0.5)
-                        Image(systemName: "plus.magnifyingglass")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.persianBlue)
-                            .shadow(radius: 0.5)
-                    }
-                }
-            }
-            
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(viewModel.articles.prefix(articleLimit)) { article in
-                        ArticleCard(article: article)
-                            .frame(width: 200)
-                            .padding(.vertical, 2)
-                            .onTapGesture {
-                                //TODO: Chamar um metodo na view model que abra uma view de detalhes com nome, imagem maior e texto com scroll view
-                                coordinator.push(page: .articleDetail(id: article.id))
-                                //                                viewModel.goToArticleDetail(articleId: article.id)
-                                //                                if let url = URL(string: article.url) {
-                                //                                    UIApplication.shared.open(url)
-                                //                                }
-                            }
-                    }
-                    buildShowMoreButton()
-                }
-            }
-            .padding(.top, 2)
-            .cornerRadius(15)
-            //            .shadow(radius: 5)
-            
-        }
-        Divider()
+        ArticlesHorizontalList(viewModel: viewModel, coordinator: coordinator, showFullArticleList: $showFullArticleList)
     }
     
     @ViewBuilder
@@ -241,7 +157,7 @@ struct HomeView: View {
                 .padding(.vertical, 8)
                 .padding(.horizontal, 20)
             }
-
+            
             //            .padding(.horizontal)
         }
         

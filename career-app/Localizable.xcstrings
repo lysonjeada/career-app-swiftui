@@ -10,7 +10,7 @@
     "+" : {
 
     },
-    "✏️ Faça anotações no pré, durante ou pós entrevista." : {
+    "💬 Feedback:" : {
 
     },
     "📆 %@" : {
@@ -19,19 +19,16 @@
     "Abrir dev.to" : {
 
     },
-    "Adicionar" : {
-
-    },
     "Adicionar Candidatura" : {
 
     },
     "Adicione senioridade e cargo" : {
 
     },
-    "Anote dificuldades, dúvidas, assuntos a serem estudados. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!" : {
+    "Analisando currículo...\nIsso pode levar alguns minutos." : {
 
     },
-    "Aproveite os momentos de pré entrevista para anotar sobre você e seus projetos, durante a entrevista anote pontos a melhorar/o que não soube responder e pós entrevista pensar os pontos a melhorar e o que deu certo!" : {
+    "Anote dificuldades, dúvidas, assuntos a serem estudados. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!" : {
 
     },
     "Artigos" : {
@@ -84,6 +81,9 @@
     "Date Range" : {
 
     },
+    "Done" : {
+
+    },
     "Editar" : {
 
     },
@@ -99,10 +99,19 @@
     "Entrevistas" : {
 
     },
+    "Enviando currículo..." : {
+
+    },
+    "Enviar" : {
+
+    },
     "Erro ao salvar" : {
 
     },
     "Esqueceu a senha?" : {
+
+    },
+    "Exportado!" : {
 
     },
     "Faça o login para cadastrar\ne consultar entrevistas" : {
@@ -111,7 +120,13 @@
     "Faça o login para continuar" : {
 
     },
+    "Faça o upload do seu currículo" : {
+
+    },
     "Fazer login" : {
+
+    },
+    "Feedback do Currículo" : {
 
     },
     "Gerar Mais" : {
@@ -127,6 +142,9 @@
 
     },
     "Ir para notas" : {
+
+    },
+    "Iremos ler seu currículo e retornar o que poderia ser melhorado, estar mais claro, palavras-chave, etc" : {
 
     },
     "LinkedIn" : {
@@ -153,22 +171,19 @@
     "Name" : {
 
     },
+    "Nenhum feedback disponível." : {
+
+    },
     "Nenhuma entrevista cadastrada" : {
 
     },
     "Notas" : {
 
     },
-    "Notas do App" : {
+    "Nova Candidatura" : {
 
     },
-    "Notas do Celular" : {
-
-    },
-    "Notas não disponível" : {
-
-    },
-    "O aplicativo de notas não pôde ser aberto. Você pode acessá-lo manualmente." : {
+    "Ocorreu um erro ao gerar o feedback." : {
 
     },
     "OK" : {

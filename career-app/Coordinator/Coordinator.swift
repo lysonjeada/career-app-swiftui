@@ -61,7 +61,7 @@ class Coordinator: ObservableObject {
         case .profile:
             ProfileView(coordinator: self)
         case .addJob:
-            AddJobApplicationForm(newCompany: .constant(""), newLevel: .constant(""), newLastInterview: .constant(""), newNextInterview: .constant(""), newTechnicalSkills: .constant(""))
+            AddJobApplicationForm(coordinator: self)
         case .editJob:
             EditJobApplicationView(company: .constant(""), level: .constant(""), lastInterview: .constant(""), nextInterview: .constant(""), technicalSkills: .constant(""), coordinator: self)
         }

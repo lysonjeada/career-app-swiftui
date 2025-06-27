@@ -8,14 +8,33 @@
 import Foundation
 
 final class HomeService {
-    func fetchArticles() async throws(Error) -> [Article] {
-        guard let url = URL(string: "https://dev.to/api/articles") else {
+    func fetchArticles(tag: String? = nil) async throws -> [Article] {
+        var urlString = "https://dev.to/api/articles"
+        if let tag = tag, !tag.isEmpty {
+            urlString += "?tag=\(tag)"
+        }
+        
+        guard let url = URL(string: urlString) else {
+            print("[HomeService] ❌ URL inválida: \(urlString)")
             throw URLError(.badURL)
         }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        let fetchedArticles = try decoder.decode([Article].self, from: data)
-        return fetchedArticles
+        do {
+            print("[HomeService] 🔄 Iniciando requisição para: \(url)")
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print("[HomeService] ✅ Código de resposta: \(httpResponse.statusCode)")
+            }
+            
+            let decoder = JSONDecoder()
+            let fetchedArticles = try decoder.decode([Article].self, from: data)
+            print("[HomeService] ✅ Artigos decodificados com sucesso. Total: \(fetchedArticles.count)")
+            return fetchedArticles
+        } catch {
+            print("[HomeService] ❌ Erro ao buscar ou decodificar artigos: \(error.localizedDescription)")
+            throw error
+        }
     }
 }
+

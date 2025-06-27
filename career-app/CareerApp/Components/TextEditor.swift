@@ -16,7 +16,7 @@ struct TextEditorView: View {
     var body: some View {
         VStack {
             TextEditor(text: $text)
-                .frame(height: 60) // Altura fixa (equivalente à expandida)
+                .frame(height: 100) // Altura fixa (equivalente à expandida)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.backgroundLightGray)
@@ -37,7 +37,5 @@ struct TextEditorView: View {
                     .foregroundColor(.persianBlueWithoutOpacity)
             }
         }
-        .padding(.top, 8)
-        .padding(.horizontal, 12)
     }
 }

@@ -33,6 +33,7 @@ struct JobApplication: Identifiable {
 struct JobApplicationTrackerView: View {
     @State private var jobApplications = []
     @StateObject private var viewModel = AddJobApplicationViewModel()
+    @StateObject private var listViewModel = JobApplicationTrackerListViewModel()
     @State private var newCompany = ""
     @State private var newLevel = ""
     @State private var newRole = ""
@@ -46,42 +47,46 @@ struct JobApplicationTrackerView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .bottom) {
-                ScrollView {
-                    VStack {
-                        if viewModel.jobApplications.isEmpty {
-                            EmptyStateView()
-                        } else {
-                            ApplicationsListView(
-                                applications: viewModel.jobApplications,
-                                isEditingMode: $isEditingMode,
-                                onEdit: editJob
-                            )
-                        }
+            switch listViewModel.viewState {
+            case .loading:
+                ZStack {
+                    // Container centralizado
+                    VStack(spacing: 16) {
+                        // Spinner minimalista
+                        MinimalSpinner()
+                            .frame(width: 60, height: 60)
                     }
-                    .padding(.bottom, 80) // Espaço para os botões flutuantes
+                }
+            case .loaded:
+                ZStack(alignment: .bottom) {
+                    ScrollView {
+                        VStack {
+                            if listViewModel.jobApplications.isEmpty {
+                                EmptyStateView()
+                            } else {
+                                ApplicationsListView(
+                                    applications: listViewModel.jobApplications,
+                                    isEditingMode: $isEditingMode,
+                                    onEdit: editJob
+                                )
+                            }
+                        }
+                        .padding(.bottom, 80) // Espaço para os botões flutuantes
+                    }
+                    
+                    FloatingActionButtons(
+                        isEditingMode: $isEditingMode,
+                        showAddForm: $showAddForm,
+                        coordinator: coordinator
+                    )
                 }
                 
-                FloatingActionButtons(
-                    isEditingMode: $isEditingMode,
-                    showAddForm: $showAddForm,
-                    coordinator: coordinator
-                )
             }
-            .navigationTitle("Candidaturas")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { toolbarContent }
-            .sheet(isPresented: $showAddForm) {
-                AddJobApplicationForm(
-                                        newCompany: $newCompany,
-                                        newLevel: $newLevel,
-                                        newLastInterview: $newLastInterview,
-                                        newNextInterview: $newNextInterview,
-                                        newTechnicalSkills: $newTechnicalSkills
-                                    )
-            }
-            .onAppear { viewModel.fetchJobApplications() }
         }
+        .onAppear { listViewModel.fetchJobApplications() }
+        .navigationTitle("Candidaturas")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar { toolbarContent }
     }
     
     @ToolbarContentBuilder
@@ -92,26 +97,6 @@ struct JobApplicationTrackerView: View {
                 .font(.system(size: 28))
                 .foregroundColor(.persianBlue)
         }
-    }
-    
-    // Função para adicionar um novo trabalho
-    func addNewJob() {
-//        let technicalSkillsArray = newTechnicalSkills
-//            .split(separator: ",")
-//            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-//        
-//        let newJob = JobApplication(
-//            company: newCompany,
-//            level: newLevel,
-//            role: newRole,
-//            lastInterview: newLastInterview.isEmpty ? nil : newLastInterview,
-//            nextInterview: newNextInterview.isEmpty ? nil : newNextInterview,
-//            technicalSkills: technicalSkillsArray,
-//            jobTitle: nil
-//        )
-//        jobApplications.append(newJob)
-//        clearForm()
-        
     }
     
     func editJob() {
@@ -202,7 +187,7 @@ private struct ApplicationsListView: View {
 private struct FloatingActionButtons: View {
     @Binding var isEditingMode: Bool
     @Binding var showAddForm: Bool
-    var coordinator: Coordinator
+    @StateObject var coordinator: Coordinator
     
     var body: some View {
         HStack(spacing: 16) {

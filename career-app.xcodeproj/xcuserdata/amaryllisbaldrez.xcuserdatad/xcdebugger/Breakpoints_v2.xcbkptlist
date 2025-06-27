@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C2E25E67-9ABF-4A27-A9A4-65858165C64E"
+            uuid = "CC5058B8-2A4E-4746-8D71-77A6E7122B75"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "career-app/Interview/GenerateQuestions/View/InterviewGenerateQuestionsView.swift"
+            filePath = "career-app/Interview/GenerateQuestions/ViewModel/GenerateQuestionsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "actionDescriptionJob()"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "generateQuestions(resumeURL:jobTitle:seniority:description:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C1E9C89-FDAD-464D-B0BC-7B34BA7584B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "career-app/CareerApp/Home/ViewModel/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "fetchArticles(tag:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

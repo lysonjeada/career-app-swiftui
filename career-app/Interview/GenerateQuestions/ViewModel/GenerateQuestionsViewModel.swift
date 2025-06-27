@@ -36,19 +36,27 @@ final class GenerateQuestionsViewModel: ObservableObject {
     private(set) var steps: [QuestionsGeneratorStep.Step]
     var service: APIServiceProtocol
     
+    enum State: Equatable {
+        case loading
+        case loaded
+    }
+    
+    @Published private(set) var viewState: State = .loaded
+    
     private var task: Task<Void, Never>?
     
     init(service: APIServiceProtocol = APIService()) {
         self.steps = [
-            .init(title: "Faça o download do seu currículo", description: "Certifique-se de que seu currículo está atualizado e com suas habilidades bem expostas.", imageButton: "doc.fill", type: .addCurriculum),
             .init(title: "Selecione cargo e senioridade", description: "Adicione cargo e senioridade correspondente à vaga", imageButton: "chevron.down", type: .addInfoJob),
-            .init(title: "Adicione mais informações", description: "Adicione a descrição e/ou mais informações da vaga, isso ajuda o gerador de perguntas a ser mais assertivo", imageButton: "chevron.down", type: .addDescriptionJob)
+            .init(title: "Faça o upload do seu currículo", description: "Certifique-se de que seu currículo está atualizado e com suas habilidades bem expostas.", imageButton: "doc.fill", type: .addCurriculum),
+            .init(title: "Adicione mais informações", description: "Adicione a descrição e/ou mais informações da vaga", imageButton: "chevron.down", type: .addDescriptionJob)
         ]
         self.service = service
     }
     
     @MainActor
     func generateQuestions(resumeURL: URL, jobTitle: String, seniority: String, description: String) {
+        viewState = .loading
         guard resumeURL.startAccessingSecurityScopedResource() else {
             print("❌ Falha ao acessar recurso protegido.")
             return
@@ -59,7 +67,7 @@ final class GenerateQuestionsViewModel: ObservableObject {
         do {
             let pdfData = try Data(contentsOf: resumeURL)
 
-            var request = URLRequest(url: URL(string: "http://192.168.0.9:8000/generate-interview-questions/")!)
+            var request = URLRequest(url: URL(string: "\(APIConstants.pythonURL)/generate-interview-questions/")!)
             request.httpMethod = "POST"
 
             let boundary = UUID().uuidString
@@ -93,6 +101,7 @@ final class GenerateQuestionsViewModel: ObservableObject {
                     let (data, _) = try await URLSession.shared.data(for: request)
                     if let decoded = try? JSONDecoder().decode(QuestionResponse.self, from: data) {
                         self.generatedQuestions = decoded.questions
+                        viewState = .loaded
                     } else {
                         print("❌ Falha ao decodificar resposta.")
                     }
