@@ -63,12 +63,6 @@ struct InterviewGenerateQuestionsView: View {
         }
     }
     
-    @State private var jobApplications = [
-        JobApplication(company: "PagBank", level: "Pleno", role: "iOS Developer", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
-        JobApplication(company: "Nubank", level: "Sênior", role: "iOS Developer", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
-        JobApplication(company: "Itaú", level: "Júnior", role: "iOS Developer", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
-    ]
-    
     private var profileButton: some View {
         Button(action: {
             // Ação do botão de perfil
@@ -145,7 +139,7 @@ struct InterviewGenerateQuestionsView: View {
             currentIndex: $currentIndex,
             items: viewModel.steps
         ) { step in
-            CardHorizontal(isFillHeight: true)
+            CardHorizontal(isFillHeight: false)
                 .content(
                     showTypeAndDescriptionJob(
                         title: step.title,
@@ -187,6 +181,7 @@ struct InterviewGenerateQuestionsView: View {
                 .bold()
                 .font(.system(size: 24))
                 .foregroundColor(.persianBlue)
+                .frame(alignment: .top)
             
             Text(title)
                 .font(.system(size: 22))
@@ -199,7 +194,7 @@ struct InterviewGenerateQuestionsView: View {
                 .lineSpacing(2)
                 .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .multilineTextAlignment(.center)
     }
     

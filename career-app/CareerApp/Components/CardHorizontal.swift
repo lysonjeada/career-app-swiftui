@@ -35,7 +35,9 @@ public struct CardHorizontal: View {
                             }
                         }
                     }
-                    .padding(8)
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 8)
+                    
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .padding(.leading, 8)

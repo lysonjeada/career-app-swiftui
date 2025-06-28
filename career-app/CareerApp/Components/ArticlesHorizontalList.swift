@@ -10,6 +10,7 @@ import SwiftUI
 struct ArticlesHorizontalList: View {
     @StateObject var viewModel: HomeViewModel
     @StateObject var coordinator: Coordinator
+    @State var isClicked: Bool = false
     @Binding var showFullArticleList: Bool
     
     private let articleLimit = 10
@@ -17,32 +18,26 @@ struct ArticlesHorizontalList: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            HStack(spacing: 8) {
+            ZStack {
+                // Título centralizado
                 Text("Artigos")
                     .font(.title2)
                     .bold()
                     .foregroundColor(Color.titleSectionColor)
-                tagPicker
-            }
-            .padding(.bottom, 1)
-            
-            Button(action: {
-                if let url = URL(string: "https://dev.to/") {
-                    UIApplication.shared.open(url)
-                }
-            }) {
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                // HStack com botão à esquerda e picker à direita
                 HStack {
-                    Text("Abrir dev.to")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color.persianBlue)
-                        .shadow(radius: 0.5)
-                    Image(systemName: "plus.magnifyingglass")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color.persianBlue)
-                        .shadow(radius: 0.5)
+                    // Botão à esquerda
+                    
+                    Spacer()
+
+                    // Picker à direita
+                    tagPicker
                 }
             }
-            
+            .padding(.bottom, 16)
+
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     ForEach(viewModel.articles.prefix(articleLimit)) { article in
@@ -58,9 +53,32 @@ struct ArticlesHorizontalList: View {
             }
             .padding(.top, 2)
             
+            HStack {
+                Spacer()
+                Button(action: {
+                    if let url = URL(string: "https://dev.to/") {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    HStack {
+                        Text("Abrir dev.to")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.persianBlue)
+                            .shadow(radius: 0.5)
+                        Image(systemName: "plus.magnifyingglass")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.persianBlue)
+                            .shadow(radius: 0.5)
+                    }
+                }
+                .padding(.vertical)
+                .padding(.trailing)
+            }
+
             Divider()
         }
     }
+
     
     private var tagPicker: some View {
         Menu {
@@ -68,7 +86,7 @@ struct ArticlesHorizontalList: View {
                 Button(action: {
                     viewModel.selectedTag = tag
                     let tagToFetch = tag == "Todos" ? nil : tag
-                    viewModel.fetchArticles(tag: tagToFetch)
+                    viewModel.fetchHome(tag: tagToFetch)
                 }) {
                     HStack {
                         Text(tag.capitalized)
@@ -81,18 +99,17 @@ struct ArticlesHorizontalList: View {
         } label: {
             VStack {
                 HStack {
-                    Text(viewModel.selectedTag.capitalized)
-                        .font(.subheadline)
+//                    Text(isClicked ? viewModel.selectedTag.capitalized : "")
+//                        .font(.subheadline)
                     Image(systemName: "line.horizontal.3.decrease.circle")
                 }
                 .padding(8)
                 .cornerRadius(10)
             }
-            .overlay(
-                RoundedRectangle(cornerRadius: 30)
-                    .stroke(Color.persianBlue, lineWidth: 2)
-            )
-            .padding()
+            .padding(.horizontal)
+        }
+        .onTapGesture {
+            isClicked.toggle()
         }
     }
     

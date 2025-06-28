@@ -49,8 +49,7 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                             role: $0.job_title,  // ajuste conforme necessário
                             lastInterview: $0.last_interview_date,
                             nextInterview: $0.next_interview_date,
-                            technicalSkills: $0.skills ?? [],
-                            jobTitle: $0.job_title
+                            technicalSkills: $0.skills ?? []
                         )
                     }
 

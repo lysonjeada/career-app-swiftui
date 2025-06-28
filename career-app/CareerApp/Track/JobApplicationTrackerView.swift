@@ -8,25 +8,30 @@
 import SwiftUI
 
 struct JobApplication: Identifiable {
-    var id = UUID()
+    var id: UUID
     var company: String
     var level: String
     var role: String
     var lastInterview: String?
     var nextInterview: String?
     var technicalSkills: [String]
-    var jobTitle: String?
     
-    
-    init(id: UUID = UUID(), company: String, level: String = "",role: String, lastInterview: String? = nil, nextInterview: String? = nil, technicalSkills: [String] = [], jobTitle: String? = nil) {
+    init(
+        id: UUID,
+        company: String,
+        level: String = "",
+        role: String,
+        lastInterview: String? = nil,
+        nextInterview: String? = nil,
+        technicalSkills: [String] = []
+    ) {
         self.id = id
         self.company = company
         self.level = level
-        self.lastInterview = lastInterview
         self.role = role
+        self.lastInterview = lastInterview
         self.nextInterview = nextInterview
         self.technicalSkills = technicalSkills
-        self.jobTitle = jobTitle
     }
 }
 

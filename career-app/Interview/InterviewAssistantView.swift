@@ -15,8 +15,23 @@ struct InterviewAssistantView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                InterviewGenerateQuestionsView(viewModel: viewModel)
-                ResumeFeedbackView(viewModel: resumeFeedbackViewModel)
+                VStack {
+                    Text("Gere perguntas para uma possível entrevista")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(Color.adaptiveBlack)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                        .padding(.top, 24)
+                    InterviewGenerateQuestionsView(viewModel: viewModel)
+                    Text("Melhore seu currículo")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(Color.adaptiveBlack)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    ResumeFeedbackView(viewModel: resumeFeedbackViewModel)
+                }
             }
             .ignoresSafeArea(.keyboard)
             .gesture(DragGesture().onChanged { _ in

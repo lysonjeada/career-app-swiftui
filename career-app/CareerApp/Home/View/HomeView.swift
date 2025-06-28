@@ -7,12 +7,6 @@ struct HomeView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject var deepLinkManager = DeepLinkManager()
     
-    @State private var jobApplications = [
-        JobApplication(company: "PagBank", level: "Pleno", role: "iOS Developer", nextInterview: "18/09/2024", jobTitle: "iOS Developer"),
-        JobApplication(company: "Nubank", level: "Sênior", role: "iOS Developer", nextInterview: "25/09/2024", jobTitle: "Backend Engineer"),
-        JobApplication(company: "Itaú", level: "Júnior", role: "iOS Developer", nextInterview: "02/10/2024", jobTitle: "Data Analyst")
-    ]
-    
     @State private var searchText = ""
     
     struct Output {
@@ -48,7 +42,7 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            viewModel.fetchArticles()
+            viewModel.fetchHome()
         }
     }
     
@@ -80,40 +74,66 @@ struct HomeView: View {
     @ViewBuilder
     func showNextInterviews() -> some View {
         VStack {
-            VStack(alignment: .leading) {
+            VStack {
                 Text("Próximas Entrevistas")
                     .font(.title2)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(Color.titleSectionColor)
-                if !coordinator.isLoggedIn {
+
+                if viewModel.nextJobApplications.isEmpty {
+                    VStack(spacing: 8) {
+                        Image(systemName: "exclamationmark.magnifyingglass")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.persianLightBlue)
+
+                        Text("Nenhuma entrevista próxima cadastrada")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color.adaptiveBlack)
+
+                        Text("Faça o login para cadastrar\ne consultar entrevistas")
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color.descriptionGray)
+
+                        Button(action: {
+                            if let url = URL(string: "https://dev.to/") {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            Text("Fazer login")
+                                .font(.system(size: 18))
+                                .foregroundColor(Color.persianBlue)
+                                .shadow(radius: 0.5)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 20)
+                } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
-                            ForEach(jobApplications) { job in
+                            ForEach(viewModel.nextJobApplications, id: \.id) { job in
                                 VStack(alignment: .leading, spacing: 8) {
-                                    if let nextInterview = job.nextInterview,
-                                       let formattedDate = formatDate(nextInterview) {
+                                    if let nextInterview = job.nextInterview {
+                                       
                                         HStack {
                                             Image(systemName: "calendar.badge.clock")
                                                 .font(.system(size: 16))
                                                 .foregroundColor(Color.persianBlue)
-                                            Text(formattedDate)
+                                        Text(nextInterview)
                                                 .font(.system(size: 16))
                                                 .bold()
                                                 .foregroundColor(Color.persianBlue)
                                         }
-                                    } else {
-                                        Text("N/A")
-                                            .font(.system(size: 16))
-                                            .bold()
-                                            .foregroundColor(Color.persianBlue)
                                     }
-                                    Text(job.jobTitle ?? "Sem título")
+                                    Text(job.role)
                                         .font(.system(size: 12))
                                         .foregroundColor(Color.secondaryBlue)
                                     Text(job.company)
                                         .font(.system(size: 12))
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(.descriptionGray)
                                 }
                                 .padding(.vertical, 24)
                                 .padding(.horizontal, 20)
@@ -126,41 +146,8 @@ struct HomeView: View {
                     }
                 }
             }
-            if coordinator.isLoggedIn {
-                VStack(alignment: .center) {
-                    Image(systemName: "exclamationmark.magnifyingglass")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.persianLightBlue)
-                    Text("Nenhuma entrevista cadastrada")
-                        .font(.system(size: 16))
-                        .foregroundColor(Color.adaptiveBlack)
-                        .padding(.bottom, 4)
-                    Text("Faça o login para cadastrar\ne consultar entrevistas")
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.descriptionGray)
-                        .padding(.bottom, 8)
-                    Button(action: {
-                        let stringURL = "https://dev.to/"
-                        if let url = URL(string: stringURL) {
-                            UIApplication.shared.open(url)
-                        }
-                    }) {
-                        
-                        Text("Fazer login")
-                            .font(.system(size: 18))
-                            .foregroundColor(Color.persianBlue)
-                            .shadow(radius: 0.5)
-                        
-                    }
-                }
-                .padding(.vertical, 8)
-                .padding(.horizontal, 20)
-            }
-            
-            //            .padding(.horizontal)
         }
-        
+
         Divider()
     }
     
@@ -176,13 +163,13 @@ struct HomeView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    ForEach(jobApplications) { job in
+                    ForEach(viewModel.jobApplications, id: \.id) { job in
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Image(systemName: "person.bubble.fill")
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.persianBlue)
-                                Text(job.jobTitle ?? "Sem título")
+                                Text(job.role)
                                     .bold()
                                     .font(.system(size: 16))
                                     .foregroundColor(Color.secondaryBlue)

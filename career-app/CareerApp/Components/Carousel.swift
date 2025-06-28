@@ -246,7 +246,7 @@ struct NativeCarousel<T: Identifiable, Content: View>: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(height: 320)
+            .frame(height: 300)
             .animation(.easeInOut(duration: 0.3), value: currentIndex)
             .onChange(of: currentIndex) { newIndex in
                 onSwipe(newIndex)

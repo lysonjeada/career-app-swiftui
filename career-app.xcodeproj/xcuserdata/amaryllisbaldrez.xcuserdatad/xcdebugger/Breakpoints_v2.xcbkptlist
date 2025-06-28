@@ -30,9 +30,9 @@
             filePath = "career-app/CareerApp/Home/ViewModel/HomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "fetchArticles(tag:)"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "fetchHome(tag:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
