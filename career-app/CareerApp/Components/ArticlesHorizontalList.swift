@@ -54,7 +54,6 @@ struct ArticlesHorizontalList: View {
             .padding(.top, 2)
             
             HStack {
-                Spacer()
                 Button(action: {
                     if let url = URL(string: "https://dev.to/") {
                         UIApplication.shared.open(url)
@@ -72,7 +71,6 @@ struct ArticlesHorizontalList: View {
                     }
                 }
                 .padding(.vertical)
-                .padding(.trailing)
             }
 
             Divider()

@@ -8,26 +8,25 @@
 import SwiftUI
 
 struct MenuView: View {
+    @StateObject var coordinator: Coordinator
+    
     var body: some View {
         NavigationStack {
             VStack {
                 List {
-                    HStack {
-                        Text("Perfil")
-                            .foregroundColor(.persianBlue)
-                            .font(.system(size: 20))
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.persianBlue)
+                    Button {
+                        coordinator.push(page: .profile)
+                    } label: {
+                        HStack {
+                            Text("Perfil")
+                                .foregroundColor(.persianBlue)
+                                .font(.system(size: 20))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.persianBlue)
+                        }
                     }
-                    HStack {
-                        Text("Candidaturas")
-                            .foregroundColor(.persianBlue)
-                            .font(.system(size: 20))
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.persianBlue)
-                    }
+                    .listRowBackground(Color.backgroundLightGray)
                 }
                 .background(Color.backgroundLightGray)
             }
@@ -48,6 +47,6 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        MenuView(coordinator: Coordinator())
     }
 }

@@ -13,7 +13,6 @@ struct LoginView: View {
     @EnvironmentObject private var coordinator: Coordinator
     
     var body: some View {
-        
         VStack(spacing: 20) {
             VStack(spacing: 8) {
                 Text("Login")
@@ -69,11 +68,12 @@ struct LoginView: View {
             }
             HStack {
                 Button("Esqueceu a senha?") {
+                    coordinator.push(page: .forgotPassword)
                 }
                 .foregroundColor(.persianBlue)
                 Spacer()
                 Button("Cadastre-se") {
-                    // Signup action
+                    coordinator.push(page: .signUp)
                 }
                 .foregroundColor(.persianBlue)
             }
@@ -81,6 +81,18 @@ struct LoginView: View {
             .padding(.top, 20)
             
             Spacer()
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarBackground(Color.persianBlue, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("TechStep")
+                    .bold()
+                    .font(.system(size: 20))
+                    .foregroundColor(.white)
+            }
         }
         .padding(.horizontal, 30)
         .padding(.top, 50)

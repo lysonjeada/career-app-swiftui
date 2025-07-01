@@ -13,6 +13,7 @@ class Coordinator: ObservableObject {
     @Published var sheet: Sheet?
     @Published var fullScreenCover: FullScreenCover?
     @Published var isLoggedIn: Bool = false
+    var jobApplicationTrackerListViewModel = JobApplicationTrackerListViewModel()
     
     func push(page: AppPages) {
         path.append(page)
@@ -45,7 +46,7 @@ class Coordinator: ObservableObject {
     @ViewBuilder
     func buildRootView() -> some View {
         if isLoggedIn {
-            ContentView(viewModel: .init()) // Sua TabView principal
+            ContentView(viewModel: .init(), listViewModel: self.jobApplicationTrackerListViewModel) // Sua TabView principal
         } else {
             LoginView()
         }
@@ -54,16 +55,22 @@ class Coordinator: ObservableObject {
     @ViewBuilder
     func build(page: AppPages) -> some View {
         switch page {
-        case .main: ContentView(viewModel: .init())
+        case .main: ContentView(viewModel: .init(), listViewModel: self.jobApplicationTrackerListViewModel)
             /*HomeView(viewModel: .init(), output: .init(goToMainScreen: { }, goToForgotPassword: { }))*/
         case .login: LoginView()
         case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
         case .profile:
             ProfileView(coordinator: self)
         case .addJob:
-            AddJobApplicationForm(coordinator: self)
-        case .editJob:
-            EditJobApplicationView(company: .constant(""), level: .constant(""), lastInterview: .constant(""), nextInterview: .constant(""), technicalSkills: .constant(""), coordinator: self)
+            AddJobApplicationForm(viewModel: self.jobApplicationTrackerListViewModel, coordinator: self)
+        case .editJob(let job):
+            EditJobApplicationView(job: job, coordinator: self, viewModel: self.jobApplicationTrackerListViewModel)
+        case .listApplications:
+            JobApplicationTrackerView(listViewModel: self.jobApplicationTrackerListViewModel, coordinator: self)
+        case .signUp:
+            SignUpView(goToLogin: { self.push(page: .login) } , onRegister: { self.push(page: .main) } )
+        case .forgotPassword:
+            ForgotPasswordView(goToLogin: { self.push(page: .login) } )
         }
     }
     
@@ -73,14 +80,12 @@ enum AppPages: Hashable {
     case main
     case login
     case articleDetail(id: Int)
+    case listApplications
     case profile
     case addJob
-    case editJob
-    //    case addJob(newCompany: String,
-    //                newLevel: String,
-    //                newLastInterview: String,
-    //                newNextInterview: String,
-    //                newTechnicalSkills: String)
+    case editJob(JobApplication)
+    case signUp
+    case forgotPassword
 }
 
 enum Sheet: String, Identifiable {

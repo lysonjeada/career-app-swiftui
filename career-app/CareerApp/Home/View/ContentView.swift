@@ -11,6 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var coordinator: Coordinator
     @EnvironmentObject var deepLinkManager: DeepLinkManager
     @StateObject var viewModel: HomeViewModel
+    @StateObject var listViewModel: JobApplicationTrackerListViewModel
     @State private var searchText = ""
     
     private var navigationTitle: String {
@@ -52,13 +53,13 @@ struct ContentView: View {
                     }
                     .tag(TabSelection.interview)
 
-                JobApplicationTrackerView(coordinator: coordinator)
+                JobApplicationTrackerView(listViewModel: listViewModel, coordinator: coordinator)
                     .tabItem {
                         Label(HomeStrings.resumeTitle, systemImage: "book.fill")
                     }
                     .tag(TabSelection.tracker)
 
-                MenuView()
+                MenuView(coordinator: coordinator)
                     .tabItem {
                         Label(HomeStrings.menuTitle, systemImage: "line.horizontal.3")
                     }
@@ -116,6 +117,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: .init())
+        ContentView(viewModel: .init(), listViewModel: .init())
     }
 }

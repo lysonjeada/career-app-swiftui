@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct JobApplication: Identifiable {
+struct JobApplication: Identifiable, Equatable, Hashable {
     var id: UUID
     var company: String
     var level: String
@@ -37,18 +37,18 @@ struct JobApplication: Identifiable {
 
 struct JobApplicationTrackerView: View {
     @State private var jobApplications = []
-    @StateObject private var viewModel = AddJobApplicationViewModel()
-    @StateObject private var listViewModel = JobApplicationTrackerListViewModel()
+    @StateObject var listViewModel: JobApplicationTrackerListViewModel
     @State private var newCompany = ""
     @State private var newLevel = ""
     @State private var newRole = ""
     @State private var newLastInterview = ""
     @State private var newNextInterview = ""
-    @State private var newTechnicalSkills = ""
+    @State private var newTechnicalSkills = [""]
     @State private var showAddForm = false
     @State private var isAnimating = false
     @State private var isEditingMode = false
     @StateObject var coordinator: Coordinator
+    @State private var shouldRefresh = false
     
     var body: some View {
         NavigationStack {
@@ -72,7 +72,8 @@ struct JobApplicationTrackerView: View {
                                 ApplicationsListView(
                                     applications: listViewModel.jobApplications,
                                     isEditingMode: $isEditingMode,
-                                    onEdit: editJob
+                                    onEdit: editJob,
+                                    onTrash: { job in listViewModel.deleteInterview(interviewId: job.id.uuidString) }
                                 )
                             }
                         }
@@ -104,17 +105,17 @@ struct JobApplicationTrackerView: View {
         }
     }
     
-    func editJob() {
-        coordinator.push(page: .editJob)
+    func editJob(_ job: JobApplication) {
+        coordinator.push(page: .editJob(job))
     }
-    
+
     // Limpar os inputs após o cadastro
     func clearForm() {
         newCompany = ""
         newLevel = ""
         newLastInterview = ""
         newNextInterview = ""
-        newTechnicalSkills = ""
+        newTechnicalSkills = [""]
     }
 }
 
@@ -173,15 +174,16 @@ private struct AnimatedPrompt: View {
 private struct ApplicationsListView: View {
     let applications: [JobApplication]
     @Binding var isEditingMode: Bool
-    let onEdit: () -> Void
+    let onEdit: (JobApplication) -> Void
+    let onTrash: (JobApplication) -> Void
     
     var body: some View {
         ForEach(applications) { job in
             JobApplicationCard(
                 job: job,
                 isEditingMode: isEditingMode,
-                editAction: { onEdit() },
-                deleteAction: { /* Implementar deleção */ }
+                editAction: { onEdit(job) },
+                deleteAction: { onTrash(job) }
             )
             .padding(.horizontal)
             .padding(.vertical, 8)
@@ -195,20 +197,10 @@ private struct FloatingActionButtons: View {
     @StateObject var coordinator: Coordinator
     
     var body: some View {
-        HStack(spacing: 16) {
-            ActionButton(
-                title: isEditingMode ? "Concluir" : "Apagar",
-                icon: isEditingMode ? "checkmark" : "trash",
-                color: isEditingMode ? .green : .red,
-                action: { isEditingMode.toggle() }
-            )
-            
-            ActionButton(
-                title: "Adicionar",
-                icon: "plus",
-                color: Color(red: 0, green: 0.37, blue: 0.26),
-                action: { coordinator.push(page: .addJob) }
-            )
+        HStack(spacing: 48) {
+            SecondaryButtonWithIcon(title: isEditingMode ? "checkmark" : "trash", action: { isEditingMode.toggle() })
+
+            PrimaryButtonWithIcon(title: "plus", action: { coordinator.push(page: .addJob) })
         }
         .padding(.horizontal)
         .padding(.bottom, 24)

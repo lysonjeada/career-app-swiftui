@@ -35,11 +35,7 @@ struct JobApplicationCard: View {
     private func buildHeaderSection() -> some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
-                Text(job.company)
-                    .font(.system(size: 22))
-                    .foregroundColor(.fivethBlue)
-
-                HStack(spacing: 4) {
+                HStack(alignment: .top, spacing: 4) {
                     Text(job.role)
                         .font(.system(size: 20))
                         .foregroundColor(.fivethBlue)
@@ -50,6 +46,10 @@ struct JobApplicationCard: View {
                         .foregroundColor(.fivethBlue)
                         .bold()
                 }
+                
+                Text(job.company)
+                    .font(.system(size: 22))
+                    .foregroundColor(.fivethBlue)
 
                 Text("Skills")
                     .italic()
@@ -60,7 +60,9 @@ struct JobApplicationCard: View {
             Spacer()
 
             VStack(alignment: .trailing, spacing: 8) {
-                buildEditButton()
+                if !isEditingMode {
+                    buildEditButton()
+                }
 
                 if isEditingMode {
                     buildTrashButton()
@@ -78,9 +80,6 @@ struct JobApplicationCard: View {
                 Image(systemName: "pencil")
                     .resizable()
                     .frame(width: 20, height: 20)
-                Text("Editar")
-                    .font(.system(size: 18))
-                    .bold()
             }
             .foregroundColor(.persianBlue)
         }

@@ -36,7 +36,7 @@ struct HomeView: View {
                         showNextInterviews()
                         showArticlesView()
                         showJobApplication()
-                        showJobApplications()
+                        showGithubJobs()
                     }
                 }
             }
@@ -196,35 +196,10 @@ struct HomeView: View {
     }
     
     @ViewBuilder
-    func showJobApplications() -> some View {
-        VStack {
-            AutoScroller(
-                items: [
-                    CarouselItem(
-                        image: "resume-image",
-                        description: "Gere dicas e otimize seu curriculo a partir do seu currículo do LinkedIN",
-                        buttonTitle: "Faça o download do seu currículo",
-                        action: { print("Resume button tapped") }
-                    ),
-                    CarouselItem(
-                        cardType: CarouselItem.CardType.leading,
-                        image: "generate-image",
-                        description: "Generate interview questions tailored to your skills.",
-                        buttonTitle: "Generate Now",
-                        action: { print("Generate button tapped") }
-                    ),
-                    CarouselItem(
-                        image: "generate-resume",
-                        description: "Explore our tools to help you achieve career success.",
-                        buttonTitle: "Explore",
-                        action: { print("Explore button tapped") }
-                    )
-                ])
-        }
-        
-        
-        Divider()
+    func showGithubJobs() -> some View {
+        JobHorizontalList(viewModel: viewModel)
     }
+
     
     private var searchField: some View {
         HStack {

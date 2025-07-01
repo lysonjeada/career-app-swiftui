@@ -26,13 +26,15 @@ final class HomeViewModel: ObservableObject {
     private(set) var articles: [Article] = []
     private(set) var jobApplications: [JobApplication] = []
     private(set) var nextJobApplications: [JobApplication] = []
+    private(set) var githubJobListing: [GitHubJobListing] = []
+    private(set) var availableJobs: [String] = []
     private var task: Task <Void, Never>?
     
     private var service: HomeService = HomeService()
     private var jobService: JobApplicationService = JobApplicationService()
     
     @MainActor
-    func fetchHome(tag: String? = nil) {
+    func fetchHome(tag: String? = nil, repository: String? = nil) {
         viewState = .loading
         task = Task {
             do {
@@ -62,6 +64,12 @@ final class HomeViewModel: ObservableObject {
                             technicalSkills: interview.skills ?? []
                         )
                     }
+                if let repository {
+                    self.githubJobListing = try await jobService.fetchJobListings(repository: repository)
+                } else {
+                    self.githubJobListing = try await jobService.fetchJobListings()
+                }
+                self.availableJobs = try await jobService.fetchAvailableRepositories()
                 self.viewState = .loaded
             } catch {
                 print("Erro ao buscar artigos:", error)

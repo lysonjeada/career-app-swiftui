@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "* We will send you a message to set or reset your new password" : {
+
+    },
     "%lld" : {
 
     },
@@ -16,13 +19,13 @@
     "📆 %@" : {
 
     },
+    "🕐 Publicado em %@" : {
+
+    },
     "Abrir dev.to" : {
 
     },
     "Adicionar Candidatura" : {
-
-    },
-    "Adicione senioridade e cargo" : {
 
     },
     "Analisando currículo...\nIsso pode levar alguns minutos." : {
@@ -54,6 +57,9 @@
     "by %@" : {
 
     },
+    "By clicking the Register button, you agree to the public offer" : {
+
+    },
     "Cadastre-se" : {
 
     },
@@ -75,6 +81,9 @@
     "Confirmar" : {
 
     },
+    "Create an account" : {
+
+    },
     "Datas" : {
 
     },
@@ -82,9 +91,6 @@
 
     },
     "Done" : {
-
-    },
-    "Editar" : {
 
     },
     "Email" : {
@@ -135,6 +141,9 @@
     "Feedback gerado!" : {
 
     },
+    "Forgot password?" : {
+
+    },
     "Gerar Mais" : {
 
     },
@@ -145,6 +154,9 @@
 
     },
     "GitHub" : {
+
+    },
+    "I Already Have an Account" : {
 
     },
     "IR ATÉ O ARTIGO" : {
@@ -243,16 +255,22 @@
     "SKILLS" : {
 
     },
-    "Sobre a empresa" : {
+    "Tap to Authorize and Show Calendar" : {
 
     },
-    "Tap to Authorize and Show Calendar" : {
+    "TechStep" : {
+
+    },
+    "Todos" : {
 
     },
     "Todos os Artigos" : {
 
     },
     "Vagas aplicadas" : {
+
+    },
+    "Vagas disponíveis" : {
 
     },
     "Ver agora" : {
@@ -262,9 +280,6 @@
 
     },
     "Você também pode gerar possíveis perguntas para as próximas entrevistas" : {
-
-    },
-    "Voltar" : {
 
     }
   },

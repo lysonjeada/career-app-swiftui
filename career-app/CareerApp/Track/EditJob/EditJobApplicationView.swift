@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct EditJobApplicationView: View {
-    @Binding var company: String
-    @Binding var level: String
-    @Binding var lastInterview: String
-    @Binding var nextInterview: String
-    @Binding var technicalSkills: String
+    let job: JobApplication
+    @StateObject var coordinator: Coordinator
+    
+    @State private var company: String = ""
+    @State private var role: String = ""
+    @State private var level: String = ""
+    @State private var lastInterview: String = ""
+    @State private var nextInterview: String = ""
+    @State private var technicalSkills: [String] = []
+    
     @State private var selectedSeniority: String = "Senioridade"
     @State private var selectedRole: String = "Cargo"
     @State private var selectedTime: String = "Carga horária"
@@ -20,47 +25,44 @@ struct EditJobApplicationView: View {
     @State private var skills: [String] = []
     @State private var showSkillSheet: Bool = false
     @State private var isSelectionModeActive: Bool = false
-    @StateObject private var viewModel = AddJobApplicationViewModel()
-    @StateObject var coordinator: Coordinator
+    @StateObject var viewModel: JobApplicationTrackerListViewModel
     
     let jobType = ["Remoto", "Híbrido", "Presencial"]
     let jobTime = ["Tempo integral", "Meio-período", "Estágio"]
     let seniorityLevels = ["Intern", "Junior", "Mid-level", "Senior", "Lead", "Manager"]
+    let roleOptions = ["iOS Developer", "Backend", "Frontend", "QA", "Tech Lead"]
     
     var body: some View {
         VStack {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading) {
-                        Text("Adicione senioridade e cargo")
-                            .font(.system(size: 24))
-                            .padding(.bottom, 4)
+//                        Text("Edite senioridade e cargo")
+//                            .font(.system(size: 24))
+//                            .padding(.bottom, 4)
+//                            .padding(.top, 16)
+                        
+                        applicationTextField(title: "Nível", placeholder: "Senioridade", value: $level)
                             .padding(.top, 16)
+                            .padding(.bottom, 8)
                         
-                        HStack {
-                            testFieldTest(placeholder: "Senioridade", value: $level)
-                            menuField(selectedItem: $selectedSeniority, options: seniorityLevels, placeholder: "Selecione")
-                        }
+                        applicationTextField(title: "Título", placeholder: "Cargo", value: $role)
+
                         
-                        HStack {
-                            testFieldTest(placeholder: "Cargo", value: $level)
-                            menuField(selectedItem: $selectedRole, options: seniorityLevels, placeholder: "Selecione")
-                        }
+                        Divider().padding(.vertical, 16)
                         
-                        Divider().padding(.vertical)
+//                        Text("Sobre a empresa")
+//                            .font(.system(size: 24))
                         
-                        Text("Sobre a empresa")
-                            .font(.system(size: 24))
+                        applicationTextField(title: "Empresa", placeholder: "Nome da empresa", value: $company)
                         
-                        testFieldTest(placeholder: "Nome da empresa", value: $company)
-                        
-                        Divider().padding(.vertical)
+                        Divider().padding(.vertical, 16)
                         
                         addSkillView()
                         
                         Divider().padding(.vertical)
                         
-                    
+                        
                         VStack(alignment: .leading) {
                             Text("Datas")
                                 .font(.system(size: 24))
@@ -110,13 +112,16 @@ struct EditJobApplicationView: View {
             }
             
             Button(action: {
-//                viewModel.addJobApplication(
-//                    company: newCompany,
-//                    level: newLevel,
-//                    lastInterview: newLastInterview,
-//                    nextInterview: newNextInterview,
-//                    technicalSkills: skills
-//                )
+                viewModel.editJob(
+                    id: job.id,
+                    company: company,
+                    role: role,
+                    level: level,
+                    lastInterview: lastInterview,
+                    nextInterview: nextInterview,
+                    technicalSkills: technicalSkills
+                )
+                coordinator.pop()
             }) {
                 Text("Atualizar")
                     .bold()
@@ -128,15 +133,27 @@ struct EditJobApplicationView: View {
             }
             .padding(.horizontal)
         }
-        .navigationConfig(title: "Profile", backAction: { coordinator.pop() })
+        .onAppear {
+            company = job.company
+            level = job.level
+            role = job.role
+            lastInterview = job.lastInterview ?? ""
+            nextInterview = job.nextInterview ?? ""
+            technicalSkills = job.technicalSkills
+        }
+        .navigationConfig(title: "Editar candidatura", backAction: { coordinator.pop() })
         .navigationTitle("Atualizar Candidatura")
     }
     
     @ViewBuilder
-    private func testFieldTest(placeholder: String, value: Binding<String>) -> some View {
-        TextField(placeholder, text: value)
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.persianBlue))
+    private func applicationTextField(title: String = "", placeholder: String, value: Binding<String>) -> some View {
+        VStack(alignment: .leading) {
+            Text(title)
+                .foregroundColor(.persianBlue)
+            TextField(placeholder, text: value)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).stroke(Color.persianBlue))
+        }
     }
     
     @ViewBuilder
@@ -182,7 +199,7 @@ struct EditJobApplicationView: View {
                         .cornerRadius(24)
                 }
                 .padding(.trailing, 4)
-
+                
                 Button(action: {
                     isSelectionModeActive.toggle()
                 }) {
@@ -199,37 +216,10 @@ struct EditJobApplicationView: View {
                                 .stroke(Color.persianBlue, lineWidth: 2) // Adiciona a borda azul
                         )
                 }
-
-//                Button(action: {
-//                    showSkillSheet.toggle()
-//                }) {
-//                    Image(systemName: "plus")
-//                        .bold()
-//                        .frame(width: 20, height: 20)
-//                        .padding(.horizontal, 16)
-//                        .padding(.vertical, 8)
-//                        .background(Color.persianBlue)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(24)
-//                }
-//                .padding(.trailing, 20)
-//
-//                Button(action: {
-//                    isSelectionModeActive.toggle()
-//                }) {
-//                    Image(systemName: "minus")
-//                        .bold()
-//                        .frame(width: 20, height: 20)
-//                        .padding(.horizontal, 16)
-//                        .padding(.vertical, 8)
-//                        .background(Color.redColor)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(24)
-//                }
             }
             
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
-                ForEach(skills.prefix(5), id: \.self) { skill in
+                ForEach(technicalSkills.prefix(5), id: \.self) { skill in
                     Text(skill)
                         .bold()
                         .font(.system(size: 14))

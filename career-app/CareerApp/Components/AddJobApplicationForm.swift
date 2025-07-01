@@ -22,7 +22,7 @@ struct AddJobApplicationForm: View {
     @State private var showSkillSheet: Bool = false
     @State private var isSelectionModeActive: Bool = false
 
-    @StateObject private var viewModel = AddJobApplicationViewModel()
+    @StateObject var viewModel: JobApplicationTrackerListViewModel
     @StateObject var coordinator: Coordinator
 
     @FocusState private var focusedField: Field?
@@ -209,7 +209,7 @@ struct AddJobApplicationForm_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            AddJobApplicationForm(coordinator: Coordinator())
+            AddJobApplicationForm(viewModel: JobApplicationTrackerListViewModel(), coordinator: Coordinator())
         }
         .previewDevice("iPhone 14")
         .previewDisplayName("Add Job Application Form")
