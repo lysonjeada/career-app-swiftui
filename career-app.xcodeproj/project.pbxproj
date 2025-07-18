@@ -71,6 +71,7 @@
 		70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B382E0F0E4200ED701F /* InterviewService.swift */; };
 		70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC62D447223005F4933 /* JobApplicationService.swift */; };
 		70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DCA2D45C268005F4933 /* SkillSelectionView.swift */; };
+		707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */; };
 		70819E082E034AD3007815BE /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E072E034ACD007815BE /* APIConstants.swift */; };
 		70819E0A2E034B27007815BE /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E092E034B07007815BE /* APIService.swift */; };
 		70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E0B2E036B8B007815BE /* TechStepAPI.swift */; };
@@ -197,6 +198,7 @@
 		70566B382E0F0E4200ED701F /* InterviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewService.swift; sourceTree = "<group>"; };
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
+		707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInterviewListView.swift; sourceTree = "<group>"; };
 		70819E072E034ACD007815BE /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		70819E092E034B07007815BE /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		70819E0B2E036B8B007815BE /* TechStepAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechStepAPI.swift; sourceTree = "<group>"; };
@@ -245,7 +247,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (702E95322D9B2AA600C5EF1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Career App Unit Tests"; sourceTree = "<group>"; };
 		70A76C522D77BB8000C5B709 /* CareerAppExample */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExample; sourceTree = "<group>"; };
-		70A76C632D77BB8200C5B709 /* CareerAppExampleTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExampleTests; sourceTree = "<group>"; };
 		70A76C6D2D77BB8200C5B709 /* CareerAppExampleUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExampleUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -289,7 +290,6 @@
 				241917C72C6AE804004147DF /* career-app */,
 				243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */,
 				70A76C522D77BB8000C5B709 /* CareerAppExample */,
-				70A76C632D77BB8200C5B709 /* CareerAppExampleTests */,
 				70A76C6D2D77BB8200C5B709 /* CareerAppExampleUITests */,
 				241917C62C6AE804004147DF /* Products */,
 				2492406B2CC9A4570081E887 /* Frameworks */,
@@ -419,7 +419,6 @@
 		701CBC192D3F3F62003F6F86 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				70B08FC72E09C9FA002D8FE2 /* Model */,
 				701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */,
 			);
 			path = Profile;
@@ -542,13 +541,6 @@
 			path = EditJob;
 			sourceTree = "<group>";
 		};
-		70B08FC72E09C9FA002D8FE2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		70BC021C2D862E910069A179 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,6 +576,7 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */,
 				703CD7E82E1498F400778C76 /* JobHorizontalList.swift */,
 				703CD7E42E13309200778C76 /* Button.swift */,
 				703CD7E22E13305900778C76 /* AuthTextField.swift */,
@@ -814,6 +807,7 @@
 				70A76C922D7A8C2A00C5B709 /* ArticleDetailView.swift in Sources */,
 				703CD7E52E13309400778C76 /* Button.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
+				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
 				701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */,
 				70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */,
 				700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */,

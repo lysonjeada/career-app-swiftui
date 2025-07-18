@@ -22,6 +22,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     @Published private(set) var viewState: State = .loading
+    @StateObject var coordinator = Coordinator()
     
     private(set) var articles: [Article] = []
     private(set) var jobApplications: [JobApplication] = []
@@ -78,6 +79,12 @@ final class HomeViewModel: ObservableObject {
     }
     
     func goToArticleDetail(articleId: Int) {
-        coordinatorDelegate?.goToArticleDetail(articleId: articleId)
+        
+    }
+    
+    func goToDevTo() {
+        if let url = URL(string: "https://dev.to/") {
+            UIApplication.shared.open(url)
+        }
     }
 }

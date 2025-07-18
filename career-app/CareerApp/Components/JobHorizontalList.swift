@@ -14,7 +14,7 @@ struct JobHorizontalList: View {
     var body: some View {
         VStack(alignment: .center) {
             ZStack {
-                Text("Vagas disponíveis")
+                Text("Vagas publicadas")
                     .font(.title2)
                     .bold()
                     .padding(.top, 4)

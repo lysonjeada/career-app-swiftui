@@ -7,8 +7,6 @@ struct HomeView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject var deepLinkManager = DeepLinkManager()
     
-    @State private var searchText = ""
-    
     struct Output {
         var goToMainScreen: () -> Void
         var goToForgotPassword: () -> Void
@@ -21,11 +19,12 @@ struct HomeView: View {
             switch viewModel.viewState {
             case .loading:
                 ScrollView {
-                    VStack {
-                        buildJobsLoading()
+                    VStack(spacing: 16) {
+                        Divider()
+                            .background(Color.gray.opacity(0.3))
+                        buildNextInterviewsLoading()
                         buildArticlesLoading()
-                        buildJobsLoading()
-                        buildCarouselLoading()
+                        buildJobsAppliedLoading()
                     }
                 }
             case .loaded:
@@ -57,8 +56,13 @@ struct HomeView: View {
     }
     
     @ViewBuilder
-    func buildJobsLoading() -> some View {
+    func buildNextInterviewsLoading() -> some View {
         LoadingCard(style: .job, title: "Próximas Entrevistas")
+    }
+    
+    @ViewBuilder
+    func buildJobsAppliedLoading() -> some View {
+        LoadingCard(style: .job, title: "Vagas aplicadas")
     }
     
     @ViewBuilder
@@ -82,35 +86,13 @@ struct HomeView: View {
                     .foregroundColor(Color.titleSectionColor)
 
                 if viewModel.nextJobApplications.isEmpty {
-                    VStack(spacing: 8) {
-                        Image(systemName: "exclamationmark.magnifyingglass")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.persianLightBlue)
-
-                        Text("Nenhuma entrevista próxima cadastrada")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color.adaptiveBlack)
-
-                        Text("Faça o login para cadastrar\ne consultar entrevistas")
-                            .font(.system(size: 14))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(Color.descriptionGray)
-
-                        Button(action: {
-                            if let url = URL(string: "https://dev.to/") {
-                                UIApplication.shared.open(url)
-                            }
-                        }) {
-                            Text("Fazer login")
-                                .font(.system(size: 18))
-                                .foregroundColor(Color.persianBlue)
-                                .shadow(radius: 0.5)
+                    EmptyInterviewListView(action: {
+                        if let url = URL(string: "https://dev.to/") {
+                            UIApplication.shared.open(url)
                         }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 20)
+                    },
+                                  actionTitle: "Fazer login",
+                                  actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
@@ -161,34 +143,44 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.titleSectionColor)
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(viewModel.jobApplications, id: \.id) { job in
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Image(systemName: "person.bubble.fill")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.persianBlue)
-                                Text(job.role)
-                                    .bold()
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.secondaryBlue)
-                            }
-                            Text((job.company))
-                                .font(.system(size: 16))
-                                .foregroundColor(.descriptionGray)
-                            Text("📆 \(job.nextInterview ?? "N/A")")
-                                .font(.system(size: 12))
-                                .foregroundColor(.descriptionGray)
-                        }
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 16)
-                        .background(Color.backgroundLightGray)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
+            if viewModel.jobApplications.isEmpty {
+                EmptyInterviewListView(action: {
+                    if let url = URL(string: "https://dev.to/") {
+                        UIApplication.shared.open(url)
                     }
+                },
+                              actionTitle: "Fazer login",
+                              actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(viewModel.jobApplications, id: \.id) { job in
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Image(systemName: "person.bubble.fill")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.persianBlue)
+                                    Text(job.role)
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color.secondaryBlue)
+                                }
+                                Text((job.company))
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.descriptionGray)
+                                Text("📆 \(job.nextInterview ?? "N/A")")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.descriptionGray)
+                            }
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 16)
+                            .background(Color.backgroundLightGray)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                        }
+                    }
+                    .padding(.vertical, 10)
                 }
-                .padding(.vertical, 10)
             }
         }
         
@@ -198,26 +190,6 @@ struct HomeView: View {
     @ViewBuilder
     func showGithubJobs() -> some View {
         JobHorizontalList(viewModel: viewModel)
-    }
-
-    
-    private var searchField: some View {
-        HStack {
-            ZStack(alignment: .leading) {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                    .padding(.leading, 8)
-                
-                Spacer()
-                
-                TextField("Pesquisar", text: $searchText)
-                    .padding(.leading, 40)
-            }
-            .padding(8)
-            .background(Color(UIColor.systemGray6))
-            .cornerRadius(10)
-        }
-        .frame(width: 200)
     }
     
     func formatDate(_ dateString: String) -> String? {

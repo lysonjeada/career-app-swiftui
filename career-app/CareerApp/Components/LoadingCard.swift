@@ -27,7 +27,7 @@ struct LoadingCard: View {
                     .font(.title2)
                     .bold()
                     .padding(.top, 10)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(Color.titleSectionColor)
                     .shimmering(active: isAnimating)
             }

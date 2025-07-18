@@ -55,9 +55,7 @@ struct ArticlesHorizontalList: View {
             
             HStack {
                 Button(action: {
-                    if let url = URL(string: "https://dev.to/") {
-                        UIApplication.shared.open(url)
-                    }
+                    viewModel.goToDevTo()
                 }) {
                     HStack {
                         Text("Abrir dev.to")

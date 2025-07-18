@@ -21,7 +21,7 @@ struct ArticleDetailView: View {
             HStack {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.persianBlue)
                     .padding(8)
             }
         }
@@ -106,9 +106,12 @@ struct ArticleDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
+                backButton
+            }
+            ToolbarItem(placement: .automatic) {
                 Text(viewModel.article?.title ?? "")
                     .bold()
-                    .font(.system(size: 28))
+                    .font(.system(size: 24))
                     .foregroundColor(.persianBlue)
             }
         }

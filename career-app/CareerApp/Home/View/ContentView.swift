@@ -12,29 +12,9 @@ struct ContentView: View {
     @EnvironmentObject var deepLinkManager: DeepLinkManager
     @StateObject var viewModel: HomeViewModel
     @StateObject var listViewModel: JobApplicationTrackerListViewModel
-    @State private var searchText = ""
     
     private var navigationTitle: String {
         return deepLinkManager.title
-    }
-    
-    private var searchField: some View {
-        HStack {
-            ZStack(alignment: .leading) {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                    .padding(.leading, 8)
-                
-                Spacer()
-                
-                TextField("Pesquisar", text: $searchText)
-                    .padding(.leading, 40)
-            }
-            .padding(8)
-            .background(Color(UIColor.systemGray6))
-            .cornerRadius(10)
-        }
-        .frame(width: 200)
     }
     
     var body: some View {
@@ -84,10 +64,7 @@ struct ContentView: View {
                 UITabBar.appearance().scrollEdgeAppearance = appearance
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    searchField
-                }
-                ToolbarItem(placement: .principal) {
+                ToolbarItem(placement: .topBarLeading) {
                     Text(navigationTitle)
                         .font(.system(size: 20))
                         .bold()
