@@ -14,11 +14,7 @@
 		241917CD2C6AE806004147DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241917CC2C6AE806004147DF /* Assets.xcassets */; };
 		241917D02C6AE806004147DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241917CF2C6AE806004147DF /* Preview Assets.xcassets */; };
 		241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241CBCE72CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift */; };
-		243B00022CCBC7DA00D7CF6B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
-		243B00062CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		243BFFFD2CCB34C500D7CF6B /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 243BFFFC2CCB34C500D7CF6B /* SnapshotTesting */; };
-		243CF7B02CCD9ABE00685B91 /* Testing in Frameworks */ = {isa = PBXBuildFile; productRef = 243CF7AF2CCD9ABE00685B91 /* Testing */; };
-		243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAD2CCB30F200D7CF6B /* Testing.framework */; platformFilter = ios; };
+		243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAD2CCB30F200D7CF6B /* Testing.framework */; platformFilter = ios; settings = {ATTRIBUTES = (Weak, ); }; };
 		243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */; };
 		243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243CF7BE2CD2F26800685B91 /* FullArticleListView.swift */; };
 		244DDAB52C797567007FB768 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244DDAB42C797567007FB768 /* CalendarView.swift */; };
@@ -46,12 +42,16 @@
 		701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */; };
 		701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1C2D3F3F9C003F6F86 /* ImagePicker.swift */; };
 		701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1E2D41B41E003F6F86 /* ProfileNotesView.swift */; };
+		7020A2DA2E2B10CC002F6AF1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
+		7020A2DB2E2B10CC002F6AF1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		7020A2DC2E2B10CC002F6AF1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
+		7020A2DD2E2B10CC002F6AF1 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
+		7020A2DE2E2B10CC002F6AF1 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
+		7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020A2F82E2B10E7002F6AF1 /* JobApplicationRequest.swift */; };
+		7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020A2FA2E2B10FF002F6AF1 /* GitHubJobListing.swift */; };
 		702E952C2D97627900C5EF1D /* TagCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702E952B2D97627000C5EF1D /* TagCloudView.swift */; };
 		702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702E952D2D984E1C00C5EF1D /* ArticleDetailButton.swift */; };
 		702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702E952F2D984F1D00C5EF1D /* LoadingView.swift */; };
-		702E95352D9F4BCA00C5EF1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
-		702E95372D9F4F6C00C5EF1D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
-		702E95392D9F4F7500C5EF1D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
 		702E953B2D9F4FA200C5EF1D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E953A2D9F4FA200C5EF1D /* FirebaseCore */; };
 		702E953D2D9F4FBF00C5EF1D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E953C2D9F4FBF00C5EF1D /* FirebaseAuth */; };
 		702E953F2D9F4FC400C5EF1D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E953E2D9F4FC400C5EF1D /* FirebaseCrashlytics */; };
@@ -179,6 +179,8 @@
 		701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		701CBC1C2D3F3F9C003F6F86 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		701CBC1E2D41B41E003F6F86 /* ProfileNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNotesView.swift; sourceTree = "<group>"; };
+		7020A2F82E2B10E7002F6AF1 /* JobApplicationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationRequest.swift; sourceTree = "<group>"; };
+		7020A2FA2E2B10FF002F6AF1 /* GitHubJobListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubJobListing.swift; sourceTree = "<group>"; };
 		702E952B2D97627000C5EF1D /* TagCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCloudView.swift; sourceTree = "<group>"; };
 		702E952D2D984E1C00C5EF1D /* ArticleDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailButton.swift; sourceTree = "<group>"; };
 		702E952F2D984F1D00C5EF1D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -234,18 +236,8 @@
 		70D2885B2D288418004E9033 /* TextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		702E95322D9B2AA600C5EF1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Tests/Home/CareerAppExampleTests.swift,
-			);
-			target = 243BFFC22CCB34B200D7CF6B /* Career App Unit Tests */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (702E95322D9B2AA600C5EF1D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Career App Unit Tests"; sourceTree = "<group>"; };
+		243BFFC42CCB34B200D7CF6B /* Career App Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Career App Unit Tests"; sourceTree = "<group>"; };
 		70A76C522D77BB8000C5B709 /* CareerAppExample */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExample; sourceTree = "<group>"; };
 		70A76C6D2D77BB8200C5B709 /* CareerAppExampleUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CareerAppExampleUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -269,15 +261,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7020A2DE2E2B10CC002F6AF1 /* FirebaseCore in Frameworks */,
+				7020A2DD2E2B10CC002F6AF1 /* FirebaseCrashlytics in Frameworks */,
+				7020A2DC2E2B10CC002F6AF1 /* FirebaseAuth in Frameworks */,
+				7020A2DB2E2B10CC002F6AF1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				7020A2DA2E2B10CC002F6AF1 /* FirebaseAnalytics in Frameworks */,
 				243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */,
-				243B00022CCBC7DA00D7CF6B /* FirebaseAnalytics in Frameworks */,
-				243CF7B02CCD9ABE00685B91 /* Testing in Frameworks */,
 				240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */,
-				243BFFFD2CCB34C500D7CF6B /* SnapshotTesting in Frameworks */,
-				702E95372D9F4F6C00C5EF1D /* FirebaseCrashlytics in Frameworks */,
-				702E95352D9F4BCA00C5EF1D /* FirebaseAuth in Frameworks */,
-				702E95392D9F4F7500C5EF1D /* FirebaseCore in Frameworks */,
-				243B00062CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,9 +330,9 @@
 		243CF7B82CD0553500685B91 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				706A62CF2E2B106E006D1D97 /* Network */,
 				70A86B9B2E12DB400006721C /* EditJob */,
 				7011435F2E0C66800082EF47 /* JobApplicationTrackerListViewModel.swift */,
-				70740DC62D447223005F4933 /* JobApplicationService.swift */,
 				243CF7B92CD0553C00685B91 /* JobApplicationTrackerView.swift */,
 			);
 			path = Track;
@@ -465,6 +455,16 @@
 				70566B382E0F0E4200ED701F /* InterviewService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		706A62CF2E2B106E006D1D97 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7020A2FA2E2B10FF002F6AF1 /* GitHubJobListing.swift */,
+				7020A2F82E2B10E7002F6AF1 /* JobApplicationRequest.swift */,
+				70740DC62D447223005F4933 /* JobApplicationService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		70819E0F2E0373C2007815BE /* Sheet */ = {
@@ -678,10 +678,8 @@
 			);
 			name = "Career App Unit Tests";
 			packageProductDependencies = (
-				243BFFFC2CCB34C500D7CF6B /* SnapshotTesting */,
 				243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */,
 				243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */,
-				243CF7AF2CCD9ABE00685B91 /* Testing */,
 				702E95342D9F4BCA00C5EF1D /* FirebaseAuth */,
 				702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */,
 				702E95382D9F4F7500C5EF1D /* FirebaseCore */,
@@ -721,9 +719,7 @@
 			mainGroup = 241917BC2C6AE804004147DF;
 			packageReferences = (
 				24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				24B3568E2CCBE255005AF38D /* XCRemoteSwiftPackageReference "swift-syntax" */,
-				243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */,
 				70B08FCF2E0A1AF3002D8FE2 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 241917C62C6AE804004147DF /* Products */;
@@ -768,6 +764,7 @@
 				70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */,
 				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
+				7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */,
 				70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */,
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
 				703CD7E32E13305D00778C76 /* AuthTextField.swift in Sources */,
@@ -805,6 +802,7 @@
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
 				70A76C922D7A8C2A00C5B709 /* ArticleDetailView.swift in Sources */,
+				7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */,
 				703CD7E52E13309400778C76 /* Button.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
 				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
@@ -1112,22 +1110,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swiftlang/swift-testing.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.17.6;
-			};
-		};
 		24B3568E2CCBE255005AF38D /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/swiftlang/swift-syntax.git";
@@ -1164,16 +1146,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
-		243BFFFC2CCB34C500D7CF6B /* SnapshotTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 249240682CC9A3520081E887 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
-			productName = SnapshotTesting;
-		};
-		243CF7AF2CCD9ABE00685B91 /* Testing */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 243CF7AE2CCD9ABE00685B91 /* XCRemoteSwiftPackageReference "swift-testing" */;
-			productName = Testing;
 		};
 		24D89C492C8175DC00995945 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

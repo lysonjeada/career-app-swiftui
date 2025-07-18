@@ -8,17 +8,13 @@
 import Foundation
 import SwiftUI
 
-protocol HomeViewModelCoordinatorDelegate: AnyObject {
-    func goToArticleDetail(articleId: Int)
-}
-
 final class HomeViewModel: ObservableObject {
     @Published var selectedTag: String = "Todos"
-    weak var coordinatorDelegate: HomeViewModelCoordinatorDelegate?
     
     enum State: Equatable {
         case loading
         case loaded
+        case error
     }
     
     @Published private(set) var viewState: State = .loading
@@ -31,8 +27,13 @@ final class HomeViewModel: ObservableObject {
     private(set) var availableJobs: [String] = []
     private var task: Task <Void, Never>?
     
-    private var service: HomeService = HomeService()
-    private var jobService: JobApplicationService = JobApplicationService()
+    private let service: HomeServiceProtocol
+    private let jobService: JobApplicationServiceProtocol
+
+    init(service: HomeServiceProtocol = HomeService(), jobService: JobApplicationServiceProtocol = JobApplicationService()) {
+        self.service = service
+        self.jobService = jobService
+    }
     
     @MainActor
     func fetchHome(tag: String? = nil, repository: String? = nil) {
@@ -68,18 +69,14 @@ final class HomeViewModel: ObservableObject {
                 if let repository {
                     self.githubJobListing = try await jobService.fetchJobListings(repository: repository)
                 } else {
-                    self.githubJobListing = try await jobService.fetchJobListings()
+                    self.githubJobListing = try await jobService.fetchJobListings(repository: nil)
                 }
                 self.availableJobs = try await jobService.fetchAvailableRepositories()
                 self.viewState = .loaded
             } catch {
-                print("Erro ao buscar artigos:", error)
+                self.viewState = .error
             }
         }
-    }
-    
-    func goToArticleDetail(articleId: Int) {
-        
     }
     
     func goToDevTo() {

@@ -35,6 +35,21 @@ struct JobApplication: Identifiable, Equatable, Hashable {
     }
 }
 
+extension JobApplication {
+    init(from response: InterviewResponse) {
+        self.init(
+            id: response.id,
+            company: response.company_name,
+            level: response.job_seniority,
+            role: response.job_title,
+            lastInterview: response.last_interview_date,
+            nextInterview: response.next_interview_date,
+            technicalSkills: response.skills ?? []
+        )
+    }
+}
+
+
 struct JobApplicationTrackerView: View {
     @State private var jobApplications = []
     @StateObject var listViewModel: JobApplicationTrackerListViewModel

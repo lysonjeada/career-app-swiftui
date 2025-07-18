@@ -8,12 +8,7 @@
 import Foundation
 import SwiftUI
 
-protocol ArticleDetailViewModelCoordinatorDelegate: AnyObject {
-    func goToArticleDetail(articleId: Int)
-}
-
 final class ArticleDetailViewModel: ObservableObject {
-    weak var coordinatorDelegate: ArticleDetailViewModelCoordinatorDelegate?
     
     enum State: Equatable {
         case loading
@@ -57,8 +52,5 @@ final class ArticleDetailViewModel: ObservableObject {
             }
         }
     }
-    
-    func goToArticleDetail(articleId: Int) {
-        coordinatorDelegate?.goToArticleDetail(articleId: articleId)
-    }
+
 }

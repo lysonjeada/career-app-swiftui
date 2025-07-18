@@ -11,12 +11,17 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Career App Unit Tests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>CareerAppExample.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>3</integer>
 		</dict>
 		<key>CareerAppExamplee.xcscheme_^#shared#^_</key>
 		<dict>
@@ -39,6 +44,19 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>241917C42C6AE804004147DF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>243BFFC22CCB34B200D7CF6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

@@ -118,13 +118,3 @@ final class HomeCoordinator: Hashable {
 enum Route: Hashable {
     case articleDetail(articleId: Int)
 }
-
-extension HomeCoordinator: HomeViewModelCoordinatorDelegate {
-    func goToArticleDetail(articleId: Int) {
-//        presentArticleDetail(with: articleId)
-    }
-}
-
-extension HomeCoordinator: ArticleDetailViewModelCoordinatorDelegate {
-    
-}

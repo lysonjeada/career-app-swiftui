@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class HomeService {
+protocol HomeServiceProtocol {
+    func fetchArticles(tag: String?) async throws -> [Article]
+}
+
+final class HomeService: HomeServiceProtocol {
     func fetchArticles(tag: String? = nil) async throws -> [Article] {
         var urlString = "https://dev.to/api/articles"
         if let tag = tag, !tag.isEmpty {

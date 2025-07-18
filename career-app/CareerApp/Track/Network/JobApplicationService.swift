@@ -9,27 +9,26 @@
 
 import Foundation
 
-struct GitHubJobListing: Decodable, Identifiable {
-    var id: String { url }
-    let title: String
-    let icon: String
-    let url: String
-    let published_at: String
-    let updated_at: String
-    let labels: [String]
-    let repository: String
+protocol JobApplicationServiceProtocol {
+    func fetchInterviews() async throws -> [InterviewResponse]
+    func fetchNextInterviews() async throws -> [InterviewResponse]
+    func fetchJobListings(repository: String?) async throws -> [GitHubJobListing]
+    func fetchAvailableRepositories() async throws -> [String]
+    func addInterview(
+        companyName: String,
+        jobTitle: String,
+        jobSeniority: String,
+        lastInterview: String,
+        nextInterview: String,
+        location: String,
+        notes: String,
+        skills: [String]
+    ) async throws
+    func updateInterview(interviewId: String, request: InterviewRequest) async throws
+    func deleteInterview(interviewId: String) async throws
 }
 
-struct JobApplicationRequest: Codable {
-    let company: String
-    let role: String
-    let level: String
-    let lastInterview: String?
-    let nextInterview: String?
-    let technicalSkills: [String]
-}
-
-class JobApplicationService {
+class JobApplicationService: JobApplicationServiceProtocol {
     func fetchInterviews() async throws -> [InterviewResponse] {
         guard let url = URL(string: "\(APIConstants.pythonURL)/interviews/") else {
             throw URLError(.badURL)

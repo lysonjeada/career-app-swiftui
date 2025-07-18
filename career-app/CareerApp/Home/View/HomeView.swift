@@ -38,6 +38,10 @@ struct HomeView: View {
                         showGithubJobs()
                     }
                 }
+            case .error:
+                VStack {
+                    
+                }
             }
         }
         .onAppear {
@@ -117,6 +121,9 @@ struct HomeView: View {
                                         .font(.system(size: 12))
                                         .foregroundColor(.descriptionGray)
                                 }
+                                .onTapGesture {
+                                    coordinator.push(page: .editJob(job))
+                                }
                                 .padding(.vertical, 24)
                                 .padding(.horizontal, 20)
                                 .background(Color.backgroundLightGray)
@@ -171,6 +178,9 @@ struct HomeView: View {
                                 Text("📆 \(job.nextInterview ?? "N/A")")
                                     .font(.system(size: 12))
                                     .foregroundColor(.descriptionGray)
+                            }
+                            .onTapGesture {
+                                coordinator.push(page: .editJob(job))
                             }
                             .padding(.horizontal, 24)
                             .padding(.vertical, 16)

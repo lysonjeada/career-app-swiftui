@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Test Article",
+    "description": "A detailed article about SwiftUI architecture.",
+    "readable_publish_date": "18 Jul 2025",
+    "url": "https://dev.to/test-article",
+    "cover_image": "https://dev.to/image.png",
+    "user": {
+      "name": "janedoe",
+      "username": "janedoe",
+      "profile_image": "https://dev.to/janedoe/profile.png"
+    }
+  }
+]
+
