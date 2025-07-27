@@ -127,14 +127,16 @@ struct JobApplicationCard: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 ForEach(job.technicalSkills, id: \.self) { skill in
-                    Text(skill)
-                        .bold()
-                        .font(.system(size: 16))
-                        .padding(.horizontal, 12)
-                        .frame(height: 32)
-                        .background(Color.persianBlue.opacity(0.8))
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                    if !skill.isEmpty {
+                        Text(skill)
+                            .bold()
+                            .font(.system(size: 16))
+                            .padding(.horizontal, 12)
+                            .frame(height: 32)
+                            .background(Color.persianBlue.opacity(0.8))
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
                 }
 
                 Image(systemName: "pencil")

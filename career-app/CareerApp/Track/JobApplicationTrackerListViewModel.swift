@@ -7,13 +7,24 @@
 
 import Foundation
 
+extension DateFormatter {
+    static let iso8601Full: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd" // Para dates, ou "yyyy-MM-dd'T'HH:mm:ss" para datetime
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0) // GMT para consistência se não houver timezone no backend
+        return formatter
+    }()
+}
+
 struct InterviewResponse: Codable {
     let id: UUID
     let company_name: String
     let job_seniority: String
     let job_title: String
-    let last_interview_date: String?
-    let next_interview_date: String?
+    let last_interview_date: Date?
+    let next_interview_date: Date?
     let location: String?
     let notes: String?
     let skills: [String]?
@@ -58,8 +69,8 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                         company: $0.company_name,
                         level: $0.job_seniority,
                         role: $0.job_title,
-                        lastInterview: $0.last_interview_date,
-                        nextInterview: $0.next_interview_date,
+                        lastInterview: $0.last_interview_date?.toDayMonthString(),
+                        nextInterview: $0.next_interview_date?.toDayMonthString(),
                         technicalSkills: $0.skills ?? []
                     )
                 }

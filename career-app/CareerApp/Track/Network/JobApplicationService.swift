@@ -29,50 +29,26 @@ protocol JobApplicationServiceProtocol {
 }
 
 class JobApplicationService: JobApplicationServiceProtocol {
-    func fetchInterviews() async throws -> [InterviewResponse] {
-        guard let url = URL(string: "\(APIConstants.pythonURL)/interviews/") else {
-            throw URLError(.badURL)
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            print("✅ Código de resposta (GET): \(httpResponse.statusCode)")
-        }
-        
-        if let jsonString = String(data: data, encoding: .utf8) {
-            print("📥 Resposta JSON:")
-            print(jsonString)
-        }
-        
-        return try JSONDecoder().decode([InterviewResponse].self, from: data)
-    }
     
     func fetchNextInterviews() async throws -> [InterviewResponse] {
         guard let url = URL(string: "\(APIConstants.pythonURL)/interviews/next/") else {
-            throw URLError(.badURL)
+            throw APIError.invalidURL
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
+
         let (data, response) = try await URLSession.shared.data(for: request)
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            print("✅ Código de resposta (GET): \(httpResponse.statusCode)")
+
+        let processedData = try handleHTTPResponse(data: data, response: response)
+
+        do {
+            // Usa o decoder padronizado para lidar com datas
+            return try defaultJSONDecoder().decode([InterviewResponse].self, from: processedData)
+        } catch {
+            throw APIError.decodingError(error)
         }
-        
-        if let jsonString = String(data: data, encoding: .utf8) {
-            print("📥 Resposta JSON:")
-            print(jsonString)
-        }
-        
-        return try JSONDecoder().decode([InterviewResponse].self, from: data)
     }
     
     func updateInterview(interviewId: String, request: InterviewRequest) async throws {
@@ -216,6 +192,108 @@ class JobApplicationService: JobApplicationServiceProtocol {
             // let newInterview = try JSONDecoder().decode(InterviewOut.self, from: responseData)
             // return newInterview
         }
+}
+// MARK: - JobApplicationService (Refatorado)
+
+extension JobApplicationService {
+
+    // MARK: - Private Helpers for JSON Handling
+
+    private func defaultJSONEncoder() -> JSONEncoder {
+        let encoder = JSONEncoder()
+        // Pydantic espera "yyyy-MM-dd" para date e ISO 8601 para datetime
+        encoder.dateEncodingStrategy = .formatted(DateFormatter.iso8601BackendDateFormatter) // Se estiver enviando dates sem tempo
+        // Se você estivesse enviando `datetime` em campos, poderia usar:
+        // encoder.dateEncodingStrategy = .iso8601 // Ou .formatted(DateFormatter.iso8601BackendDateTimeFormatter)
+        encoder.outputFormatting = .prettyPrinted // Para debug, remova em produção
+        return encoder
+    }
+
+    private func defaultJSONDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        // Pydantic envia "yyyy-MM-dd" para date e ISO 8601 para datetime
+        // Você precisa de uma estratégia de decodificação que lide com ambos.
+        // O .iso8601 padrão do Swift é bom para a maioria dos casos.
+        // Se suas datas de criação/atualização têm microsegundos e o Date(from:) falha,
+        // use .formatted(DateFormatter.iso8601BackendDateTimeFormatter)
+        decoder.dateDecodingStrategy = .custom { (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+
+            if let date = DateFormatter.iso8601BackendDateFormatter.date(from: dateString) {
+                return date
+            } else if let dateTime = DateFormatter.iso8601BackendDateTimeFormatter.date(from: dateString) {
+                return dateTime
+            }
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Cannot decode date string \(dateString)")
+        }
+        return decoder
+    }
+
+    // MARK: - Common HTTP Response Handling
+
+    private func handleHTTPResponse(data: Data, response: URLResponse) throws -> Data {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+
+        print("✅ Código de resposta: \(httpResponse.statusCode)")
+
+        if !(200..<300).contains(httpResponse.statusCode) {
+            let errorMessage: String?
+            // Tenta decodificar a mensagem de erro do corpo da resposta
+            if let jsonError = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                if let detailString = jsonError["detail"] as? String {
+                    errorMessage = detailString
+                } else if let detailArray = jsonError["detail"] as? [[String: Any]],
+                          let firstDetail = detailArray.first,
+                          let msg = firstDetail["msg"] as? String {
+                    errorMessage = msg
+                } else {
+                    errorMessage = nil // Não foi possível extrair um detalhe específico
+                }
+            } else {
+                errorMessage = String(data: data, encoding: .utf8) // Fallback para string bruta
+            }
+
+            if (400..<500).contains(httpResponse.statusCode) {
+                throw APIError.clientError(statusCode: httpResponse.statusCode, message: errorMessage)
+            } else if (500..<600).contains(httpResponse.statusCode) {
+                throw APIError.serverError(statusCode: httpResponse.statusCode, message: errorMessage)
+            } else {
+                throw APIError.unknownError(URLError(.badServerResponse))
+            }
+        }
+
+        if let jsonString = String(data: data, encoding: .utf8) {
+            print("📥 Resposta JSON: \(jsonString)")
+        }
+
+        return data
+    }
+
+    // MARK: - API Methods
+
+    func fetchInterviews() async throws -> [InterviewResponse] {
+        guard let url = URL(string: "\(APIConstants.pythonURL)/interviews/") else {
+            throw APIError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        let processedData = try handleHTTPResponse(data: data, response: response)
+
+        do {
+            // Usa o decoder padronizado para lidar com datas
+            return try defaultJSONDecoder().decode([InterviewResponse].self, from: processedData)
+        } catch {
+            throw APIError.decodingError(error)
+        }
+    }
 }
 
 extension JobApplicationService {

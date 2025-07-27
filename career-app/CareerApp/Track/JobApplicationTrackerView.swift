@@ -42,8 +42,8 @@ extension JobApplication {
             company: response.company_name,
             level: response.job_seniority,
             role: response.job_title,
-            lastInterview: response.last_interview_date,
-            nextInterview: response.next_interview_date,
+            lastInterview: response.last_interview_date?.toDayMonthString(),
+            nextInterview: response.next_interview_date?.toDayMonthString(),
             technicalSkills: response.skills ?? []
         )
     }

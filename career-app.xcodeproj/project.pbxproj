@@ -80,6 +80,7 @@
 		706885822E2FC43D00C4735F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
 		706885832E2FC43D00C4735F /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
 		7068862A2E367CE400C4735F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706886292E367CE200C4735F /* APIError.swift */; };
+		7068862C2E369C2A00C4735F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068862B2E369C2600C4735F /* DateFormatter.swift */; };
 		70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC62D447223005F4933 /* JobApplicationService.swift */; };
 		70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DCA2D45C268005F4933 /* SkillSelectionView.swift */; };
 		707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */; };
@@ -220,6 +221,7 @@
 		70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackViewModel.swift; sourceTree = "<group>"; };
 		70566B382E0F0E4200ED701F /* InterviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewService.swift; sourceTree = "<group>"; };
 		706886292E367CE200C4735F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		7068862B2E369C2600C4735F /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
 		707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInterviewListView.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 		706886282E367CDC00C4735F /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7068862B2E369C2600C4735F /* DateFormatter.swift */,
 				706886292E367CE200C4735F /* APIError.swift */,
 			);
 			path = Network;
@@ -900,6 +903,7 @@
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
+				7068862C2E369C2A00C4735F /* DateFormatter.swift in Sources */,
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
 				70A76C8C2D77C04F00C5B709 /* CoordinatorPresenter.swift in Sources */,
 				70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */,

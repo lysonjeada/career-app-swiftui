@@ -34,6 +34,64 @@
             endingLineNumber = "66"
             landmarkName = "registerUser(username:email:password:confirmPassword:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9385BA09-3CC6-4310-921A-2E004E80756C - 6ed8e06187c6dea8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in career_app.SignUpViewModel.registerUser(username: Swift.String, email: Swift.String, password: Swift.String, confirmPassword: Swift.String) -&gt; ()"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Register/ViewModel/SignUpViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67">
+               </Location>
+               <Location
+                  uuid = "9385BA09-3CC6-4310-921A-2E004E80756C - 3b14d355488e21b8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in career_app.SignUpViewModel.registerUser(username: Swift.String, email: Swift.String, password: Swift.String, confirmPassword: Swift.String) -&gt; ()"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Register/ViewModel/SignUpViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67">
+               </Location>
+               <Location
+                  uuid = "9385BA09-3CC6-4310-921A-2E004E80756C - 1fb87a1c2d2112aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in career_app.SignUpViewModel.registerUser(username: Swift.String, email: Swift.String, password: Swift.String, confirmPassword: Swift.String) -&gt; ()"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Register/ViewModel/SignUpViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67">
+               </Location>
+               <Location
+                  uuid = "9385BA09-3CC6-4310-921A-2E004E80756C - b437b7251fccb0a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async -&gt; () in career_app.SignUpViewModel.registerUser(username: Swift.String, email: Swift.String, password: Swift.String, confirmPassword: Swift.String) -&gt; ()"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Register/ViewModel/SignUpViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -50,6 +108,52 @@
             endingLineNumber = "99"
             landmarkName = "profileImageSection"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD - 7682f58f5544750a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in career_app.ProfileView.profileImageSection.getter : some"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Profile/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+               <Location
+                  uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD - 7682f58f5544750a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in career_app.ProfileView.profileImageSection.getter : some"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Profile/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC223828-7118-48D6-B0D7-AF1C908CAE4E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "career-app/CareerApp/Home/View/HomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "showNextInterviews()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

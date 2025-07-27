@@ -207,9 +207,15 @@ struct HomeView: View {
             Text((job.company))
                 .font(.system(size: 16))
                 .foregroundColor(.descriptionGray)
-            Text("📆 \(job.nextInterview ?? "N/A")")
-                .font(.system(size: 12))
-                .foregroundColor(.descriptionGray)
+            HStack {
+                Image(systemName: "calendar")
+                    .foregroundColor(.gray)
+                
+                Text(job.nextInterview ?? "A definir")
+                    .font(.system(size: 12))
+                    .foregroundColor(.descriptionGray)
+            }
+            
         }
     }
     

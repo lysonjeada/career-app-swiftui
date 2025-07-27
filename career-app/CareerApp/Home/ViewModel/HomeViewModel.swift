@@ -64,8 +64,8 @@ final class HomeViewModel: ObservableObject {
                             company: interview.company_name,
                             level: interview.job_seniority,
                             role: interview.job_title,
-                            lastInterview: interview.last_interview_date,
-                            nextInterview: interview.next_interview_date,
+                            lastInterview: interview.last_interview_date?.toDayMonthString(),
+                            nextInterview: interview.next_interview_date?.toDayMonthString(),
                             technicalSkills: interview.skills ?? []
                         )
                     }
@@ -82,8 +82,8 @@ final class HomeViewModel: ObservableObject {
                             company: interview.company_name,
                             level: interview.job_seniority,
                             role: interview.job_title,
-                            lastInterview: interview.last_interview_date,
-                            nextInterview: interview.next_interview_date,
+                            lastInterview: interview.last_interview_date?.toDayMonthString(),
+                            nextInterview: interview.next_interview_date?.toDayMonthString(),
                             technicalSkills: interview.skills ?? []
                         )
                     }
