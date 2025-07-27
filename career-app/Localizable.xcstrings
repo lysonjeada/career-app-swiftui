@@ -34,6 +34,9 @@
     "Anote dificuldades, dúvidas, assuntos a serem estudados. Você também pode navegar até o menu de notas para criar, editar e apagar suas próprias notas!" : {
 
     },
+    "Ao clicar no botão Registrar, você concorda com a oferta pública." : {
+
+    },
     "Artigos" : {
 
     },
@@ -57,9 +60,6 @@
     "by %@" : {
 
     },
-    "By clicking the Register button, you agree to the public offer" : {
-
-    },
     "Cadastre-se" : {
 
     },
@@ -81,7 +81,7 @@
     "Confirmar" : {
 
     },
-    "Create an account" : {
+    "Criar uma conta" : {
 
     },
     "Datas" : {
@@ -96,7 +96,7 @@
     "Email" : {
 
     },
-    "EMAIL" : {
+    "EMAIL/USERNAME" : {
 
     },
     "Entrar sem login" : {
@@ -144,13 +144,7 @@
     "Gerar perguntas" : {
 
     },
-    "Gere perguntas para uma possível entrevista" : {
-
-    },
     "GitHub" : {
-
-    },
-    "I Already Have an Account" : {
 
     },
     "IR ATÉ O ARTIGO" : {
@@ -160,6 +154,9 @@
 
     },
     "Iremos ler seu currículo e retornar o que poderia ser melhorado, estar mais claro, palavras-chave, etc" : {
+
+    },
+    "Já tem uma conta?" : {
 
     },
     "LinkedIn" : {
@@ -184,6 +181,12 @@
 
     },
     "Name" : {
+
+    },
+    "Não foi possível carregar o conteúdo." : {
+
+    },
+    "Não foi possível carregar o conteúdo.\nTente novamente mais tarde." : {
 
     },
     "Nenhum feedback disponível." : {
@@ -228,6 +231,9 @@
     "Próximas Entrevistas" : {
 
     },
+    "Sair da conta" : {
+
+    },
     "Salvar Todas" : {
 
     },
@@ -243,6 +249,9 @@
     "Seu currículo foi analisado. Deseja visualizar o feedback?" : {
 
     },
+    "Simulador de entrevista" : {
+
+    },
     "Skills" : {
 
     },
@@ -253,6 +262,9 @@
 
     },
     "TechStep" : {
+
+    },
+    "Tentar novamente" : {
 
     },
     "Todos" : {

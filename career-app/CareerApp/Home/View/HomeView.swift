@@ -40,10 +40,19 @@ struct HomeView: View {
                 }
             case .error:
                 VStack {
+                    Image("error-image")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                        .padding(.top, 24)
+                    Text("Não foi possível carregar o conteúdo.\nTente novamente mais tarde.")
+                    Spacer()
+                    PrimaryButton(title: "Tentar novamente", action: viewModel.tryAgain)
                     
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.fetchHome()
         }
@@ -84,51 +93,31 @@ struct HomeView: View {
         VStack {
             VStack {
                 Text("Próximas Entrevistas")
-                    .font(.title2)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .textHomeStyle()
+                    .multilineTextAlignment(.center)
                     .foregroundColor(Color.titleSectionColor)
-
+                
                 if viewModel.nextJobApplications.isEmpty {
                     EmptyInterviewListView(action: {
                         if let url = URL(string: "https://dev.to/") {
                             UIApplication.shared.open(url)
                         }
                     },
-                                  actionTitle: "Fazer login",
-                                  actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
+                                           actionTitle: "Fazer login",
+                                           actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
                             ForEach(viewModel.nextJobApplications, id: \.id) { job in
-                                VStack(alignment: .leading, spacing: 8) {
-                                    if let nextInterview = job.nextInterview {
-                                       
-                                        HStack {
-                                            Image(systemName: "calendar.badge.clock")
-                                                .font(.system(size: 16))
-                                                .foregroundColor(Color.persianBlue)
-                                        Text(nextInterview)
-                                                .font(.system(size: 16))
-                                                .bold()
-                                                .foregroundColor(Color.persianBlue)
-                                        }
+                                buildDateCard(with: job)
+                                    .onTapGesture {
+                                        coordinator.push(page: .editJob(job))
                                     }
-                                    Text(job.role)
-                                        .font(.system(size: 12))
-                                        .foregroundColor(Color.secondaryBlue)
-                                    Text(job.company)
-                                        .font(.system(size: 12))
-                                        .foregroundColor(.descriptionGray)
-                                }
-                                .onTapGesture {
-                                    coordinator.push(page: .editJob(job))
-                                }
-                                .padding(.vertical, 24)
-                                .padding(.horizontal, 20)
-                                .background(Color.backgroundLightGray)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
+                                    .padding(.vertical, 24)
+                                    .padding(.horizontal, 20)
+                                    .background(Color.backgroundLightGray)
+                                    .cornerRadius(10)
+                                    .shadow(radius: 5)
                             }
                         }
                         .padding(.vertical, 2)
@@ -136,18 +125,17 @@ struct HomeView: View {
                 }
             }
         }
-
+        
         Divider()
     }
     
     @ViewBuilder
     func showJobApplication() -> some View {
-        VStack(alignment: .leading) {
+        VStack {
             Text("Vagas aplicadas")
-                .font(.title2)
-                .bold()
+                .textHomeStyle()
                 .padding(.top, 4)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .multilineTextAlignment(.center)
                 .foregroundColor(Color.titleSectionColor)
             
             if viewModel.jobApplications.isEmpty {
@@ -156,37 +144,21 @@ struct HomeView: View {
                         UIApplication.shared.open(url)
                     }
                 },
-                              actionTitle: "Fazer login",
-                              actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
+                                       actionTitle: "Fazer login",
+                                       actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(viewModel.jobApplications, id: \.id) { job in
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "person.bubble.fill")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.persianBlue)
-                                    Text(job.role)
-                                        .bold()
-                                        .font(.system(size: 16))
-                                        .foregroundColor(Color.secondaryBlue)
+                            buildCard(with: job)
+                                .onTapGesture {
+                                    coordinator.push(page: .editJob(job))
                                 }
-                                Text((job.company))
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.descriptionGray)
-                                Text("📆 \(job.nextInterview ?? "N/A")")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.descriptionGray)
-                            }
-                            .onTapGesture {
-                                coordinator.push(page: .editJob(job))
-                            }
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 16)
-                            .background(Color.backgroundLightGray)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 16)
+                                .background(Color.backgroundLightGray)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
                         }
                     }
                     .padding(.vertical, 10)
@@ -195,6 +167,50 @@ struct HomeView: View {
         }
         
         Divider()
+    }
+    
+    @ViewBuilder
+    private func buildDateCard(with job: JobApplication) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if let nextInterview = job.nextInterview {
+                HStack {
+                    Image(systemName: "calendar.badge.clock")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.persianBlue)
+                    Text(nextInterview)
+                        .font(.system(size: 16))
+                        .bold()
+                        .foregroundColor(Color.persianBlue)
+                }
+            }
+            Text(job.role)
+                .font(.system(size: 12))
+                .foregroundColor(Color.secondaryBlue)
+            Text(job.company)
+                .font(.system(size: 12))
+                .foregroundColor(.descriptionGray)
+        }
+    }
+    
+    @ViewBuilder
+    private func buildCard(with job: JobApplication) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: "person.bubble.fill")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.persianBlue)
+                Text(job.role)
+                    .bold()
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.secondaryBlue)
+            }
+            Text((job.company))
+                .font(.system(size: 16))
+                .foregroundColor(.descriptionGray)
+            Text("📆 \(job.nextInterview ?? "N/A")")
+                .font(.system(size: 12))
+                .foregroundColor(.descriptionGray)
+        }
     }
     
     @ViewBuilder
@@ -216,11 +232,16 @@ struct HomeView: View {
     }
 }
 
-
-
 struct BlogViewView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(viewModel: HomeViewModel(), output: .init(goToMainScreen: { }, goToForgotPassword: { }))
     }
 }
 
+extension Text {
+    func textHomeStyle() -> Text {
+        self
+            .font(.title2)
+            .bold()
+    }
+}

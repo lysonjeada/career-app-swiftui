@@ -49,9 +49,8 @@ extension JobApplication {
     }
 }
 
-
 struct JobApplicationTrackerView: View {
-    @State private var jobApplications = []
+    @State private var jobApplications: [JobApplication] = [] // Mudei para tipo correto
     @StateObject var listViewModel: JobApplicationTrackerListViewModel
     @State private var newCompany = ""
     @State private var newLevel = ""
@@ -64,15 +63,13 @@ struct JobApplicationTrackerView: View {
     @State private var isEditingMode = false
     @StateObject var coordinator: Coordinator
     @State private var shouldRefresh = false
-    
+
     var body: some View {
         NavigationStack {
             switch listViewModel.viewState {
             case .loading:
                 ZStack {
-                    // Container centralizado
                     VStack(spacing: 16) {
-                        // Spinner minimalista
                         MinimalSpinner()
                             .frame(width: 60, height: 60)
                     }
@@ -94,22 +91,31 @@ struct JobApplicationTrackerView: View {
                         }
                         .padding(.bottom, 80) // Espaço para os botões flutuantes
                     }
-                    
+
                     FloatingActionButtons(
                         isEditingMode: $isEditingMode,
                         showAddForm: $showAddForm,
                         coordinator: coordinator
                     )
                 }
-                
+
             }
         }
         .onAppear { listViewModel.fetchJobApplications() }
         .navigationTitle("Candidaturas")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
+        // MARK: - SnackBar (Toast) Implementation
+        .overlay(alignment: .top) { // Alinha a snack bar ao topo
+            if listViewModel.showSnackBar {
+                SnackBarView(message: listViewModel.snackBarMessage)
+                    .transition(.move(edge: .top).combined(with: .opacity)) // Transição suave
+                    .animation(.easeInOut, value: listViewModel.showSnackBar) // Animação
+                    .padding(.top, 50) // Ajusta a posição abaixo da barra de navegação
+            }
+        }
     }
-    
+
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -119,18 +125,41 @@ struct JobApplicationTrackerView: View {
                 .foregroundColor(.persianBlue)
         }
     }
-    
+
     func editJob(_ job: JobApplication) {
         coordinator.push(page: .editJob(job))
     }
 
-    // Limpar os inputs após o cadastro
+    // Limpar os inputs após o cadastro (mantenha essa função, embora não seja chamada diretamente aqui)
     func clearForm() {
         newCompany = ""
         newLevel = ""
         newLastInterview = ""
         newNextInterview = ""
         newTechnicalSkills = [""]
+    }
+}
+
+
+// MARK: - SnackBarView (Novo Componente)
+
+struct SnackBarView: View {
+    let message: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "info.circle.fill") // Ícone para indicação visual
+                .foregroundColor(.white)
+            Text(message)
+                .foregroundColor(.white)
+                .font(.subheadline)
+                .bold()
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 15)
+        .background(Color.black.opacity(0.75)) // Fundo escuro semitransparente
+        .cornerRadius(10)
+        .shadow(radius: 5)
     }
 }
 

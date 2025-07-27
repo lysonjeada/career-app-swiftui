@@ -15,74 +15,99 @@ struct JobHorizontalList: View {
         VStack(alignment: .center) {
             ZStack {
                 Text("Vagas publicadas")
-                    .font(.title2)
-                    .bold()
+                    .textHomeStyle()
                     .padding(.top, 4)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
                     .foregroundColor(Color.titleSectionColor)
                 HStack {
                     Spacer()
                     tagPicker
                 }
             }
+            
+            if viewModel.githubJobListing.isEmpty {
+                VStack {
+                    Image("error-image")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 80)
+                        .padding(.vertical, 8)
+                    Text("Não foi possível carregar o conteúdo.")
+                        .font(.system(size: 16))
+                        .foregroundColor(.adaptiveBlack)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 2)
+                    Button {
+                        viewModel.tryAgain()
+                    } label: {
+                        Text("Tentar novamente")
+                            .font(.system(size: 16))
+                            .foregroundColor(.descriptionGray)
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                }
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(viewModel.githubJobListing) { job in
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    AsyncImage(url: URL(string: job.icon)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    .frame(width: 28, height: 28)
+                                    .clipShape(Circle())
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(viewModel.githubJobListing) { job in
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack {
-                                AsyncImage(url: URL(string: job.icon)) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFit()
-                                } placeholder: {
-                                    ProgressView()
+                                    Text(job.repository.components(separatedBy: "/").first ?? "Repositório")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.secondaryBlue)
                                 }
-                                .frame(width: 28, height: 28)
-                                .clipShape(Circle())
 
-                                Text(job.repository.components(separatedBy: "/").first ?? "Repositório")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.secondaryBlue)
-                            }
-
-                            Text(job.title.prefix(90)) // limite de caracteres
-                                .font(.system(size: 16))
-                                .bold()
-                                .foregroundColor(.persianBlue)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.leading)
-
-                            Text("🕐 Publicado em \(formatDateHour(job.published_at))")
-                                .font(.system(size: 12))
-                                .foregroundColor(.descriptionGray)
-
-                            if !job.labels.isEmpty {
-                                Text("🏷 \(job.labels.joined(separator: ", ").prefix(80))")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.gray)
+                                Text(job.title.prefix(90)) // limite de caracteres
+                                    .font(.system(size: 16))
+                                    .bold()
+                                    .foregroundColor(.persianBlue)
                                     .lineLimit(2)
+                                    .multilineTextAlignment(.leading)
+
+                                Text("🕐 Publicado em \(formatDateHour(job.published_at))")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.descriptionGray)
+
+                                if !job.labels.isEmpty {
+                                    Text("🏷 \(job.labels.joined(separator: ", ").prefix(80))")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.gray)
+                                        .lineLimit(2)
+                                }
                             }
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 16)
-                        .frame(height: 180)
-                        .frame(width: 260) // ← aumenta tamanho do card
-                        .background(Color.backgroundLightGray)
-                        .cornerRadius(12)
-                        .shadow(radius: 5)
-                        .onTapGesture {
-                            if let url = URL(string: job.url) {
-                                UIApplication.shared.open(url)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .frame(height: 180)
+                            .frame(width: 260) // ← aumenta tamanho do card
+                            .background(Color.backgroundLightGray)
+                            .cornerRadius(12)
+                            .shadow(radius: 5)
+                            .onTapGesture {
+                                if let url = URL(string: job.url) {
+                                    UIApplication.shared.open(url)
+                                }
                             }
                         }
                     }
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 8)
                 }
-                .padding(.vertical, 10)
-                .padding(.horizontal, 8)
             }
-        }
 
+            }
+
+            
         Divider()
     }
     

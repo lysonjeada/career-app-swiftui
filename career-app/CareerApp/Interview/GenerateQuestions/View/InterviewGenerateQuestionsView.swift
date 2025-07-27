@@ -178,7 +178,7 @@ struct InterviewGenerateQuestionsView: View {
     func buildHeader(title: String, description: String?) -> some View {
         VStack(spacing: 8) {
             Text("\(currentIndex + 1)")
-                .bold()
+                .fontWeight(.semibold)
                 .font(.system(size: 24))
                 .foregroundColor(.persianBlue)
                 .frame(alignment: .top)
@@ -194,7 +194,6 @@ struct InterviewGenerateQuestionsView: View {
                 .lineSpacing(2)
                 .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .multilineTextAlignment(.center)
     }
     
@@ -257,9 +256,8 @@ struct InterviewGenerateQuestionsView: View {
             .padding(.horizontal)
         }
         .padding(.horizontal)
-        
+        .padding(.vertical)
     }
-    
     
     
     private func showNotesUnavailableAlert() {

@@ -23,49 +23,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8F6C8547-FA60-4936-9C27-7A5B28927131"
+            uuid = "9385BA09-3CC6-4310-921A-2E004E80756C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "career-app/CareerApp/Track/JobApplicationTrackerListViewModel.swift"
+            filePath = "career-app/CareerApp/Register/ViewModel/SignUpViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "addInterview(companyName:jobTitle:jobSeniority:lastInterview:nextInterview:location:notes:skills:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "registerUser(username:email:password:confirmPassword:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3AB883B2-04B7-4F4F-89E1-ECAC9773C0AE"
+            uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "career-app/CareerApp/Track/JobApplicationTrackerListViewModel.swift"
+            filePath = "career-app/CareerApp/Profile/ProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "addInterview(companyName:jobTitle:jobSeniority:lastInterview:nextInterview:location:notes:skills:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "824DDCF6-AFBA-4FB0-9F87-ED9637F34A26"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "career-app/CareerApp/Track/JobApplicationTrackerListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "fetchJobApplications()"
-            landmarkType = "7">
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "profileImageSection"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

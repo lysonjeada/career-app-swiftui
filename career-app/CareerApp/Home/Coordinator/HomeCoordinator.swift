@@ -37,7 +37,7 @@ final class HomeCoordinator: Hashable {
         self._navigationPath = navigationPath
     }
 
-    @ViewBuilder
+    @MainActor @ViewBuilder
     func view() -> some View {
         switch self.page {
             case .login:
@@ -77,11 +77,11 @@ final class HomeCoordinator: Hashable {
 //                    }
 //                )
 //        )
-        let loginView = LoginView()
+        let loginView = LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in })
         return loginView
     }
 
-    private func forgotPasswordView() -> some View {
+    @MainActor private func forgotPasswordView() -> some View {
         let viewModel = HomeViewModel()
         let loginView = HomeView(
             viewModel: viewModel,

@@ -12,9 +12,6 @@ struct LoadingView: View {
     
     var body: some View {
         ZStack {
-            // Fundo Persian Blue sólido
-            Color.white
-                .edgesIgnoringSafeArea(.all)
             
             // Container centralizado
             VStack(spacing: 16) {

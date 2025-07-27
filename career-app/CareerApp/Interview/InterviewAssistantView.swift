@@ -16,20 +16,22 @@ struct InterviewAssistantView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    Text("Gere perguntas para uma possível entrevista")
+                    Text("Simulador de entrevista")
                         .font(.title2)
-                        .bold()
-                        .foregroundColor(Color.adaptiveBlack)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fontWeight(.bold) // Alterado para medium
+                        .foregroundColor(Color.persianBlue)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal)
+                        .shadow(color: .gray.opacity(0.3), radius: 1, x: 0, y: 1) // Sombra mais leve
                         .padding(.top, 24)
                     InterviewGenerateQuestionsView(viewModel: viewModel)
                     Text("Melhore seu currículo")
                         .font(.title2)
-                        .bold()
-                        .foregroundColor(Color.adaptiveBlack)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fontWeight(.bold) // Alterado para medium
+                        .foregroundColor(Color.persianBlue)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal)
+                        .shadow(color: .gray.opacity(0.3), radius: 1, x: 0, y: 1) // Sombra mais leve
                     ResumeFeedbackView(viewModel: resumeFeedbackViewModel)
                 }
             }

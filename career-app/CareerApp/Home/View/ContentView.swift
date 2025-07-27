@@ -12,6 +12,7 @@ struct ContentView: View {
     @EnvironmentObject var deepLinkManager: DeepLinkManager
     @StateObject var viewModel: HomeViewModel
     @StateObject var listViewModel: JobApplicationTrackerListViewModel
+    let userId: String?
     
     private var navigationTitle: String {
         return deepLinkManager.title
@@ -62,6 +63,8 @@ struct ContentView: View {
                 
                 UITabBar.appearance().standardAppearance = appearance
                 UITabBar.appearance().scrollEdgeAppearance = appearance
+                
+                print("ContentView loaded with userId: \(userId ?? "nil")")
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -72,7 +75,7 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        coordinator.push(page: .profile)
+                        coordinator.push(page: .profile(userId: userId))
                     }) {
                         Image(systemName: "person.circle")
                             .resizable()
@@ -94,6 +97,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: .init(), listViewModel: .init())
+        ContentView(viewModel: .init(), listViewModel: .init(), userId: nil)
     }
 }

@@ -24,9 +24,8 @@ struct LoadingCard: View {
         VStack {
             if let title = title {
                 Text(title)
-                    .font(.title2)
-                    .bold()
-                    .padding(.top, 10)
+                    .textHomeStyle()
+                    .padding(.top, 4)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.titleSectionColor)
                     .shimmering(active: isAnimating)

@@ -19,7 +19,9 @@ struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: UserProfile.entity(), sortDescriptors: [])
     private var profiles: FetchedResults<UserProfile>
+    let userId: String?
     @StateObject var coordinator: Coordinator
+    @StateObject var viewModel: ProfileViewModel
     
     // States
     @State private var profileImage: Image?
@@ -93,6 +95,11 @@ struct ProfileView: View {
                 }
             }
         }
+        .onAppear {
+            if let userId {
+                viewModel.fetchProfile(userId: userId)
+            }
+        }
         .padding(.top, 24)
         .padding(.bottom, 32)
     }
@@ -109,7 +116,8 @@ struct ProfileView: View {
     
     private var personalInfoSection: some View {
         SectionView(title: "Informações pessoais") {
-            CustomTextField("Nome", text: $name)
+            CustomTextField("Username", text: $viewModel.username)
+            CustomTextField("Email", text: $viewModel.email)
             CustomTextField("Experiência Profissional", text: $experience)
             CustomTextField("Instituição de Ensino", text: $institution)
         }
@@ -377,5 +385,5 @@ struct CustomTextField: View {
 }
 
 #Preview {
-    ProfileView(coordinator: Coordinator())
+    ProfileView(userId: nil, coordinator: Coordinator(), viewModel: ProfileViewModel())
 }

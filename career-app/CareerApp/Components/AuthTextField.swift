@@ -11,15 +11,32 @@ struct AuthTextField: View {
     var icon: String
     var placeholder: String
     @Binding var text: String
-    var isSecure: Bool = false
+    var isSecure: Bool = false // Indica se o campo DEVE ser um campo de senha
+
+    @State private var isPasswordVisible: Bool = false // Controla a visibilidade atual da senha
 
     var body: some View {
         HStack {
             Image(systemName: icon)
                 .foregroundColor(.gray)
+
+            // Se o campo for de senha, usa a lógica de alternância
             if isSecure {
-                SecureField(placeholder, text: $text)
+                if isPasswordVisible {
+                    TextField(placeholder, text: $text)
+                } else {
+                    SecureField(placeholder, text: $text)
+                }
+                
+                // Botão para alternar a visibilidade da senha
+                Button(action: {
+                    isPasswordVisible.toggle()
+                }) {
+                    Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                        .foregroundColor(.gray)
+                }
             } else {
+                // Se não for um campo de senha, é apenas um TextField normal
                 TextField(placeholder, text: $text)
             }
         }

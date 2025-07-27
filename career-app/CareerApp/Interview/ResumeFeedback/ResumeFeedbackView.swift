@@ -46,7 +46,6 @@ struct ResumeFeedbackView: View {
     func createView() -> some View {
         VStack {
             Text("Faça o upload do seu currículo")
-                .bold()
                 .font(.system(size: 22))
                 .foregroundColor(.thirdBlue)
                 .padding(.bottom, 8)

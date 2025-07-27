@@ -39,8 +39,23 @@ final class HomeViewModel: ObservableObject {
     func fetchHome(tag: String? = nil, repository: String? = nil) {
         viewState = .loading
         task = Task {
+            // Inicializa com dados vazios para garantir que, se falhar, não teremos lixo
+            self.articles = []
+            self.jobApplications = []
+            self.nextJobApplications = []
+            self.githubJobListing = []
+            self.availableJobs = []
+
+            // Fetch Articles
             do {
                 self.articles = try await service.fetchArticles(tag: tag)
+            } catch {
+                print("Erro ao buscar artigos: \(error.localizedDescription)")
+                // Opcional: registrar o erro, mostrar uma mensagem específica para o usuário
+            }
+
+            // Fetch Job Applications (Interviews)
+            do {
                 self.jobApplications = try await jobService
                     .fetchInterviews()
                     .map { interview in
@@ -54,6 +69,12 @@ final class HomeViewModel: ObservableObject {
                             technicalSkills: interview.skills ?? []
                         )
                     }
+            } catch {
+                print("Erro ao buscar candidaturas de emprego: \(error.localizedDescription)")
+            }
+
+            // Fetch Next Job Applications (Next Interviews)
+            do {
                 self.nextJobApplications = try await jobService.fetchNextInterviews()
                     .map { interview in
                         JobApplication(
@@ -66,17 +87,40 @@ final class HomeViewModel: ObservableObject {
                             technicalSkills: interview.skills ?? []
                         )
                     }
+            } catch {
+                print("Erro ao buscar próximas entrevistas: \(error.localizedDescription)")
+            }
+
+            // Fetch GitHub Job Listing
+            do {
                 if let repository {
                     self.githubJobListing = try await jobService.fetchJobListings(repository: repository)
                 } else {
                     self.githubJobListing = try await jobService.fetchJobListings(repository: nil)
                 }
-                self.availableJobs = try await jobService.fetchAvailableRepositories()
-                self.viewState = .loaded
             } catch {
+                print("Erro ao buscar vagas do GitHub: \(error.localizedDescription)")
+            }
+
+            // Fetch Available Repositories
+            do {
+                self.availableJobs = try await jobService.fetchAvailableRepositories()
+            } catch {
+                print("Erro ao buscar repositórios disponíveis: \(error.localizedDescription)")
+            }
+
+            // Após todas as tentativas, verifique se há *algum* dado carregado.
+            // Se todas falharem, o viewState pode ser .error, caso contrário, .loaded.
+            if articles.isEmpty && jobApplications.isEmpty && nextJobApplications.isEmpty && githubJobListing.isEmpty && availableJobs.isEmpty {
                 self.viewState = .error
+            } else {
+                self.viewState = .loaded
             }
         }
+    }
+    
+    func tryAgain() {
+        fetchHome()
     }
     
     func goToDevTo() {

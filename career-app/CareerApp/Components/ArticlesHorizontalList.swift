@@ -21,10 +21,9 @@ struct ArticlesHorizontalList: View {
             ZStack {
                 // Título centralizado
                 Text("Artigos")
-                    .font(.title2)
-                    .bold()
+                    .textHomeStyle()
                     .foregroundColor(Color.titleSectionColor)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
 
                 // HStack com botão à esquerda e picker à direita
                 HStack {

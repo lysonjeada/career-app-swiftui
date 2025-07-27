@@ -35,6 +35,16 @@
 		700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F72DFB38A7008CF3AF /* CareerAPI.swift */; };
 		700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F92DFB38BE008CF3AF /* CareerURL.swift */; };
 		700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512FB2DFB3903008CF3AF /* HTTPMethod.swift */; };
+		70056D552E2BDE0E006EA1A1 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D542E2BDE0B006EA1A1 /* Loadable.swift */; };
+		70056D582E2C1152006EA1A1 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D572E2C114F006EA1A1 /* SignUpViewModel.swift */; };
+		70056D5A2E2C1184006EA1A1 /* AuthenticationSignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D592E2C117C006EA1A1 /* AuthenticationSignUpService.swift */; };
+		70056D5C2E2C1295006EA1A1 /* AuthenticationRegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D5B2E2C127D006EA1A1 /* AuthenticationRegisterRequest.swift */; };
+		70056D5E2E2C15DB006EA1A1 /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D5D2E2C15D8006EA1A1 /* SnackbarView.swift */; };
+		70056D602E2C2032006EA1A1 /* AuthenticationLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D5F2E2C202A006EA1A1 /* AuthenticationLoginRequest.swift */; };
+		70056D622E2C2098006EA1A1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D612E2C2095006EA1A1 /* LoginViewModel.swift */; };
+		70056D642E2C217C006EA1A1 /* AuthenticationLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */; };
+		70056D672E2C39ED006EA1A1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D662E2C39EB006EA1A1 /* ProfileViewModel.swift */; };
+		70056D6A2E2C3A4D006EA1A1 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70056D692E2C3A46006EA1A1 /* ProfileService.swift */; };
 		701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7011435F2E0C66800082EF47 /* JobApplicationTrackerListViewModel.swift */; };
 		7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7016E7AC2D73A0F200300611 /* SceneDelegate.swift */; };
 		701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC142D389542003F6F86 /* AutoScroller.swift */; };
@@ -42,11 +52,6 @@
 		701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */; };
 		701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1C2D3F3F9C003F6F86 /* ImagePicker.swift */; };
 		701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701CBC1E2D41B41E003F6F86 /* ProfileNotesView.swift */; };
-		7020A2DA2E2B10CC002F6AF1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
-		7020A2DB2E2B10CC002F6AF1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		7020A2DC2E2B10CC002F6AF1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
-		7020A2DD2E2B10CC002F6AF1 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
-		7020A2DE2E2B10CC002F6AF1 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
 		7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020A2F82E2B10E7002F6AF1 /* JobApplicationRequest.swift */; };
 		7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020A2FA2E2B10FF002F6AF1 /* GitHubJobListing.swift */; };
 		702E952C2D97627900C5EF1D /* TagCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702E952B2D97627000C5EF1D /* TagCloudView.swift */; };
@@ -69,6 +74,12 @@
 		70566B342E0F0A1600ED701F /* ResumeFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */; };
 		70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */; };
 		70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B382E0F0E4200ED701F /* InterviewService.swift */; };
+		7068857F2E2FC43D00C4735F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
+		706885802E2FC43D00C4735F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		706885812E2FC43D00C4735F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
+		706885822E2FC43D00C4735F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
+		706885832E2FC43D00C4735F /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
+		7068862A2E367CE400C4735F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706886292E367CE200C4735F /* APIError.swift */; };
 		70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC62D447223005F4933 /* JobApplicationService.swift */; };
 		70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DCA2D45C268005F4933 /* SkillSelectionView.swift */; };
 		707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */; };
@@ -171,6 +182,16 @@
 		700512F72DFB38A7008CF3AF /* CareerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAPI.swift; sourceTree = "<group>"; };
 		700512F92DFB38BE008CF3AF /* CareerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerURL.swift; sourceTree = "<group>"; };
 		700512FB2DFB3903008CF3AF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		70056D542E2BDE0B006EA1A1 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
+		70056D572E2C114F006EA1A1 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		70056D592E2C117C006EA1A1 /* AuthenticationSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSignUpService.swift; sourceTree = "<group>"; };
+		70056D5B2E2C127D006EA1A1 /* AuthenticationRegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRegisterRequest.swift; sourceTree = "<group>"; };
+		70056D5D2E2C15D8006EA1A1 /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
+		70056D5F2E2C202A006EA1A1 /* AuthenticationLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLoginRequest.swift; sourceTree = "<group>"; };
+		70056D612E2C2095006EA1A1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLoginResponse.swift; sourceTree = "<group>"; };
+		70056D662E2C39EB006EA1A1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		70056D692E2C3A46006EA1A1 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		7011435F2E0C66800082EF47 /* JobApplicationTrackerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationTrackerListViewModel.swift; sourceTree = "<group>"; };
 		7016E7AC2D73A0F200300611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7016E7AE2D73CF5300300611 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -198,6 +219,7 @@
 		70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackView.swift; sourceTree = "<group>"; };
 		70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackViewModel.swift; sourceTree = "<group>"; };
 		70566B382E0F0E4200ED701F /* InterviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewService.swift; sourceTree = "<group>"; };
+		706886292E367CE200C4735F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
 		707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInterviewListView.swift; sourceTree = "<group>"; };
@@ -261,11 +283,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7020A2DE2E2B10CC002F6AF1 /* FirebaseCore in Frameworks */,
-				7020A2DD2E2B10CC002F6AF1 /* FirebaseCrashlytics in Frameworks */,
-				7020A2DC2E2B10CC002F6AF1 /* FirebaseAuth in Frameworks */,
-				7020A2DB2E2B10CC002F6AF1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				7020A2DA2E2B10CC002F6AF1 /* FirebaseAnalytics in Frameworks */,
+				706885832E2FC43D00C4735F /* FirebaseCore in Frameworks */,
+				706885822E2FC43D00C4735F /* FirebaseCrashlytics in Frameworks */,
+				706885812E2FC43D00C4735F /* FirebaseAuth in Frameworks */,
+				706885802E2FC43D00C4735F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				7068857F2E2FC43D00C4735F /* FirebaseAnalytics in Frameworks */,
 				243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */,
 				240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */,
 			);
@@ -298,6 +320,7 @@
 		241917C72C6AE804004147DF /* career-app */ = {
 			isa = PBXGroup;
 			children = (
+				706886282E367CDC00C4735F /* Network */,
 				70A76C882D77BFFD00C5B709 /* Coordinator */,
 				70A76C822D77BCDE00C5B709 /* CareerApp */,
 				7016E7AE2D73CF5300300611 /* Info.plist */,
@@ -406,9 +429,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		70056D562E2C1143006EA1A1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				70056D572E2C114F006EA1A1 /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		70056D652E2C21AE006EA1A1 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				70BC021C2D862E910069A179 /* Login */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		70056D682E2C3A41006EA1A1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				70056D692E2C3A46006EA1A1 /* ProfileService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		701CBC192D3F3F62003F6F86 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				70056D682E2C3A41006EA1A1 /* Network */,
+				70056D662E2C39EB006EA1A1 /* ProfileViewModel.swift */,
 				701CBC1A2D3F3F79003F6F86 /* ProfileView.swift */,
 			);
 			path = Profile;
@@ -427,6 +476,7 @@
 		703CD7DE2E132F8C00778C76 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				70056D562E2C1143006EA1A1 /* ViewModel */,
 				703CD7E62E1330EC00778C76 /* SignUpView.swift */,
 			);
 			path = Register;
@@ -457,6 +507,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		706886282E367CDC00C4735F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				706886292E367CE200C4735F /* APIError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		706A62CF2E2B106E006D1D97 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,13 +536,17 @@
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
 			isa = PBXGroup;
 			children = (
+				70056D652E2C21AE006EA1A1 /* Authentication */,
+				70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */,
+				70056D5F2E2C202A006EA1A1 /* AuthenticationLoginRequest.swift */,
+				70056D5B2E2C127D006EA1A1 /* AuthenticationRegisterRequest.swift */,
+				70056D592E2C117C006EA1A1 /* AuthenticationSignUpService.swift */,
 				703CD7DF2E13300700778C76 /* ForgotPassword */,
 				703CD7DE2E132F8C00778C76 /* Register */,
 				244DDABE2C7B9810007FB768 /* Interview */,
 				701CBC192D3F3F62003F6F86 /* Profile */,
 				70D2884B2D245EAB004E9033 /* Components */,
 				244DDAB62C7A7299007FB768 /* Home */,
-				70BC021C2D862E910069A179 /* Login */,
 				70A76C902D7A8BFF00C5B709 /* ArticleDetail */,
 				70A76C8D2D7928D700C5B709 /* Menu */,
 				70A76C832D77BCF000C5B709 /* CareerAppModule.swift */,
@@ -544,6 +606,7 @@
 		70BC021C2D862E910069A179 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				70056D612E2C2095006EA1A1 /* LoginViewModel.swift */,
 				70BC021D2D862E9F0069A179 /* LoginView.swift */,
 			);
 			path = Login;
@@ -576,6 +639,7 @@
 		70D2884B2D245EAB004E9033 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				70056D5D2E2C15D8006EA1A1 /* SnackbarView.swift */,
 				707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */,
 				703CD7E82E1498F400778C76 /* JobHorizontalList.swift */,
 				703CD7E42E13309200778C76 /* Button.swift */,
@@ -623,6 +687,7 @@
 		70D288582D24FC73004E9033 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				70056D542E2BDE0B006EA1A1 /* Loadable.swift */,
 				249240602CC86F2C0081E887 /* Extensions */,
 				70D288592D24FC7B004E9033 /* KeyboardObserver.swift */,
 			);
@@ -773,7 +838,9 @@
 				70819E082E034AD3007815BE /* APIConstants.swift in Sources */,
 				70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */,
 				70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */,
+				70056D5A2E2C1184006EA1A1 /* AuthenticationSignUpService.swift in Sources */,
 				70A86B9D2E12DB920006721C /* EditJobApplicationViewModel.swift in Sources */,
+				70056D5E2E2C15DB006EA1A1 /* SnackbarView.swift in Sources */,
 				70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */,
 				70819E0E2E036EB8007815BE /* Question.swift in Sources */,
 				703CD7E92E1498FD00778C76 /* JobHorizontalList.swift in Sources */,
@@ -786,6 +853,7 @@
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
 				703CD7E72E1330F000778C76 /* SignUpView.swift in Sources */,
+				70056D6A2E2C3A4D006EA1A1 /* ProfileService.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
 				701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */,
 				703CD7E12E13301900778C76 /* ForgotPasswordView.swift in Sources */,
@@ -797,15 +865,20 @@
 				7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */,
 				70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */,
 				700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */,
+				70056D602E2C2032006EA1A1 /* AuthenticationLoginRequest.swift in Sources */,
 				70A76C962D7A8C5300C5B709 /* ArticleService.swift in Sources */,
+				70056D5C2E2C1295006EA1A1 /* AuthenticationRegisterRequest.swift in Sources */,
 				701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
 				70A76C922D7A8C2A00C5B709 /* ArticleDetailView.swift in Sources */,
 				7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */,
 				703CD7E52E13309400778C76 /* Button.swift in Sources */,
+				70056D672E2C39ED006EA1A1 /* ProfileViewModel.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
+				70056D622E2C2098006EA1A1 /* LoginViewModel.swift in Sources */,
 				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
+				70056D552E2BDE0E006EA1A1 /* Loadable.swift in Sources */,
 				701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */,
 				70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */,
 				700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */,
@@ -821,6 +894,7 @@
 				70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */,
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
+				70056D642E2C217C006EA1A1 /* AuthenticationLoginResponse.swift in Sources */,
 				700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */,
 				70566B2F2E0EFE9600ED701F /* ArticlesHorizontalList.swift in Sources */,
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
@@ -838,7 +912,9 @@
 				702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */,
 				703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */,
 				70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */,
+				70056D582E2C1152006EA1A1 /* SignUpViewModel.swift in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
+				7068862A2E367CE400C4735F /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

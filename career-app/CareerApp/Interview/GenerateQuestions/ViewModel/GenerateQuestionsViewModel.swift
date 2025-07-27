@@ -48,7 +48,7 @@ final class GenerateQuestionsViewModel: ObservableObject {
     init(service: APIServiceProtocol = APIService()) {
         self.steps = [
             .init(title: "Selecione cargo e senioridade", description: "Adicione cargo e senioridade correspondente à vaga", imageButton: "chevron.down", type: .addInfoJob),
-            .init(title: "Faça o upload do seu currículo", description: "Certifique-se de que seu currículo está atualizado e com suas habilidades bem expostas.", imageButton: "doc.fill", type: .addCurriculum),
+            .init(title: "Faça o upload do seu currículo", description: "Mantenha seu currículo atualizado e destaque suas habilidades.", imageButton: "doc.fill", type: .addCurriculum),
             .init(title: "Adicione mais informações", description: "Adicione a descrição e/ou mais informações da vaga", imageButton: "chevron.down", type: .addDescriptionJob)
         ]
         self.service = service
