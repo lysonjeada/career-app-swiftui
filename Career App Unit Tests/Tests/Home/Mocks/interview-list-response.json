@@ -4,8 +4,8 @@
     "company_name": "TestCorp",
     "job_seniority": "Mid-level",
     "job_title": "iOS Developer",
-    "last_interview_date": "2025-07-10",
-    "next_interview_date": "2025-07-25",
+    "last_interview_date": "2025-07-10T00:00:00Z",
+    "next_interview_date": "2025-07-25T00:00:00Z",
     "location": "Remote",
     "notes": "Great culture, remote-friendly.",
     "skills": ["Swift", "Combine", "SwiftUI"],
@@ -13,4 +13,3 @@
     "updated_at": "2025-07-15T15:00:00Z"
   }
 ]
-

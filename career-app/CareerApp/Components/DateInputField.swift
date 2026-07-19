@@ -7,23 +7,15 @@
 
 import SwiftUI
 
-// Extensão para DateFormatter para consistência
-extension DateFormatter {
-    static let customShortDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy" // Formato fixo para evitar problemas de localização
-        formatter.locale = Locale(identifier: "pt_BR") // Opcional: para garantir o formato em PT_BR
-        return formatter
-    }()
-}
-
 struct DateInputField: View {
     @Binding var dateString: String
     @State private var showDatePicker = false
-    // internalDate sempre terá um valor válido, inicialmente a data atual ou a data parseada da string.
     @State private var internalDate: Date = Date()
     let placeholder: String
     
+    // NOVO: Adicione uma State para forçar atualização visual
+    @State private var isDateStringValid: Bool = true // Assume válido inicialmente
+
     var body: some View {
         VStack {
             HStack {
@@ -35,19 +27,25 @@ struct DateInputField: View {
                     }
                     
                     TextField("", text: $dateString)
-                        .onChange(of: dateString) {
-                            // Tenta atualizar internalDate quando dateString muda
-                            if let date = DateFormatter.customShortDateFormatter.date(from: dateString) {
+                        .onChange(of: dateString) { oldValue, newValue in
+                            let formatted = formatInputDate(newValue)
+                            dateString = formatted
+                            
+                            // Tenta atualizar internalDate se a string formatada for válida
+                            if let date = DateFormatter.displayDateFormatter.date(from: dateString) {
                                 internalDate = date
                             }
-                            // Não fazemos o TextField ficar vermelho automaticamente aqui
-                            // se a data for inválida, apenas se o `isValidDate` disser.
-                            // A cor vermelha será baseada no `isValidDate`
+                            
+                            // Atualiza a nova State para forçar reavaliação da cor
+                            self.isDateStringValid = isValidDate(dateString) || dateString.isEmpty
+                            
+                            print("onChange - DateString: \(dateString), isValidDate: \(self.isDateStringValid)")
                         }
                         .keyboardType(.numbersAndPunctuation)
                         .padding(.leading, 12)
                         .padding(.vertical, 12)
-                        .foregroundColor(isValidDate(dateString) || dateString.isEmpty ? .primary : .red) // Valida ou permite vazio
+                        // Use a nova State para a condição da cor
+                        .foregroundColor(isDateStringValid ? .primary : .red)
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
@@ -64,8 +62,6 @@ struct DateInputField: View {
             }
             
             if showDatePicker {
-                // `DatePicker` pode ser flexível. Não há necessidade de definir `minimumDate` ou `maximumDate`
-                // a menos que haja uma restrição de negócio.
                 DatePicker(
                     "",
                     selection: $internalDate,
@@ -73,39 +69,77 @@ struct DateInputField: View {
                 )
                 .datePickerStyle(.graphical)
                 .onChange(of: internalDate) {
-                    // Atualiza dateString quando internalDate muda (pelo DatePicker)
-                    dateString = DateFormatter.customShortDateFormatter.string(from: internalDate)
-                    showDatePicker = false // Esconde o picker após a seleção
+                    dateString = DateFormatter.displayDateFormatter.string(from: internalDate)
+                    showDatePicker = false
+                    // Atualiza a validade após a seleção do picker também
+                    self.isDateStringValid = isValidDate(dateString) || dateString.isEmpty
                 }
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
-                .padding(.top, 5) // Um pequeno padding para separar do TextField
+                .padding(.top, 5)
             }
         }
         .onAppear {
-            // No aparecimento, tenta inicializar internalDate com a data da string
-            if let date = DateFormatter.customShortDateFormatter.date(from: dateString) {
+            if let date = DateFormatter.displayDateFormatter.date(from: dateString) {
                 internalDate = date
             } else {
-                // Se a string for inválida ou vazia, use a data atual como padrão para o picker
                 internalDate = Date()
             }
         }
     }
     
-    // Funções auxiliares, usando o DateFormatter consistente
+    // MARK: - Date Formatting Logic
+    private func formatInputDate(_ input: String) -> String {
+        var cleanedString = input.filter { $0.isNumber }
+        
+        if cleanedString.count > 8 {
+            cleanedString = String(cleanedString.prefix(8))
+        }
+        
+        var formattedString = ""
+        for (index, char) in cleanedString.enumerated() {
+            formattedString.append(char)
+            if index == 1 && cleanedString.count > 2 {
+                formattedString.append("/")
+            }
+            if index == 3 && cleanedString.count > 4 {
+                formattedString.append("/")
+            }
+        }
+        
+        if formattedString.count > 10 {
+            formattedString = String(formattedString.prefix(10))
+        }
+        
+        return formattedString
+    }
+    
+    // MARK: - Helper Functions
+
+    // Mantenha os prints para depuração temporariamente
     private func parseDate(from text: String) -> Date? {
-        DateFormatter.customShortDateFormatter.date(from: text)
+        print("parseDate: Attempting to parse '\(text)'")
+        let date = DateFormatter.displayDateFormatter.date(from: text)
+        print("parseDate: Result for '\(text)' = \(date ?? "nil" as Any)")
+        return date
     }
     
     private func isValidDate(_ text: String) -> Bool {
-        // Uma string vazia é considerada "válida" neste contexto para não ficar vermelha.
-        // A validação de preenchimento obrigatório deve ser feita no formulário principal.
-        text.isEmpty || parseDate(from: text) != nil
+        let dateRegex = #"^\d{2}/\d{2}/\d{4}$"#
+        let isFormatValid = text.range(of: dateRegex, options: .regularExpression) != nil
+        
+        print("isValidDate: Input text = '[\(text)]'")
+        print("isValidDate: Regex check (isFormatValid) = \(isFormatValid)")
+        
+        let parsedDate = parseDate(from: text)
+        print("isValidDate: Parsed Date (from parseDate) = \(parsedDate ?? "nil" as Any)")
+        
+        let result = text.isEmpty || (isFormatValid && parsedDate != nil)
+        print("isValidDate: Final result = \(result)")
+        
+        return result
     }
 }
-
-
 struct DateInputField_Previews: PreviewProvider {
     static var previews: some View {
         DateInputField(dateString: .constant(""), placeholder: "Digite ou selecione a data")

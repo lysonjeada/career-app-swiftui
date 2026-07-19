@@ -14,9 +14,9 @@ struct EmptyInterviewListView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            Image(systemName: "exclamationmark.magnifyingglass")
+            Image("not-found-icon")
                 .resizable()
-                .frame(width: 24, height: 24)
+                .frame(width: 80, height: 48)
                 .foregroundColor(.persianLightBlue)
 
             Text("Nenhuma entrevista próxima cadastrada")

@@ -15,6 +15,7 @@ struct ResumeFeedbackView: View {
     @State private var didExportResume: Bool = false
     @State private var showingFeedbackSheet = false
     @State private var showReadyAlert = false
+    var fullText = "Enviando currículo...\nVocê será alertado quando for carregado"
 
     var body: some View {
         ScrollView {
@@ -50,9 +51,6 @@ struct ResumeFeedbackView: View {
                 .foregroundColor(.thirdBlue)
                 .padding(.bottom, 8)
             
-            createButtonRow()
-                .padding(.top, 4)
-
             Text("Iremos ler seu currículo e retornar o que poderia ser melhorado, estar mais claro, palavras-chave, etc")
                 .font(.system(size: 16))
                 .foregroundColor(.descriptionGray)
@@ -60,8 +58,12 @@ struct ResumeFeedbackView: View {
                 .lineSpacing(2)
                 .padding(.horizontal)
                 .padding(.bottom, 16)
+            
+            createButtonRow()
+                .padding(.top, 4)
+            
 
-            if didExportResume && viewModel.viewState == .idle {
+            if didExportResume && (viewModel.viewState == .idle || viewModel.viewState == .loaded) {
                 Button {
                     if let url = resumeFileURL {
                         viewModel.submitResumeFeedback(resumeURL: url)
@@ -77,10 +79,15 @@ struct ResumeFeedbackView: View {
             }
             
             if isLoading {
-                ProgressView()
-                TypewriterText(fullText: "Enviando currículo...\nVocê será alertado quando for carregado", typingSpeed: 0.25)
-                    .foregroundColor(.gray)
-                    .padding(.bottom, 16)
+                VStack {
+                    ProgressView()
+                    Text(fullText)
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .transition(.opacity.animation(.easeInOut(duration: 0.5)))
+                }
+                .padding(.bottom, 16)
             }
         }
     }
@@ -135,85 +142,14 @@ struct ResumeFeedbackView: View {
     }
 }
 
-struct FeedbackSheetView: View {
-    @StateObject var viewModel: ResumeFeedbackViewModel
-
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    switch viewModel.viewState {
-                    case .loading:
-                        VStack(spacing: 12) {
-                            ProgressView()
-                            Text("Enviando currículo...")
-                                .foregroundColor(.gray)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 40)
-
-                    case .polling:
-                        VStack(spacing: 12) {
-                            ProgressView()
-                            Text("Analisando currículo...\nIsso pode levar alguns minutos.")
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.gray)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 40)
-
-                    case .loaded:
-                        if let feedback = viewModel.feedbackText {
-                            Text("💬 Feedback:")
-                                .font(.headline)
-                                .padding(.bottom, 4)
-
-                            Text(feedback)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .multilineTextAlignment(.leading)
-                                .padding()
-                                .background(Color(UIColor.secondarySystemBackground))
-                                .cornerRadius(12)
-                                .lineLimit(nil)
-                        } else {
-                            Text("Nenhum feedback disponível.")
-                                .foregroundColor(.gray)
-                        }
-
-                    case .error:
-                        VStack(spacing: 12) {
-                            Image(systemName: "xmark.octagon.fill")
-                                .foregroundColor(.red)
-                                .font(.system(size: 40))
-                            Text("Ocorreu um erro ao gerar o feedback.")
-                                .foregroundColor(.red)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 40)
-
-                    case .idle:
-                        EmptyView()
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle("Feedback do Currículo")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-}
-
 struct TypewriterText: View {
     let fullText: String
-    let typingSpeed: Double // segundos por caractere
+    let typingSpeed: Double
     @State private var displayedText: String = ""
 
     var body: some View {
         Text(displayedText)
             .onAppear {
-                displayedText = ""
                 var charIndex = 0.0
                 for letter in fullText {
                     DispatchQueue.main.asyncAfter(deadline: .now() + charIndex * typingSpeed) {
@@ -222,37 +158,11 @@ struct TypewriterText: View {
                     charIndex += 1
                 }
             }
+            .onDisappear {
+                displayedText = ""
+            }
             .font(.body)
             .multilineTextAlignment(.center)
             .animation(.easeInOut, value: displayedText)
     }
 }
-
-
-//struct FeedbackSheetView: View {
-//    @StateObject var viewModel: ResumeFeedbackViewModel
-//    
-//    var body: some View {
-//        NavigationView {
-//            ScrollView {
-//                switch viewModel.viewState {
-//                case .loading:
-//                    ProgressView("Analisando currículo...")
-//                        .padding()
-//                case .loaded:
-//                    Text("💬 Feedback:")
-//                        .font(.headline)
-//                        .padding(.top)
-//                    Text(viewModel.feedbackText ?? "")
-//                        .font(.body)
-//                        .padding()
-//                case .error:
-//                    Text("Erro")
-//                        .foregroundColor(.red)
-//                }
-//            }
-//            .navigationTitle("Feedback do Currículo")
-//            .navigationBarTitleDisplayMode(.inline)
-//        }
-//    }
-//}

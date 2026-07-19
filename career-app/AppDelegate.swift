@@ -15,7 +15,7 @@ class DeepLinkManager: ObservableObject {
         }
     }
     
-    @Published var title: String = "Login"
+    @Published var title: String = "TechStep"
     
     private func updateTitle() {
         switch selectedTab {

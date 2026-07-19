@@ -74,13 +74,10 @@
 		70566B342E0F0A1600ED701F /* ResumeFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */; };
 		70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */; };
 		70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70566B382E0F0E4200ED701F /* InterviewService.swift */; };
-		7068857F2E2FC43D00C4735F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
-		706885802E2FC43D00C4735F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		706885812E2FC43D00C4735F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
-		706885822E2FC43D00C4735F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
-		706885832E2FC43D00C4735F /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
 		7068862A2E367CE400C4735F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706886292E367CE200C4735F /* APIError.swift */; };
 		7068862C2E369C2A00C4735F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068862B2E369C2600C4735F /* DateFormatter.swift */; };
+		7068862E2E37C13A00C4735F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068862D2E37C13700C4735F /* String.swift */; };
+		706886302E380AD300C4735F /* FeedbackSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068862F2E380AD200C4735F /* FeedbackSheetView.swift */; };
 		70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DC62D447223005F4933 /* JobApplicationService.swift */; };
 		70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70740DCA2D45C268005F4933 /* SkillSelectionView.swift */; };
 		707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */; };
@@ -222,6 +219,8 @@
 		70566B382E0F0E4200ED701F /* InterviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewService.swift; sourceTree = "<group>"; };
 		706886292E367CE200C4735F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		7068862B2E369C2600C4735F /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		7068862D2E37C13700C4735F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		7068862F2E380AD200C4735F /* FeedbackSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSheetView.swift; sourceTree = "<group>"; };
 		70740DC62D447223005F4933 /* JobApplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationService.swift; sourceTree = "<group>"; };
 		70740DCA2D45C268005F4933 /* SkillSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSelectionView.swift; sourceTree = "<group>"; };
 		707F00CC2E22D6E70086E2B6 /* EmptyInterviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInterviewListView.swift; sourceTree = "<group>"; };
@@ -285,11 +284,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				706885832E2FC43D00C4735F /* FirebaseCore in Frameworks */,
-				706885822E2FC43D00C4735F /* FirebaseCrashlytics in Frameworks */,
-				706885812E2FC43D00C4735F /* FirebaseAuth in Frameworks */,
-				706885802E2FC43D00C4735F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				7068857F2E2FC43D00C4735F /* FirebaseAnalytics in Frameworks */,
 				243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */,
 				240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */,
 			);
@@ -495,6 +489,7 @@
 		70566B322E0F09C100ED701F /* ResumeFeedback */ = {
 			isa = PBXGroup;
 			children = (
+				7068862F2E380AD200C4735F /* FeedbackSheetView.swift */,
 				70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */,
 				70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */,
 			);
@@ -512,6 +507,7 @@
 		706886282E367CDC00C4735F /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7068862D2E37C13700C4735F /* String.swift */,
 				7068862B2E369C2600C4735F /* DateFormatter.swift */,
 				706886292E367CE200C4735F /* APIError.swift */,
 			);
@@ -844,6 +840,7 @@
 				70056D5A2E2C1184006EA1A1 /* AuthenticationSignUpService.swift in Sources */,
 				70A86B9D2E12DB920006721C /* EditJobApplicationViewModel.swift in Sources */,
 				70056D5E2E2C15DB006EA1A1 /* SnackbarView.swift in Sources */,
+				706886302E380AD300C4735F /* FeedbackSheetView.swift in Sources */,
 				70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */,
 				70819E0E2E036EB8007815BE /* Question.swift in Sources */,
 				703CD7E92E1498FD00778C76 /* JobHorizontalList.swift in Sources */,
@@ -893,6 +890,7 @@
 				70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */,
 				70A76C982D7A8F2500C5B709 /* ArticleDetail.swift in Sources */,
 				70D2885C2D28841F004E9033 /* TextEditor.swift in Sources */,
+				7068862E2E37C13A00C4735F /* String.swift in Sources */,
 				249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */,
 				70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */,
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,

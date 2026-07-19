@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JobApplication: Identifiable, Equatable, Hashable {
-    var id: UUID
+    var id: String
     var company: String
     var level: String
     var role: String
@@ -17,7 +17,7 @@ struct JobApplication: Identifiable, Equatable, Hashable {
     var technicalSkills: [String]
     
     init(
-        id: UUID,
+        id: String,
         company: String,
         level: String = "",
         role: String,
@@ -42,8 +42,8 @@ extension JobApplication {
             company: response.company_name,
             level: response.job_seniority,
             role: response.job_title,
-            lastInterview: response.last_interview_date?.toDayMonthString(),
-            nextInterview: response.next_interview_date?.toDayMonthString(),
+            lastInterview: response.last_interview_date?.toDate()?.toDayMonthString(),
+            nextInterview: response.next_interview_date?.toDate()?.toDayMonthString(),
             technicalSkills: response.skills ?? []
         )
     }
@@ -85,7 +85,7 @@ struct JobApplicationTrackerView: View {
                                     applications: listViewModel.jobApplications,
                                     isEditingMode: $isEditingMode,
                                     onEdit: editJob,
-                                    onTrash: { job in listViewModel.deleteInterview(interviewId: job.id.uuidString) }
+                                    onTrash: { job in listViewModel.deleteInterview(interviewId: job.id) }
                                 )
                             }
                         }

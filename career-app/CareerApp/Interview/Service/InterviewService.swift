@@ -15,44 +15,44 @@ final class InterviewService {
     static let shared = InterviewService()
     private init() {}
 
-//    func fetchResumeFeedback(resumeURL: URL) async throws -> String {
-//        guard resumeURL.startAccessingSecurityScopedResource() else {
-//            throw URLError(.noPermissionsToReadFile)
-//        }
-//        defer { resumeURL.stopAccessingSecurityScopedResource() }
-//
-//        let pdfData = try Data(contentsOf: resumeURL)
-//
-//        var request = URLRequest(url: URL(string: "\(APIConstants.pythonURL)/resume-feedback/")!)
-//        request.httpMethod = "POST"
-//
-//        let boundary = UUID().uuidString
-//        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
-//
-//        var body = Data()
-//
-//        // PDF
-//        body.append("--\(boundary)\r\n")
-//        body.append("Content-Disposition: form-data; name=\"resume\"; filename=\"resume.pdf\"\r\n")
-//        body.append("Content-Type: application/pdf\r\n\r\n")
-//        body.append(pdfData)
-//        body.append("\r\n")
-//
-//        body.append("--\(boundary)--\r\n")
-//        request.httpBody = body
-//        request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
-//
-//        let (data, response) = try await URLSession.shared.data(for: request)
-//
-//        guard let httpResponse = response as? HTTPURLResponse,
-//              httpResponse.statusCode == 200 else {
-//            throw URLError(.badServerResponse)
-//        }
-//
-//        let decoded = try JSONDecoder().decode(ResumeFeedbackResponse.self, from: data)
-//        return decoded.feedback
-//    }
+    func fetchResumeFeedback(resumeURL: URL) async throws -> ResumeFeedbackResponse {
+        guard resumeURL.startAccessingSecurityScopedResource() else {
+            throw URLError(.noPermissionsToReadFile)
+        }
+        defer { resumeURL.stopAccessingSecurityScopedResource() }
+
+        let pdfData = try Data(contentsOf: resumeURL)
+
+        var request = URLRequest(url: URL(string: "\(APIConstants.pythonURL)/resume-feedback/")!)
+        request.httpMethod = "POST"
+
+        let boundary = UUID().uuidString
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+        var body = Data()
+
+        // PDF
+        body.append("--\(boundary)\r\n")
+        body.append("Content-Disposition: form-data; name=\"resume\"; filename=\"resume.pdf\"\r\n")
+        body.append("Content-Type: application/pdf\r\n\r\n")
+        body.append(pdfData)
+        body.append("\r\n")
+
+        body.append("--\(boundary)--\r\n")
+        request.httpBody = body
+        request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+
+        let decoded = try JSONDecoder().decode(ResumeFeedbackResponse.self, from: data)
+        return decoded
+    }
 }
 
 extension InterviewService {

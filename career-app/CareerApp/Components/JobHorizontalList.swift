@@ -27,10 +27,10 @@ struct JobHorizontalList: View {
             
             if viewModel.githubJobListing.isEmpty {
                 VStack {
-                    Image("error-image")
+                    Image("not-found-icon")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 80)
+                        .frame(height: 48)
                         .padding(.vertical, 8)
                     Text("Não foi possível carregar o conteúdo.")
                         .font(.system(size: 16))

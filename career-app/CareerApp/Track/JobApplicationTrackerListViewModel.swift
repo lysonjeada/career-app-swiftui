@@ -19,12 +19,12 @@ extension DateFormatter {
 }
 
 struct InterviewResponse: Codable {
-    let id: UUID
+    let id: String
     let company_name: String
     let job_seniority: String
     let job_title: String
-    let last_interview_date: Date?
-    let next_interview_date: Date?
+    let last_interview_date: String?
+    let next_interview_date: String?
     let location: String?
     let notes: String?
     let skills: [String]?
@@ -69,8 +69,8 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                         company: $0.company_name,
                         level: $0.job_seniority,
                         role: $0.job_title,
-                        lastInterview: $0.last_interview_date?.toDayMonthString(),
-                        nextInterview: $0.next_interview_date?.toDayMonthString(),
+                        lastInterview: $0.last_interview_date?.toDate()?.toDayMonthString(),
+                        nextInterview: $0.next_interview_date?.toDate()?.toDayMonthString(),
                         technicalSkills: $0.skills ?? []
                     )
                 }
@@ -140,7 +140,7 @@ class JobApplicationTrackerListViewModel: ObservableObject {
 
     @MainActor
     func editJob(
-        id: UUID,
+        id: String,
         company: String,
         role: String,
         level: String,
@@ -166,7 +166,7 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                     skills: technicalSkills
                 )
 
-                try await self.service.updateInterview(interviewId: id.uuidString, request: request)
+                try await self.service.updateInterview(interviewId: id, request: request)
                 self.fetchJobApplications()
                 self.viewState = .loaded
                 self.showSuccessSnackBar(message: "Candidatura atualizada com sucesso!")

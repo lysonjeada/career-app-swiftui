@@ -27,6 +27,8 @@ final class ResumeFeedbackViewModel: ObservableObject {
 
     private var task: Task<Void, Never>?
     private var pollingTimer: Timer?
+    
+    private(set) var response: ResumeFeedbackResponse?
 
     @MainActor
     func submitResumeFeedback(resumeURL: URL) {
@@ -38,9 +40,11 @@ final class ResumeFeedbackViewModel: ObservableObject {
 
         task = Task {
             do {
-                let taskID = try await InterviewService.shared.submitFeedbackAndGetTaskID(resumeURL: resumeURL)
+                let feedbackResponse = try await InterviewService.shared.fetchResumeFeedback(resumeURL: resumeURL)
                 viewState = .polling
-                startPolling(for: taskID)
+                self.response = feedbackResponse
+                viewState = .loaded
+//                startPolling(for: taskID)
             } catch {
                 errorMessage = error.localizedDescription
                 viewState = .error

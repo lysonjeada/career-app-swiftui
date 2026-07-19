@@ -35,7 +35,6 @@ struct HomeView: View {
                         showNextInterviews()
                         showArticlesView()
                         showJobApplication()
-                        showGithubJobs()
                     }
                 }
             case .error:
