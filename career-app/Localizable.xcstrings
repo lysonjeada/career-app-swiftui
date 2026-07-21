@@ -10,6 +10,9 @@
     "%lld" : {
 
     },
+    "%lld/100" : {
+
+    },
     "+" : {
 
     },
@@ -40,10 +43,16 @@
     "Artigos" : {
 
     },
+    "Atenção" : {
+
+    },
     "Atualizar" : {
 
     },
     "Atualizar Candidatura" : {
+
+    },
+    "Áudio gravado" : {
 
     },
     "blogTitle" : {
@@ -72,6 +81,9 @@
     "Clique para adicionar" : {
 
     },
+    "Começar simulação" : {
+
+    },
     "Company Name" : {
 
     },
@@ -90,6 +102,9 @@
     "Date Range" : {
 
     },
+    "Descrição da vaga" : {
+
+    },
     "Done" : {
 
     },
@@ -100,6 +115,9 @@
 
     },
     "Entrar sem login" : {
+
+    },
+    "Entrevista simulada" : {
 
     },
     "Entrevistas" : {
@@ -115,6 +133,9 @@
 
     },
     "Erro ao salvar" : {
+
+    },
+    "Erro no áudio" : {
 
     },
     "Esqueceu a senha?" : {
@@ -138,7 +159,16 @@
     "Feedback gerado!" : {
 
     },
+    "Finalizar" : {
+
+    },
+    "Finalizar entrevista" : {
+
+    },
     "Forgot password?" : {
+
+    },
+    "Forma de resposta" : {
 
     },
     "Gerar Mais" : {
@@ -148,6 +178,15 @@
 
     },
     "GitHub" : {
+
+    },
+    "Gravando %@" : {
+
+    },
+    "Gravar novamente" : {
+
+    },
+    "Informe o cargo e a senioridade para gerar perguntas personalizadas." : {
 
     },
     "IR ATÉ O ARTIGO" : {
@@ -186,6 +225,9 @@
     "Name" : {
 
     },
+    "Não foi possível avaliar" : {
+
+    },
     "Não foi possível carregar o conteúdo." : {
 
     },
@@ -196,6 +238,9 @@
 
     },
     "Nenhuma entrevista próxima cadastrada" : {
+
+    },
+    "Nenhuma skill adicionada" : {
 
     },
     "Notas" : {
@@ -210,6 +255,9 @@
     "OK" : {
 
     },
+    "Opcional" : {
+
+    },
     "Other Link" : {
 
     },
@@ -218,6 +266,16 @@
     },
     "Perfil" : {
 
+    },
+    "Pergunta %lld de %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pergunta %1$lld de %2$lld"
+          }
+        }
+      }
     },
     "Perguntas Geradas" : {
 
@@ -228,10 +286,31 @@
     "Phone" : {
 
     },
+    "Pontuação geral" : {
+
+    },
     "Position" : {
 
     },
+    "Prepare sua entrevista" : {
+
+    },
+    "Próxima pergunta" : {
+
+    },
     "Próximas Entrevistas" : {
+
+    },
+    "Refazer entrevista" : {
+
+    },
+    "Reiniciar entrevista" : {
+
+    },
+    "Responda perguntas por texto ou áudio e receba uma avaliação." : {
+
+    },
+    "Resultado" : {
 
     },
     "Sair da conta" : {
@@ -243,7 +322,7 @@
     "Selecionar Foto" : {
 
     },
-    "Selecione Skills" : {
+    "Selecionar skills" : {
 
     },
     "SENHA" : {
@@ -255,10 +334,16 @@
     "Simulador de entrevista" : {
 
     },
+    "Simular entrevista" : {
+
+    },
     "Skills" : {
 
     },
     "SKILLS" : {
+
+    },
+    "Sua resposta" : {
 
     },
     "Tap to Authorize and Show Calendar" : {
@@ -274,6 +359,12 @@
 
     },
     "Todos os Artigos" : {
+
+    },
+    "Toque para começar" : {
+
+    },
+    "Transcrevendo áudio..." : {
 
     },
     "Vagas aplicadas" : {

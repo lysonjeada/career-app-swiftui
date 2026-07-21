@@ -22,7 +22,6 @@ struct EditJobApplicationView: View {
     @State private var selectedRole: String = "Cargo"
     @State private var selectedTime: String = "Carga horária"
     @State private var selectedType: String = "Regime"
-    @State private var skills: [String] = []
     @State private var showSkillSheet: Bool = false
     @State private var isSelectionModeActive: Bool = false
     @StateObject var viewModel: JobApplicationTrackerListViewModel
@@ -94,14 +93,11 @@ struct EditJobApplicationView: View {
                                         .padding(.bottom)
                                     
                                     Button(action: {
-                                        
                                     }) {
                                         Text("Gerar perguntas")
                                             .foregroundColor(Color.backgroundGray)
                                     }
                                 }
-                                
-                                
                             }
                             .padding(.top, 12)
                         }
@@ -179,16 +175,16 @@ struct EditJobApplicationView: View {
     
     @ViewBuilder
     private func addSkillView() -> some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Skills")
                     .font(.system(size: 24))
-                
+
                 Spacer()
-                
-                Button(action: {
-                    showSkillSheet.toggle()
-                }) {
+
+                Button {
+                    showSkillSheet = true
+                } label: {
                     Image(systemName: "plus")
                         .bold()
                         .frame(width: 20, height: 20)
@@ -198,48 +194,109 @@ struct EditJobApplicationView: View {
                         .foregroundColor(.white)
                         .cornerRadius(24)
                 }
-                .padding(.trailing, 4)
-                
-                Button(action: {
-                    isSelectionModeActive.toggle()
-                }) {
-                    Image(systemName: "minus")
-                        .bold()
-                        .frame(width: 20, height: 20)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.white)
-                        .foregroundColor(.persianBlue)
-                        .cornerRadius(24)
-                        .overlay(
+
+                Button {
+                    withAnimation {
+                        isSelectionModeActive.toggle()
+                    }
+                } label: {
+                    Image(
+                        systemName: isSelectionModeActive
+                            ? "xmark"
+                            : "minus"
+                    )
+                    .bold()
+                    .frame(width: 20, height: 20)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        isSelectionModeActive
+                            ? Color.redColor
+                            : Color.white
+                    )
+                    .foregroundColor(
+                        isSelectionModeActive
+                            ? Color.white
+                            : Color.persianBlue
+                    )
+                    .cornerRadius(24)
+                    .overlay {
+                        if !isSelectionModeActive {
                             RoundedRectangle(cornerRadius: 24)
-                                .stroke(Color.persianBlue, lineWidth: 2) // Adiciona a borda azul
-                        )
-                }
-            }
-            
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
-                ForEach(technicalSkills, id: \.self) { skill in
-                    Text(skill)
-                        .bold()
-                        .font(.system(size: 14))
-                        .foregroundColor(.white)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 16)
-                        .background(isSelectionModeActive ? Color.redColor : Color.persianBlue)
-                        .cornerRadius(12)
-                        .onTapGesture {
-                            if isSelectionModeActive {
-                                skills.removeAll(where: { $0 == skill })
-                            }
+                                .stroke(
+                                    Color.persianBlue,
+                                    lineWidth: 2
+                                )
                         }
+                    }
+                }
+                .disabled(technicalSkills.isEmpty)
+                .opacity(technicalSkills.isEmpty ? 0.5 : 1)
+            }
+
+            if technicalSkills.isEmpty {
+                Text("Nenhuma skill adicionada")
+                    .font(.system(size: 14))
+                    .foregroundStyle(.secondary)
+            } else {
+                LazyVGrid(
+                    columns: [
+                        GridItem(.adaptive(minimum: 100))
+                    ],
+                    spacing: 12
+                ) {
+                    ForEach(technicalSkills, id: \.self) { skill in
+                        Button {
+                            guard isSelectionModeActive else {
+                                return
+                            }
+
+                            removeSkill(skill)
+                        } label: {
+                            HStack(spacing: 6) {
+                                Text(skill)
+                                    .bold()
+                                    .font(.system(size: 14))
+                                    .lineLimit(1)
+
+                                if isSelectionModeActive {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size: 13))
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                isSelectionModeActive
+                                    ? Color.redColor
+                                    : Color.persianBlue
+                            )
+                            .cornerRadius(12)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
-            
         }
         .padding(.top, 12)
         .sheet(isPresented: $showSkillSheet) {
-            SkillSelectionView(selectedSkills: $skills)
+            SkillSelectionView(
+                selectedSkills: $technicalSkills
+            )
+        }
+    }
+    
+    private func removeSkill(_ skill: String) {
+        withAnimation {
+            technicalSkills.removeAll {
+                $0.caseInsensitiveCompare(skill) == .orderedSame
+            }
+
+            if technicalSkills.isEmpty {
+                isSelectionModeActive = false
+            }
         }
     }
 }

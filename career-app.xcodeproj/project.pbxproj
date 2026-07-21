@@ -107,6 +107,21 @@
 		70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC02232D9467810069A179 /* CoordinatorView.swift */; };
 		70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */; };
 		70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9372D35E6B400984CF7 /* DateInputField.swift */; };
+		70CE69C42FBE78F2006C7846 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
+		70CE69C52FBE78F2006C7846 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		70CE69C62FBE78F2006C7846 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
+		70CE69C72FBE78F2006C7846 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
+		70CE69C82FBE78F2006C7846 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
+		70CE6A4E30100120006C7846 /* InterviewSimulationQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A4D30100119006C7846 /* InterviewSimulationQuestion.swift */; };
+		70CE6A503010013C006C7846 /* InterviewSimulationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A4F3010013B006C7846 /* InterviewSimulationService.swift */; };
+		70CE6A523010016A006C7846 /* InterviewSimulationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5130100169006C7846 /* InterviewSimulationViewModel.swift */; };
+		70CE6A5430100197006C7846 /* AudioRecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A533010018D006C7846 /* AudioRecorderManager.swift */; };
+		70CE6A5630100211006C7846 /* InterviewSimulationLauncherCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5530100210006C7846 /* InterviewSimulationLauncherCard.swift */; };
+		70CE6A5830100232006C7846 /* InterviewSimulationFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5730100231006C7846 /* InterviewSimulationFlowView.swift */; };
+		70CE6A5A30100250006C7846 /* InterviewSimulationSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A593010024F006C7846 /* InterviewSimulationSetupView.swift */; };
+		70CE6A5C30100269006C7846 /* InterviewSimulationSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5B30100266006C7846 /* InterviewSimulationSessionView.swift */; };
+		70CE6A5E30100295006C7846 /* InterviewSimulationComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5D30100294006C7846 /* InterviewSimulationComponents.swift */; };
+		70CE6A60301002E6006C7846 /* InterviewSimulationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5F301002E6006C7846 /* InterviewSimulationResultView.swift */; };
 		70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288462D1B5CC3004E9033 /* HomeViewModel.swift */; };
 		70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288492D1B63F9004E9033 /* HomeService.swift */; };
 		70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2884C2D245EB2004E9033 /* Carousel.swift */; };
@@ -248,6 +263,16 @@
 		70BC02232D9467810069A179 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCard.swift; sourceTree = "<group>"; };
 		70C6F9372D35E6B400984CF7 /* DateInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInputField.swift; sourceTree = "<group>"; };
+		70CE6A4D30100119006C7846 /* InterviewSimulationQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationQuestion.swift; sourceTree = "<group>"; };
+		70CE6A4F3010013B006C7846 /* InterviewSimulationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationService.swift; sourceTree = "<group>"; };
+		70CE6A5130100169006C7846 /* InterviewSimulationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationViewModel.swift; sourceTree = "<group>"; };
+		70CE6A533010018D006C7846 /* AudioRecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderManager.swift; sourceTree = "<group>"; };
+		70CE6A5530100210006C7846 /* InterviewSimulationLauncherCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationLauncherCard.swift; sourceTree = "<group>"; };
+		70CE6A5730100231006C7846 /* InterviewSimulationFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationFlowView.swift; sourceTree = "<group>"; };
+		70CE6A593010024F006C7846 /* InterviewSimulationSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationSetupView.swift; sourceTree = "<group>"; };
+		70CE6A5B30100266006C7846 /* InterviewSimulationSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationSessionView.swift; sourceTree = "<group>"; };
+		70CE6A5D30100294006C7846 /* InterviewSimulationComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationComponents.swift; sourceTree = "<group>"; };
+		70CE6A5F301002E6006C7846 /* InterviewSimulationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewSimulationResultView.swift; sourceTree = "<group>"; };
 		70D288462D1B5CC3004E9033 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		70D288492D1B63F9004E9033 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		70D2884C2D245EB2004E9033 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
@@ -284,6 +309,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70CE69C82FBE78F2006C7846 /* FirebaseCore in Frameworks */,
+				70CE69C72FBE78F2006C7846 /* FirebaseCrashlytics in Frameworks */,
+				70CE69C62FBE78F2006C7846 /* FirebaseAuth in Frameworks */,
+				70CE69C52FBE78F2006C7846 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				70CE69C42FBE78F2006C7846 /* FirebaseAnalytics in Frameworks */,
 				243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */,
 				240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */,
 			);
@@ -535,6 +565,7 @@
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
 			isa = PBXGroup;
 			children = (
+				70CE6A4C3010010C006C7846 /* InterviewSimulation */,
 				70056D652E2C21AE006EA1A1 /* Authentication */,
 				70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */,
 				70056D5F2E2C202A006EA1A1 /* AuthenticationLoginRequest.swift */,
@@ -609,6 +640,23 @@
 				70BC021D2D862E9F0069A179 /* LoginView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		70CE6A4C3010010C006C7846 /* InterviewSimulation */ = {
+			isa = PBXGroup;
+			children = (
+				70CE6A5F301002E6006C7846 /* InterviewSimulationResultView.swift */,
+				70CE6A5D30100294006C7846 /* InterviewSimulationComponents.swift */,
+				70CE6A5B30100266006C7846 /* InterviewSimulationSessionView.swift */,
+				70CE6A593010024F006C7846 /* InterviewSimulationSetupView.swift */,
+				70CE6A5730100231006C7846 /* InterviewSimulationFlowView.swift */,
+				70CE6A5530100210006C7846 /* InterviewSimulationLauncherCard.swift */,
+				70CE6A533010018D006C7846 /* AudioRecorderManager.swift */,
+				70CE6A5130100169006C7846 /* InterviewSimulationViewModel.swift */,
+				70CE6A4F3010013B006C7846 /* InterviewSimulationService.swift */,
+				70CE6A4D30100119006C7846 /* InterviewSimulationQuestion.swift */,
+			);
+			path = InterviewSimulation;
 			sourceTree = "<group>";
 		};
 		70D288452D1B5CAA004E9033 /* ViewModel */ = {
@@ -829,11 +877,15 @@
 				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
 				7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */,
+				70CE6A5830100232006C7846 /* InterviewSimulationFlowView.swift in Sources */,
 				70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */,
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
 				703CD7E32E13305D00778C76 /* AuthTextField.swift in Sources */,
+				70CE6A60301002E6006C7846 /* InterviewSimulationResultView.swift in Sources */,
+				70CE6A5E30100295006C7846 /* InterviewSimulationComponents.swift in Sources */,
 				70819E0A2E034B27007815BE /* APIService.swift in Sources */,
 				243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */,
+				70CE6A523010016A006C7846 /* InterviewSimulationViewModel.swift in Sources */,
 				70819E082E034AD3007815BE /* APIConstants.swift in Sources */,
 				70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */,
 				70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */,
@@ -848,6 +900,7 @@
 				70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */,
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
 				70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */,
+				70CE6A4E30100120006C7846 /* InterviewSimulationQuestion.swift in Sources */,
 				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
 				708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */,
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
@@ -859,6 +912,7 @@
 				703CD7E12E13301900778C76 /* ForgotPasswordView.swift in Sources */,
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
+				70CE6A5430100197006C7846 /* AudioRecorderManager.swift in Sources */,
 				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
 				70A76C942D7A8C3800C5B709 /* ArticleDetailViewModel.swift in Sources */,
 				7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */,
@@ -896,8 +950,10 @@
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
 				70056D642E2C217C006EA1A1 /* AuthenticationLoginResponse.swift in Sources */,
+				70CE6A5630100211006C7846 /* InterviewSimulationLauncherCard.swift in Sources */,
 				700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */,
 				70566B2F2E0EFE9600ED701F /* ArticlesHorizontalList.swift in Sources */,
+				70CE6A5A30100250006C7846 /* InterviewSimulationSetupView.swift in Sources */,
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
@@ -913,7 +969,9 @@
 				70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */,
 				702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */,
 				703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */,
+				70CE6A5C30100269006C7846 /* InterviewSimulationSessionView.swift in Sources */,
 				70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */,
+				70CE6A503010013C006C7846 /* InterviewSimulationService.swift in Sources */,
 				70056D582E2C1152006EA1A1 /* SignUpViewModel.swift in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
 				7068862A2E367CE400C4735F /* APIError.swift in Sources */,
@@ -1125,6 +1183,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y9Y27K9ZT7;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "O microfone será usado para responder às entrevistas simuladas.";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "br.com.lys.Career-App-Unit-Tests";
@@ -1144,6 +1203,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y9Y27K9ZT7;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "O microfone será usado para responder às entrevistas simuladas.";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "br.com.lys.Career-App-Unit-Tests";

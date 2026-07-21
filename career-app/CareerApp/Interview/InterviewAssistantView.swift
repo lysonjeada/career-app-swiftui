@@ -9,48 +9,88 @@ import SwiftUI
 
 struct InterviewAssistantView: View {
     @FocusState private var keyboardFocused: Bool
-    @StateObject var viewModel: GenerateQuestionsViewModel
-    @StateObject var resumeFeedbackViewModel: ResumeFeedbackViewModel
-    
+
+    @StateObject var viewModel:
+        GenerateQuestionsViewModel
+
+    @StateObject var resumeFeedbackViewModel:
+        ResumeFeedbackViewModel
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack {
+                VStack(spacing: 20) {
                     Text("Simulador de entrevista")
                         .font(.title2)
-                        .fontWeight(.bold) // Alterado para medium
-                        .foregroundColor(Color.persianBlue)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .fontWeight(.bold)
+                        .foregroundColor(.persianBlue)
+                        .frame(
+                            maxWidth: .infinity,
+                            alignment: .center
+                        )
                         .padding(.horizontal)
-                        .shadow(color: .gray.opacity(0.3), radius: 1, x: 0, y: 1) // Sombra mais leve
+                        .shadow(
+                            color: .gray.opacity(0.3),
+                            radius: 1,
+                            x: 0,
+                            y: 1
+                        )
                         .padding(.top, 24)
-                    InterviewGenerateQuestionsView(viewModel: viewModel)
+
+                    NavigationLink {
+                        InterviewSimulationFlowView()
+                    } label: {
+                        InterviewSimulationLauncherCard()
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal)
+
+                    InterviewGenerateQuestionsView(
+                        viewModel: viewModel
+                    )
+
                     Text("Melhore seu currículo")
                         .font(.title2)
-                        .fontWeight(.bold) // Alterado para medium
-                        .foregroundColor(Color.persianBlue)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .fontWeight(.bold)
+                        .foregroundColor(.persianBlue)
+                        .frame(
+                            maxWidth: .infinity,
+                            alignment: .center
+                        )
                         .padding(.horizontal)
-                        .shadow(color: .gray.opacity(0.3), radius: 1, x: 0, y: 1) // Sombra mais leve
-                    ResumeFeedbackView(viewModel: resumeFeedbackViewModel)
+                        .shadow(
+                            color: .gray.opacity(0.3),
+                            radius: 1,
+                            x: 0,
+                            y: 1
+                        )
+
+                    ResumeFeedbackView(
+                        viewModel: resumeFeedbackViewModel
+                    )
                 }
             }
             .ignoresSafeArea(.keyboard)
-            .gesture(DragGesture().onChanged { _ in
-                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            })
+            .gesture(
+                DragGesture().onChanged { _ in
+                    UIApplication.shared.sendAction(
+                        #selector(
+                            UIResponder.resignFirstResponder
+                        ),
+                        to: nil,
+                        from: nil,
+                        for: nil
+                    )
+                }
+            )
         }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
-                // the Spacer will push the Done button to the far right of the keyboard as pictured.
                 Spacer()
-                
-                Button(action: {
+
+                Button("Done") {
                     keyboardFocused = false
-                }, label: {
-                    Text("Done")
-                })
-                
+                }
             }
         }
     }
