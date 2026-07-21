@@ -34,49 +34,42 @@ final class AudioRecorderManager:
     }
 
     func startRecording() async {
-        let hasPermission = await requestPermission()
+        guard !isRecording else {
+            return
+        }
 
-        guard hasPermission else {
-            errorMessage = "Permita o acesso ao microfone."
+        let permissionGranted = await requestPermission()
+
+        guard permissionGranted else {
+            errorMessage = """
+            O acesso ao microfone foi negado. \
+            Ative a permissão nos Ajustes do iPhone.
+            """
             return
         }
 
         do {
-            let session = AVAudioSession.sharedInstance()
+            try configureAudioSession()
 
-            try session.setCategory(
-                .playAndRecord,
-                mode: .spokenAudio,
-                options: [
-                    .defaultToSpeaker,
-                    .allowBluetooth
-                ]
-            )
+            let fileURL = makeAudioFileURL()
 
-            try session.setActive(true)
-
-            let fileURL = FileManager.default.temporaryDirectory
-                .appendingPathComponent(
-                    "interview-\(UUID().uuidString)"
-                )
-                .appendingPathExtension("m4a")
-
-            let settings: [String: Any] = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 44_100,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey:
-                    AVAudioQuality.high.rawValue
-            ]
-
-            audioRecorder = try AVAudioRecorder(
+            let recorder = try AVAudioRecorder(
                 url: fileURL,
-                settings: settings
+                settings: recordingSettings
             )
 
-            audioRecorder?.delegate = self
-            audioRecorder?.record()
+            recorder.delegate = self
+            recorder.isMeteringEnabled = true
 
+            guard recorder.prepareToRecord() else {
+                throw AudioRecorderError.couldNotPrepare
+            }
+
+            guard recorder.record() else {
+                throw AudioRecorderError.couldNotStart
+            }
+
+            audioRecorder = recorder
             recordedFileURL = fileURL
             duration = 0
             isRecording = true
@@ -84,7 +77,13 @@ final class AudioRecorderManager:
             startTimer()
 
         } catch {
+            stopRecording()
             errorMessage = error.localizedDescription
+
+            print(
+                "❌ Erro ao iniciar gravação:",
+                error.localizedDescription
+            )
         }
     }
 
@@ -94,12 +93,11 @@ final class AudioRecorderManager:
         audioRecorder = nil
 
         timerTask?.cancel()
+        timerTask = nil
+
         isRecording = false
 
-        try? AVAudioSession.sharedInstance().setActive(
-            false,
-            options: .notifyOthersOnDeactivation
-        )
+        deactivateAudioSession()
 
         return recordedFileURL
     }
@@ -115,17 +113,74 @@ final class AudioRecorderManager:
 
         self.recordedFileURL = nil
         duration = 0
+        errorMessage = nil
     }
 
     private func requestPermission() async -> Bool {
-        await withCheckedContinuation { continuation in
-            AVAudioSession.sharedInstance()
-                .requestRecordPermission { granted in
-                    continuation.resume(
-                        returning: granted
-                    )
-                }
+        if #available(iOS 17.0, *) {
+            return await AVAudioApplication
+                .requestRecordPermission()
+        } else {
+            return await withCheckedContinuation { continuation in
+                AVAudioSession.sharedInstance()
+                    .requestRecordPermission { granted in
+                        continuation.resume(
+                            returning: granted
+                        )
+                    }
+            }
         }
+    }
+
+    private func configureAudioSession() throws {
+        let audioSession = AVAudioSession.sharedInstance()
+
+        try audioSession.setCategory(
+            .playAndRecord,
+            mode: .default,
+            options: [
+                .defaultToSpeaker,
+                .allowBluetooth
+            ]
+        )
+
+        try audioSession.setActive(
+            true,
+            options: .notifyOthersOnDeactivation
+        )
+    }
+
+    private func deactivateAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setActive(
+                false,
+                options: .notifyOthersOnDeactivation
+            )
+        } catch {
+            print(
+                "⚠️ Erro ao desativar sessão de áudio:",
+                error.localizedDescription
+            )
+        }
+    }
+
+    private func makeAudioFileURL() -> URL {
+        FileManager.default.temporaryDirectory
+            .appendingPathComponent(
+                "interview-\(UUID().uuidString)"
+            )
+            .appendingPathExtension("m4a")
+    }
+
+    private var recordingSettings: [String: Any] {
+        [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 44_100.0,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderBitRateKey: 128_000,
+            AVEncoderAudioQualityKey:
+                AVAudioQuality.high.rawValue
+        ]
     }
 
     private func startTimer() {
@@ -134,7 +189,7 @@ final class AudioRecorderManager:
         timerTask = Task { [weak self] in
             while !Task.isCancelled {
                 try? await Task.sleep(
-                    nanoseconds: 1_000_000_000
+                    for: .seconds(1)
                 )
 
                 guard !Task.isCancelled else {
@@ -143,6 +198,21 @@ final class AudioRecorderManager:
 
                 self?.duration += 1
             }
+        }
+    }
+}
+
+private enum AudioRecorderError: LocalizedError {
+    case couldNotPrepare
+    case couldNotStart
+
+    var errorDescription: String? {
+        switch self {
+        case .couldNotPrepare:
+            return "Não foi possível preparar a gravação."
+
+        case .couldNotStart:
+            return "Não foi possível iniciar a gravação."
         }
     }
 }
