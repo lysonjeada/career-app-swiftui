@@ -68,6 +68,10 @@ extension Color {
         adaptive(red: 118, green: 113, blue: 137)
     }
     
+    static var mediumBluecolor: Color {
+        adaptive(red: 65, green: 94, blue: 227)
+    }
+    
     static var persianBlueWithoutOpacity: Color {
         adaptive(red: 6, green: 50, blue: 137)
     }

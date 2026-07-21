@@ -16,7 +16,10 @@ struct JobApplicationCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             buildHeaderSection()
-            buildSkillsSection()
+            if !job.technicalSkills.isEmpty {
+                buildSkillsSection()
+            }
+            
         }
         .padding()
         .background(
@@ -36,25 +39,29 @@ struct JobApplicationCard: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .top, spacing: 4) {
-                    Text(job.role)
+                    Text("⭐️ \(job.role)")
                         .font(.system(size: 20))
-                        .foregroundColor(.fivethBlue)
+                        .foregroundColor(.mediumBluecolor)
                         .bold()
 
                     Text(job.level)
-                        .font(.system(size: 20))
-                        .foregroundColor(.fivethBlue)
+                        .font(.system(size: 18))
+                        .foregroundColor(.mediumBluecolor)
                         .bold()
+                        .padding(.top, 2)
                 }
                 
                 Text(job.company)
-                    .font(.system(size: 22))
+                    .font(.system(size: 16))
                     .foregroundColor(.fivethBlue)
-
-                Text("Skills")
-                    .italic()
-                    .font(.system(size: 18))
-                    .foregroundColor(.fivethBlue)
+                
+                if !job.technicalSkills.isEmpty {
+                    Text("Skills")
+                        .italic()
+                        .font(.system(size: 16))
+                        .foregroundColor(.fivethBlue)
+                }
+                
             }
 
             Spacer()

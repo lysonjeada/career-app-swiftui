@@ -219,7 +219,7 @@ struct EditJobApplicationView: View {
             }
             
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
-                ForEach(technicalSkills.prefix(5), id: \.self) { skill in
+                ForEach(technicalSkills, id: \.self) { skill in
                     Text(skill)
                         .bold()
                         .font(.system(size: 14))

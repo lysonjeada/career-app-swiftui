@@ -8,112 +8,400 @@
 import SwiftUI
 import Foundation
 
+import SwiftUI
+import Foundation
+
 struct QuestionsGeneratorStep: Codable {
     let steps: [Step]
-    
+
     struct Step: Codable, Identifiable, Hashable {
         var id = UUID()
         let title: String
         let description: String?
         let imageButton: String
         let type: StepType
-        
+
         enum StepType: Codable, Hashable {
             case addCurriculum
             case addInfoJob
             case addDescriptionJob
         }
-        
+
         enum CodingKeys: String, CodingKey {
-            case title, description, imageButton, type
+            case title
+            case description
+            case imageButton
+            case type
         }
     }
 }
 
+@MainActor
 final class GenerateQuestionsViewModel: ObservableObject {
-    @Published var generatedQuestions: [String] = []
-    
+
+    @Published private(set) var generatedQuestions: [String] = []
+    @Published private(set) var viewState: State = .idle
+
     private(set) var steps: [QuestionsGeneratorStep.Step]
-    var service: APIServiceProtocol
-    
+
+    private var task: Task<Void, Never>?
+
     enum State: Equatable {
+        case idle
         case loading
         case loaded
+        case error(String)
     }
-    
-    @Published private(set) var viewState: State = .loaded
-    
-    private var task: Task<Void, Never>?
-    
-    init(service: APIServiceProtocol = APIService()) {
+
+    init() {
         self.steps = [
-            .init(title: "Selecione cargo e senioridade", description: "Adicione cargo e senioridade correspondente à vaga", imageButton: "chevron.down", type: .addInfoJob),
-            .init(title: "Faça o upload do seu currículo", description: "Mantenha seu currículo atualizado e destaque suas habilidades.", imageButton: "doc.fill", type: .addCurriculum),
-            .init(title: "Adicione mais informações", description: "Adicione a descrição e/ou mais informações da vaga", imageButton: "chevron.down", type: .addDescriptionJob)
+            .init(
+                title: "Selecione cargo e senioridade",
+                description: "Adicione cargo e senioridade correspondente à vaga",
+                imageButton: "chevron.down",
+                type: .addInfoJob
+            ),
+            .init(
+                title: "Faça o upload do seu currículo",
+                description: "Opcionalmente, envie seu currículo para gerar perguntas mais personalizadas.",
+                imageButton: "doc.fill",
+                type: .addCurriculum
+            ),
+            .init(
+                title: "Adicione mais informações",
+                description: "Opcionalmente, adicione a descrição ou mais informações da vaga",
+                imageButton: "chevron.down",
+                type: .addDescriptionJob
+            )
         ]
-        self.service = service
     }
-    
-    @MainActor
-    func generateQuestions(resumeURL: URL, jobTitle: String, seniority: String, description: String) {
-        viewState = .loading
-        guard resumeURL.startAccessingSecurityScopedResource() else {
-            print("❌ Falha ao acessar recurso protegido.")
+
+    func generateQuestions(
+        resumeURL: URL?,
+        jobTitle: String,
+        seniority: String,
+        description: String
+    ) {
+        let normalizedJobTitle = jobTitle.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+
+        let normalizedSeniority = seniority.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+
+        let normalizedDescription = description.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+
+        guard isValidJobTitle(normalizedJobTitle) else {
+            viewState = .error("Selecione um cargo antes de continuar.")
             return
         }
 
-        defer { resumeURL.stopAccessingSecurityScopedResource() }
+        guard isValidSeniority(normalizedSeniority) else {
+            viewState = .error("Selecione uma senioridade antes de continuar.")
+            return
+        }
 
-        do {
-            let pdfData = try Data(contentsOf: resumeURL)
+        task?.cancel()
 
-            var request = URLRequest(url: URL(string: "\(APIConstants.pythonURL)/generate-interview-questions/")!)
-            request.httpMethod = "POST"
+        generatedQuestions = []
+        viewState = .loading
 
-            let boundary = UUID().uuidString
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        task = Task { [weak self] in
+            guard let self else { return }
 
-            var body = Data()
+            do {
+                /*
+                 A criação do multipart pode ler um PDF relativamente grande.
+                 Por isso, ela é executada fora da MainActor.
+                 */
+                let request = try await Task.detached(
+                    priority: .userInitiated
+                ) {
+                    try Self.makeRequest(
+                        resumeURL: resumeURL,
+                        jobTitle: normalizedJobTitle,
+                        seniority: normalizedSeniority,
+                        description: normalizedDescription
+                    )
+                }.value
 
-            // PDF
-            body.append("--\(boundary)\r\n")
-            body.append("Content-Disposition: form-data; name=\"resume\"; filename=\"resume.pdf\"\r\n")
-            body.append("Content-Type: application/pdf\r\n\r\n")
-            body.append(pdfData)
-            body.append("\r\n")
+                let (data, response) = try await URLSession.shared.data(
+                    for: request
+                )
 
-            // Campos de texto
-            func appendTextField(_ name: String, _ value: String) {
-                body.append("--\(boundary)\r\n")
-                body.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n")
-                body.append("\(value)\r\n")
-            }
+                try Task.checkCancellation()
 
-            appendTextField("job_title", jobTitle)
-            appendTextField("seniority", seniority)
-            appendTextField("description", description)
-
-            body.append("--\(boundary)--\r\n")
-            request.httpBody = body
-
-            task = Task {
-                do {
-                    let (data, _) = try await URLSession.shared.data(for: request)
-                    if let decoded = try? JSONDecoder().decode(QuestionResponse.self, from: data) {
-                        self.generatedQuestions = decoded.questions
-                        viewState = .loaded
-                    } else {
-                        print("❌ Falha ao decodificar resposta.")
-                    }
-                } catch {
-                    print("❌ Erro na requisição: \(error.localizedDescription)")
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    throw GenerateQuestionsError.invalidResponse
                 }
-            }
 
-        } catch {
-            print("❌ Erro ao ler PDF: \(error.localizedDescription)")
+                guard 200..<300 ~= httpResponse.statusCode else {
+                    let serverMessage = Self.extractServerMessage(from: data)
+
+                    throw GenerateQuestionsError.serverError(
+                        statusCode: httpResponse.statusCode,
+                        message: serverMessage
+                    )
+                }
+
+                let decodedResponse = try JSONDecoder().decode(
+                    QuestionResponse.self,
+                    from: data
+                )
+
+                let validQuestions = decodedResponse.questions
+                    .map {
+                        $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }
+                    .filter {
+                        !$0.isEmpty
+                    }
+
+                guard !validQuestions.isEmpty else {
+                    throw GenerateQuestionsError.noQuestions
+                }
+
+                generatedQuestions = validQuestions
+                viewState = .loaded
+
+            } catch is CancellationError {
+                // Uma nova geração substituiu a anterior.
+            } catch {
+                generatedQuestions = []
+                viewState = .error(error.localizedDescription)
+
+                print(
+                    "❌ Erro ao gerar perguntas:",
+                    error.localizedDescription
+                )
+            }
         }
     }
+
+    func retry(
+        resumeURL: URL?,
+        jobTitle: String,
+        seniority: String,
+        description: String
+    ) {
+        generateQuestions(
+            resumeURL: resumeURL,
+            jobTitle: jobTitle,
+            seniority: seniority,
+            description: description
+        )
+    }
+
+    func cancelGeneration() {
+        task?.cancel()
+        task = nil
+    }
+
+    private func isValidJobTitle(_ jobTitle: String) -> Bool {
+        !jobTitle.isEmpty && jobTitle.lowercased() != "cargo"
+    }
+
+    private func isValidSeniority(_ seniority: String) -> Bool {
+        !seniority.isEmpty &&
+        seniority.lowercased() != "senioridade"
+    }
+}
+
+private extension GenerateQuestionsViewModel {
+
+    nonisolated static func makeRequest(
+        resumeURL: URL?,
+        jobTitle: String,
+        seniority: String,
+        description: String
+    ) throws -> URLRequest {
+        guard let endpoint = URL(
+            string: "\(APIConstants.pythonURL)/generate-interview-questions/"
+        ) else {
+            throw GenerateQuestionsError.invalidURL
+        }
+
+        let boundary = "Boundary-\(UUID().uuidString)"
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 120
+
+        request.setValue(
+            "multipart/form-data; boundary=\(boundary)",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        var body = Data()
+
+        // Obrigatórios
+        body.appendFormField(
+            name: "job_title",
+            value: jobTitle,
+            boundary: boundary
+        )
+
+        body.appendFormField(
+            name: "seniority",
+            value: seniority,
+            boundary: boundary
+        )
+
+        // Opcional
+        if !description.isEmpty {
+            body.appendFormField(
+                name: "description",
+                value: description,
+                boundary: boundary
+            )
+        }
+
+        // Opcional
+        if let resumeURL {
+            let pdfData = try readResumeData(from: resumeURL)
+
+            body.appendFile(
+                name: "resume",
+                filename: resumeURL.lastPathComponent.isEmpty
+                    ? "resume.pdf"
+                    : resumeURL.lastPathComponent,
+                mimeType: "application/pdf",
+                fileData: pdfData,
+                boundary: boundary
+            )
+        }
+
+        body.appendString("--\(boundary)--\r\n")
+
+        request.httpBody = body
+
+        return request
+    }
+
+    nonisolated static func readResumeData(
+        from resumeURL: URL
+    ) throws -> Data {
+        /*
+         URLs copiadas para o sandbox podem retornar false aqui e ainda
+         serem legíveis. Por isso, false não é tratado como erro.
+         */
+        let startedAccess =
+            resumeURL.startAccessingSecurityScopedResource()
+
+        defer {
+            if startedAccess {
+                resumeURL.stopAccessingSecurityScopedResource()
+            }
+        }
+
+        do {
+            return try Data(
+                contentsOf: resumeURL,
+                options: .mappedIfSafe
+            )
+        } catch {
+            throw GenerateQuestionsError.couldNotReadResume(
+                error.localizedDescription
+            )
+        }
+    }
+
+    nonisolated static func extractServerMessage(
+        from data: Data
+    ) -> String? {
+        if let response = try? JSONDecoder().decode(
+            ServerErrorResponse.self,
+            from: data
+        ) {
+            return response.detail
+        }
+
+        return String(data: data, encoding: .utf8)
+    }
+}
+
+private extension Data {
+
+    mutating func appendString(_ string: String) {
+        guard let data = string.data(using: .utf8) else {
+            return
+        }
+
+        append(data)
+    }
+
+    mutating func appendFormField(
+        name: String,
+        value: String,
+        boundary: String
+    ) {
+        appendString("--\(boundary)\r\n")
+
+        appendString(
+            "Content-Disposition: form-data; " +
+            "name=\"\(name)\"\r\n\r\n"
+        )
+
+        appendString("\(value)\r\n")
+    }
+
+    mutating func appendFile(
+        name: String,
+        filename: String,
+        mimeType: String,
+        fileData: Data,
+        boundary: String
+    ) {
+        appendString("--\(boundary)\r\n")
+
+        appendString(
+            "Content-Disposition: form-data; " +
+            "name=\"\(name)\"; " +
+            "filename=\"\(filename)\"\r\n"
+        )
+
+        appendString("Content-Type: \(mimeType)\r\n\r\n")
+        append(fileData)
+        appendString("\r\n")
+    }
+}
+
+private enum GenerateQuestionsError: LocalizedError {
+    case invalidURL
+    case invalidResponse
+    case couldNotReadResume(String)
+    case serverError(statusCode: Int, message: String?)
+    case noQuestions
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "A URL usada para gerar as perguntas é inválida."
+
+        case .invalidResponse:
+            return "O servidor retornou uma resposta inválida."
+
+        case let .couldNotReadResume(message):
+            return "Não foi possível ler o currículo: \(message)"
+
+        case let .serverError(statusCode, message):
+            if let message, !message.isEmpty {
+                return "Erro \(statusCode): \(message)"
+            }
+
+            return "O servidor retornou o erro \(statusCode)."
+
+        case .noQuestions:
+            return "O servidor não retornou nenhuma pergunta."
+        }
+    }
+}
+
+private struct ServerErrorResponse: Decodable {
+    let detail: String?
 }
 
 struct QuestionResponse: Decodable {

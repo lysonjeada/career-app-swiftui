@@ -205,7 +205,7 @@ struct InterviewGenerateQuestionsView: View {
     }
     
     private func actionDescriptionJob() {
-        guard let resumeURL = resumeFileURL else { return }
+//        guard let resumeURL = resumeFileURL else { return }
         showQuestionsView = true
     }
     

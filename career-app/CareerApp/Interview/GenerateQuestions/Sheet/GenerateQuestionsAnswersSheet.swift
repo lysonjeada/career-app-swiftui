@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GenerateQuestionsAnswersSheet: View {
     @Binding var showQuestionsView: Bool
-    @StateObject var viewModel: GenerateQuestionsViewModel
+    @ObservedObject var viewModel: GenerateQuestionsViewModel
     @Binding var selectedJobTitle: String
     @Binding var selectedSeniority: String
     @Binding var jobDescription: String
@@ -18,7 +18,7 @@ struct GenerateQuestionsAnswersSheet: View {
     var body: some View {
         VStack(spacing: 0) {
             switch viewModel.viewState {
-            case .loading:
+            case .loading, .idle:
                 ZStack {
                     // Container centralizado
                     VStack(spacing: 16) {
@@ -83,15 +83,22 @@ struct GenerateQuestionsAnswersSheet: View {
                     .buttonStyle(.bordered)
                 }
                 .padding()
+            case .error(_):
+                Text("erro")
             }
         }
-        .onAppear {
-            if let resumeFileURL {
-                viewModel.generateQuestions(resumeURL: resumeFileURL, jobTitle: selectedJobTitle, seniority: selectedSeniority, description: jobDescription)
-                return
-            }
-            
+        .task {
+            await generateQuestions()
         }
-        
     }
+    
+    @MainActor
+        private func generateQuestions() async {
+            viewModel.generateQuestions(
+                resumeURL: resumeFileURL,
+                jobTitle: selectedJobTitle,
+                seniority: selectedSeniority,
+                description: jobDescription
+            )
+        }
 }
