@@ -117,20 +117,13 @@ struct InterviewGenerateQuestionsView: View {
                     })
                 }
             }
-            ToolbarItem(placement: .topBarLeading) {
-                Text("Entrevistas")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(Color.persianBlue)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                profileButton
-            }
+//            ToolbarItem(placement: .topBarLeading) {
+//                profileButton
+//            }
         }
+        .navigationTitle("Entrevistas")
         .toolbarBackground(Color.backgroundLightGray, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        //            .padding(.bottom, keyboardObserver.keyboardHeight)
-        //            .animation(.easeInOut, value: keyboardObserver.keyboardHeight)
     }
     
     @ViewBuilder

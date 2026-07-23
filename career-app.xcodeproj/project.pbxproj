@@ -131,6 +131,20 @@
 		70D288552D24749B004E9033 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288542D247499004E9033 /* Card.swift */; };
 		70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288592D24FC7B004E9033 /* KeyboardObserver.swift */; };
 		70D2885C2D28841F004E9033 /* TextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2885B2D288418004E9033 /* TextEditor.swift */; };
+		70E5D5743011640600BC0103 /* StudyPlanPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5733011640300BC0103 /* StudyPlanPriority.swift */; };
+		70E5D5763011642700BC0103 /* StudyPlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5753011642300BC0103 /* StudyPlanService.swift */; };
+		70E5D5783011645B00BC0103 /* StudyPlanServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5773011645400BC0103 /* StudyPlanServiceError.swift */; };
+		70E5D57A301164A000BC0103 /* StudyPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5793011649B00BC0103 /* StudyPlanViewModel.swift */; };
+		70E5D57C301164BB00BC0103 /* StudyPlanSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D57B301164B700BC0103 /* StudyPlanSection.swift */; };
+		70E5D57E301164D400BC0103 /* StudyPlanFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D57D301164CF00BC0103 /* StudyPlanFlowView.swift */; };
+		70E5D580301164F000BC0103 /* StudyPlanSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D57F301164E700BC0103 /* StudyPlanSetupView.swift */; };
+		70E5D5823011650800BC0103 /* StudyPlanComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5813011650300BC0103 /* StudyPlanComponents.swift */; };
+		70E5D5843011652A00BC0103 /* StudyPlanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5833011652400BC0103 /* StudyPlanResultView.swift */; };
+		70E5D5863011654400BC0103 /* StudyPlanTopicCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5853011653800BC0103 /* StudyPlanTopicCard.swift */; };
+		70E5D5883012382F00BC0103 /* ResumeFeedbackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5873012382700BC0103 /* ResumeFeedbackCard.swift */; };
+		70E5D58A3012385500BC0103 /* ResumeFeedbackIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5893012385000BC0103 /* ResumeFeedbackIcon.swift */; };
+		70E5D58C3012387700BC0103 /* ResumeFeedbackComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D58B3012386900BC0103 /* ResumeFeedbackComponents.swift */; };
+		70E5D58E30123BFC00BC0103 /* StudyPlanResultView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D58D30123BFB00BC0103 /* StudyPlanResultView+Preview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -282,6 +296,20 @@
 		70D288542D247499004E9033 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		70D288592D24FC7B004E9033 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		70D2885B2D288418004E9033 /* TextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditor.swift; sourceTree = "<group>"; };
+		70E5D5733011640300BC0103 /* StudyPlanPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanPriority.swift; sourceTree = "<group>"; };
+		70E5D5753011642300BC0103 /* StudyPlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanService.swift; sourceTree = "<group>"; };
+		70E5D5773011645400BC0103 /* StudyPlanServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanServiceError.swift; sourceTree = "<group>"; };
+		70E5D5793011649B00BC0103 /* StudyPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanViewModel.swift; sourceTree = "<group>"; };
+		70E5D57B301164B700BC0103 /* StudyPlanSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanSection.swift; sourceTree = "<group>"; };
+		70E5D57D301164CF00BC0103 /* StudyPlanFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanFlowView.swift; sourceTree = "<group>"; };
+		70E5D57F301164E700BC0103 /* StudyPlanSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanSetupView.swift; sourceTree = "<group>"; };
+		70E5D5813011650300BC0103 /* StudyPlanComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanComponents.swift; sourceTree = "<group>"; };
+		70E5D5833011652400BC0103 /* StudyPlanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanResultView.swift; sourceTree = "<group>"; };
+		70E5D5853011653800BC0103 /* StudyPlanTopicCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanTopicCard.swift; sourceTree = "<group>"; };
+		70E5D5873012382700BC0103 /* ResumeFeedbackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackCard.swift; sourceTree = "<group>"; };
+		70E5D5893012385000BC0103 /* ResumeFeedbackIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackIcon.swift; sourceTree = "<group>"; };
+		70E5D58B3012386900BC0103 /* ResumeFeedbackComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackComponents.swift; sourceTree = "<group>"; };
+		70E5D58D30123BFB00BC0103 /* StudyPlanResultView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyPlanResultView+Preview.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -519,6 +547,9 @@
 		70566B322E0F09C100ED701F /* ResumeFeedback */ = {
 			isa = PBXGroup;
 			children = (
+				70E5D58B3012386900BC0103 /* ResumeFeedbackComponents.swift */,
+				70E5D5893012385000BC0103 /* ResumeFeedbackIcon.swift */,
+				70E5D5873012382700BC0103 /* ResumeFeedbackCard.swift */,
 				7068862F2E380AD200C4735F /* FeedbackSheetView.swift */,
 				70566B352E0F0DFD00ED701F /* ResumeFeedbackViewModel.swift */,
 				70566B332E0F0A1600ED701F /* ResumeFeedbackView.swift */,
@@ -565,6 +596,7 @@
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
 			isa = PBXGroup;
 			children = (
+				70E5D572301163FA00BC0103 /* StudyPlan */,
 				70CE6A4C3010010C006C7846 /* InterviewSimulation */,
 				70056D652E2C21AE006EA1A1 /* Authentication */,
 				70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */,
@@ -741,6 +773,24 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		70E5D572301163FA00BC0103 /* StudyPlan */ = {
+			isa = PBXGroup;
+			children = (
+				70E5D58D30123BFB00BC0103 /* StudyPlanResultView+Preview.swift */,
+				70E5D5853011653800BC0103 /* StudyPlanTopicCard.swift */,
+				70E5D5833011652400BC0103 /* StudyPlanResultView.swift */,
+				70E5D5813011650300BC0103 /* StudyPlanComponents.swift */,
+				70E5D57F301164E700BC0103 /* StudyPlanSetupView.swift */,
+				70E5D57D301164CF00BC0103 /* StudyPlanFlowView.swift */,
+				70E5D57B301164B700BC0103 /* StudyPlanSection.swift */,
+				70E5D5793011649B00BC0103 /* StudyPlanViewModel.swift */,
+				70E5D5773011645400BC0103 /* StudyPlanServiceError.swift */,
+				70E5D5753011642300BC0103 /* StudyPlanService.swift */,
+				70E5D5733011640300BC0103 /* StudyPlanPriority.swift */,
+			);
+			path = StudyPlan;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -877,6 +927,7 @@
 				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
 				7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */,
+				70E5D58A3012385500BC0103 /* ResumeFeedbackIcon.swift in Sources */,
 				70CE6A5830100232006C7846 /* InterviewSimulationFlowView.swift in Sources */,
 				70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */,
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
@@ -899,6 +950,7 @@
 				703A75F62D2AE719006D3086 /* LoadingCard.swift in Sources */,
 				70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */,
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
+				70E5D5863011654400BC0103 /* StudyPlanTopicCard.swift in Sources */,
 				70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */,
 				70CE6A4E30100120006C7846 /* InterviewSimulationQuestion.swift in Sources */,
 				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
@@ -907,21 +959,26 @@
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
 				703CD7E72E1330F000778C76 /* SignUpView.swift in Sources */,
 				70056D6A2E2C3A4D006EA1A1 /* ProfileService.swift in Sources */,
+				70E5D58C3012387700BC0103 /* ResumeFeedbackComponents.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
 				701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */,
 				703CD7E12E13301900778C76 /* ForgotPasswordView.swift in Sources */,
+				70E5D57A301164A000BC0103 /* StudyPlanViewModel.swift in Sources */,
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,
 				70CE6A5430100197006C7846 /* AudioRecorderManager.swift in Sources */,
 				701CBC152D389547003F6F86 /* AutoScroller.swift in Sources */,
+				70E5D5843011652A00BC0103 /* StudyPlanResultView.swift in Sources */,
 				70A76C942D7A8C3800C5B709 /* ArticleDetailViewModel.swift in Sources */,
 				7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */,
 				7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */,
+				70E5D5763011642700BC0103 /* StudyPlanService.swift in Sources */,
 				70740DCB2D45C276005F4933 /* SkillSelectionView.swift in Sources */,
 				700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */,
 				70056D602E2C2032006EA1A1 /* AuthenticationLoginRequest.swift in Sources */,
 				70A76C962D7A8C5300C5B709 /* ArticleService.swift in Sources */,
 				70056D5C2E2C1295006EA1A1 /* AuthenticationRegisterRequest.swift in Sources */,
+				70E5D5743011640600BC0103 /* StudyPlanPriority.swift in Sources */,
 				701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
@@ -929,6 +986,8 @@
 				7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */,
 				703CD7E52E13309400778C76 /* Button.swift in Sources */,
 				70056D672E2C39ED006EA1A1 /* ProfileViewModel.swift in Sources */,
+				70E5D57E301164D400BC0103 /* StudyPlanFlowView.swift in Sources */,
+				70E5D580301164F000BC0103 /* StudyPlanSetupView.swift in Sources */,
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
 				70056D622E2C2098006EA1A1 /* LoginViewModel.swift in Sources */,
 				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
@@ -938,6 +997,7 @@
 				700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */,
 				70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */,
 				70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */,
+				70E5D57C301164BB00BC0103 /* StudyPlanSection.swift in Sources */,
 				24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */,
 				702E952C2D97627900C5EF1D /* TagCloudView.swift in Sources */,
 				244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */,
@@ -948,6 +1008,7 @@
 				249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */,
 				70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */,
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
+				70E5D5783011645B00BC0103 /* StudyPlanServiceError.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
 				70056D642E2C217C006EA1A1 /* AuthenticationLoginResponse.swift in Sources */,
 				70CE6A5630100211006C7846 /* InterviewSimulationLauncherCard.swift in Sources */,
@@ -958,6 +1019,8 @@
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
 				7068862C2E369C2A00C4735F /* DateFormatter.swift in Sources */,
+				70E5D5823011650800BC0103 /* StudyPlanComponents.swift in Sources */,
+				70E5D5883012382F00BC0103 /* ResumeFeedbackCard.swift in Sources */,
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
 				70A76C8C2D77C04F00C5B709 /* CoordinatorPresenter.swift in Sources */,
 				70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */,
@@ -971,6 +1034,7 @@
 				703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */,
 				70CE6A5C30100269006C7846 /* InterviewSimulationSessionView.swift in Sources */,
 				70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */,
+				70E5D58E30123BFC00BC0103 /* StudyPlanResultView+Preview.swift in Sources */,
 				70CE6A503010013C006C7846 /* InterviewSimulationService.swift in Sources */,
 				70056D582E2C1152006EA1A1 /* SignUpViewModel.swift in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
@@ -1128,6 +1192,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "career-app/Info.plist";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Este app precisa acessar dispositivos da rede local para funcionar corretamente.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Precisamos do acesso ao microfone para captar seu áudio.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1158,6 +1223,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "career-app/Info.plist";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Este app precisa acessar dispositivos da rede local para funcionar corretamente.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Precisamos do acesso ao microfone para captar seu áudio.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

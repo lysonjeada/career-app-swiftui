@@ -140,7 +140,7 @@ final class AudioRecorderManager:
             mode: .default,
             options: [
                 .defaultToSpeaker,
-                .allowBluetooth
+                .allowBluetoothHFP
             ]
         )
 

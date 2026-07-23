@@ -20,6 +20,9 @@ struct InterviewAssistantView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    StudyPlanSection()
+                        .padding(.top, 16)
+                    
                     Text("Simulador de entrevista")
                         .font(.title2)
                         .fontWeight(.bold)
@@ -44,10 +47,6 @@ struct InterviewAssistantView: View {
                     }
                     .buttonStyle(.plain)
                     .padding(.horizontal)
-
-                    InterviewGenerateQuestionsView(
-                        viewModel: viewModel
-                    )
 
                     Text("Melhore seu currículo")
                         .font(.title2)

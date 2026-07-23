@@ -67,13 +67,13 @@ struct ContentView: View {
                 print("ContentView loaded with userId: \(userId ?? "nil")")
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .principal) {
                     Text(navigationTitle)
                         .font(.system(size: 20))
                         .bold()
                         .foregroundColor(.white)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         coordinator.push(page: .profile(userId: userId))
                     }) {
@@ -81,8 +81,10 @@ struct ContentView: View {
                             .resizable()
                             .clipShape(Circle())
                             .frame(width: 28, height: 28)
-                            .foregroundColor(.white)
+                            .foregroundColor(.persianBlue)
                     }
+                    
+                    .buttonStyle(.plain)
                 }
             }
             .toolbarBackground(Color.persianBlue, for: .navigationBar)

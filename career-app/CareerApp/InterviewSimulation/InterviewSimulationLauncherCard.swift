@@ -29,7 +29,7 @@ struct InterviewSimulationLauncherCard: View {
                     "Responda perguntas por texto ou áudio e receba uma avaliação."
                 )
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundColor(.descriptionGray)
                 .multilineTextAlignment(.leading)
             }
 
@@ -39,7 +39,7 @@ struct InterviewSimulationLauncherCard: View {
                 .foregroundStyle(.secondary)
         }
         .padding()
-        .background(Color.white)
+        .background(Color.cardBackground)
         .clipShape(
             RoundedRectangle(cornerRadius: 16)
         )

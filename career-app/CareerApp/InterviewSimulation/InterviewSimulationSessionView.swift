@@ -71,7 +71,7 @@ struct InterviewSimulationSessionView: View {
                 }
             }
         }
-        .onChange(of: viewModel.answerInputType) { newValue in
+        .onChange(of: viewModel.answerInputType) { newValue, _ in
             if newValue == .text {
                 audioRecorder.reset()
             }

@@ -124,6 +124,13 @@ extension Color {
         return adaptiveColor(light: .black, dark: Color(white: 0.3)) // Dark mode version is 30% gray
     }
     
+    static var cardBackground: Color {
+        adaptiveColor(
+            light: .white,
+            dark: .black
+        )
+    }
+    
     init(red: Int, green: Int, blue: Int) {
         self.init(
             .sRGB,
