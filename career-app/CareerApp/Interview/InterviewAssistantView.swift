@@ -20,8 +20,10 @@ struct InterviewAssistantView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    ProgressDashboardSection()
+                            .padding(.top, 16)
+                    
                     StudyPlanSection()
-                        .padding(.top, 16)
                     
                     Text("Simulador de entrevista")
                         .font(.title2)
@@ -94,3 +96,33 @@ struct InterviewAssistantView: View {
         }
     }
 }
+
+#if DEBUG
+
+@MainActor
+private struct InterviewAssistantPreviewContainer: View {
+    @StateObject private var questionsViewModel =
+        GenerateQuestionsViewModel()
+
+    @StateObject private var resumeFeedbackViewModel =
+        ResumeFeedbackViewModel()
+
+    var body: some View {
+        InterviewAssistantView(
+            viewModel: questionsViewModel,
+            resumeFeedbackViewModel: resumeFeedbackViewModel
+        )
+    }
+}
+
+#Preview("Interview Assistant — Light") {
+    InterviewAssistantPreviewContainer()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Interview Assistant — Dark") {
+    InterviewAssistantPreviewContainer()
+        .preferredColorScheme(.dark)
+}
+
+#endif

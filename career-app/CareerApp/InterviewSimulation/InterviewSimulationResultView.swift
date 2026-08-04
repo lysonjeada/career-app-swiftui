@@ -9,6 +9,10 @@ import SwiftUI
 
 struct InterviewSimulationResultView: View {
     let evaluation: InterviewSimulationEvaluation
+    let questionsCount: Int
+    let saveState: SaveGeneratedQuestionsState
+
+    let onSaveQuestions: () -> Void
     let onRestart: () -> Void
     let onClose: () -> Void
 
@@ -17,37 +21,7 @@ struct InterviewSimulationResultView: View {
             VStack(spacing: 24) {
                 resultHeader
 
-                VStack(spacing: 14) {
-                    EvaluationScoreRow(
-                        title: "Clareza",
-                        icon: "text.alignleft",
-                        score: evaluation.clarity
-                    )
-
-                    EvaluationScoreRow(
-                        title: "Objetividade",
-                        icon: "scope",
-                        score: evaluation.objectivity
-                    )
-
-                    EvaluationScoreRow(
-                        title: "Uso de exemplos",
-                        icon: "quote.bubble",
-                        score: evaluation.examples
-                    )
-
-                    EvaluationScoreRow(
-                        title: "Conhecimento técnico",
-                        icon: "chevron.left.forwardslash.chevron.right",
-                        score: evaluation.technicalKnowledge
-                    )
-
-                    EvaluationScoreRow(
-                        title: "Tempo de resposta",
-                        icon: "timer",
-                        score: evaluation.responseTime
-                    )
-                }
+                scoreSection
 
                 EvaluationTextSection(
                     title: "Resumo",
@@ -67,6 +41,12 @@ struct InterviewSimulationResultView: View {
                     values: evaluation.improvements
                 )
 
+                SaveGeneratedQuestionsCard(
+                    questionsCount: questionsCount,
+                    state: saveState,
+                    saveAction: onSaveQuestions
+                )
+
                 Button(
                     "Refazer entrevista",
                     action: onRestart
@@ -79,8 +59,43 @@ struct InterviewSimulationResultView: View {
                     action: onClose
                 )
                 .buttonStyle(.bordered)
+                .frame(maxWidth: .infinity)
             }
             .padding()
+        }
+    }
+
+    private var scoreSection: some View {
+        VStack(spacing: 14) {
+            EvaluationScoreRow(
+                title: "Clareza",
+                icon: "text.alignleft",
+                score: evaluation.clarity
+            )
+
+            EvaluationScoreRow(
+                title: "Objetividade",
+                icon: "scope",
+                score: evaluation.objectivity
+            )
+
+            EvaluationScoreRow(
+                title: "Uso de exemplos",
+                icon: "quote.bubble",
+                score: evaluation.examples
+            )
+
+            EvaluationScoreRow(
+                title: "Conhecimento técnico",
+                icon: "chevron.left.forwardslash.chevron.right",
+                score: evaluation.technicalKnowledge
+            )
+
+            EvaluationScoreRow(
+                title: "Tempo de resposta",
+                icon: "timer",
+                score: evaluation.responseTime
+            )
         }
     }
 
@@ -113,7 +128,12 @@ struct InterviewSimulationResultView: View {
                     .rotationEffect(.degrees(-90))
 
                 Text("\(evaluation.overall)")
-                    .font(.system(size: 36, weight: .bold))
+                    .font(
+                        .system(
+                            size: 36,
+                            weight: .bold
+                        )
+                    )
                     .foregroundColor(.persianBlue)
             }
             .frame(width: 130, height: 130)
@@ -121,41 +141,6 @@ struct InterviewSimulationResultView: View {
             Text("Pontuação geral")
                 .font(.headline)
         }
-    }
-}
-
-private struct EvaluationScoreRow: View {
-    let title: String
-    let icon: String
-    let score: Int
-
-    var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Label(
-                    title,
-                    systemImage: icon
-                )
-                .font(.headline)
-
-                Spacer()
-
-                Text("\(score)/100")
-                    .bold()
-                    .foregroundColor(.persianBlue)
-            }
-
-            ProgressView(
-                value: Double(score),
-                total: 100
-            )
-            .tint(.persianBlue)
-        }
-        .padding()
-        .background(Color.gray.opacity(0.07))
-        .clipShape(
-            RoundedRectangle(cornerRadius: 12)
-        )
     }
 }
 
@@ -194,4 +179,41 @@ private struct EvaluationTextSection: View {
             RoundedRectangle(cornerRadius: 12)
         )
     }
+}
+
+#Preview("Resultado — Perguntas não salvas") {
+    NavigationStack {
+        InterviewSimulationResultView(
+            evaluation: .previewMock,
+            questionsCount: 5,
+            saveState: .idle,
+            onSaveQuestions: {
+                print("Salvar perguntas")
+            },
+            onRestart: {
+                print("Reiniciar")
+            },
+            onClose: {
+                print("Fechar")
+            }
+        )
+        .navigationTitle("Entrevista simulada")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+#Preview("Resultado — Perguntas salvas") {
+    NavigationStack {
+        InterviewSimulationResultView(
+            evaluation: .previewMock,
+            questionsCount: 5,
+            saveState: .saved(5),
+            onSaveQuestions: {},
+            onRestart: {},
+            onClose: {}
+        )
+        .navigationTitle("Entrevista simulada")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    .preferredColorScheme(.dark)
 }

@@ -21,6 +21,8 @@ final class InterviewSimulationViewModel: ObservableObject {
     }
 
     @Published private(set) var state: State = .idle
+    @Published private(set) var saveQuestionsState:
+        SaveGeneratedQuestionsState = .idle
     @Published private(set) var questions: [InterviewSimulationQuestion] = []
     @Published private(set) var answers: [InterviewSimulationAnswer] = []
     @Published private(set) var currentIndex: Int = 0
@@ -112,6 +114,7 @@ final class InterviewSimulationViewModel: ObservableObject {
         questions = []
         answers = []
         evaluation = nil
+        saveQuestionsState = .idle
 
         do {
             let generatedQuestions = try await service.generateQuestions(
@@ -197,6 +200,7 @@ final class InterviewSimulationViewModel: ObservableObject {
         timerTask?.cancel()
 
         state = .idle
+        saveQuestionsState = .idle
         questions = []
         answers = []
         currentIndex = 0
@@ -300,6 +304,67 @@ final class InterviewSimulationViewModel: ObservableObject {
             }
         }
     }
+    
+    func saveGeneratedQuestions() async {
+        if case .saving = saveQuestionsState {
+            return
+        }
+
+        if case .saved = saveQuestionsState {
+            return
+        }
+
+        let validQuestions = questions
+            .map {
+                $0.text.trimmingCharacters(
+                    in: .whitespacesAndNewlines
+                )
+            }
+            .filter {
+                !$0.isEmpty
+            }
+
+        guard !validQuestions.isEmpty else {
+            saveQuestionsState = .error(
+                "Nenhuma pergunta foi gerada para salvar."
+            )
+            return
+        }
+
+        guard !jobTitle.isEmpty else {
+            saveQuestionsState = .error(
+                "O cargo da entrevista não foi encontrado."
+            )
+            return
+        }
+
+        guard !seniority.isEmpty else {
+            saveQuestionsState = .error(
+                "A senioridade da entrevista não foi encontrada."
+            )
+            return
+        }
+
+        saveQuestionsState = .saving
+
+        do {
+            let response = try await service.saveGeneratedQuestions(
+                jobTitle: jobTitle,
+                seniority: seniority,
+                questions: validQuestions
+            )
+
+            saveQuestionsState = .saved(
+                response.savedCount
+            )
+
+        } catch {
+            saveQuestionsState = .error(
+                error.localizedDescription
+            )
+        }
+    }
+    
 }
 
 private enum InterviewSimulationViewModelError: LocalizedError {

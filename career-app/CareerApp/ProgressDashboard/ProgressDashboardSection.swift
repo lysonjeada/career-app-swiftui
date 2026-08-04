@@ -1,0 +1,97 @@
+//
+//  ProgressDashboardSection.swift
+//  career-app
+//
+//  Created by Amaryllis Baldrez on 31/07/26.
+//
+
+import SwiftUI
+
+struct ProgressDashboardSection: View {
+
+    var body: some View {
+        VStack(
+            alignment: .leading,
+            spacing: 12
+        ) {
+            Text("Seu progresso")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.persianBlue)
+                .frame(
+                    maxWidth: .infinity,
+                    alignment: .center
+                )
+
+            NavigationLink {
+                ProgressDashboardFlowView()
+            } label: {
+                ProgressDashboardLauncherCard()
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal)
+    }
+}
+
+private struct ProgressDashboardLauncherCard:
+    View {
+
+    var body: some View {
+        HStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(
+                        Color.persianBlue.opacity(0.12)
+                    )
+                    .frame(
+                        width: 58,
+                        height: 58
+                    )
+
+                Image(
+                    systemName: "chart.line.uptrend.xyaxis"
+                )
+                .font(.system(size: 25))
+                .foregroundColor(.persianBlue)
+            }
+
+            VStack(
+                alignment: .leading,
+                spacing: 6
+            ) {
+                Text("Dashboard de progresso")
+                    .font(.headline)
+                    .foregroundColor(.persianBlue)
+
+                Text(
+                    """
+                    Acompanhe candidaturas, entrevistas, ofertas e sua evolução.
+                    """
+                )
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.leading)
+            }
+
+            Spacer()
+
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.secondary)
+        }
+        .padding()
+        .background(
+            Color.cardBackground
+        )
+        .clipShape(
+            RoundedRectangle(cornerRadius: 16)
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(
+                    Color.persianBlue.opacity(0.25),
+                    lineWidth: 1
+                )
+        }
+    }
+}

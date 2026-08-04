@@ -53,6 +53,13 @@ struct InterviewSimulationFlowView: View {
                 if let evaluation = viewModel.evaluation {
                     InterviewSimulationResultView(
                         evaluation: evaluation,
+                        questionsCount: viewModel.questions.count,
+                        saveState: viewModel.saveQuestionsState,
+                        onSaveQuestions: {
+                            Task {
+                                await viewModel.saveGeneratedQuestions()
+                            }
+                        },
                         onRestart: {
                             viewModel.restart()
                         },

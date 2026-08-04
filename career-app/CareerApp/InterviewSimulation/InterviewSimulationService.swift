@@ -23,6 +23,12 @@ protocol InterviewSimulationServiceProtocol {
         seniority: String,
         answers: [InterviewSimulationAnswer]
     ) async throws -> InterviewSimulationEvaluation
+
+    func saveGeneratedQuestions(
+        jobTitle: String,
+        seniority: String,
+        questions: [String]
+    ) async throws -> SaveGeneratedQuestionsResponse
 }
 
 final class InterviewSimulationService:
@@ -177,6 +183,35 @@ final class InterviewSimulationService:
                 message: message
             )
         }
+    }
+    
+    func saveGeneratedQuestions(
+        jobTitle: String,
+        seniority: String,
+        questions: [String]
+    ) async throws -> SaveGeneratedQuestionsResponse {
+        let requestBody = SaveGeneratedQuestionsRequest(
+            jobTitle: jobTitle,
+            seniority: seniority,
+            questions: questions
+        )
+
+        return try await sendJSONRequest(
+            path: "/interview-simulation/saved-questions",
+            body: requestBody
+        )
+    }
+}
+
+private struct SaveGeneratedQuestionsRequest: Encodable {
+    let jobTitle: String
+    let seniority: String
+    let questions: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case jobTitle = "job_title"
+        case seniority
+        case questions
     }
 }
 

@@ -145,6 +145,23 @@
 		70E5D58A3012385500BC0103 /* ResumeFeedbackIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5893012385000BC0103 /* ResumeFeedbackIcon.swift */; };
 		70E5D58C3012387700BC0103 /* ResumeFeedbackComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D58B3012386900BC0103 /* ResumeFeedbackComponents.swift */; };
 		70E5D58E30123BFC00BC0103 /* StudyPlanResultView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D58D30123BFB00BC0103 /* StudyPlanResultView+Preview.swift */; };
+		70E5D5903012417D00BC0103 /* SaveGeneratedQuestionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D58F3012417B00BC0103 /* SaveGeneratedQuestionsResponse.swift */; };
+		70E5D5923012429700BC0103 /* SaveGeneratedQuestionsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5913012428E00BC0103 /* SaveGeneratedQuestionsCard.swift */; };
+		70E5D594301242B300BC0103 /* EvaluationScoreRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D593301242B200BC0103 /* EvaluationScoreRow.swift */; };
+		70E5D5963012433D00BC0103 /* InterviewSimulationResultView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5953012433500BC0103 /* InterviewSimulationResultView+Preview.swift */; };
+		70E5D599301CFEF400BC0103 /* ProgressDashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D598301CFEED00BC0103 /* ProgressDashboardModels.swift */; };
+		70E5D59B301CFF0A00BC0103 /* ProgressDashboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D59A301CFF0400BC0103 /* ProgressDashboardService.swift */; };
+		70E5D59D301CFF2200BC0103 /* ProgressDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D59C301CFF1B00BC0103 /* ProgressDashboardViewModel.swift */; };
+		70E5D59F301CFF3600BC0103 /* ProgressDashboardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D59E301CFF2F00BC0103 /* ProgressDashboardSection.swift */; };
+		70E5D5A1301CFF5A00BC0103 /* ProgressDashboardFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5A0301CFF4A00BC0103 /* ProgressDashboardFlowView.swift */; };
+		70E5D5A3301CFF7200BC0103 /* ProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5A2301CFF6C00BC0103 /* ProgressDashboardView.swift */; };
+		70E5D5A5301CFF8B00BC0103 /* ProgressDashboardComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5A4301CFF8400BC0103 /* ProgressDashboardComponents.swift */; };
+		70E5D5A7301CFFA000BC0103 /* DashboardSummaryGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5A6301CFF9A00BC0103 /* DashboardSummaryGrid.swift */; };
+		70E5D5A9301CFFBF00BC0103 /* MonthlyEvolutionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5A8301CFFB800BC0103 /* MonthlyEvolutionCard.swift */; };
+		70E5D5AB301CFFD800BC0103 /* TopSkillsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5AA301CFFD200BC0103 /* TopSkillsCard.swift */; };
+		70E5D5AD301CFFEC00BC0103 /* ActiveCompaniesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5AC301CFFE700BC0103 /* ActiveCompaniesCard.swift */; };
+		70E5D5AF301D000400BC0103 /* DashboardSectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5AE301CFFFF00BC0103 /* DashboardSectionCard.swift */; };
+		70E5D5B1301D003300BC0103 /* ProgressDashboardView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5B0301D003200BC0103 /* ProgressDashboardView+Preview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +327,23 @@
 		70E5D5893012385000BC0103 /* ResumeFeedbackIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackIcon.swift; sourceTree = "<group>"; };
 		70E5D58B3012386900BC0103 /* ResumeFeedbackComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeFeedbackComponents.swift; sourceTree = "<group>"; };
 		70E5D58D30123BFB00BC0103 /* StudyPlanResultView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyPlanResultView+Preview.swift"; sourceTree = "<group>"; };
+		70E5D58F3012417B00BC0103 /* SaveGeneratedQuestionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveGeneratedQuestionsResponse.swift; sourceTree = "<group>"; };
+		70E5D5913012428E00BC0103 /* SaveGeneratedQuestionsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveGeneratedQuestionsCard.swift; sourceTree = "<group>"; };
+		70E5D593301242B200BC0103 /* EvaluationScoreRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationScoreRow.swift; sourceTree = "<group>"; };
+		70E5D5953012433500BC0103 /* InterviewSimulationResultView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InterviewSimulationResultView+Preview.swift"; sourceTree = "<group>"; };
+		70E5D598301CFEED00BC0103 /* ProgressDashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardModels.swift; sourceTree = "<group>"; };
+		70E5D59A301CFF0400BC0103 /* ProgressDashboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardService.swift; sourceTree = "<group>"; };
+		70E5D59C301CFF1B00BC0103 /* ProgressDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardViewModel.swift; sourceTree = "<group>"; };
+		70E5D59E301CFF2F00BC0103 /* ProgressDashboardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardSection.swift; sourceTree = "<group>"; };
+		70E5D5A0301CFF4A00BC0103 /* ProgressDashboardFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardFlowView.swift; sourceTree = "<group>"; };
+		70E5D5A2301CFF6C00BC0103 /* ProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardView.swift; sourceTree = "<group>"; };
+		70E5D5A4301CFF8400BC0103 /* ProgressDashboardComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDashboardComponents.swift; sourceTree = "<group>"; };
+		70E5D5A6301CFF9A00BC0103 /* DashboardSummaryGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSummaryGrid.swift; sourceTree = "<group>"; };
+		70E5D5A8301CFFB800BC0103 /* MonthlyEvolutionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyEvolutionCard.swift; sourceTree = "<group>"; };
+		70E5D5AA301CFFD200BC0103 /* TopSkillsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSkillsCard.swift; sourceTree = "<group>"; };
+		70E5D5AC301CFFE700BC0103 /* ActiveCompaniesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCompaniesCard.swift; sourceTree = "<group>"; };
+		70E5D5AE301CFFFF00BC0103 /* DashboardSectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSectionCard.swift; sourceTree = "<group>"; };
+		70E5D5B0301D003200BC0103 /* ProgressDashboardView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressDashboardView+Preview.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -596,6 +630,7 @@
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
 			isa = PBXGroup;
 			children = (
+				70E5D597301CFEE200BC0103 /* ProgressDashboard */,
 				70E5D572301163FA00BC0103 /* StudyPlan */,
 				70CE6A4C3010010C006C7846 /* InterviewSimulation */,
 				70056D652E2C21AE006EA1A1 /* Authentication */,
@@ -677,6 +712,10 @@
 		70CE6A4C3010010C006C7846 /* InterviewSimulation */ = {
 			isa = PBXGroup;
 			children = (
+				70E5D5953012433500BC0103 /* InterviewSimulationResultView+Preview.swift */,
+				70E5D593301242B200BC0103 /* EvaluationScoreRow.swift */,
+				70E5D5913012428E00BC0103 /* SaveGeneratedQuestionsCard.swift */,
+				70E5D58F3012417B00BC0103 /* SaveGeneratedQuestionsResponse.swift */,
 				70CE6A5F301002E6006C7846 /* InterviewSimulationResultView.swift */,
 				70CE6A5D30100294006C7846 /* InterviewSimulationComponents.swift */,
 				70CE6A5B30100266006C7846 /* InterviewSimulationSessionView.swift */,
@@ -789,6 +828,26 @@
 				70E5D5733011640300BC0103 /* StudyPlanPriority.swift */,
 			);
 			path = StudyPlan;
+			sourceTree = "<group>";
+		};
+		70E5D597301CFEE200BC0103 /* ProgressDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				70E5D5B0301D003200BC0103 /* ProgressDashboardView+Preview.swift */,
+				70E5D5AE301CFFFF00BC0103 /* DashboardSectionCard.swift */,
+				70E5D5AC301CFFE700BC0103 /* ActiveCompaniesCard.swift */,
+				70E5D5AA301CFFD200BC0103 /* TopSkillsCard.swift */,
+				70E5D5A8301CFFB800BC0103 /* MonthlyEvolutionCard.swift */,
+				70E5D5A6301CFF9A00BC0103 /* DashboardSummaryGrid.swift */,
+				70E5D5A4301CFF8400BC0103 /* ProgressDashboardComponents.swift */,
+				70E5D5A2301CFF6C00BC0103 /* ProgressDashboardView.swift */,
+				70E5D5A0301CFF4A00BC0103 /* ProgressDashboardFlowView.swift */,
+				70E5D59E301CFF2F00BC0103 /* ProgressDashboardSection.swift */,
+				70E5D59C301CFF1B00BC0103 /* ProgressDashboardViewModel.swift */,
+				70E5D59A301CFF0400BC0103 /* ProgressDashboardService.swift */,
+				70E5D598301CFEED00BC0103 /* ProgressDashboardModels.swift */,
+			);
+			path = ProgressDashboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -933,6 +992,7 @@
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
 				703CD7E32E13305D00778C76 /* AuthTextField.swift in Sources */,
 				70CE6A60301002E6006C7846 /* InterviewSimulationResultView.swift in Sources */,
+				70E5D5B1301D003300BC0103 /* ProgressDashboardView+Preview.swift in Sources */,
 				70CE6A5E30100295006C7846 /* InterviewSimulationComponents.swift in Sources */,
 				70819E0A2E034B27007815BE /* APIService.swift in Sources */,
 				243CF7BA2CD0553F00685B91 /* JobApplicationTrackerView.swift in Sources */,
@@ -951,14 +1011,19 @@
 				70D288472D1B5CCD004E9033 /* HomeViewModel.swift in Sources */,
 				244DDAB82C7A72A7007FB768 /* Article.swift in Sources */,
 				70E5D5863011654400BC0103 /* StudyPlanTopicCard.swift in Sources */,
+				70E5D5A9301CFFBF00BC0103 /* MonthlyEvolutionCard.swift in Sources */,
 				70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */,
+				70E5D5AD301CFFEC00BC0103 /* ActiveCompaniesCard.swift in Sources */,
 				70CE6A4E30100120006C7846 /* InterviewSimulationQuestion.swift in Sources */,
 				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
+				70E5D59F301CFF3600BC0103 /* ProgressDashboardSection.swift in Sources */,
 				708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */,
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
+				70E5D59B301CFF0A00BC0103 /* ProgressDashboardService.swift in Sources */,
 				70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */,
 				703CD7E72E1330F000778C76 /* SignUpView.swift in Sources */,
 				70056D6A2E2C3A4D006EA1A1 /* ProfileService.swift in Sources */,
+				70E5D5A1301CFF5A00BC0103 /* ProgressDashboardFlowView.swift in Sources */,
 				70E5D58C3012387700BC0103 /* ResumeFeedbackComponents.swift in Sources */,
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
 				701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */,
@@ -982,6 +1047,7 @@
 				701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
+				70E5D5AF301D000400BC0103 /* DashboardSectionCard.swift in Sources */,
 				70A76C922D7A8C2A00C5B709 /* ArticleDetailView.swift in Sources */,
 				7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */,
 				703CD7E52E13309400778C76 /* Button.swift in Sources */,
@@ -997,18 +1063,22 @@
 				700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */,
 				70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */,
 				70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */,
+				70E5D5903012417D00BC0103 /* SaveGeneratedQuestionsResponse.swift in Sources */,
 				70E5D57C301164BB00BC0103 /* StudyPlanSection.swift in Sources */,
 				24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */,
 				702E952C2D97627900C5EF1D /* TagCloudView.swift in Sources */,
 				244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */,
+				70E5D5AB301CFFD800BC0103 /* TopSkillsCard.swift in Sources */,
 				70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */,
 				70A76C982D7A8F2500C5B709 /* ArticleDetail.swift in Sources */,
 				70D2885C2D28841F004E9033 /* TextEditor.swift in Sources */,
 				7068862E2E37C13A00C4735F /* String.swift in Sources */,
+				70E5D59D301CFF2200BC0103 /* ProgressDashboardViewModel.swift in Sources */,
 				249240642CC9871E0081E887 /* OpenAPIResponse.swift in Sources */,
 				70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */,
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				70E5D5783011645B00BC0103 /* StudyPlanServiceError.swift in Sources */,
+				70E5D594301242B300BC0103 /* EvaluationScoreRow.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
 				70056D642E2C217C006EA1A1 /* AuthenticationLoginResponse.swift in Sources */,
 				70CE6A5630100211006C7846 /* InterviewSimulationLauncherCard.swift in Sources */,
@@ -1016,14 +1086,18 @@
 				70566B2F2E0EFE9600ED701F /* ArticlesHorizontalList.swift in Sources */,
 				70CE6A5A30100250006C7846 /* InterviewSimulationSetupView.swift in Sources */,
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
+				70E5D5A7301CFFA000BC0103 /* DashboardSummaryGrid.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
+				70E5D599301CFEF400BC0103 /* ProgressDashboardModels.swift in Sources */,
+				70E5D5A5301CFF8B00BC0103 /* ProgressDashboardComponents.swift in Sources */,
 				7068862C2E369C2A00C4735F /* DateFormatter.swift in Sources */,
 				70E5D5823011650800BC0103 /* StudyPlanComponents.swift in Sources */,
 				70E5D5883012382F00BC0103 /* ResumeFeedbackCard.swift in Sources */,
 				241917C92C6AE804004147DF /* career_appApp.swift in Sources */,
 				70A76C8C2D77C04F00C5B709 /* CoordinatorPresenter.swift in Sources */,
 				70740DC72D447228005F4933 /* JobApplicationService.swift in Sources */,
+				70E5D5A3301CFF7200BC0103 /* ProgressDashboardView.swift in Sources */,
 				70566B342E0F0A1600ED701F /* ResumeFeedbackView.swift in Sources */,
 				70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */,
 				243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */,
@@ -1036,7 +1110,9 @@
 				70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */,
 				70E5D58E30123BFC00BC0103 /* StudyPlanResultView+Preview.swift in Sources */,
 				70CE6A503010013C006C7846 /* InterviewSimulationService.swift in Sources */,
+				70E5D5923012429700BC0103 /* SaveGeneratedQuestionsCard.swift in Sources */,
 				70056D582E2C1152006EA1A1 /* SignUpViewModel.swift in Sources */,
+				70E5D5963012433D00BC0103 /* InterviewSimulationResultView+Preview.swift in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
 				7068862A2E367CE400C4735F /* APIError.swift in Sources */,
 			);
