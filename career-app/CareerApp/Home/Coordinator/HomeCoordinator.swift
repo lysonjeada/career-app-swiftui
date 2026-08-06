@@ -41,7 +41,10 @@ final class HomeCoordinator: Hashable {
     func view() -> some View {
         switch self.page {
             case .login:
-                loginView()
+            VStack {
+                
+            }
+//                loginView()
             case .forgotPassword:
                 forgotPasswordView()
         }
@@ -58,28 +61,28 @@ final class HomeCoordinator: Hashable {
         lhs.id == rhs.id
     }
 
-    private func loginView() -> some View {
-//        let viewModel = HomeViewModel()
-//        let loginView = HomeView(
-//            viewModel: viewModel,
-//            output:
-//                .init(
-//                    goToMainScreen: {
-//                        self.output?.goToMainScreen()
-//                    },
-//                    goToForgotPassword:  {
-//                        self.push(
-//                            HomeCoordinator(
-//                                page: .forgotPassword,
-//                                navigationPath: self.$navigationPath
-//                            )
-//                        )
-//                    }
-//                )
-//        )
-        let loginView = LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in })
-        return loginView
-    }
+//    private func loginView() -> some View {
+////        let viewModel = HomeViewModel()
+////        let loginView = HomeView(
+////            viewModel: viewModel,
+////            output:
+////                .init(
+////                    goToMainScreen: {
+////                        self.output?.goToMainScreen()
+////                    },
+////                    goToForgotPassword:  {
+////                        self.push(
+////                            HomeCoordinator(
+////                                page: .forgotPassword,
+////                                navigationPath: self.$navigationPath
+////                            )
+////                        )
+////                    }
+////                )
+////        )
+////        let loginView = LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in }, onVerificationRequired: { email in })
+////        return loginView
+//    }
 
     @MainActor private func forgotPasswordView() -> some View {
         let viewModel = HomeViewModel()

@@ -14,6 +14,7 @@ import FirebaseAnalytics // Se você usa
 
 // ... AppPages, Route, Sheet, FullScreenCover definitions ...
 
+@MainActor
 final class Coordinator: ObservableObject {
     @Published var isLoggedIn: Bool {
         didSet {
@@ -97,6 +98,13 @@ final class Coordinator: ObservableObject {
             LoginView(viewModel: self.loginViewModel, onLoginSuccess: { [weak self] userId in
                 self?.currentUserId = userId
                 self?.isLoggedIn = true
+            }, onVerificationRequired: { email in
+                self.push(
+                    page:
+                        .emailVerification(
+                            email: email
+                        )
+                )
             })
         }
     }
@@ -108,13 +116,22 @@ final class Coordinator: ObservableObject {
             ContentView(viewModel: .init(), listViewModel: self.jobApplicationTrackerListViewModel, userId: userId)
             
         case .login:
-            // Se você puder "pushar" para login (ex: de uma tela de "sessão expirada"),
-            // Certifique-se de que o callback de sucesso atualize o coordinator.currentUserId
-            LoginView(viewModel: self.loginViewModel, onLoginSuccess: { [weak self] userId in
-                self?.currentUserId = userId
-                self?.isLoggedIn = true
-                // Não precisa de push, o didSet de isLoggedIn já fará a HomeView aparecer como raiz
-            })
+            LoginView(
+                viewModel: LoginViewModel(),
+                onLoginSuccess: { userId in
+                    self.currentUserId = userId
+                    self.isLoggedIn = true
+                    self.popToRoot()
+                },
+                onVerificationRequired: { email in
+                    self.push(
+                        page:
+                            .emailVerification(
+                                email: email
+                            )
+                    )
+                }
+            )
             
         case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
         case .profile(let userId):
@@ -136,6 +153,17 @@ final class Coordinator: ObservableObject {
             })
         case .forgotPassword:
             ForgotPasswordView(goToLogin: { self.push(page: .login) } )
+        case let .emailVerification(email):
+            EmailVerificationView(
+                email: email,
+                onVerified: {
+                    self.popToRoot()
+                    self.push(page: .login)
+                },
+                goBack: {
+                    self.pop()
+                }
+            )
         }
     }
     
@@ -159,6 +187,7 @@ enum AppPages: Hashable {
     case editJob(JobApplication)
     case signUp
     case forgotPassword
+    case emailVerification(email: String)
 }
 
 enum Sheet: String, Identifiable {

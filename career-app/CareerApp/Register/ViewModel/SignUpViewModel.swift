@@ -7,92 +7,155 @@
 
 import Foundation
 
+@MainActor
 final class SignUpViewModel: ObservableObject {
-    // MARK: - View State
     enum State: Equatable {
         case idle
         case loading
         case loaded
         case error
     }
-    
+
     @Published private(set) var viewState: State = .idle
-    
-    @Published var showSnackbar: Bool = false
-    @Published var snackbarMessage: String = ""
+
+    @Published private(set) var registeredEmail: String?
+
+    @Published var showSnackbar = false
+    @Published var snackbarMessage = ""
     @Published var snackbarType: SnackbarType = .info
-    
-    // MARK: - Dependencies
-    private var task: Task <Void, Never>?
-    let service: AuthenticationServiceProtocol
-    
-    init(service: AuthenticationServiceProtocol = AuthenticationService()) {
+
+    private var task: Task<Void, Never>?
+
+    private let service: AuthenticationServiceProtocol
+
+    init(
+        service: AuthenticationServiceProtocol =
+            AuthenticationService()
+    ) {
         self.service = service
     }
-    
-    // MARK: - Business Logic
-    @MainActor
-    func registerUser(username: String, email: String, password: String, confirmPassword: String) {
-        // 1. Validação de campos vazios
-        guard !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              !password.isEmpty,
-              !confirmPassword.isEmpty else {
-            showSnackbar(message: "Por favor, preencha todos os campos.", type: .info)
-            return // Interrompe a execução se houver campos vazios
+
+    func registerUser(
+        username: String,
+        email: String,
+        password: String,
+        confirmPassword: String
+    ) {
+        let normalizedUsername =
+            username.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+
+        let normalizedEmail =
+            email.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+            .lowercased()
+
+        guard
+            !normalizedUsername.isEmpty,
+            !normalizedEmail.isEmpty,
+            !password.isEmpty,
+            !confirmPassword.isEmpty
+        else {
+            showSnackbar(
+                message: "Por favor, preencha todos os campos.",
+                type: .info
+            )
+            return
         }
-        
-        // 2. Validação de senhas coincidentes
+
         guard password == confirmPassword else {
-            showSnackbar(message: "As senhas não coincidem.", type: .error)
-            return // Interrompe a execução se as senhas não coincidirem
-        }
-        
-        // 3. Validação de formato de email (exemplo simples)
-        // Você pode usar uma regex mais robusta ou uma biblioteca para isso
-        guard email.contains("@") && email.contains(".") else {
-            showSnackbar(message: "Por favor, insira um email válido.", type: .error)
+            showSnackbar(
+                message: "As senhas não coincidem.",
+                type: .error
+            )
             return
         }
-        
-        // 4. Validação de complexidade da senha (exemplo simples)
+
+        guard
+            normalizedEmail.contains("@"),
+            normalizedEmail.contains(".")
+        else {
+            showSnackbar(
+                message: "Por favor, insira um e-mail válido.",
+                type: .error
+            )
+            return
+        }
+
         guard password.count >= 6 else {
-            showSnackbar(message: "A senha deve ter no mínimo 6 caracteres.", type: .error)
+            showSnackbar(
+                message: "A senha deve ter no mínimo 6 caracteres.",
+                type: .error
+            )
             return
         }
-        
-        self.viewState = .loading
+
+        task?.cancel()
+
+        viewState = .loading
+        registeredEmail = nil
+
         task = Task {
             do {
-                try await service.createRegister(requestBody: .init(username: username, email: email, password: password))
-                self.viewState = .loaded
-                showSnackbar(message: "Cadastro realizado com sucesso!", type: .success)
-                // Opcional: Chamar um callback ou navegar após o sucesso
-                // self.onRegisterSuccess?()
+                let response =
+                    try await service.createRegister(
+                        requestBody: .init(
+                            username: normalizedUsername,
+                            email: normalizedEmail,
+                            password: password
+                        )
+                    )
+
+                registeredEmail = response.email
+
+                viewState = .loaded
+
+                showSnackbar(
+                    message: response.message,
+                    type: .success
+                )
+
+            } catch is CancellationError {
+                return
+
             } catch {
-                self.viewState = .error
-                // Tenta extrair uma mensagem de erro mais amigável, se possível
-                let errorMessage = (error as? LocalizedError)?.errorDescription ?? "Ocorreu um erro no cadastro. Tente novamente."
-                showSnackbar(message: errorMessage, type: .error)
+                viewState = .error
+
+                let message =
+                    error.localizedDescription
+
+                showSnackbar(
+                    message: message,
+                    type: .error
+                )
             }
         }
     }
-    
-    // MARK: - Snackbar Helper
-    @MainActor
-    private func showSnackbar(message: String, type: SnackbarType) {
-        self.snackbarMessage = message
-        self.snackbarType = type
-        self.showSnackbar = true
-        
-        // Esconde a snackbar automaticamente após alguns segundos
+
+    private func showSnackbar(
+        message: String,
+        type: SnackbarType
+    ) {
+        snackbarMessage = message
+        snackbarType = type
+        showSnackbar = true
+
         Task {
-            try await Task.sleep(for: .seconds(3)) // Tempo de exibição da snackbar
-            // Garante que a snackbar só seja escondida se for a mesma mensagem
-            // para evitar esconder uma nova mensagem que apareceu rapidamente
-            if self.snackbarMessage == message {
-                self.showSnackbar = false
+            try? await Task.sleep(
+                for: .seconds(3)
+            )
+
+            guard snackbarMessage == message else {
+                return
             }
+
+            showSnackbar = false
         }
+    }
+
+    deinit {
+        task?.cancel()
     }
 }

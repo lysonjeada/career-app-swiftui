@@ -17,6 +17,9 @@ struct LoginView: View {
     // Callback para quando o login for bem-sucedido
     var onLoginSuccess: (_ userId: String) -> Void
     
+    var onVerificationRequired:
+        (_ email: String) -> Void
+    
     var body: some View {
         ZStack(alignment: .bottom) { // ZStack para a snackbar
             Group {
@@ -56,6 +59,19 @@ struct LoginView: View {
                 SnackbarView(message: viewModel.snackbarMessage, type: viewModel.snackbarType)
                     .padding(.bottom, 20) // Ajuste a posição
             }
+        }
+        .onChange(
+            of: viewModel.pendingVerificationEmail
+        ) { _, email in
+            guard let email,
+                  !email.isEmpty
+            else {
+                return
+            }
+
+            onVerificationRequired(email)
+
+            viewModel.clearPendingVerificationEmail()
         }
         .animation(.easeInOut, value: viewModel.showSnackbar) // Animação para a snackbar
     }
@@ -141,6 +157,6 @@ struct LoginView: View {
 // Preview
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in })
+        LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in }, onVerificationRequired: { email in })
     }
 }

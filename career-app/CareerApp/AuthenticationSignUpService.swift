@@ -8,142 +8,345 @@
 import Foundation
 
 protocol AuthenticationServiceProtocol {
-    func createRegister(requestBody: AuthenticationRegisterRequest) async throws
-    func fetchLogin(requestBody: AuthenticationLoginRequest) async throws -> AuthenticationLoginResponse
+    func createRegister(
+        requestBody: AuthenticationRegisterRequest
+    ) async throws -> AuthenticationRegisterResponse
+
+    func fetchLogin(
+        requestBody: AuthenticationLoginRequest
+    ) async throws -> AuthenticationLoginResponse
 }
 
 enum AuthenticationServiceError: LocalizedError {
+    case invalidURL
     case invalidResponse
-    case badStatusCode(statusCode: Int, message: String?)
+
+    case emailNotVerified(
+        email: String,
+        message: String
+    )
+
+    case badStatusCode(
+        statusCode: Int,
+        message: String?
+    )
+
     case decodingError(Error)
     case unknownError
-    
+
     var errorDescription: String? {
         switch self {
+        case .invalidURL:
+            return "A URL de autenticação é inválida."
+
         case .invalidResponse:
             return "Resposta inválida do servidor."
-        case .badStatusCode(let statusCode, let message):
-            if let msg = message, !msg.isEmpty {
-                return "Erro do servidor (\(statusCode)): \(msg)"
+
+        case let .emailNotVerified(_, message):
+            return message
+
+        case let .badStatusCode(
+            statusCode,
+            message
+        ):
+            if let message,
+               !message.isEmpty {
+                return message
             }
-            return "O servidor retornou um erro inesperado: Código \(statusCode)."
-        case .decodingError(let error):
-            return "Erro ao decodificar a resposta do servidor: \(error.localizedDescription)"
+
+            return (
+                """
+                O servidor retornou o 
+                "código \(statusCode).
+                """
+            )
+
+        case let .decodingError(error):
+            return (
+                """
+                Erro ao interpretar a resposta: 
+                \(error.localizedDescription)
+                """
+            )
+
         case .unknownError:
             return "Ocorreu um erro desconhecido."
         }
     }
 }
 
-// MARK: - Serviço de Autenticação (AuthenticationSignUpService)
-class AuthenticationService: AuthenticationServiceProtocol {
-    func createRegister(requestBody: AuthenticationRegisterRequest) async throws {
-        guard let url = URL(string: "\(APIConstants.pythonURL)/users/register/") else {
-            throw URLError(.badURL)
+// MARK: - Authentication service
+
+final class AuthenticationService:
+    AuthenticationServiceProtocol {
+
+    func createRegister(
+        requestBody: AuthenticationRegisterRequest
+    ) async throws -> AuthenticationRegisterResponse {
+        guard let url = URL(
+            string: "\(APIConstants.pythonURL)/users/register/"
+        ) else {
+            throw AuthenticationServiceError.invalidURL
         }
-        
-        let data = try JSONEncoder().encode(requestBody)
-        
-        if let jsonString = String(data: data, encoding: .utf8) {
+
+        let requestData: Data
+
+        do {
+            requestData = try JSONEncoder().encode(
+                requestBody
+            )
+        } catch {
+            throw AuthenticationServiceError
+                .unknownError
+        }
+
+        if let jsonString = String(
+            data: requestData,
+            encoding: .utf8
+        ) {
             print("📤 Corpo da requisição JSON:")
             print(jsonString)
         }
-        
+
         var request = URLRequest(url: url)
+
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = data
-        
-        let (responseData, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw AuthenticationServiceError.invalidResponse // Se a resposta não for HTTP
+        request.timeoutInterval = 60
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        request.httpBody = requestData
+
+        let responseData: Data
+        let response: URLResponse
+
+        do {
+            (
+                responseData,
+                response
+            ) = try await URLSession.shared.data(
+                for: request
+            )
+        } catch {
+            throw error
         }
-        
-        print("✅ Código de resposta (POST): \(httpResponse.statusCode)")
-        
-        // --- ADIÇÃO DA VERIFICAÇÃO DO CÓDIGO DE STATUS ---
-        // O status esperado para um novo recurso criado é 201 Created.
-        guard httpResponse.statusCode == 201 else {
-            // Tenta decodificar uma mensagem de erro do corpo da resposta, se houver
-            var errorMessage: String? = nil
-            if let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: responseData) {
-                errorMessage = errorResponse.detail
-            } else if let rawString = String(data: responseData, encoding: .utf8), !rawString.isEmpty {
-                errorMessage = rawString // Fallback para string pura se não for JSON
-            }
-            
-            throw AuthenticationServiceError.badStatusCode(statusCode: httpResponse.statusCode, message: errorMessage)
+
+        guard let httpResponse =
+                response as? HTTPURLResponse else {
+            throw AuthenticationServiceError
+                .invalidResponse
         }
-        
-        // Se a resposta for 201, você pode, opcionalmente, decodificar a resposta
-        // se o backend retornar os dados do usuário registrado, por exemplo.
-        // if let registeredUser = try? JSONDecoder().decode(AuthenticationRegisterResponse.self, from: responseData) {
-        //     print("Usuário registrado: \(registeredUser)")
-        // }
-        
-        if let responseBody = String(data: responseData, encoding: .utf8) {
+
+        print(
+            "✅ Código de resposta (Cadastro):",
+            httpResponse.statusCode
+        )
+
+        guard 200..<300 ~= httpResponse.statusCode else {
+            throw makeStatusCodeError(
+                statusCode: httpResponse.statusCode,
+                data: responseData
+            )
+        }
+
+        if let responseBody = String(
+            data: responseData,
+            encoding: .utf8
+        ) {
             print("📥 Resposta do servidor:")
             print(responseBody)
         }
-        // Se chegou aqui, a requisição foi bem-sucedida com o status esperado.
-    }
-}
 
-extension AuthenticationService {
-    func fetchLogin(requestBody: AuthenticationLoginRequest) async throws -> AuthenticationLoginResponse {
-        guard let url = URL(string: "\(APIConstants.pythonURL)/users/login/") else {
-            throw URLError(.badURL)
+        do {
+            let decoder = JSONDecoder()
+
+            decoder.keyDecodingStrategy =
+                .convertFromSnakeCase
+
+            return try decoder.decode(
+                AuthenticationRegisterResponse.self,
+                from: responseData
+            )
+        } catch {
+            print(
+                "❌ Erro ao decodificar cadastro:",
+                error
+            )
+
+            throw AuthenticationServiceError
+                .decodingError(error)
         }
-        
-        let data = try JSONEncoder().encode(requestBody)
-        
-        if let jsonString = String(data: data, encoding: .utf8) {
-            print("📤 Corpo da requisição JSON (Login):")
+    }
+
+    func fetchLogin(
+        requestBody: AuthenticationLoginRequest
+    ) async throws -> AuthenticationLoginResponse {
+        guard let url = URL(
+            string: "\(APIConstants.pythonURL)/users/login/"
+        ) else {
+            throw AuthenticationServiceError.invalidURL
+        }
+
+        let requestData: Data
+
+        do {
+            requestData = try JSONEncoder().encode(
+                requestBody
+            )
+        } catch {
+            throw AuthenticationServiceError
+                .unknownError
+        }
+
+        if let jsonString = String(
+            data: requestData,
+            encoding: .utf8
+        ) {
+            print(
+                "📤 Corpo da requisição JSON (Login):"
+            )
             print(jsonString)
         }
-        
+
         var request = URLRequest(url: url)
+
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = data
-        
-        let (responseData, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw AuthenticationServiceError.invalidResponse
-        }
-        
-        print("✅ Código de resposta (POST Login): \(httpResponse.statusCode)")
-        
-        // --- VERIFICAÇÃO DO CÓDIGO DE STATUS PARA LOGIN (200 OK) ---
-        guard httpResponse.statusCode == 200 else { // Espera 200 para login bem-sucedido
-            var errorMessage: String? = nil
-            if let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: responseData) {
-                errorMessage = errorResponse.detail
-            } else if let rawString = String(data: responseData, encoding: .utf8), !rawString.isEmpty {
-                errorMessage = rawString
-            }
-            throw AuthenticationServiceError.badStatusCode(statusCode: httpResponse.statusCode, message: errorMessage)
-        }
-        
-        // Se chegou aqui, o status é 200 OK, então tente decodificar os dados do usuário
+        request.timeoutInterval = 60
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        request.httpBody = requestData
+
+        let responseData: Data
+        let response: URLResponse
+
         do {
-            let loggedInUser = try JSONDecoder().decode(AuthenticationLoginResponse.self, from: responseData)
-            print("📥 Resposta do servidor (Login Sucesso):")
+            (
+                responseData,
+                response
+            ) = try await URLSession.shared.data(
+                for: request
+            )
+        } catch {
+            throw error
+        }
+
+        guard let httpResponse =
+                response as? HTTPURLResponse else {
+            throw AuthenticationServiceError
+                .invalidResponse
+        }
+
+        print(
+            "✅ Código de resposta (Login):",
+            httpResponse.statusCode
+        )
+
+        guard 200..<300 ~= httpResponse.statusCode else {
+            throw makeStatusCodeError(
+                statusCode: httpResponse.statusCode,
+                data: responseData
+            )
+        }
+
+        do {
+            let decoder = JSONDecoder()
+
+            decoder.keyDecodingStrategy =
+                .convertFromSnakeCase
+
+            let loggedInUser = try decoder.decode(
+                AuthenticationLoginResponse.self,
+                from: responseData
+            )
+
+            print(
+                "📥 Resposta do servidor (Login):"
+            )
             print(loggedInUser)
+
             return loggedInUser
         } catch {
-            print("❌ Erro ao decodificar resposta de sucesso do login: \(error.localizedDescription)")
-            // Tenta logar o corpo da resposta bruta para depuração
-            if let responseBody = String(data: responseData, encoding: .utf8) {
-                print("Raw Response Body: \(responseBody)")
+            print(
+                "❌ Erro ao decodificar login:",
+                error
+            )
+
+            if let responseBody = String(
+                data: responseData,
+                encoding: .utf8
+            ) {
+                print(
+                    "📦 Corpo bruto da resposta:",
+                    responseBody
+                )
             }
-            throw AuthenticationServiceError.decodingError(error)
+
+            throw AuthenticationServiceError
+                .decodingError(error)
         }
     }
 }
 
+// MARK: - Error handling
+
+private extension AuthenticationService {
+    func makeStatusCodeError(
+        statusCode: Int,
+        data: Data
+    ) -> AuthenticationServiceError {
+        let decoder = JSONDecoder()
+
+        decoder.keyDecodingStrategy =
+            .convertFromSnakeCase
+
+        if let response = try? decoder.decode(
+            AuthenticationObjectErrorResponse.self,
+            from: data
+        ) {
+            if response.detail.code
+                == "email_not_verified",
+               let email = response.detail.email {
+
+                return .emailNotVerified(
+                    email: email,
+                    message:
+                        response.detail.message
+                )
+            }
+
+            return .badStatusCode(
+                statusCode: statusCode,
+                message:
+                    response.detail.message
+            )
+        }
+
+        if let response = try? decoder.decode(
+            AuthenticationStringErrorResponse.self,
+            from: data
+        ) {
+            return .badStatusCode(
+                statusCode: statusCode,
+                message: response.detail
+            )
+        }
+
+        return .badStatusCode(
+            statusCode: statusCode,
+            message: String(
+                data: data,
+                encoding: .utf8
+            )
+        )
+    }
+}
 struct ErrorResponse: Decodable {
     let detail: String
 }
