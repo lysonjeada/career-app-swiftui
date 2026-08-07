@@ -126,9 +126,9 @@ final class Coordinator: ObservableObject {
                 onVerificationRequired: { email in
                     self.push(
                         page:
-                            .emailVerification(
-                                email: email
-                            )
+                                .emailVerification(
+                                    email: email
+                                )
                     )
                 }
             )
@@ -146,19 +146,27 @@ final class Coordinator: ObservableObject {
             JobApplicationTrackerView(listViewModel: self.jobApplicationTrackerListViewModel, coordinator: self)
         case .signUp:
             let signUpViewModel = SignUpViewModel()
-            SignUpView(viewModel: signUpViewModel, goToLogin: { self.push(page: .login) } , onRegister: {
-                // Se o registro retorna um userId, salve-o e logue o usuário
-                self.currentUserId = ""
-//                self.isLoggedIn = true
-            })
+            
+            SignUpView(
+                viewModel: signUpViewModel,
+                goToLogin: {
+                    self.pop()
+                },
+                onVerificationRequired: { email in
+                    self.push(
+                        page: .emailVerification(
+                            email: email
+                        )
+                    )
+                }
+            )
         case .forgotPassword:
             ForgotPasswordView(goToLogin: { self.push(page: .login) } )
         case let .emailVerification(email):
             EmailVerificationView(
                 email: email,
                 onVerified: {
-                    self.popToRoot()
-                    self.push(page: .login)
+                    self.goToLogin()
                 },
                 goBack: {
                     self.pop()
@@ -169,11 +177,20 @@ final class Coordinator: ObservableObject {
     
     func performLogout() {
         self.isLoggedIn = false // Isso limpa currentUserId via didSet
-        
+        currentUserId = ""
         UserDefaults.standard.removeObject(forKey: "authToken") // Certifique-se de que isso existe e está correto
         UserDefaults.standard.removeObject(forKey: "userId") // Remova se você usava isso antes, mas agora use currentUserId
-        
+        UserDefaults.standard.removeObject(forKey: "currentUserId")
         self.popToRoot()
+    }
+    
+    @MainActor
+    private func goToLogin() {
+        path = NavigationPath()
+
+        push(
+            page: .login
+        )
     }
 }
 

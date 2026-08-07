@@ -84,7 +84,7 @@ final class AuthenticationService:
         requestBody: AuthenticationRegisterRequest
     ) async throws -> AuthenticationRegisterResponse {
         guard let url = URL(
-            string: "\(APIConstants.pythonURL)/users/register/"
+            string: "\(APIConstants.pythonURL)/users/register"
         ) else {
             throw AuthenticationServiceError.invalidURL
         }

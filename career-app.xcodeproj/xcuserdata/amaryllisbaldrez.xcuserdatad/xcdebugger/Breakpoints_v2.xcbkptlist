@@ -30,10 +30,10 @@
             filePath = "career-app/CareerApp/Profile/ProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "profileImageSection"
-            landmarkType = "24">
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "saveProfile()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

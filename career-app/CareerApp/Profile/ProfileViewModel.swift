@@ -6,48 +6,157 @@
 //
 
 import SwiftUI
-import Combine // Para @Published
+import Combine 
 
-final class ProfileViewModel: ObservableObject {
-    // MARK: - View State
+@MainActor
+final class ProfileViewModel:
+    ObservableObject {
+
     enum State: Equatable {
         case idle
         case loading
         case loaded
         case error
     }
-    
-    @Published private(set) var viewState: State = .idle
-    
-    @Published var username: String = ""
-    @Published var email: String = ""
-    
-    // MARK: - Dependencies
-    private var task: Task <Void, Never>?
-    let service: ProfileServiceProtocol // Usando o protocolo mais genérico
-    
-    // Propriedade para armazenar o usuário logado, se necessário
-    @Published var loggedInUser: AuthenticationLoginResponse?
-    
-    init(service: ProfileServiceProtocol = ProfileService()) {
+
+    @Published private(set)
+    var viewState: State = .idle
+
+    @Published var username = ""
+    @Published var email = ""
+
+    @Published var loggedInUser:
+        AuthenticationLoginResponse?
+
+    @Published private(set)
+    var isDeletingUser = false
+
+    @Published private(set)
+    var didDeleteUser = false
+
+    @Published private(set)
+    var deletionErrorMessage: String?
+
+    private var profileTask:
+        Task<Void, Never>?
+
+    private var deletionTask:
+        Task<Void, Never>?
+
+    private let service:
+        ProfileServiceProtocol
+
+    init(
+        service: ProfileServiceProtocol =
+            ProfileService()
+    ) {
         self.service = service
     }
-    
-    // MARK: - Business Logic
-    @MainActor
-    func fetchProfile(userId: String) {
-        self.viewState = .loading
-        task = Task {
+
+    func fetchProfile(
+        userId: String
+    ) {
+        profileTask?.cancel()
+
+        viewState = .loading
+
+        profileTask = Task { [weak self] in
+            guard let self else {
+                return
+            }
+
             do {
-                let user = try await service.fetchProfile(userId: userId)
-                self.loggedInUser = user // Armazena o usuário logado
-                self.username = user.username
-                self.email = user.email
-                self.viewState = .loaded
+                let user =
+                    try await service.fetchProfile(
+                        userId: userId
+                    )
+
+                guard !Task.isCancelled else {
+                    return
+                }
+
+                loggedInUser = user
+                username = user.username
+                email = user.email
+                viewState = .loaded
+
+            } catch is CancellationError {
+                return
+
             } catch {
-                self.viewState = .error
-                let errorMessage = (error as? LocalizedError)?.errorDescription ?? "Ocorreu um erro no login. Tente novamente."
+                viewState = .error
+
+                print(
+                    "❌ Erro ao carregar perfil:",
+                    error.localizedDescription
+                )
             }
         }
+    }
+
+    func deleteUser(
+        userId: String
+    ) {
+        let normalizedUserId =
+            userId.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+
+        guard !normalizedUserId.isEmpty else {
+            deletionErrorMessage =
+                "Não foi possível identificar o usuário."
+            return
+        }
+
+        deletionTask?.cancel()
+
+        isDeletingUser = true
+        didDeleteUser = false
+        deletionErrorMessage = nil
+
+        deletionTask = Task { [weak self] in
+            guard let self else {
+                return
+            }
+
+            do {
+                try await service.deleteUser(
+                    userId: normalizedUserId
+                )
+
+                guard !Task.isCancelled else {
+                    return
+                }
+
+                isDeletingUser = false
+                didDeleteUser = true
+
+            } catch is CancellationError {
+                isDeletingUser = false
+
+            } catch {
+                isDeletingUser = false
+                deletionErrorMessage =
+                    error.localizedDescription
+
+                print(
+                    "❌ Erro ao excluir usuário:",
+                    error.localizedDescription
+                )
+            }
+        }
+    }
+
+    func consumeDeletionSuccess() {
+        didDeleteUser = false
+    }
+
+    func clearDeletionError() {
+        deletionErrorMessage = nil
+    }
+
+    deinit {
+        profileTask?.cancel()
+        deletionTask?.cancel()
     }
 }

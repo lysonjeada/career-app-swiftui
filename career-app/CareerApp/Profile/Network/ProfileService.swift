@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProfileServiceProtocol {
     func fetchProfile(userId: String) async throws -> AuthenticationLoginResponse
+    func deleteUser(userId: String) async throws
 }
 
 class ProfileService: ProfileServiceProtocol {
@@ -53,6 +54,158 @@ class ProfileService: ProfileServiceProtocol {
                 print("Raw Response Body: \(responseBody)")
             }
             throw AuthenticationServiceError.decodingError(error)
+        }
+    }
+}
+
+extension ProfileService {
+    func deleteUser(
+        userId: String
+    ) async throws {
+        let normalizedUserId =
+            userId.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+
+        guard !normalizedUserId.isEmpty else {
+            throw ProfileDeletionServiceError
+                .invalidUserId
+        }
+
+        guard let baseURL = URL(
+            string: APIConstants.pythonURL
+        ) else {
+            throw ProfileDeletionServiceError
+                .invalidURL
+        }
+
+        let url = baseURL
+            .appendingPathComponent("users")
+            .appendingPathComponent(
+                normalizedUserId
+            )
+
+        var request = URLRequest(url: url)
+
+        request.httpMethod = "DELETE"
+        request.timeoutInterval = 60
+
+        print(
+            "🗑️ Excluindo usuário:",
+            url.absoluteString
+        )
+
+        let (data, response) =
+            try await URLSession.shared.data(
+                for: request
+            )
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw ProfileDeletionServiceError
+                .invalidResponse
+        }
+
+        print(
+            "📥 Status da exclusão:",
+            httpResponse.statusCode
+        )
+
+        guard 200..<300 ~= httpResponse.statusCode
+        else {
+            let message =
+                Self.extractDeletionError(
+                    from: data
+                )
+
+            throw ProfileDeletionServiceError
+                .serverError(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message: message
+                )
+        }
+
+        /*
+         O backend retorna 204 No Content.
+         Portanto, não tente decodificar data.
+         */
+    }
+
+    private static func extractDeletionError(
+        from data: Data
+    ) -> String? {
+        if let response =
+            try? JSONDecoder().decode(
+                ProfileDeletionErrorResponse.self,
+                from: data
+            ) {
+            return response.detail
+        }
+
+        guard !data.isEmpty else {
+            return nil
+        }
+
+        return String(
+            data: data,
+            encoding: .utf8
+        )
+    }
+}
+
+private struct ProfileDeletionErrorResponse:
+    Decodable {
+
+    let detail: String
+}
+
+private enum ProfileDeletionServiceError:
+    LocalizedError {
+
+    case invalidURL
+    case invalidUserId
+    case invalidResponse
+
+    case serverError(
+        statusCode: Int,
+        message: String?
+    )
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return """
+            A URL usada para excluir
+            a conta é inválida.
+            """
+
+        case .invalidUserId:
+            return """
+            Não foi possível identificar
+            o usuário.
+            """
+
+        case .invalidResponse:
+            return """
+            O servidor retornou
+            uma resposta inválida.
+            """
+
+        case let .serverError(
+            statusCode,
+            message
+        ):
+            if let message,
+               !message.isEmpty {
+                return message
+            }
+
+            return """
+            Não foi possível excluir
+            a conta. Erro \(statusCode).
+            """
         }
     }
 }

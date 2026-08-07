@@ -15,14 +15,11 @@ struct SignUpView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
 
-    @State private var verificationEmail = ""
-    @State private var showVerification = false
-
     @StateObject var viewModel:
         SignUpViewModel
 
     var goToLogin: () -> Void
-    var onRegister: () -> Void
+    var onVerificationRequired: (String) -> Void
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -76,35 +73,18 @@ struct SignUpView: View {
             .easeInOut,
             value: viewModel.showSnackbar
         )
-        .navigationDestination(
-            isPresented:
-                $showVerification
-        ) {
-            EmailVerificationView(
-                email:
-                    verificationEmail,
-                onVerified: {
-                    onRegister()
-                },
-                goBack: {
-                    showVerification = false
-                }
-            )
-        }
         .onChange(
             of: viewModel.registeredEmail
-        ) {
-            guard let registeredEmail =
-                    viewModel.registeredEmail,
+        ) { _, registeredEmail in
+            guard let registeredEmail,
                   !registeredEmail.isEmpty
             else {
                 return
             }
 
-            verificationEmail =
+            onVerificationRequired(
                 registeredEmail
-
-            showVerification = true
+            )
         }
     }
 

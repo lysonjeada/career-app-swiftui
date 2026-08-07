@@ -27,6 +27,7 @@ struct ProfileView: View {
     @State private var profileImage: Image?
     @State private var imageData: Data?
     @State private var showImagePicker = false
+    @State private var showDeleteConfirmation = false
     @State private var name = ""
     @State private var experience = ""
     @State private var institution = ""
@@ -48,9 +49,72 @@ struct ProfileView: View {
         }
         .background(Color.backgroundLightGray)
         .navigationConfig(title: "Profile", backAction: { coordinator.pop() })
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $profileImage, imageData: $imageData)
+        .background(Color.backgroundLightGray)
+        .navigationConfig(
+            title: "Profile",
+            backAction: {
+                coordinator.pop()
+            }
+        )
+        .sheet(
+            isPresented: $showImagePicker
+        ) {
+            ImagePicker(
+                image: $profileImage,
+                imageData: $imageData
+            )
         }
+        .confirmationDialog(
+            "Excluir sua conta?",
+            isPresented: $showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(
+                "Excluir permanentemente",
+                role: .destructive
+            ) {
+                deleteAccount()
+            }
+
+            Button(
+                "Cancelar",
+                role: .cancel
+            ) {}
+        } message: {
+            Text(
+                "Esta ação é permanente e não poderá ser desfeita."
+            )
+        }
+        .errorAlert(
+            isPresented: $showErrorAlert,
+            message: errorMessage
+        )
+        .onChange(
+            of: viewModel.didDeleteUser
+        ) { _, didDeleteUser in
+            guard didDeleteUser else {
+                return
+            }
+
+            handleDeletedAccount()
+        }
+        .onChange(
+            of: viewModel.deletionErrorMessage
+        ) { _, message in
+            guard let message,
+                  !message.isEmpty
+            else {
+                return
+            }
+
+            errorMessage = message
+            showErrorAlert = true
+
+            viewModel.clearDeletionError()
+        }
+        .onAppear(
+            perform: loadProfile
+        )
         .errorAlert(isPresented: $showErrorAlert, message: errorMessage)
         .onAppear(perform: loadProfile)
     }
@@ -141,10 +205,18 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)  // Ocupa metade do espaço
             
             ActionButton(
-                title: "Excluir",
-                isLoading: false,
-                color: .red,
-                action: { /* Implementar exclusão */ }
+                title: viewModel.isDeletingUser
+                    ? "Excluindo..."
+                    : "Excluir",
+                icon: "trash.fill",
+                isLoading: viewModel.isDeletingUser,
+                color: .red
+            ) {
+                showDeleteConfirmation = true
+            }
+            .disabled(
+                viewModel.isDeletingUser
+                || userId == nil
             )
             .frame(maxWidth: .infinity)  // Ocupa metade do espaço
         }
@@ -226,6 +298,61 @@ struct ProfileView: View {
     @ViewBuilder
     private func buildNotes() -> some View {
         ProfileNotesView()
+    }
+    
+    private func deleteAccount() {
+        guard let userId,
+              !userId.isEmpty
+        else {
+            errorMessage =
+                "Não foi possível identificar o usuário."
+
+            showErrorAlert = true
+            return
+        }
+
+        viewModel.deleteUser(
+            userId: userId
+        )
+    }
+    
+    private func handleDeletedAccount() {
+        deleteLocalProfile()
+
+        viewModel.consumeDeletionSuccess()
+
+        coordinator.performLogout()
+    }
+    
+    private func deleteLocalProfile() {
+        guard let profile = profiles.first else {
+            return
+        }
+
+        viewContext.delete(profile)
+
+        do {
+            try viewContext.save()
+
+            profileImage = nil
+            imageData = nil
+
+            name = ""
+            experience = ""
+            institution = ""
+            githubLink = ""
+            portfolioLink = ""
+
+        } catch {
+            /*
+             A conta já foi excluída no servidor.
+             Um erro local não deve manter o usuário logado.
+             */
+            print(
+                "❌ Erro ao limpar perfil local:",
+                error.localizedDescription
+            )
+        }
     }
 }
 

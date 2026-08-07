@@ -7,12 +7,16 @@
 
 import Foundation
 
-struct AuthenticationLoginResponse: Decodable, Identifiable {
+struct AuthenticationLoginResponse: Decodable {
     let id: UUID
     let email: String
-    let verificationRequired: Bool?
-    let message: String?
     let username: String
+    let isActive: Bool
+    let isEmailVerified: Bool
+    let createdAt: String
+    let updatedAt: String
+    let accessToken: String
+    let tokenType: String
 }
 
 struct AuthenticationStringErrorResponse: Decodable {

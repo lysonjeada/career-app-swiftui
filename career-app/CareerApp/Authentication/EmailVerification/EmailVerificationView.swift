@@ -90,11 +90,13 @@ struct EmailVerificationView: View {
         }
         .onChange(
             of: viewModel.viewState
-        ) {
-            if viewModel.viewState
-                == .verified {
-                onVerified()
+        ) { _, newState in
+            guard newState == .verified else {
+                return
             }
+
+            codeFieldFocused = false
+            onVerified()
         }
     }
 
