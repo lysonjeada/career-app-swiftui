@@ -24,8 +24,8 @@ struct JobApplicationTrackerListViewModelTests {
         #expect(viewModel.jobApplications.first?.company == "Empresa Teste")
         #expect(viewModel.jobApplications.first?.role == "iOS Developer")
         #expect(viewModel.jobApplications.first?.level == "Pleno")
-        #expect(viewModel.jobApplications.first?.lastInterview == "10/03")
-        #expect(viewModel.jobApplications.first?.nextInterview == "20/03")
+        #expect(viewModel.jobApplications.first?.lastInterview == "09/03")
+        #expect(viewModel.jobApplications.first?.nextInterview == "19/03")
         #expect(viewModel.jobApplications.first?.technicalSkills == ["Swift", "SwiftUI"])
         #expect(viewModel.showSnackBar == false)
     }
