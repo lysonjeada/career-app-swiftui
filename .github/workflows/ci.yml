@@ -54,7 +54,7 @@ jobs:
           xcodebuild test \
             -project career-app.xcodeproj \
             -scheme "Career App Unit Tests" \
-            -destination "platform=iOS Simulator,name=iPhone 15" \
+            -destination "platform=iOS Simulator,name=iPhone 17" \
             -resultBundlePath TestResults.xcresult \
             2>&1 | tee raw-test-output.log | xcbeautify --renderer github-actions
 
