@@ -9,24 +9,28 @@
 import Foundation
 
 final class HomeServiceMock: HomeServiceProtocol {
-    let isSuccess: Bool
-    
+    var isSuccess: Bool
+    private(set) var receivedTag: String?
+
     init(isSuccess: Bool) {
         self.isSuccess = isSuccess
     }
-    
+
     func fetchArticles(tag: String?) async throws -> [Article] {
+        receivedTag = tag
+
         guard isSuccess else {
             throw URLError(.badServerResponse)
         }
-        
+
         return try JSONLoader.load("article-list-response")
     }
 }
 
 final class JobApplicationServiceMock: JobApplicationServiceProtocol {
-    let isSuccess: Bool
-    
+    var isSuccess: Bool
+    private(set) var receivedRepository: String?
+
     init(isSuccess: Bool) {
         self.isSuccess = isSuccess
     }
@@ -69,10 +73,12 @@ final class JobApplicationServiceMock: JobApplicationServiceProtocol {
     }
     
     func fetchJobListings(repository: String?) async throws -> [GitHubJobListing] {
+        receivedRepository = repository
+
         guard isSuccess else {
             throw URLError(.notConnectedToInternet)
         }
-        
+
         return try JSONLoader.load("github-job-list-response")
     }
     
