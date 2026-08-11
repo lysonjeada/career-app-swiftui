@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "totalApplications": 12,
+    "completedInterviews": 5,
+    "scheduledInterviews": 2,
+    "responseRate": 0.75,
+    "offersCount": 1,
+    "activeCompaniesCount": 3
+  },
+  "topSkills": [
+    { "skill": "Swift", "count": 8, "percentage": 0.66 },
+    { "skill": "SwiftUI", "count": 6, "percentage": 0.5 }
+  ],
+  "activeCompanies": [
+    { "companyName": "TechCorp", "activeProcesses": 2, "latestActivity": "2026-07-01T00:00:00Z" },
+    { "companyName": "DevSoft", "activeProcesses": 1, "latestActivity": null }
+  ],
+  "monthlyEvolution": [
+    { "month": "2026-06", "label": "Jun", "applications": 4, "interviews": 2, "offers": 0 },
+    { "month": "2026-07", "label": "Jul", "applications": 8, "interviews": 3, "offers": 1 }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Plano de estudos para iOS Developer Pleno",
+  "summary": "Foco em Swift avançado, arquitetura e testes.",
+  "estimatedTotalHours": 40,
+  "topics": [
+    {
+      "title": "SwiftUI Avançado",
+      "description": "Aprofundar em Combine e Property Wrappers.",
+      "priority": "high",
+      "estimatedHours": 12,
+      "subtopics": ["Combine", "Property Wrappers", "Animations"],
+      "practice": "Construir um app de exemplo com estado complexo."
+    },
+    {
+      "title": "Testes Automatizados",
+      "description": "Praticar Swift Testing e mocks de serviços.",
+      "priority": "medium",
+      "estimatedHours": 8,
+      "subtopics": ["Swift Testing", "Mocks", "Fixtures JSON"],
+      "practice": "Escrever testes para uma feature existente."
+    }
+  ]
+}

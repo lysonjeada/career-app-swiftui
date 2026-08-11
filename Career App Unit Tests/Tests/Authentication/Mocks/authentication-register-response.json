@@ -1,0 +1,7 @@
+{
+  "userId": "123E4567-E89B-12D3-A456-426614174222",
+  "email": "novo.usuario@email.com",
+  "verificationRequired": true,
+  "message": "Cadastro realizado. Verifique seu e-mail.",
+  "retryAfterSeconds": 60
+}
