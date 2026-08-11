@@ -41,7 +41,7 @@ import Foundation // Para UUID, caso não esteja
 // Se não, adicione suas definições aqui para compilar.
 
 class JobApplicationTrackerListViewModel: ObservableObject {
-    private let service = JobApplicationService()
+    private let service: JobApplicationServiceProtocol
 
     enum State: Equatable {
         case loading
@@ -55,6 +55,10 @@ class JobApplicationTrackerListViewModel: ObservableObject {
     @Published var snackBarMessage: String = "" // Novo: Mensagem da snack bar
 
     private var task: Task<Void, Never>?
+
+    init(service: JobApplicationServiceProtocol = JobApplicationService()) {
+        self.service = service
+    }
 
     @MainActor
     func fetchJobApplications() {

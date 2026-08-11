@@ -21,10 +21,11 @@ final class ArticleDetailViewModel: ObservableObject {
     private var task: Task <Void, Never>?
     var articleId: Int
     
-    private var service: ArticleService = ArticleService()
-    
-    init(articleId: Int) {
+    private let service: ArticleServiceProtocol
+
+    init(articleId: Int, service: ArticleServiceProtocol = ArticleService()) {
         self.articleId = articleId
+        self.service = service
     }
     
     @MainActor

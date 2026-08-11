@@ -122,6 +122,7 @@
 		70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2884C2D245EB2004E9033 /* Carousel.swift */; };
 		70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2884E2D2465A9004E9033 /* Indicator.swift */; };
 		70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288502D246AC4004E9033 /* GenerateQuestionsViewModel.swift */; };
+		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 		70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288522D2472C9004E9033 /* CardHorizontal.swift */; };
 		70D288552D24749B004E9033 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288542D247499004E9033 /* Card.swift */; };
 		70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288592D24FC7B004E9033 /* KeyboardObserver.swift */; };
@@ -310,6 +311,7 @@
 		70D2884C2D245EB2004E9033 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		70D2884E2D2465A9004E9033 /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		70D288502D246AC4004E9033 /* GenerateQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsViewModel.swift; sourceTree = "<group>"; };
+		1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsService.swift; sourceTree = "<group>"; };
 		70D288522D2472C9004E9033 /* CardHorizontal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHorizontal.swift; sourceTree = "<group>"; };
 		70D288542D247499004E9033 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		70D288592D24FC7B004E9033 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 		244DDABF2C7B981A007FB768 /* GenerateQuestions */ = {
 			isa = PBXGroup;
 			children = (
+				3B7043909B1520B70230202C /* Service */,
 				70819E0F2E0373C2007815BE /* Sheet */,
 				70D288572D247FA6004E9033 /* View */,
 				70D288562D247F93004E9033 /* ViewModel */,
@@ -492,6 +495,14 @@
 				249240632CC9871D0081E887 /* OpenAPIResponse.swift */,
 			);
 			path = GenerateQuestions;
+			sourceTree = "<group>";
+		};
+		3B7043909B1520B70230202C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		244DDAC22C7B9B98007FB768 /* Resume */ = {
@@ -996,6 +1007,7 @@
 				70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */,
 				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
+				FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */,
 				7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */,
 				70E5D58A3012385500BC0103 /* ResumeFeedbackIcon.swift in Sources */,
 				70CE6A5830100232006C7846 /* InterviewSimulationFlowView.swift in Sources */,

@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class ArticleService {
+protocol ArticleServiceProtocol {
+    func fetchArticle(id: Int) async throws -> ArticleDetail
+}
+
+final class ArticleService: ArticleServiceProtocol {
     func fetchArticle(id: Int) async throws -> ArticleDetail {
         print("🟢 Iniciando fetchArticle para o ID: \(id)")
         

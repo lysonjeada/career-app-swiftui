@@ -31,10 +31,27 @@ final class JobApplicationServiceMock: JobApplicationServiceProtocol {
     var isSuccess: Bool
     private(set) var receivedRepository: String?
 
-    init(isSuccess: Bool) {
+    private(set) var receivedAddInterviewCompanyName: String?
+    private(set) var receivedAddInterviewJobTitle: String?
+    private(set) var receivedAddInterviewJobSeniority: String?
+    private(set) var receivedAddInterviewLastInterview: String?
+    private(set) var receivedAddInterviewNextInterview: String?
+    private(set) var receivedAddInterviewLocation: String?
+    private(set) var receivedAddInterviewNotes: String?
+    private(set) var receivedAddInterviewSkills: [String]?
+
+    private(set) var receivedUpdateInterviewId: String?
+    private(set) var receivedUpdateInterviewRequest: InterviewRequest?
+
+    private(set) var receivedDeleteInterviewId: String?
+
+    private let interviewsFixtureName: String
+
+    init(isSuccess: Bool, interviewsFixtureName: String = "interview-list-response") {
         self.isSuccess = isSuccess
+        self.interviewsFixtureName = interviewsFixtureName
     }
-    
+
     func addInterview(
         companyName: String,
         jobTitle: String,
@@ -45,31 +62,51 @@ final class JobApplicationServiceMock: JobApplicationServiceProtocol {
         notes: String,
         skills: [String]
     ) async throws {
-        // no-op para testes
+        receivedAddInterviewCompanyName = companyName
+        receivedAddInterviewJobTitle = jobTitle
+        receivedAddInterviewJobSeniority = jobSeniority
+        receivedAddInterviewLastInterview = lastInterview
+        receivedAddInterviewNextInterview = nextInterview
+        receivedAddInterviewLocation = location
+        receivedAddInterviewNotes = notes
+        receivedAddInterviewSkills = skills
+
+        guard isSuccess else {
+            throw URLError(.notConnectedToInternet)
+        }
     }
-    
+
     func updateInterview(interviewId: String, request: InterviewRequest) async throws {
-        // no-op para testes
+        receivedUpdateInterviewId = interviewId
+        receivedUpdateInterviewRequest = request
+
+        guard isSuccess else {
+            throw URLError(.notConnectedToInternet)
+        }
     }
-    
+
     func deleteInterview(interviewId: String) async throws {
-        // no-op para testes
+        receivedDeleteInterviewId = interviewId
+
+        guard isSuccess else {
+            throw URLError(.notConnectedToInternet)
+        }
     }
     
     func fetchInterviews() async throws -> [InterviewResponse] {
         guard isSuccess else {
             throw URLError(.notConnectedToInternet)
         }
-        
-        return try JSONLoader.load("interview-list-response")
+
+        return try JSONLoader.load(interviewsFixtureName)
     }
-    
+
     func fetchNextInterviews() async throws -> [InterviewResponse] {
         guard isSuccess else {
             throw URLError(.notConnectedToInternet)
         }
-        
-        return try JSONLoader.load("interview-list-response")
+
+        return try JSONLoader.load(interviewsFixtureName)
     }
     
     func fetchJobListings(repository: String?) async throws -> [GitHubJobListing] {

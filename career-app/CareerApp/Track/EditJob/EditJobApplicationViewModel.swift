@@ -19,7 +19,7 @@ struct InterviewRequest: Codable {
 }
 
 class EditJobApplicationViewModel: ObservableObject {
-    private let service = JobApplicationService()
+    private let service: JobApplicationServiceProtocol
 
     enum State: Equatable {
         case loading
@@ -30,5 +30,7 @@ class EditJobApplicationViewModel: ObservableObject {
 
     private var task: Task<Void, Never>?
 
-    
+    init(service: JobApplicationServiceProtocol = JobApplicationService()) {
+        self.service = service
+    }
 }
