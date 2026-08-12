@@ -249,144 +249,14 @@ class JobApplicationService: JobApplicationServiceProtocol {
             """
         )
 
-        func formatDate(
-            _ value: String,
-            fieldName: String
-        ) -> String? {
-            let normalizedValue =
-                value.trimmingCharacters(
-                    in: .whitespacesAndNewlines
-                )
-
-            print(
-                """
-                🗓️ Convertendo \(fieldName)
-                Valor recebido:
-                '\(normalizedValue)'
-                """
-            )
-
-            guard !normalizedValue.isEmpty else {
-                print(
-                    """
-                    ⚠️ \(fieldName) está vazio.
-                    Será enviado como nil.
-                    """
-                )
-
-                return nil
-            }
-
-            let acceptedFormats = [
-                "dd/MM/yyyy",
-                "yyyy-MM-dd"
-            ]
-
-            for format in acceptedFormats {
-                let inputFormatter =
-                    DateFormatter()
-
-                inputFormatter.locale =
-                    Locale(
-                        identifier: "en_US_POSIX"
-                    )
-
-                inputFormatter.calendar =
-                    Calendar(
-                        identifier: .gregorian
-                    )
-
-                inputFormatter.timeZone =
-                    TimeZone(
-                        secondsFromGMT: 0
-                    )
-
-                inputFormatter.dateFormat =
-                    format
-
-                inputFormatter.isLenient =
-                    false
-
-                guard let date =
-                        inputFormatter.date(
-                            from: normalizedValue
-                        )
-                else {
-                    continue
-                }
-
-                let outputFormatter =
-                    DateFormatter()
-
-                outputFormatter.locale =
-                    Locale(
-                        identifier: "en_US_POSIX"
-                    )
-
-                outputFormatter.calendar =
-                    Calendar(
-                        identifier: .gregorian
-                    )
-
-                outputFormatter.timeZone =
-                    TimeZone(
-                        secondsFromGMT: 0
-                    )
-
-                outputFormatter.dateFormat =
-                    "yyyy-MM-dd"
-
-                let formattedDate =
-                    outputFormatter.string(
-                        from: date
-                    )
-
-                print(
-                    """
-                    ✅ \(fieldName) convertido
-
-                    Entrada:
-                    \(normalizedValue)
-
-                    Formato reconhecido:
-                    \(format)
-
-                    Resultado:
-                    \(formattedDate)
-                    """
-                )
-
-                return formattedDate
-            }
-
-            print(
-                """
-                ❌ Não foi possível converter \(fieldName)
-
-                Valor:
-                '\(normalizedValue)'
-
-                Formatos esperados:
-                dd/MM/yyyy
-                yyyy-MM-dd
-                """
-            )
-
-            return nil
-        }
-
         let formattedLastInterview =
             formatDate(
-                lastInterview,
-                fieldName:
-                    "last_interview_date"
+                lastInterview
             )
 
         let formattedNextInterview =
             formatDate(
-                nextInterview,
-                fieldName:
-                    "next_interview_date"
+                nextInterview
             )
 
         print(
@@ -666,6 +536,105 @@ class JobApplicationService: JobApplicationServiceProtocol {
         print(
             "🏁 Entrevista criada com sucesso."
         )
+    }
+    
+    private func formatDate(
+        _ value: String
+    ) -> String? {
+        let normalizedValue =
+            value.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+
+        guard !normalizedValue.isEmpty else {
+            return nil
+        }
+
+        let components =
+            normalizedValue.split(
+                separator: "/"
+            )
+
+        guard components.count == 3,
+              let day = Int(components[0]),
+              let month = Int(components[1]),
+              let year = Int(components[2])
+        else {
+            print(
+                """
+                ❌ Data em formato inválido:
+                \(normalizedValue)
+                """
+            )
+
+            return nil
+        }
+
+        var dateComponents =
+            DateComponents()
+
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+
+        var calendar =
+            Calendar(
+                identifier: .gregorian
+            )
+
+        calendar.timeZone =
+            TimeZone(
+                secondsFromGMT: 0
+            )!
+
+        guard let date =
+                calendar.date(
+                    from: dateComponents
+                ),
+              calendar.component(
+                .day,
+                from: date
+              ) == day,
+              calendar.component(
+                .month,
+                from: date
+              ) == month,
+              calendar.component(
+                .year,
+                from: date
+              ) == year
+        else {
+            print(
+                """
+                ❌ Data inexistente:
+                \(normalizedValue)
+                """
+            )
+
+            return nil
+        }
+
+        let result = String(
+            format:
+                "%04d-%02d-%02d",
+            year,
+            month,
+            day
+        )
+
+        print(
+            """
+            📅 Data convertida sem timezone
+
+            Entrada:
+            \(normalizedValue)
+
+            Saída:
+            \(result)
+            """
+        )
+
+        return result
     }
 }
 // MARK: - JobApplicationService (Refatorado)

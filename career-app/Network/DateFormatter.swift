@@ -8,17 +8,6 @@
 import Foundation
 
 // MARK: - Date Formatters
-extension Date {
-    /// Converte um objeto `Date` para uma string no formato "DD/MM".
-    /// - Returns: A data formatada como "DD/MM".
-    func toDayMonthString() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM"
-        formatter.locale = Locale(identifier: "pt_BR") // Para garantir o formato BR (dia/mês)
-        formatter.calendar = Calendar(identifier: .gregorian) // Consistência do calendário
-        return formatter.string(from: self)
-    }
-}
 
 extension DateFormatter {
     // Para exibir no TextField (formato BR) - usado apenas no DateInputField
@@ -49,4 +38,48 @@ extension DateFormatter {
         formatter.calendar = Calendar(identifier: .gregorian)
         return formatter
     }()
+}
+
+extension Date {
+    func toDayMonthString() -> String {
+        let formatter = DateFormatter()
+
+        formatter.calendar = Calendar(
+            identifier: .gregorian
+        )
+
+        formatter.locale = Locale(
+            identifier: "en_US_POSIX"
+        )
+
+        /*
+         IMPORTANTE:
+         precisa ser o mesmo timezone usado
+         quando "yyyy-MM-dd" foi convertido
+         para Date.
+         */
+        formatter.timeZone = TimeZone(
+            secondsFromGMT: 0
+        )
+
+        formatter.dateFormat = "dd/MM"
+
+        let result = formatter.string(
+            from: self
+        )
+
+        print(
+            """
+            📅 Date → dd/MM
+
+            Date:
+            \(self)
+
+            Resultado:
+            \(result)
+            """
+        )
+
+        return result
+    }
 }

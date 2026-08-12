@@ -7,139 +7,444 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct DateInputField: View {
-    @Binding var dateString: String
-    @State private var showDatePicker = false
-    @State private var internalDate: Date = Date()
+    @Binding
+    var dateString: String
+
+    @State
+    private var showDatePicker = false
+
+    @State
+    private var internalDate = Date()
+
+    @State
+    private var isDateStringValid = true
+
     let placeholder: String
-    
-    // NOVO: Adicione uma State para forçar atualização visual
-    @State private var isDateStringValid: Bool = true // Assume válido inicialmente
 
     var body: some View {
         VStack {
             HStack {
-                ZStack(alignment: .leading) {
+                ZStack(
+                    alignment: .leading
+                ) {
                     if dateString.isEmpty {
                         Text(placeholder)
-                            .foregroundColor(Color(.systemGray))
-                            .padding(.leading, 12)
+                            .foregroundColor(
+                                Color(.systemGray)
+                            )
+                            .padding(
+                                .leading,
+                                12
+                            )
                     }
-                    
-                    TextField("", text: $dateString)
-                        .onChange(of: dateString) { oldValue, newValue in
-                            let formatted = formatInputDate(newValue)
-                            dateString = formatted
-                            
-                            // Tenta atualizar internalDate se a string formatada for válida
-                            if let date = DateFormatter.displayDateFormatter.date(from: dateString) {
-                                internalDate = date
-                            }
-                            
-                            // Atualiza a nova State para forçar reavaliação da cor
-                            self.isDateStringValid = isValidDate(dateString) || dateString.isEmpty
-                            
-                            print("onChange - DateString: \(dateString), isValidDate: \(self.isDateStringValid)")
+
+                    TextField(
+                        "",
+                        text: $dateString
+                    )
+                    .onChange(
+                        of: dateString
+                    ) {
+                        oldValue,
+                        newValue in
+
+                        let formatted =
+                            formatInputDate(
+                                newValue
+                            )
+
+                        if formatted
+                            != newValue {
+                            dateString =
+                                formatted
+
+                            return
                         }
-                        .keyboardType(.numbersAndPunctuation)
-                        .padding(.leading, 12)
-                        .padding(.vertical, 12)
-                        // Use a nova State para a condição da cor
-                        .foregroundColor(isDateStringValid ? .primary : .red)
+
+                        isDateStringValid =
+                            isValidDate(
+                                formatted
+                            )
+                            || formatted.isEmpty
+
+                        if let date =
+                            dateFromString(
+                                formatted
+                            ) {
+
+                            internalDate =
+                                date
+                        }
+
+                        print(
+                            """
+                            📅 DateInputField
+
+                            String:
+                            \(formatted)
+
+                            Válida:
+                            \(isDateStringValid)
+                            """
+                        )
+                    }
+                    .keyboardType(
+                        .numbersAndPunctuation
+                    )
+                    .padding(
+                        .leading,
+                        12
+                    )
+                    .padding(
+                        .vertical,
+                        12
+                    )
+                    .foregroundColor(
+                        isDateStringValid
+                        ? .primary
+                        : .red
+                    )
                 }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.persianBlue, lineWidth: 1)
+                .overlay {
+                    RoundedRectangle(
+                        cornerRadius: 8
+                    )
+                    .stroke(
+                        Color.persianBlue,
+                        lineWidth: 1
+                    )
+                }
+                .padding(
+                    .trailing,
+                    8
                 )
-                .padding(.trailing, 8)
-                
-                Button(action: { showDatePicker.toggle() }) {
-                    Image(systemName: "calendar")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.persianBlue)
+
+                Button {
+                    showDatePicker.toggle()
+                } label: {
+                    Image(
+                        systemName:
+                            "calendar"
+                    )
+                    .resizable()
+                    .frame(
+                        width: 24,
+                        height: 24
+                    )
+                    .foregroundColor(
+                        .persianBlue
+                    )
                 }
             }
-            
+
             if showDatePicker {
                 DatePicker(
                     "",
-                    selection: $internalDate,
-                    displayedComponents: .date
+                    selection:
+                        $internalDate,
+                    displayedComponents:
+                        .date
                 )
-                .datePickerStyle(.graphical)
-                .onChange(of: internalDate) {
-                    dateString = DateFormatter.displayDateFormatter.string(from: internalDate)
-                    showDatePicker = false
-                    // Atualiza a validade após a seleção do picker também
-                    self.isDateStringValid = isValidDate(dateString) || dateString.isEmpty
+                .datePickerStyle(
+                    .graphical
+                )
+                .onChange(
+                    of: internalDate
+                ) {
+                    _,
+                    newDate in
+
+                    dateString =
+                        stringFromDate(
+                            newDate
+                        )
+
+                    isDateStringValid =
+                        true
+
+                    print(
+                        """
+                        🗓️ Data escolhida no DatePicker:
+                        \(dateString)
+                        """
+                    )
+
+                    showDatePicker =
+                        false
                 }
-                .background(Color(.systemBackground))
+                .background(
+                    Color(
+                        .systemBackground
+                    )
+                )
                 .cornerRadius(12)
-                .padding(.top, 5)
+                .padding(
+                    .top,
+                    5
+                )
             }
         }
         .onAppear {
-            if let date = DateFormatter.displayDateFormatter.date(from: dateString) {
-                internalDate = date
-            } else {
-                internalDate = Date()
+            if let date =
+                dateFromString(
+                    dateString
+                ) {
+
+                internalDate =
+                    date
             }
         }
     }
-    
-    // MARK: - Date Formatting Logic
-    private func formatInputDate(_ input: String) -> String {
-        var cleanedString = input.filter { $0.isNumber }
-        
+
+    // MARK: - Picker → String
+
+    private func stringFromDate(
+        _ date: Date
+    ) -> String {
+        let calendar =
+            Calendar.current
+
+        let components =
+            calendar.dateComponents(
+                [
+                    .day,
+                    .month,
+                    .year
+                ],
+                from: date
+            )
+
+        guard
+            let day =
+                components.day,
+            let month =
+                components.month,
+            let year =
+                components.year
+        else {
+            return ""
+        }
+
+        return String(
+            format:
+                "%02d/%02d/%04d",
+            day,
+            month,
+            year
+        )
+    }
+
+    // MARK: - String → Date
+
+    private func dateFromString(
+        _ value: String
+    ) -> Date? {
+        let components =
+            value.split(
+                separator: "/"
+            )
+
+        guard components.count == 3,
+              let day =
+                Int(components[0]),
+              let month =
+                Int(components[1]),
+              let year =
+                Int(components[2])
+        else {
+            return nil
+        }
+
+        var dateComponents =
+            DateComponents()
+
+        dateComponents.year =
+            year
+
+        dateComponents.month =
+            month
+
+        dateComponents.day =
+            day
+
+        /*
+         Usamos meio-dia em vez de meia-noite.
+         Isso evita problemas de mudança de dia
+         causados por timezone/DST.
+         */
+        dateComponents.hour = 12
+
+        return Calendar.current.date(
+            from: dateComponents
+        )
+    }
+
+    // MARK: - Formatting
+
+    private func formatInputDate(
+        _ input: String
+    ) -> String {
+        var cleanedString =
+            input.filter {
+                $0.isNumber
+            }
+
         if cleanedString.count > 8 {
-            cleanedString = String(cleanedString.prefix(8))
+            cleanedString =
+                String(
+                    cleanedString
+                        .prefix(8)
+                )
         }
-        
+
         var formattedString = ""
-        for (index, char) in cleanedString.enumerated() {
-            formattedString.append(char)
-            if index == 1 && cleanedString.count > 2 {
-                formattedString.append("/")
+
+        for (
+            index,
+            character
+        ) in cleanedString
+            .enumerated() {
+
+            formattedString.append(
+                character
+            )
+
+            if index == 1,
+               cleanedString.count > 2 {
+
+                formattedString.append(
+                    "/"
+                )
             }
-            if index == 3 && cleanedString.count > 4 {
-                formattedString.append("/")
+
+            if index == 3,
+               cleanedString.count > 4 {
+
+                formattedString.append(
+                    "/"
+                )
             }
         }
-        
-        if formattedString.count > 10 {
-            formattedString = String(formattedString.prefix(10))
-        }
-        
+
         return formattedString
     }
-    
-    // MARK: - Helper Functions
 
-    // Mantenha os prints para depuração temporariamente
-    private func parseDate(from text: String) -> Date? {
-        print("parseDate: Attempting to parse '\(text)'")
-        let date = DateFormatter.displayDateFormatter.date(from: text)
-        print("parseDate: Result for '\(text)' = \(date ?? "nil" as Any)")
-        return date
+    // MARK: - Validation
+
+    private func isValidDate(
+        _ value: String
+    ) -> Bool {
+        guard !value.isEmpty else {
+            return true
+        }
+
+        let components =
+            value.split(
+                separator: "/"
+            )
+
+        guard components.count == 3,
+              let day =
+                Int(components[0]),
+              let month =
+                Int(components[1]),
+              let year =
+                Int(components[2])
+        else {
+            return false
+        }
+
+        var dateComponents =
+            DateComponents()
+
+        dateComponents.year =
+            year
+
+        dateComponents.month =
+            month
+
+        dateComponents.day =
+            day
+
+        var calendar =
+            Calendar(
+                identifier: .gregorian
+            )
+
+        calendar.timeZone =
+            TimeZone(
+                secondsFromGMT: 0
+            )!
+
+        guard let date =
+                calendar.date(
+                    from: dateComponents
+                )
+        else {
+            return false
+        }
+
+        return (
+            calendar.component(
+                .day,
+                from: date
+            ) == day
+            &&
+            calendar.component(
+                .month,
+                from: date
+            ) == month
+            &&
+            calendar.component(
+                .year,
+                from: date
+            ) == year
+        )
     }
-    
-    private func isValidDate(_ text: String) -> Bool {
-        let dateRegex = #"^\d{2}/\d{2}/\d{4}$"#
-        let isFormatValid = text.range(of: dateRegex, options: .regularExpression) != nil
-        
-        print("isValidDate: Input text = '[\(text)]'")
-        print("isValidDate: Regex check (isFormatValid) = \(isFormatValid)")
-        
-        let parsedDate = parseDate(from: text)
-        print("isValidDate: Parsed Date (from parseDate) = \(parsedDate ?? "nil" as Any)")
-        
-        let result = text.isEmpty || (isFormatValid && parsedDate != nil)
-        print("isValidDate: Final result = \(result)")
-        
+}
+
+extension String {
+    func backendDateToDayMonthString() -> String? {
+        let components = split(
+            separator: "-"
+        )
+
+        guard components.count == 3,
+              components[0].count == 4,
+              components[1].count == 2,
+              components[2].count == 2
+        else {
+            print(
+                """
+                ❌ Data backend inválida:
+                \(self)
+                """
+            )
+
+            return nil
+        }
+
+        let month = components[1]
+        let day = components[2]
+
+        let result =
+            "\(day)/\(month)"
+
+        print(
+            """
+            📅 Conversão sem timezone:
+            Backend: \(self)
+            Display: \(result)
+            """
+        )
+
         return result
     }
 }
+
 struct DateInputField_Previews: PreviewProvider {
     static var previews: some View {
         DateInputField(dateString: .constant(""), placeholder: "Digite ou selecione a data")
