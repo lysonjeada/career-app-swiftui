@@ -8,52 +8,194 @@
 import Foundation
 
 protocol ProfileServiceProtocol {
-    func fetchProfile(userId: String) async throws -> AuthenticationLoginResponse
+    func fetchProfile(userId: String) async throws -> AuthenticationUserResponse
     func deleteUser(userId: String) async throws
 }
 
-class ProfileService: ProfileServiceProtocol {
-    func fetchProfile(userId: String) async throws -> AuthenticationLoginResponse {
-        guard let url = URL(string: "\(APIConstants.pythonURL)/users/\(userId)/") else {
+final class ProfileService:
+    ProfileServiceProtocol {
+
+    func fetchProfile(
+        userId: String
+    ) async throws
+        -> AuthenticationUserResponse {
+
+        let normalizedUserId =
+            userId.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+
+        guard !normalizedUserId.isEmpty
+        else {
             throw URLError(.badURL)
         }
-        
-        var request = URLRequest(url: url)
+
+        guard let url = URL(
+            string:
+                """
+                \(APIConstants.pythonURL)/users/\(normalizedUserId)
+                """
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        print(
+            """
+            🌐 Buscando perfil:
+            \(url.absoluteString)
+            """
+        )
+
+        var request =
+            URLRequest(url: url)
+
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let (responseData, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw AuthenticationServiceError.invalidResponse
+
+        request.timeoutInterval = 30
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField:
+                "Content-Type"
+        )
+
+        if let token =
+            AuthSession.shared.accessToken {
+
+            request.setValue(
+                "Bearer \(token)",
+                forHTTPHeaderField:
+                    "Authorization"
+            )
         }
-        
-        print("✅ Código de resposta (GET Profile): \(httpResponse.statusCode)")
-        
-        // --- VERIFICAÇÃO DO CÓDIGO DE STATUS PARA LOGIN (200 OK) ---
-        guard httpResponse.statusCode == 200 else { // Espera 200 para login bem-sucedido
-            var errorMessage: String? = nil
-            if let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: responseData) {
-                errorMessage = errorResponse.detail
-            } else if let rawString = String(data: responseData, encoding: .utf8), !rawString.isEmpty {
-                errorMessage = rawString
-            }
-            throw AuthenticationServiceError.badStatusCode(statusCode: httpResponse.statusCode, message: errorMessage)
-        }
-        
-        // Se chegou aqui, o status é 200 OK, então tente decodificar os dados do usuário
+
+        let responseData: Data
+        let response: URLResponse
+
         do {
-            let loggedInUser = try JSONDecoder().decode(AuthenticationLoginResponse.self, from: responseData)
-            print("📥 Resposta do servidor (Profile Sucesso):")
-            print(loggedInUser)
-            return loggedInUser
+            (
+                responseData,
+                response
+            ) = try await URLSession.shared.data(
+                for: request
+            )
+
         } catch {
-            print("❌ Erro ao decodificar resposta de sucesso do profile: \(error.localizedDescription)")
-            // Tenta logar o corpo da resposta bruta para depuração
-            if let responseBody = String(data: responseData, encoding: .utf8) {
-                print("Raw Response Body: \(responseBody)")
+            print(
+                """
+                ❌ Erro de rede ao carregar perfil:
+                \(error)
+                """
+            )
+
+            throw error
+        }
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw AuthenticationServiceError
+                .invalidResponse
+        }
+
+        print(
+            """
+            ✅ Código de resposta (GET Profile):
+            \(httpResponse.statusCode)
+            """
+        )
+
+        if let rawResponse = String(
+            data: responseData,
+            encoding: .utf8
+        ) {
+            print(
+                """
+                📦 Resposta bruta do Profile:
+                \(rawResponse)
+                """
+            )
+        }
+
+        guard
+            200..<300 ~=
+                httpResponse.statusCode
+        else {
+            var errorMessage: String?
+
+            if let errorResponse =
+                try? JSONDecoder().decode(
+                    ErrorResponse.self,
+                    from: responseData
+                ) {
+
+                errorMessage =
+                    errorResponse.detail
+
+            } else if let rawString =
+                        String(
+                            data: responseData,
+                            encoding: .utf8
+                        ),
+                      !rawString.isEmpty {
+
+                errorMessage =
+                    rawString
             }
-            throw AuthenticationServiceError.decodingError(error)
+
+            throw AuthenticationServiceError
+                .badStatusCode(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message:
+                        errorMessage
+                )
+        }
+
+        do {
+            let decoder =
+                JSONDecoder()
+
+            decoder.keyDecodingStrategy =
+                .convertFromSnakeCase
+
+            let user =
+                try decoder.decode(
+                    AuthenticationUserResponse.self,
+                    from: responseData
+                )
+
+            print(
+                """
+                📥 Perfil decodificado:
+                \(user)
+                """
+            )
+
+            return user
+
+        } catch {
+            print(
+                """
+                ❌ Erro ao decodificar Profile:
+                \(error)
+                """
+            )
+
+            if let responseBody = String(
+                data: responseData,
+                encoding: .utf8
+            ) {
+                print(
+                    """
+                    📦 Corpo recebido:
+                    \(responseBody)
+                    """
+                )
+            }
+
+            throw AuthenticationServiceError
+                .decodingError(error)
         }
     }
 }

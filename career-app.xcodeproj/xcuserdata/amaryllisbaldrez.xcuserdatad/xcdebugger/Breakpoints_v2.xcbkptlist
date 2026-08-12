@@ -34,13 +34,43 @@
             endingLineNumber = "163"
             landmarkName = "saveProfile()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD - 7682f58f55447eca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in career_app.ProfileView.profileImageSection.getter : some"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Profile/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163">
+               </Location>
+               <Location
+                  uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD - 7682f58f55447eca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in career_app.ProfileView.profileImageSection.getter : some"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Profile/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BC223828-7118-48D6-B0D7-AF1C908CAE4E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "career-app/CareerApp/Home/View/HomeView.swift"
@@ -81,6 +111,22 @@
             startingLineNumber = "201"
             endingLineNumber = "201"
             landmarkName = "actionDescriptionJob()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "740FD971-A4E6-40E0-B6C2-EBC04351357D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "career-app/CareerApp/Components/AddJobApplicationForm.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "submitForm()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

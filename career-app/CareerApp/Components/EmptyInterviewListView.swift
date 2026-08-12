@@ -11,6 +11,7 @@ struct EmptyInterviewListView: View {
     let action: () -> Void
     let actionTitle: String
     let actionDescription: String
+    let isNextInterview: Bool
     
     var body: some View {
         VStack(spacing: 8) {
@@ -19,9 +20,15 @@ struct EmptyInterviewListView: View {
                 .frame(width: 80, height: 48)
                 .foregroundColor(.persianLightBlue)
 
-            Text("Nenhuma entrevista próxima cadastrada")
-                .font(.system(size: 16))
-                .foregroundColor(Color.adaptiveBlack)
+            if isNextInterview {
+                Text("Nenhuma entrevista próxima cadastrada")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.adaptiveBlack)
+            } else {
+                Text("Nenhuma entrevista cadastrada")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.adaptiveBlack)
+            }
 
             Text(actionDescription)
                 .font(.system(size: 14))

@@ -88,6 +88,8 @@
 		70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */; };
 		7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */; };
 		708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */; };
+		7084D2F8302BD207009F5DB9 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D2F7302BD204009F5DB9 /* AuthSession.swift */; };
+		7084D2FA302BDCA2009F5DB9 /* AuthenticationUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */; };
 		70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C832D77BCF000C5B709 /* CareerAppModule.swift */; };
 		70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */; };
 		70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C892D77C00700C5B709 /* Coordinator.swift */; };
@@ -122,7 +124,6 @@
 		70D2884D2D245EBA004E9033 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2884C2D245EB2004E9033 /* Carousel.swift */; };
 		70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D2884E2D2465A9004E9033 /* Indicator.swift */; };
 		70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288502D246AC4004E9033 /* GenerateQuestionsViewModel.swift */; };
-		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 		70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288522D2472C9004E9033 /* CardHorizontal.swift */; };
 		70D288552D24749B004E9033 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288542D247499004E9033 /* Card.swift */; };
 		70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D288592D24FC7B004E9033 /* KeyboardObserver.swift */; };
@@ -164,6 +165,7 @@
 		70E5D5BA3023C86D00BC0103 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5B93023C86C00BC0103 /* EmailVerificationView.swift */; };
 		70E5D5BC3023C87700BC0103 /* EmailVerificationView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */; };
 		70E5D5BE3023CB2000BC0103 /* AuthenticationRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */; };
+		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +203,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsService.swift; sourceTree = "<group>"; };
 		241917C52C6AE804004147DF /* career-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "career-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		241917C82C6AE804004147DF /* career_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appApp.swift; sourceTree = "<group>"; };
 		241917CA2C6AE804004147DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 		70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsAnswersSheet.swift; sourceTree = "<group>"; };
 		7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJobApplicationView.swift; sourceTree = "<group>"; };
 		708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewGenerateQuestionsViewModel.swift; sourceTree = "<group>"; };
+		7084D2F7302BD204009F5DB9 /* AuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
+		7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserResponse.swift; sourceTree = "<group>"; };
 		70A76C832D77BCF000C5B709 /* CareerAppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAppModule.swift; sourceTree = "<group>"; };
 		70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		70A76C892D77C00700C5B709 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -311,7 +316,6 @@
 		70D2884C2D245EB2004E9033 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		70D2884E2D2465A9004E9033 /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		70D288502D246AC4004E9033 /* GenerateQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsViewModel.swift; sourceTree = "<group>"; };
-		1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsService.swift; sourceTree = "<group>"; };
 		70D288522D2472C9004E9033 /* CardHorizontal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHorizontal.swift; sourceTree = "<group>"; };
 		70D288542D247499004E9033 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		70D288592D24FC7B004E9033 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -497,14 +501,6 @@
 			path = GenerateQuestions;
 			sourceTree = "<group>";
 		};
-		3B7043909B1520B70230202C /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		244DDAC22C7B9B98007FB768 /* Resume */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +526,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3B7043909B1520B70230202C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		70056D562E2C1143006EA1A1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +545,8 @@
 		70056D652E2C21AE006EA1A1 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */,
+				7084D2F7302BD204009F5DB9 /* AuthSession.swift */,
 				70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */,
 				70E5D5B23023C83E00BC0103 /* EmailVerification */,
 				70BC021C2D862E910069A179 /* Login */,
@@ -1084,6 +1090,7 @@
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
 				70056D622E2C2098006EA1A1 /* LoginViewModel.swift in Sources */,
 				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
+				7084D2FA302BDCA2009F5DB9 /* AuthenticationUserResponse.swift in Sources */,
 				70056D552E2BDE0E006EA1A1 /* Loadable.swift in Sources */,
 				701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */,
 				70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */,
@@ -1117,6 +1124,7 @@
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
 				70E5D5A7301CFFA000BC0103 /* DashboardSummaryGrid.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
+				7084D2F8302BD207009F5DB9 /* AuthSession.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
 				70E5D599301CFEF400BC0103 /* ProgressDashboardModels.swift in Sources */,
 				70E5D5A5301CFF8B00BC0103 /* ProgressDashboardComponents.swift in Sources */,

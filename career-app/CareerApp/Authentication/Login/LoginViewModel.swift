@@ -84,6 +84,27 @@ final class LoginViewModel: ObservableObject {
                         )
                     )
 
+                print(
+                    """
+                    ✅ RESPONSE DO LOGIN
+                    User ID: \(response.id)
+                    Access Token: \(response.accessToken)
+                    Token vazio: \(response.accessToken.isEmpty)
+                    """
+                )
+
+                AuthSession.shared.save(
+                    response: response
+                )
+
+                print(
+                    """
+                    💾 DEPOIS DO AuthSession.save
+                    User ID: \(AuthSession.shared.userId ?? "SEM USER ID")
+                    Token: \(AuthSession.shared.accessToken ?? "SEM TOKEN")
+                    """
+                )
+
                 loggedInUser = response
                 viewState = .loaded
 
@@ -112,6 +133,13 @@ final class LoginViewModel: ObservableObject {
 
             } catch {
                 viewState = .error
+
+                print(
+                    """
+                    ❌ Erro no performLogin:
+                    \(error)
+                    """
+                )
 
                 showSnackbar(
                     message: error.localizedDescription,

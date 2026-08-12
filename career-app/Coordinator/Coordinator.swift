@@ -181,6 +181,7 @@ final class Coordinator: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "authToken") // Certifique-se de que isso existe e está correto
         UserDefaults.standard.removeObject(forKey: "userId") // Remova se você usava isso antes, mas agora use currentUserId
         UserDefaults.standard.removeObject(forKey: "currentUserId")
+        AuthSession.shared.clear()
         self.popToRoot()
     }
     

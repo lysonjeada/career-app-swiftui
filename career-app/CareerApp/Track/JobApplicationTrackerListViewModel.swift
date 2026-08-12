@@ -116,12 +116,29 @@ class JobApplicationTrackerListViewModel: ObservableObject {
         notes: String = "",
         skills: [String]
     ) {
-        viewState = .loading
-        task = Task { [weak self] in
-            do {
-                guard let self else { return }
+        print(
+            """
+            🟡 addInterview foi chamado
+            Empresa: \(companyName)
+            Cargo: \(jobTitle)
+            """
+        )
 
-                try await self.service.addInterview(
+        viewState = .loading
+
+        task?.cancel()
+
+        task = Task {
+            print(
+                "🟢 Entrou no Task do addInterview"
+            )
+
+            do {
+                print(
+                    "📡 Antes de chamar service.addInterview"
+                )
+
+                try await service.addInterview(
                     companyName: companyName,
                     jobTitle: jobTitle,
                     jobSeniority: jobSeniority,
@@ -131,13 +148,52 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                     notes: notes,
                     skills: skills
                 )
-                self.fetchJobApplications()
-                self.showSuccessSnackBar(message: "Candidatura adicionada com sucesso!")
+
+                print(
+                    "✅ service.addInterview terminou"
+                )
+
+                fetchJobApplications()
+
+                showSuccessSnackBar(
+                    message:
+                        """
+                        Candidatura adicionada com sucesso!
+                        """
+                )
+
+                viewState = .loaded
+
+            } catch is CancellationError {
+                print(
+                    "⚠️ Task de addInterview foi cancelada"
+                )
+
+                viewState = .loaded
 
             } catch {
-                // print("❌ Erro ao adicionar entrevista: \(error.localizedDescription)") // REMOVIDO
-                self?.showErrorSnackBar(message: "Não foi possível adicionar a candidatura.")
-                self?.viewState = .loaded // Ou mantenha em loading até a próxima fetch
+                print(
+                    """
+                    ❌ Erro no addInterview:
+                    \(error)
+                    """
+                )
+
+                print(
+                    """
+                    ❌ Localized description:
+                    \(error.localizedDescription)
+                    """
+                )
+
+                showErrorSnackBar(
+                    message:
+                        """
+                        Não foi possível adicionar a candidatura.
+                        """
+                )
+
+                viewState = .loaded
             }
         }
     }

@@ -184,19 +184,38 @@ final class AuthenticationService:
     func fetchLogin(
         requestBody: AuthenticationLoginRequest
     ) async throws -> AuthenticationLoginResponse {
+        let urlString =
+            "\(APIConstants.pythonURL)/users/login/"
+
+        print(
+            "🌐 URL de login:",
+            urlString
+        )
+
         guard let url = URL(
-            string: "\(APIConstants.pythonURL)/users/login/"
+            string: urlString
         ) else {
+            print(
+                "❌ URL inválida:",
+                urlString
+            )
+
             throw AuthenticationServiceError.invalidURL
         }
 
         let requestData: Data
 
         do {
-            requestData = try JSONEncoder().encode(
-                requestBody
-            )
+            requestData =
+                try JSONEncoder().encode(
+                    requestBody
+                )
         } catch {
+            print(
+                "❌ Erro ao codificar login:",
+                error
+            )
+
             throw AuthenticationServiceError
                 .unknownError
         }
@@ -206,22 +225,32 @@ final class AuthenticationService:
             encoding: .utf8
         ) {
             print(
-                "📤 Corpo da requisição JSON (Login):"
+                """
+                📤 Corpo da requisição JSON (Login):
+                \(jsonString)
+                """
             )
-            print(jsonString)
         }
 
-        var request = URLRequest(url: url)
+        var request = URLRequest(
+            url: url
+        )
 
         request.httpMethod = "POST"
-        request.timeoutInterval = 60
+        request.timeoutInterval = 30
 
         request.setValue(
             "application/json",
-            forHTTPHeaderField: "Content-Type"
+            forHTTPHeaderField:
+                "Content-Type"
         )
 
-        request.httpBody = requestData
+        request.httpBody =
+            requestData
+
+        print(
+            "🚀 Iniciando request de login..."
+        )
 
         let responseData: Data
         let response: URLResponse
@@ -233,60 +262,105 @@ final class AuthenticationService:
             ) = try await URLSession.shared.data(
                 for: request
             )
+
+            print(
+                "📡 URLSession retornou resposta."
+            )
+
+        } catch let error as URLError {
+            print(
+                """
+                ❌ URLError no login
+                Code: \(error.code.rawValue)
+                Tipo: \(error.code)
+                Descrição: \(error.localizedDescription)
+                URL: \(url.absoluteString)
+                """
+            )
+
+            throw error
+
         } catch {
+            print(
+                """
+                ❌ Erro de rede no login:
+                \(error)
+                """
+            )
+
             throw error
         }
 
         guard let httpResponse =
-                response as? HTTPURLResponse else {
+                response as? HTTPURLResponse
+        else {
+            print(
+                "❌ Resposta não é HTTP."
+            )
+
             throw AuthenticationServiceError
                 .invalidResponse
         }
 
         print(
-            "✅ Código de resposta (Login):",
-            httpResponse.statusCode
+            """
+            ✅ Código de resposta (Login):
+            \(httpResponse.statusCode)
+            """
         )
 
-        guard 200..<300 ~= httpResponse.statusCode else {
+        if let rawResponse = String(
+            data: responseData,
+            encoding: .utf8
+        ) {
+            print(
+                """
+                📦 Resposta bruta:
+                \(rawResponse)
+                """
+            )
+        }
+
+        guard
+            200..<300 ~= httpResponse.statusCode
+        else {
             throw makeStatusCodeError(
-                statusCode: httpResponse.statusCode,
-                data: responseData
+                statusCode:
+                    httpResponse.statusCode,
+                data:
+                    responseData
             )
         }
 
         do {
-            let decoder = JSONDecoder()
+            let decoder =
+                JSONDecoder()
 
             decoder.keyDecodingStrategy =
                 .convertFromSnakeCase
 
-            let loggedInUser = try decoder.decode(
-                AuthenticationLoginResponse.self,
-                from: responseData
-            )
+            let loggedInUser =
+                try decoder.decode(
+                    AuthenticationLoginResponse.self,
+                    from: responseData
+                )
 
             print(
-                "📥 Resposta do servidor (Login):"
+                """
+                ✅ Login decodificado com sucesso:
+                \(loggedInUser)
+                """
             )
-            print(loggedInUser)
 
             return loggedInUser
+
         } catch {
             print(
-                "❌ Erro ao decodificar login:",
-                error
+                """
+                ❌ Erro ao decodificar login:
+                \(error)
+                """
             )
-
-            if let responseBody = String(
-                data: responseData,
-                encoding: .utf8
-            ) {
-                print(
-                    "📦 Corpo bruto da resposta:",
-                    responseBody
-                )
-            }
 
             throw AuthenticationServiceError
                 .decodingError(error)
