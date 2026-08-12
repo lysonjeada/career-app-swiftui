@@ -8,124 +8,387 @@
 import Foundation
 import SwiftUI
 
-final class HomeViewModel: ObservableObject {
-    @Published var selectedTag: String = "Todos"
-    
+@MainActor
+final class HomeViewModel:
+    ObservableObject {
+
+    @Published
+    var selectedTag: String = "Todos"
+
     enum State: Equatable {
         case loading
         case loaded
         case error
     }
-    
-    @Published private(set) var viewState: State = .loading
-    @StateObject var coordinator = Coordinator()
-    
-    private(set) var articles: [Article] = []
-    private(set) var jobApplications: [JobApplication] = []
-    private(set) var nextJobApplications: [JobApplication] = []
-    private(set) var githubJobListing: [GitHubJobListing] = []
-    private(set) var availableJobs: [String] = []
-    private var task: Task <Void, Never>?
-    
-    private let service: HomeServiceProtocol
-    private let jobService: JobApplicationServiceProtocol
 
-    init(service: HomeServiceProtocol = HomeService(), jobService: JobApplicationServiceProtocol = JobApplicationService()) {
+    @Published private(set)
+    var viewState: State = .loading
+
+    @Published private(set)
+    var articles: [Article] = []
+
+    @Published private(set)
+    var jobApplications:
+        [JobApplication] = []
+
+    @Published private(set)
+    var nextJobApplications:
+        [JobApplication] = []
+
+    @Published private(set)
+    var githubJobListing:
+        [GitHubJobListing] = []
+
+    @Published private(set)
+    var availableJobs:
+        [String] = []
+
+    private var task:
+        Task<Void, Never>?
+
+    private let service:
+        HomeServiceProtocol
+
+    private let jobService:
+        JobApplicationServiceProtocol
+
+    init(
+        service: HomeServiceProtocol =
+            HomeService(),
+        jobService:
+            JobApplicationServiceProtocol =
+            JobApplicationService()
+    ) {
         self.service = service
         self.jobService = jobService
     }
-    
-    @MainActor
-    func fetchHome(tag: String? = nil, repository: String? = nil) {
+
+    func fetchHome(
+        tag: String? = nil,
+        repository: String? = nil
+    ) {
+        print(
+            """
+            🏠 fetchHome iniciado
+
+            🔐 Autenticado:
+            \(AuthSession.shared.isAuthenticated)
+
+            👤 User ID:
+            \(AuthSession.shared.userId ?? "SEM USER ID")
+
+            🔑 Token presente:
+            \(AuthSession.shared.accessToken != nil)
+            """
+        )
+
         viewState = .loading
+
+        task?.cancel()
+
         task = Task {
-            // Inicializa com dados vazios para garantir que, se falhar, não teremos lixo
-            self.articles = []
-            self.jobApplications = []
-            self.nextJobApplications = []
-            self.githubJobListing = []
-            self.availableJobs = []
+            articles = []
+            jobApplications = []
+            nextJobApplications = []
+            githubJobListing = []
+            availableJobs = []
 
-            // Fetch Articles
+            // MARK: - Articles
+
             do {
-                self.articles = try await service.fetchArticles(tag: tag)
+                print(
+                    "📰 Buscando artigos..."
+                )
+
+                articles =
+                    try await service.fetchArticles(
+                        tag: tag
+                    )
+
+                print(
+                    """
+                    ✅ Artigos carregados:
+                    \(articles.count)
+                    """
+                )
+
             } catch {
-                print("Erro ao buscar artigos: \(error.localizedDescription)")
-                // Opcional: registrar o erro, mostrar uma mensagem específica para o usuário
+                print(
+                    """
+                    ❌ Erro ao buscar artigos:
+                    \(error)
+                    """
+                )
             }
 
-            // Fetch Job Applications (Interviews)
-            do {
-                self.jobApplications = try await jobService
-                    .fetchInterviews()
-                    .map { interview in
-                        JobApplication(
-                            id: interview.id,
-                            company: interview.company_name,
-                            level: interview.job_seniority,
-                            role: interview.job_title,
-                            lastInterview: interview.last_interview_date?.toDate()?.toDayMonthString(),
-                            nextInterview: interview.next_interview_date?.toDate()?.toDayMonthString(),
-                            technicalSkills: interview.skills ?? []
-                        )
-                    }
-            } catch {
-                print("Erro ao buscar candidaturas de emprego: \(error.localizedDescription)")
-            }
+            // MARK: - All interviews
 
-            // Fetch Next Job Applications (Next Interviews)
             do {
-                self.nextJobApplications = try await jobService.fetchNextInterviews()
-                    .map { interview in
-                        JobApplication(
-                            id: interview.id,
-                            company: interview.company_name,
-                            level: interview.job_seniority,
-                            role: interview.job_title,
-                            lastInterview: interview.last_interview_date?.toDate()?.toDayMonthString(),
-                            nextInterview: interview.next_interview_date?.toDate()?.toDayMonthString(),
-                            technicalSkills: interview.skills ?? []
-                        )
-                    }
-            } catch {
-                print("Erro ao buscar próximas entrevistas: \(error.localizedDescription)")
-            }
+                print(
+                    "💼 Buscando candidaturas..."
+                )
 
-            // Fetch GitHub Job Listing
-            do {
-                if let repository {
-                    self.githubJobListing = try await jobService.fetchJobListings(repository: repository)
-                } else {
-                    self.githubJobListing = try await jobService.fetchJobListings(repository: nil)
+                let interviews =
+                    try await jobService
+                        .fetchInterviews()
+
+                print(
+                    """
+                    ✅ Entrevistas recebidas:
+                    \(interviews.count)
+                    """
+                )
+
+                for interview in interviews {
+                    print(
+                        """
+                        💼 Interview:
+                        Empresa: \(interview.company_name)
+                        Próxima: \(interview.next_interview_date ?? "NIL")
+                        """
+                    )
                 }
+
+                jobApplications =
+                    interviews.map {
+                        interview in
+
+                        JobApplication(
+                            id:
+                                interview.id,
+                            company:
+                                interview.company_name,
+                            level:
+                                interview.job_seniority,
+                            role:
+                                interview.job_title,
+                            lastInterview:
+                                interview
+                                    .last_interview_date?
+                                    .toDate()?
+                                    .toDayMonthString(),
+                            nextInterview:
+                                interview
+                                    .next_interview_date?
+                                    .toDate()?
+                                    .toDayMonthString(),
+                            technicalSkills:
+                                interview.skills ?? []
+                        )
+                    }
+
+                print(
+                    """
+                    ✅ jobApplications mapeadas:
+                    \(jobApplications.count)
+                    """
+                )
+
             } catch {
-                print("Erro ao buscar vagas do GitHub: \(error.localizedDescription)")
+                print(
+                    """
+                    ❌ Erro ao buscar candidaturas:
+                    \(error)
+
+                    \(error.localizedDescription)
+                    """
+                )
             }
 
-            // Fetch Available Repositories
+            // MARK: - Next Interviews
+
             do {
-                self.availableJobs = try await jobService.fetchAvailableRepositories()
+                print(
+                    """
+                    📅 ==============================
+                    📅 BUSCANDO PRÓXIMAS ENTREVISTAS
+                    📅 ==============================
+                    """
+                )
+
+                let nextInterviews =
+                    try await jobService
+                        .fetchNextInterviews()
+
+                print(
+                    """
+                    ✅ Endpoint /interviews/next/
+                    retornou \(nextInterviews.count)
+                    entrevistas.
+                    """
+                )
+
+                for interview
+                    in nextInterviews {
+
+                    print(
+                        """
+                        📌 Próxima entrevista
+
+                        Empresa:
+                        \(interview.company_name)
+
+                        Cargo:
+                        \(interview.job_title)
+
+                        Data bruta:
+                        \(interview.next_interview_date ?? "NIL")
+                        """
+                    )
+                }
+
+                nextJobApplications =
+                    nextInterviews.map {
+                        interview in
+
+                        let convertedDate =
+                            interview
+                                .next_interview_date?
+                                .toDate()?
+                                .toDayMonthString()
+
+                        print(
+                            """
+                            🔄 Mapeando próxima entrevista
+
+                            Empresa:
+                            \(interview.company_name)
+
+                            Data backend:
+                            \(interview.next_interview_date ?? "NIL")
+
+                            Data convertida:
+                            \(convertedDate ?? "NIL")
+                            """
+                        )
+
+                        return JobApplication(
+                            id:
+                                interview.id,
+                            company:
+                                interview.company_name,
+                            level:
+                                interview.job_seniority,
+                            role:
+                                interview.job_title,
+                            lastInterview:
+                                interview
+                                    .last_interview_date?
+                                    .toDate()?
+                                    .toDayMonthString(),
+                            nextInterview:
+                                convertedDate,
+                            technicalSkills:
+                                interview.skills ?? []
+                        )
+                    }
+
+                print(
+                    """
+                    🎯 RESULTADO FINAL
+
+                    nextJobApplications.count:
+                    \(nextJobApplications.count)
+                    """
+                )
+
             } catch {
-                print("Erro ao buscar repositórios disponíveis: \(error.localizedDescription)")
+                print(
+                    """
+                    ❌ ERRO NO /interviews/next/
+
+                    \(error)
+
+                    \(error.localizedDescription)
+                    """
+                )
             }
 
-            // Após todas as tentativas, verifique se há *algum* dado carregado.
-            // Se todas falharem, o viewState pode ser .error, caso contrário, .loaded.
-            if articles.isEmpty && jobApplications.isEmpty && nextJobApplications.isEmpty && githubJobListing.isEmpty && availableJobs.isEmpty {
-                self.viewState = .error
+            // MARK: - GitHub Jobs
+
+            do {
+                githubJobListing =
+                    try await jobService
+                        .fetchJobListings(
+                            repository:
+                                repository
+                        )
+
+            } catch {
+                print(
+                    """
+                    ❌ Erro ao buscar vagas do GitHub:
+                    \(error.localizedDescription)
+                    """
+                )
+            }
+
+            // MARK: - Repositories
+
+            do {
+                availableJobs =
+                    try await jobService
+                        .fetchAvailableRepositories()
+
+            } catch {
+                print(
+                    """
+                    ❌ Erro ao buscar repositórios:
+                    \(error.localizedDescription)
+                    """
+                )
+            }
+
+            // MARK: - Final State
+
+            print(
+                """
+                🏁 HOME FINALIZADA
+
+                Artigos:
+                \(articles.count)
+
+                Candidaturas:
+                \(jobApplications.count)
+
+                Próximas entrevistas:
+                \(nextJobApplications.count)
+
+                Vagas GitHub:
+                \(githubJobListing.count)
+
+                Repositórios:
+                \(availableJobs.count)
+                """
+            )
+
+            if articles.isEmpty &&
+                jobApplications.isEmpty &&
+                nextJobApplications.isEmpty &&
+                githubJobListing.isEmpty &&
+                availableJobs.isEmpty {
+
+                viewState = .error
+
             } else {
-                self.viewState = .loaded
+                viewState = .loaded
             }
         }
     }
-    
+
     func tryAgain() {
         fetchHome()
     }
-    
+
     func goToDevTo() {
-        if let url = URL(string: "https://dev.to/") {
-            UIApplication.shared.open(url)
+        guard let url = URL(
+            string: "https://dev.to/"
+        ) else {
+            return
         }
+
+        UIApplication.shared.open(
+            url
+        )
     }
 }

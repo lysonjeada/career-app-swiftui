@@ -238,57 +238,196 @@ class JobApplicationService: JobApplicationServiceProtocol {
         notes: String = "",
         skills: [String]
     ) async throws {
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd/MM/yyyy"
-        inputFormatter.locale = Locale(
-            identifier: "pt_BR"
-        )
 
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "yyyy-MM-dd"
-        outputFormatter.locale = Locale(
-            identifier: "en_US_POSIX"
+        print(
+            """
+            🟣 JobApplicationService.addInterview
+
+            📅 Valores recebidos pelo Service:
+            lastInterview: '\(lastInterview)'
+            nextInterview: '\(nextInterview)'
+            """
         )
 
         func formatDate(
-            _ string: String
+            _ value: String,
+            fieldName: String
         ) -> String? {
-            guard !string.isEmpty,
-                  let date = inputFormatter.date(
-                    from: string
-                  )
-            else {
+            let normalizedValue =
+                value.trimmingCharacters(
+                    in: .whitespacesAndNewlines
+                )
+
+            print(
+                """
+                🗓️ Convertendo \(fieldName)
+                Valor recebido:
+                '\(normalizedValue)'
+                """
+            )
+
+            guard !normalizedValue.isEmpty else {
+                print(
+                    """
+                    ⚠️ \(fieldName) está vazio.
+                    Será enviado como nil.
+                    """
+                )
+
                 return nil
             }
 
-            return outputFormatter.string(
-                from: date
+            let acceptedFormats = [
+                "dd/MM/yyyy",
+                "yyyy-MM-dd"
+            ]
+
+            for format in acceptedFormats {
+                let inputFormatter =
+                    DateFormatter()
+
+                inputFormatter.locale =
+                    Locale(
+                        identifier: "en_US_POSIX"
+                    )
+
+                inputFormatter.calendar =
+                    Calendar(
+                        identifier: .gregorian
+                    )
+
+                inputFormatter.timeZone =
+                    TimeZone(
+                        secondsFromGMT: 0
+                    )
+
+                inputFormatter.dateFormat =
+                    format
+
+                inputFormatter.isLenient =
+                    false
+
+                guard let date =
+                        inputFormatter.date(
+                            from: normalizedValue
+                        )
+                else {
+                    continue
+                }
+
+                let outputFormatter =
+                    DateFormatter()
+
+                outputFormatter.locale =
+                    Locale(
+                        identifier: "en_US_POSIX"
+                    )
+
+                outputFormatter.calendar =
+                    Calendar(
+                        identifier: .gregorian
+                    )
+
+                outputFormatter.timeZone =
+                    TimeZone(
+                        secondsFromGMT: 0
+                    )
+
+                outputFormatter.dateFormat =
+                    "yyyy-MM-dd"
+
+                let formattedDate =
+                    outputFormatter.string(
+                        from: date
+                    )
+
+                print(
+                    """
+                    ✅ \(fieldName) convertido
+
+                    Entrada:
+                    \(normalizedValue)
+
+                    Formato reconhecido:
+                    \(format)
+
+                    Resultado:
+                    \(formattedDate)
+                    """
+                )
+
+                return formattedDate
+            }
+
+            print(
+                """
+                ❌ Não foi possível converter \(fieldName)
+
+                Valor:
+                '\(normalizedValue)'
+
+                Formatos esperados:
+                dd/MM/yyyy
+                yyyy-MM-dd
+                """
             )
+
+            return nil
         }
+
+        let formattedLastInterview =
+            formatDate(
+                lastInterview,
+                fieldName:
+                    "last_interview_date"
+            )
+
+        let formattedNextInterview =
+            formatDate(
+                nextInterview,
+                fieldName:
+                    "next_interview_date"
+            )
+
+        print(
+            """
+            📅 Resultado final das datas
+
+            last_interview_date:
+            \(formattedLastInterview ?? "NIL")
+
+            next_interview_date:
+            \(formattedNextInterview ?? "NIL")
+            """
+        )
 
         // MARK: - Request body
 
-        let requestBody = InterviewRequest(
-            company_name: companyName,
-            job_title: jobTitle,
-            job_seniority: jobSeniority,
-            last_interview_date:
-                formatDate(lastInterview),
-            next_interview_date:
-                formatDate(nextInterview),
-            location:
-                location.isEmpty
-                ? nil
-                : location,
-            notes:
-                notes.isEmpty
-                ? nil
-                : notes,
-            skills:
-                skills.isEmpty
-                ? nil
-                : skills
-        )
+        let requestBody =
+            InterviewRequest(
+                company_name:
+                    companyName,
+                job_title:
+                    jobTitle,
+                job_seniority:
+                    jobSeniority,
+                last_interview_date:
+                    formattedLastInterview,
+                next_interview_date:
+                    formattedNextInterview,
+                location:
+                    location.isEmpty
+                    ? nil
+                    : location,
+                notes:
+                    notes.isEmpty
+                    ? nil
+                    : notes,
+                skills:
+                    skills.isEmpty
+                    ? nil
+                    : skills
+            )
 
         // MARK: - URL
 
@@ -304,10 +443,19 @@ class JobApplicationService: JobApplicationServiceProtocol {
         let requestData: Data
 
         do {
-            requestData = try JSONEncoder().encode(
-                requestBody
-            )
+            requestData =
+                try JSONEncoder().encode(
+                    requestBody
+                )
+
         } catch {
+            print(
+                """
+                ❌ Erro ao codificar InterviewRequest:
+                \(error)
+                """
+            )
+
             throw APIError.unknownError(
                 error
             )
@@ -318,17 +466,21 @@ class JobApplicationService: JobApplicationServiceProtocol {
             encoding: .utf8
         ) {
             print(
-                "📤 Corpo da requisição JSON:"
+                """
+                📤 Corpo FINAL da requisição POST:
+
+                \(jsonString)
+                """
             )
-            print(jsonString)
         }
 
         // MARK: - Authorized request
 
-        var request = try authorizedRequest(
-            url: url,
-            method: "POST"
-        )
+        var request =
+            try authorizedRequest(
+                url: url,
+                method: "POST"
+            )
 
         request.setValue(
             "application/json",
@@ -336,7 +488,31 @@ class JobApplicationService: JobApplicationServiceProtocol {
                 "Content-Type"
         )
 
-        request.httpBody = requestData
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField:
+                "Accept"
+        )
+
+        request.httpBody =
+            requestData
+
+        print(
+            """
+            🌐 POST:
+            \(url.absoluteString)
+            """
+        )
+
+        print(
+            """
+            🔐 Authorization presente:
+            \(request.value(
+                forHTTPHeaderField:
+                    "Authorization"
+            ) != nil)
+            """
+        )
 
         // MARK: - Request
 
@@ -350,7 +526,15 @@ class JobApplicationService: JobApplicationServiceProtocol {
             ) = try await URLSession.shared.data(
                 for: request
             )
+
         } catch {
+            print(
+                """
+                ❌ Erro de rede no POST:
+                \(error)
+                """
+            )
+
             throw APIError.unknownError(
                 error
             )
@@ -366,14 +550,29 @@ class JobApplicationService: JobApplicationServiceProtocol {
 
         print(
             """
-            ✅ Código de resposta (POST): \(httpResponse.statusCode)
+            ✅ Código de resposta (POST):
+            \(httpResponse.statusCode)
             """
         )
+
+        if let rawResponse = String(
+            data: responseData,
+            encoding: .utf8
+        ) {
+            print(
+                """
+                📦 Resposta bruta do POST:
+
+                \(rawResponse)
+                """
+            )
+        }
 
         // MARK: - Handle errors
 
         guard
-            200..<300 ~= httpResponse.statusCode
+            200..<300 ~=
+                httpResponse.statusCode
         else {
             let errorMessage:
                 String?
@@ -388,7 +587,8 @@ class JobApplicationService: JobApplicationServiceProtocol {
                     jsonError["detail"]
                         as? String {
 
-                    errorMessage = detail
+                    errorMessage =
+                        detail
 
                 } else if let details =
                             jsonError["detail"]
@@ -399,21 +599,36 @@ class JobApplicationService: JobApplicationServiceProtocol {
                             firstDetail["msg"]
                                 as? String {
 
-                    errorMessage = message
+                    errorMessage =
+                        message
 
                 } else {
-                    errorMessage = String(
-                        data: responseData,
-                        encoding: .utf8
-                    )
+                    errorMessage =
+                        String(
+                            data: responseData,
+                            encoding: .utf8
+                        )
                 }
 
             } else {
-                errorMessage = String(
-                    data: responseData,
-                    encoding: .utf8
-                )
+                errorMessage =
+                    String(
+                        data: responseData,
+                        encoding: .utf8
+                    )
             }
+
+            print(
+                """
+                ❌ Erro retornado pelo POST
+
+                Status:
+                \(httpResponse.statusCode)
+
+                Mensagem:
+                \(errorMessage ?? "SEM MENSAGEM")
+                """
+            )
 
             if (
                 400..<500
@@ -448,18 +663,9 @@ class JobApplicationService: JobApplicationServiceProtocol {
             )
         }
 
-        // MARK: - Success
-
-        if let responseBody = String(
-            data: responseData,
-            encoding: .utf8
-        ) {
-            print(
-                "📥 Resposta do servidor:"
-            )
-
-            print(responseBody)
-        }
+        print(
+            "🏁 Entrevista criada com sucesso."
+        )
     }
 }
 // MARK: - JobApplicationService (Refatorado)

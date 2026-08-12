@@ -119,8 +119,20 @@ class JobApplicationTrackerListViewModel: ObservableObject {
         print(
             """
             🟡 addInterview foi chamado
+
             Empresa: \(companyName)
             Cargo: \(jobTitle)
+            Senioridade: \(jobSeniority)
+
+            📅 Datas recebidas pela ViewModel
+            lastInterview: '\(lastInterview)'
+            nextInterview: '\(nextInterview)'
+
+            📍 Localização:
+            '\(location)'
+
+            🧠 Skills:
+            \(skills)
             """
         )
 
@@ -156,10 +168,9 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                 fetchJobApplications()
 
                 showSuccessSnackBar(
-                    message:
-                        """
-                        Candidatura adicionada com sucesso!
-                        """
+                    message: """
+                    Candidatura adicionada com sucesso!
+                    """
                 )
 
                 viewState = .loaded
@@ -176,21 +187,16 @@ class JobApplicationTrackerListViewModel: ObservableObject {
                     """
                     ❌ Erro no addInterview:
                     \(error)
-                    """
-                )
 
-                print(
-                    """
                     ❌ Localized description:
                     \(error.localizedDescription)
                     """
                 )
 
                 showErrorSnackBar(
-                    message:
-                        """
-                        Não foi possível adicionar a candidatura.
-                        """
+                    message: """
+                    Não foi possível adicionar a candidatura.
+                    """
                 )
 
                 viewState = .loaded
