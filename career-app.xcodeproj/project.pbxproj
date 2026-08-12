@@ -88,6 +88,8 @@
 		70819E112E0373E8007815BE /* GenerateQuestionsAnswersSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */; };
 		7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */; };
 		708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */; };
+		7084D2F8302BD207009F5DB9 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D2F7302BD204009F5DB9 /* AuthSession.swift */; };
+		7084D2FA302BDCA2009F5DB9 /* AuthenticationUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */; };
 		70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C832D77BCF000C5B709 /* CareerAppModule.swift */; };
 		70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */; };
 		70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C892D77C00700C5B709 /* Coordinator.swift */; };
@@ -107,11 +109,6 @@
 		70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC02232D9467810069A179 /* CoordinatorView.swift */; };
 		70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */; };
 		70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9372D35E6B400984CF7 /* DateInputField.swift */; };
-		70CE69C42FBE78F2006C7846 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */; };
-		70CE69C52FBE78F2006C7846 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		70CE69C62FBE78F2006C7846 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95342D9F4BCA00C5EF1D /* FirebaseAuth */; };
-		70CE69C72FBE78F2006C7846 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */; };
-		70CE69C82FBE78F2006C7846 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 702E95382D9F4F7500C5EF1D /* FirebaseCore */; };
 		70CE6A4E30100120006C7846 /* InterviewSimulationQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A4D30100119006C7846 /* InterviewSimulationQuestion.swift */; };
 		70CE6A503010013C006C7846 /* InterviewSimulationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A4F3010013B006C7846 /* InterviewSimulationService.swift */; };
 		70CE6A523010016A006C7846 /* InterviewSimulationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE6A5130100169006C7846 /* InterviewSimulationViewModel.swift */; };
@@ -168,6 +165,7 @@
 		70E5D5BA3023C86D00BC0103 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5B93023C86C00BC0103 /* EmailVerificationView.swift */; };
 		70E5D5BC3023C87700BC0103 /* EmailVerificationView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */; };
 		70E5D5BE3023CB2000BC0103 /* AuthenticationRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */; };
+		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +203,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsService.swift; sourceTree = "<group>"; };
 		241917C52C6AE804004147DF /* career-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "career-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		241917C82C6AE804004147DF /* career_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appApp.swift; sourceTree = "<group>"; };
 		241917CA2C6AE804004147DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -283,6 +282,8 @@
 		70819E102E0373E7007815BE /* GenerateQuestionsAnswersSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsAnswersSheet.swift; sourceTree = "<group>"; };
 		7083270C2E0AFCD90054404D /* EditJobApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJobApplicationView.swift; sourceTree = "<group>"; };
 		708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewGenerateQuestionsViewModel.swift; sourceTree = "<group>"; };
+		7084D2F7302BD204009F5DB9 /* AuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
+		7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserResponse.swift; sourceTree = "<group>"; };
 		70A76C832D77BCF000C5B709 /* CareerAppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAppModule.swift; sourceTree = "<group>"; };
 		70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		70A76C892D77C00700C5B709 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -383,11 +384,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70CE69C82FBE78F2006C7846 /* FirebaseCore in Frameworks */,
-				70CE69C72FBE78F2006C7846 /* FirebaseCrashlytics in Frameworks */,
-				70CE69C62FBE78F2006C7846 /* FirebaseAuth in Frameworks */,
-				70CE69C52FBE78F2006C7846 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				70CE69C42FBE78F2006C7846 /* FirebaseAnalytics in Frameworks */,
 				243CF7B12CCD9C1900685B91 /* Testing.framework in Frameworks */,
 				240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */,
 			);
@@ -495,6 +491,7 @@
 		244DDABF2C7B981A007FB768 /* GenerateQuestions */ = {
 			isa = PBXGroup;
 			children = (
+				3B7043909B1520B70230202C /* Service */,
 				70819E0F2E0373C2007815BE /* Sheet */,
 				70D288572D247FA6004E9033 /* View */,
 				70D288562D247F93004E9033 /* ViewModel */,
@@ -529,6 +526,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3B7043909B1520B70230202C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		70056D562E2C1143006EA1A1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +545,8 @@
 		70056D652E2C21AE006EA1A1 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */,
+				7084D2F7302BD204009F5DB9 /* AuthSession.swift */,
 				70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */,
 				70E5D5B23023C83E00BC0103 /* EmailVerification */,
 				70BC021C2D862E910069A179 /* Login */,
@@ -925,11 +932,6 @@
 			);
 			name = "Career App Unit Tests";
 			packageProductDependencies = (
-				243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */,
-				243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */,
-				702E95342D9F4BCA00C5EF1D /* FirebaseAuth */,
-				702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */,
-				702E95382D9F4F7500C5EF1D /* FirebaseCore */,
 			);
 			productName = "Career App Unit Tests";
 			productReference = 243BFFC32CCB34B200D7CF6B /* Career App Unit Tests.xctest */;
@@ -1011,6 +1013,7 @@
 				70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */,
 				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
+				FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */,
 				7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */,
 				70E5D58A3012385500BC0103 /* ResumeFeedbackIcon.swift in Sources */,
 				70CE6A5830100232006C7846 /* InterviewSimulationFlowView.swift in Sources */,
@@ -1087,6 +1090,7 @@
 				249240622CC86F3C0081E887 /* Color.swift in Sources */,
 				70056D622E2C2098006EA1A1 /* LoginViewModel.swift in Sources */,
 				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
+				7084D2FA302BDCA2009F5DB9 /* AuthenticationUserResponse.swift in Sources */,
 				70056D552E2BDE0E006EA1A1 /* Loadable.swift in Sources */,
 				701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */,
 				70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */,
@@ -1120,6 +1124,7 @@
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
 				70E5D5A7301CFFA000BC0103 /* DashboardSummaryGrid.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
+				7084D2F8302BD207009F5DB9 /* AuthSession.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
 				70E5D599301CFEF400BC0103 /* ProgressDashboardModels.swift in Sources */,
 				70E5D5A5301CFF8B00BC0103 /* ProgressDashboardComponents.swift in Sources */,
@@ -1449,16 +1454,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		243B00012CCBC7DA00D7CF6B /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		243B00052CCBC7DA00D7CF6B /* FirebaseAnalyticsWithoutAdIdSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
 		24D89C492C8175DC00995945 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -1468,21 +1463,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
-		702E95342D9F4BCA00C5EF1D /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		702E95362D9F4F6C00C5EF1D /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		702E95382D9F4F7500C5EF1D /* FirebaseCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D89C482C8175DC00995945 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCore;
 		};
 		702E953A2D9F4FA200C5EF1D /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;

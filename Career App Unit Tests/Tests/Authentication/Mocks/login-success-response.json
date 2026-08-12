@@ -1,0 +1,11 @@
+{
+  "id": "123E4567-E89B-12D3-A456-426614174000",
+  "email": "usuario.teste@email.com",
+  "username": "usuario_teste",
+  "isActive": true,
+  "isEmailVerified": true,
+  "createdAt": "2026-01-10T10:00:00Z",
+  "updatedAt": "2026-01-10T10:00:00Z",
+  "accessToken": "token-de-teste",
+  "tokenType": "bearer"
+}

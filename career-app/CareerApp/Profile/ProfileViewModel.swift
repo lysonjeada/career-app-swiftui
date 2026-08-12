@@ -25,8 +25,7 @@ final class ProfileViewModel:
     @Published var username = ""
     @Published var email = ""
 
-    @Published var loggedInUser:
-        AuthenticationLoginResponse?
+    @Published var loggedInUser: AuthenticationUserResponse?
 
     @Published private(set)
     var isDeletingUser = false

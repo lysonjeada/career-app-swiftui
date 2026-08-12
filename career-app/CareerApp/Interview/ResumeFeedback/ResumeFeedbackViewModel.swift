@@ -27,8 +27,14 @@ final class ResumeFeedbackViewModel: ObservableObject {
 
     private var task: Task<Void, Never>?
     private var pollingTimer: Timer?
-    
+
     private(set) var response: ResumeFeedbackResponse?
+
+    private let service: InterviewServiceProtocol
+
+    init(service: InterviewServiceProtocol = InterviewService.shared) {
+        self.service = service
+    }
 
     @MainActor
     func submitResumeFeedback(resumeURL: URL) {
@@ -40,7 +46,7 @@ final class ResumeFeedbackViewModel: ObservableObject {
 
         task = Task {
             do {
-                let feedbackResponse = try await InterviewService.shared.fetchResumeFeedback(resumeURL: resumeURL)
+                let feedbackResponse = try await service.fetchResumeFeedback(resumeURL: resumeURL)
                 viewState = .polling
                 self.response = feedbackResponse
                 viewState = .loaded
@@ -61,9 +67,9 @@ final class ResumeFeedbackViewModel: ObservableObject {
 
             Task {
                 do {
-                    let isReady = try await InterviewService.shared.checkFeedbackStatus(taskID: taskID)
+                    let isReady = try await self.service.checkFeedbackStatus(taskID: taskID)
                     if isReady {
-                        let feedback = try await InterviewService.shared.fetchFeedbackResult(taskID: taskID)
+                        let feedback = try await self.service.fetchFeedbackResult(taskID: taskID)
                         await MainActor.run {
                             self.feedbackText = feedback
                             self.viewState = .loaded

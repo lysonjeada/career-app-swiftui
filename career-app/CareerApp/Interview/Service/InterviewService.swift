@@ -11,7 +11,14 @@ struct ResumeFeedbackResponse: Codable {
     let feedback: String
 }
 
-final class InterviewService {
+protocol InterviewServiceProtocol {
+    func fetchResumeFeedback(resumeURL: URL) async throws -> ResumeFeedbackResponse
+    func submitFeedbackAndGetTaskID(resumeURL: URL) async throws -> String
+    func checkFeedbackStatus(taskID: String) async throws -> Bool
+    func fetchFeedbackResult(taskID: String) async throws -> String
+}
+
+final class InterviewService: InterviewServiceProtocol {
     static let shared = InterviewService()
     private init() {}
 

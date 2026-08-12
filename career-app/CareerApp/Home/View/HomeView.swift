@@ -103,7 +103,7 @@ struct HomeView: View {
                         }
                     },
                                            actionTitle: "Fazer login",
-                                           actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
+                                           actionDescription: "Faça o login para cadastrar\ne consultar entrevistas", isNextInterview: true)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
@@ -144,7 +144,7 @@ struct HomeView: View {
                     }
                 },
                                        actionTitle: "Fazer login",
-                                       actionDescription: "Faça o login para cadastrar\ne consultar entrevistas")
+                                       actionDescription: "Faça o login para cadastrar\ne consultar entrevistas", isNextInterview: false)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
