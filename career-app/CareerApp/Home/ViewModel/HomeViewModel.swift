@@ -392,3 +392,42 @@ final class HomeViewModel:
         )
     }
 }
+
+extension String {
+    func toDate() -> Date? {
+        let formatter = DateFormatter()
+
+        formatter.calendar = Calendar(
+            identifier: .gregorian
+        )
+
+        formatter.locale = Locale(
+            identifier: "en_US_POSIX"
+        )
+
+        formatter.timeZone = TimeZone(
+            secondsFromGMT: 0
+        )
+
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.isLenient = false
+
+        let date = formatter.date(
+            from: self
+        )
+
+        print(
+            """
+            📅 String → Date
+
+            String:
+            \(self)
+
+            Date:
+            \(date?.description ?? "NIL")
+            """
+        )
+
+        return date
+    }
+}
