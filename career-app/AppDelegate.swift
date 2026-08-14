@@ -27,6 +27,8 @@ class DeepLinkManager: ObservableObject {
             title = "Tracker"
         case .menu:
             title = "Menu"
+        case .tutors:
+            title = "Tutores"
         }
     }
     
@@ -62,6 +64,7 @@ class DeepLinkManager: ObservableObject {
         case interview
         case tracker
         case menu
+        case tutors
     }
     
     //class AppDelegate: UIResponder, UIApplicationDelegate {

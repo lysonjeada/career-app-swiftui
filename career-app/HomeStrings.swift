@@ -12,6 +12,7 @@ class HomeStrings {
     static let interviewTitle = localized("interviewTitle")
     static let menuTitle = localized("menuTitle")
     static let resumeTitle = localized("resumeTitle")
+    static let tutorsTitle = localized("tutorsTitle")
     
     private static func localized(_ key: String) -> String {
         return NSLocalizedString(key, tableName: "HomeStrings", bundle: .main, value: "", comment: "")

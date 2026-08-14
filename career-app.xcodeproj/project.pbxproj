@@ -90,6 +90,28 @@
 		708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */; };
 		7084D2F8302BD207009F5DB9 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D2F7302BD204009F5DB9 /* AuthSession.swift */; };
 		7084D2FA302BDCA2009F5DB9 /* AuthenticationUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */; };
+		7084D3E9302D050D009F5DB9 /* TutorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3E8302D0509009F5DB9 /* TutorsView.swift */; };
+		7084D3EB302D0C74009F5DB9 /* Tutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3EA302D0C73009F5DB9 /* Tutor.swift */; };
+		7084D3ED302D0C9C009F5DB9 /* TutorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3EC302D0C99009F5DB9 /* TutorService.swift */; };
+		7084D3EF302D0CB4009F5DB9 /* TutorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3EE302D0CAF009F5DB9 /* TutorsViewModel.swift */; };
+		7084D3F1302D0CCA009F5DB9 /* TutorCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3F0302D0CC7009F5DB9 /* TutorCard.swift */; };
+		7084D3F3302D0CFC009F5DB9 /* TutorDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3F2302D0CF3009F5DB9 /* TutorDetailViewModel.swift */; };
+		7084D3F5302D0D0B009F5DB9 /* TutorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3F4302D0D06009F5DB9 /* TutorDetailView.swift */; };
+		7084D3F7302D0D92009F5DB9 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3F6302D0D8F009F5DB9 /* FlowLayout.swift */; };
+		7084D3F9302D11E4009F5DB9 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3F8302D11E0009F5DB9 /* KeychainStore.swift */; };
+		7084D3FD302D1256009F5DB9 /* RefreshTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3FC302D124B009F5DB9 /* RefreshTokenRequest.swift */; };
+		7084D3FF302D1296009F5DB9 /* AuthenticatedHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D3FE302D1295009F5DB9 /* AuthenticatedHTTPClient.swift */; };
+		7084D402302F8CFE009F5DB9 /* TechVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D401302F8CF9009F5DB9 /* TechVideo.swift */; };
+		7084D404302F8D13009F5DB9 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D403302F8D10009F5DB9 /* VideoService.swift */; };
+		7084D406302F8D2C009F5DB9 /* MultipartFileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D405302F8D27009F5DB9 /* MultipartFileBuilder.swift */; };
+		7084D408302F8D8D009F5DB9 /* VideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D407302F8D8A009F5DB9 /* VideosViewModel.swift */; };
+		7084D40A302F8DA4009F5DB9 /* VideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D409302F8DA1009F5DB9 /* VideosView.swift */; };
+		7084D40C302F8DB0009F5DB9 /* VideoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40B302F8DAE009F5DB9 /* VideoRow.swift */; };
+		7084D40E302F8DC1009F5DB9 /* PickedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */; };
+		7084D410302F8DD1009F5DB9 /* UploadVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */; };
+		7084D412302F8DEB009F5DB9 /* UploadVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */; };
+		7084D414302F8DF9009F5DB9 /* VideoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D413302F8DF5009F5DB9 /* VideoDetailView.swift */; };
+		7084D416302F8E92009F5DB9 /* HomeVideosCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D415302F8E8E009F5DB9 /* HomeVideosCarousel.swift */; };
 		70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C832D77BCF000C5B709 /* CareerAppModule.swift */; };
 		70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */; };
 		70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C892D77C00700C5B709 /* Coordinator.swift */; };
@@ -284,6 +306,28 @@
 		708329632E0B5E340054404D /* InterviewGenerateQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewGenerateQuestionsViewModel.swift; sourceTree = "<group>"; };
 		7084D2F7302BD204009F5DB9 /* AuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
 		7084D2F9302BDCA0009F5DB9 /* AuthenticationUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUserResponse.swift; sourceTree = "<group>"; };
+		7084D3E8302D0509009F5DB9 /* TutorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorsView.swift; sourceTree = "<group>"; };
+		7084D3EA302D0C73009F5DB9 /* Tutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutor.swift; sourceTree = "<group>"; };
+		7084D3EC302D0C99009F5DB9 /* TutorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorService.swift; sourceTree = "<group>"; };
+		7084D3EE302D0CAF009F5DB9 /* TutorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorsViewModel.swift; sourceTree = "<group>"; };
+		7084D3F0302D0CC7009F5DB9 /* TutorCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorCard.swift; sourceTree = "<group>"; };
+		7084D3F2302D0CF3009F5DB9 /* TutorDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorDetailViewModel.swift; sourceTree = "<group>"; };
+		7084D3F4302D0D06009F5DB9 /* TutorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorDetailView.swift; sourceTree = "<group>"; };
+		7084D3F6302D0D8F009F5DB9 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		7084D3F8302D11E0009F5DB9 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		7084D3FC302D124B009F5DB9 /* RefreshTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequest.swift; sourceTree = "<group>"; };
+		7084D3FE302D1295009F5DB9 /* AuthenticatedHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedHTTPClient.swift; sourceTree = "<group>"; };
+		7084D401302F8CF9009F5DB9 /* TechVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechVideo.swift; sourceTree = "<group>"; };
+		7084D403302F8D10009F5DB9 /* VideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
+		7084D405302F8D27009F5DB9 /* MultipartFileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFileBuilder.swift; sourceTree = "<group>"; };
+		7084D407302F8D8A009F5DB9 /* VideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosViewModel.swift; sourceTree = "<group>"; };
+		7084D409302F8DA1009F5DB9 /* VideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosView.swift; sourceTree = "<group>"; };
+		7084D40B302F8DAE009F5DB9 /* VideoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRow.swift; sourceTree = "<group>"; };
+		7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedMovie.swift; sourceTree = "<group>"; };
+		7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoViewModel.swift; sourceTree = "<group>"; };
+		7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoView.swift; sourceTree = "<group>"; };
+		7084D413302F8DF5009F5DB9 /* VideoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailView.swift; sourceTree = "<group>"; };
+		7084D415302F8E8E009F5DB9 /* HomeVideosCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideosCarousel.swift; sourceTree = "<group>"; };
 		70A76C832D77BCF000C5B709 /* CareerAppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAppModule.swift; sourceTree = "<group>"; };
 		70A76C862D77BF2D00C5B709 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		70A76C892D77C00700C5B709 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -648,9 +692,62 @@
 			path = Sheet;
 			sourceTree = "<group>";
 		};
+		7084D3E7302D04FD009F5DB9 /* Tutors */ = {
+			isa = PBXGroup;
+			children = (
+				7084D3F4302D0D06009F5DB9 /* TutorDetailView.swift */,
+				7084D3F2302D0CF3009F5DB9 /* TutorDetailViewModel.swift */,
+				7084D3F0302D0CC7009F5DB9 /* TutorCard.swift */,
+				7084D3EE302D0CAF009F5DB9 /* TutorsViewModel.swift */,
+				7084D3EC302D0C99009F5DB9 /* TutorService.swift */,
+				7084D3EA302D0C73009F5DB9 /* Tutor.swift */,
+				7084D3E8302D0509009F5DB9 /* TutorsView.swift */,
+			);
+			path = Tutors;
+			sourceTree = "<group>";
+		};
+		7084D3FA302D1221009F5DB9 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				7084D3F8302D11E0009F5DB9 /* KeychainStore.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		7084D3FB302D1239009F5DB9 /* RefreshToken */ = {
+			isa = PBXGroup;
+			children = (
+				7084D3FE302D1295009F5DB9 /* AuthenticatedHTTPClient.swift */,
+				7084D3FC302D124B009F5DB9 /* RefreshTokenRequest.swift */,
+			);
+			path = RefreshToken;
+			sourceTree = "<group>";
+		};
+		7084D400302F8CF1009F5DB9 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				7084D415302F8E8E009F5DB9 /* HomeVideosCarousel.swift */,
+				7084D413302F8DF5009F5DB9 /* VideoDetailView.swift */,
+				7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */,
+				7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */,
+				7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */,
+				7084D40B302F8DAE009F5DB9 /* VideoRow.swift */,
+				7084D409302F8DA1009F5DB9 /* VideosView.swift */,
+				7084D407302F8D8A009F5DB9 /* VideosViewModel.swift */,
+				7084D405302F8D27009F5DB9 /* MultipartFileBuilder.swift */,
+				7084D403302F8D10009F5DB9 /* VideoService.swift */,
+				7084D401302F8CF9009F5DB9 /* TechVideo.swift */,
+			);
+			path = Videos;
+			sourceTree = "<group>";
+		};
 		70A76C822D77BCDE00C5B709 /* CareerApp */ = {
 			isa = PBXGroup;
 			children = (
+				7084D400302F8CF1009F5DB9 /* Videos */,
+				7084D3FB302D1239009F5DB9 /* RefreshToken */,
+				7084D3FA302D1221009F5DB9 /* Keychain */,
+				7084D3E7302D04FD009F5DB9 /* Tutors */,
 				70E5D597301CFEE200BC0103 /* ProgressDashboard */,
 				70E5D572301163FA00BC0103 /* StudyPlan */,
 				70CE6A4C3010010C006C7846 /* InterviewSimulation */,
@@ -826,6 +923,7 @@
 		70D288582D24FC73004E9033 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7084D3F6302D0D8F009F5DB9 /* FlowLayout.swift */,
 				70056D542E2BDE0B006EA1A1 /* Loadable.swift */,
 				249240602CC86F2C0081E887 /* Extensions */,
 				70D288592D24FC7B004E9033 /* KeyboardObserver.swift */,
@@ -1011,16 +1109,21 @@
 				70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */,
 				70BC02222D9464980069A179 /* MainView.swift in Sources */,
 				70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */,
+				7084D410302F8DD1009F5DB9 /* UploadVideoViewModel.swift in Sources */,
 				70566B312E0F089E00ED701F /* InterviewAssistantView.swift in Sources */,
 				70D288512D246ACB004E9033 /* GenerateQuestionsViewModel.swift in Sources */,
 				FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */,
 				7020A2F92E2B10E8002F6AF1 /* JobApplicationRequest.swift in Sources */,
+				7084D3F5302D0D0B009F5DB9 /* TutorDetailView.swift in Sources */,
 				70E5D58A3012385500BC0103 /* ResumeFeedbackIcon.swift in Sources */,
+				7084D402302F8CFE009F5DB9 /* TechVideo.swift in Sources */,
 				70CE6A5830100232006C7846 /* InterviewSimulationFlowView.swift in Sources */,
 				70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */,
 				702E95302D984F2100C5EF1D /* LoadingView.swift in Sources */,
 				703CD7E32E13305D00778C76 /* AuthTextField.swift in Sources */,
+				7084D406302F8D2C009F5DB9 /* MultipartFileBuilder.swift in Sources */,
 				70CE6A60301002E6006C7846 /* InterviewSimulationResultView.swift in Sources */,
+				7084D40A302F8DA4009F5DB9 /* VideosView.swift in Sources */,
 				70E5D5B1301D003300BC0103 /* ProgressDashboardView+Preview.swift in Sources */,
 				70CE6A5E30100295006C7846 /* InterviewSimulationComponents.swift in Sources */,
 				70819E0A2E034B27007815BE /* APIService.swift in Sources */,
@@ -1028,13 +1131,16 @@
 				70CE6A523010016A006C7846 /* InterviewSimulationViewModel.swift in Sources */,
 				70819E082E034AD3007815BE /* APIConstants.swift in Sources */,
 				70E5D5BE3023CB2000BC0103 /* AuthenticationRegisterResponse.swift in Sources */,
+				7084D3F3302D0CFC009F5DB9 /* TutorDetailViewModel.swift in Sources */,
 				70D2884F2D2465B7004E9033 /* Indicator.swift in Sources */,
 				70A76C872D77BF3100C5B709 /* HomeCoordinator.swift in Sources */,
 				70056D5A2E2C1184006EA1A1 /* AuthenticationSignUpService.swift in Sources */,
 				70A86B9D2E12DB920006721C /* EditJobApplicationViewModel.swift in Sources */,
 				70056D5E2E2C15DB006EA1A1 /* SnackbarView.swift in Sources */,
+				7084D408302F8D8D009F5DB9 /* VideosViewModel.swift in Sources */,
 				70E5D5B43023C85600BC0103 /* EmailVerificationModels.swift in Sources */,
 				706886302E380AD300C4735F /* FeedbackSheetView.swift in Sources */,
+				7084D414302F8DF9009F5DB9 /* VideoDetailView.swift in Sources */,
 				70566B362E0F0E0300ED701F /* ResumeFeedbackViewModel.swift in Sources */,
 				70819E0E2E036EB8007815BE /* Question.swift in Sources */,
 				703CD7E92E1498FD00778C76 /* JobHorizontalList.swift in Sources */,
@@ -1047,6 +1153,7 @@
 				70E5D5AD301CFFEC00BC0103 /* ActiveCompaniesCard.swift in Sources */,
 				70CE6A4E30100120006C7846 /* InterviewSimulationQuestion.swift in Sources */,
 				701CBC172D3F0F76003F6F86 /* MyEqualHeightHStack.swift in Sources */,
+				7084D3F7302D0D92009F5DB9 /* FlowLayout.swift in Sources */,
 				70E5D59F301CFF3600BC0103 /* ProgressDashboardSection.swift in Sources */,
 				708329642E0B5E350054404D /* InterviewGenerateQuestionsViewModel.swift in Sources */,
 				70D2885A2D24FC83004E9033 /* KeyboardObserver.swift in Sources */,
@@ -1067,6 +1174,7 @@
 				70E5D5843011652A00BC0103 /* StudyPlanResultView.swift in Sources */,
 				70A76C942D7A8C3800C5B709 /* ArticleDetailViewModel.swift in Sources */,
 				7083270D2E0AFCDF0054404D /* EditJobApplicationView.swift in Sources */,
+				7084D412302F8DEB009F5DB9 /* UploadVideoView.swift in Sources */,
 				70E5D5BC3023C87700BC0103 /* EmailVerificationView+Preview.swift in Sources */,
 				7016E7AD2D73A0FB00300611 /* SceneDelegate.swift in Sources */,
 				70E5D5763011642700BC0103 /* StudyPlanService.swift in Sources */,
@@ -1080,6 +1188,7 @@
 				701CBC1F2D41B423003F6F86 /* ProfileNotesView.swift in Sources */,
 				24923F9D2CBF4F870081E887 /* HomeStrings.swift in Sources */,
 				703A75FB2D2B0594006D3086 /* AddJobApplicationForm.swift in Sources */,
+				7084D3EB302D0C74009F5DB9 /* Tutor.swift in Sources */,
 				70E5D5AF301D000400BC0103 /* DashboardSectionCard.swift in Sources */,
 				70A76C922D7A8C2A00C5B709 /* ArticleDetailView.swift in Sources */,
 				7020A2FB2E2B1105002F6AF1 /* GitHubJobListing.swift in Sources */,
@@ -1091,6 +1200,7 @@
 				70056D622E2C2098006EA1A1 /* LoginViewModel.swift in Sources */,
 				707F00CD2E22D6EC0086E2B6 /* EmptyInterviewListView.swift in Sources */,
 				7084D2FA302BDCA2009F5DB9 /* AuthenticationUserResponse.swift in Sources */,
+				7084D3F1302D0CCA009F5DB9 /* TutorCard.swift in Sources */,
 				70056D552E2BDE0E006EA1A1 /* Loadable.swift in Sources */,
 				701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */,
 				70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */,
@@ -1102,6 +1212,7 @@
 				70E5D5B63023C85F00BC0103 /* EmailVerificationService.swift in Sources */,
 				24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */,
 				702E952C2D97627900C5EF1D /* TagCloudView.swift in Sources */,
+				7084D3FD302D1256009F5DB9 /* RefreshTokenRequest.swift in Sources */,
 				244DDABD2C7A83AE007FB768 /* ResumeView.swift in Sources */,
 				70E5D5AB301CFFD800BC0103 /* TopSkillsCard.swift in Sources */,
 				70566B392E0F0E4600ED701F /* InterviewService.swift in Sources */,
@@ -1114,19 +1225,24 @@
 				70BC02202D9464470069A179 /* AppCoordinator.swift in Sources */,
 				241CBCE82CCAFB7D00BD0995 /* InterviewQuestionsViewController.swift in Sources */,
 				70E5D5783011645B00BC0103 /* StudyPlanServiceError.swift in Sources */,
+				7084D40E302F8DC1009F5DB9 /* PickedMovie.swift in Sources */,
 				70E5D594301242B300BC0103 /* EvaluationScoreRow.swift in Sources */,
 				244DDABA2C7A72C8007FB768 /* HomeView.swift in Sources */,
 				70056D642E2C217C006EA1A1 /* AuthenticationLoginResponse.swift in Sources */,
+				7084D3FF302D1296009F5DB9 /* AuthenticatedHTTPClient.swift in Sources */,
 				70CE6A5630100211006C7846 /* InterviewSimulationLauncherCard.swift in Sources */,
 				700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */,
 				70566B2F2E0EFE9600ED701F /* ArticlesHorizontalList.swift in Sources */,
+				7084D3F9302D11E4009F5DB9 /* KeychainStore.swift in Sources */,
 				70CE6A5A30100250006C7846 /* InterviewSimulationSetupView.swift in Sources */,
 				70BC021E2D862EA10069A179 /* LoginView.swift in Sources */,
 				70E5D5A7301CFFA000BC0103 /* DashboardSummaryGrid.swift in Sources */,
 				701CBC1B2D3F3F7C003F6F86 /* ProfileView.swift in Sources */,
 				7084D2F8302BD207009F5DB9 /* AuthSession.swift in Sources */,
 				244DDAC12C7B9843007FB768 /* InterviewGenerateQuestionsView.swift in Sources */,
+				7084D3ED302D0C9C009F5DB9 /* TutorService.swift in Sources */,
 				70E5D599301CFEF400BC0103 /* ProgressDashboardModels.swift in Sources */,
+				7084D416302F8E92009F5DB9 /* HomeVideosCarousel.swift in Sources */,
 				70E5D5A5301CFF8B00BC0103 /* ProgressDashboardComponents.swift in Sources */,
 				7068862C2E369C2A00C4735F /* DateFormatter.swift in Sources */,
 				70E5D5823011650800BC0103 /* StudyPlanComponents.swift in Sources */,
@@ -1139,13 +1255,17 @@
 				70819E0C2E036B90007815BE /* TechStepAPI.swift in Sources */,
 				243CF7BF2CD2F27F00685B91 /* FullArticleListView.swift in Sources */,
 				70A76C8F2D7928E400C5B709 /* MenuView.swift in Sources */,
+				7084D40C302F8DB0009F5DB9 /* VideoRow.swift in Sources */,
 				24923FA32CC053920081E887 /* LocalizedStrings.swift in Sources */,
 				70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */,
 				702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */,
+				7084D404302F8D13009F5DB9 /* VideoService.swift in Sources */,
 				703A75F92D2AE94D006D3086 /* ArticleCard.swift in Sources */,
 				70CE6A5C30100269006C7846 /* InterviewSimulationSessionView.swift in Sources */,
 				70B08FCE2E09D7FF002D8FE2 /* CareerApp.xcdatamodeld in Sources */,
 				70E5D58E30123BFC00BC0103 /* StudyPlanResultView+Preview.swift in Sources */,
+				7084D3E9302D050D009F5DB9 /* TutorsView.swift in Sources */,
+				7084D3EF302D0CB4009F5DB9 /* TutorsViewModel.swift in Sources */,
 				70CE6A503010013C006C7846 /* InterviewSimulationService.swift in Sources */,
 				70E5D5923012429700BC0103 /* SaveGeneratedQuestionsCard.swift in Sources */,
 				70056D582E2C1152006EA1A1 /* SignUpViewModel.swift in Sources */,

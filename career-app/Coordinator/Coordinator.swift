@@ -172,6 +172,23 @@ final class Coordinator: ObservableObject {
                     self.pop()
                 }
             )
+        case .videos:
+            VideosView(
+                coordinator: self
+            )
+
+        case .uploadVideo:
+            UploadVideoView(
+                coordinator: self
+            )
+
+        case let .videoDetail(
+            videoId
+        ):
+            VideoDetailView(
+                videoId: videoId,
+                coordinator: self
+            )
         }
     }
     
@@ -206,6 +223,11 @@ enum AppPages: Hashable {
     case signUp
     case forgotPassword
     case emailVerification(email: String)
+    case videos
+    case uploadVideo
+    case videoDetail(
+        videoId: String
+    )
 }
 
 enum Sheet: String, Identifiable {

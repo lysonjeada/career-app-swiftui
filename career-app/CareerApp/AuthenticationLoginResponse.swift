@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct AuthenticationLoginResponse: Decodable {
+struct AuthenticationLoginResponse:
+    Decodable {
     let id: UUID
     let email: String
     let username: String
@@ -16,7 +17,9 @@ struct AuthenticationLoginResponse: Decodable {
     let createdAt: String
     let updatedAt: String
     let accessToken: String
+    let refreshToken: String
     let tokenType: String
+    let expiresIn: Int
 }
 
 struct AuthenticationStringErrorResponse: Decodable {

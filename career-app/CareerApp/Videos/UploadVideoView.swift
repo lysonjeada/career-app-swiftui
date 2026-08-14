@@ -1,0 +1,172 @@
+//
+//  UploadVideoView.swift
+//  career-app
+//
+//  Created by Amaryllis Baldrez on 14/08/26.
+//
+
+import PhotosUI
+import SwiftUI
+
+struct UploadVideoView: View {
+    @StateObject
+    private var viewModel =
+        UploadVideoViewModel()
+
+    @StateObject
+    var coordinator: Coordinator
+
+    @State
+    private var selectedItem:
+        PhotosPickerItem?
+
+    var body: some View {
+        ScrollView {
+            VStack(
+                alignment: .leading,
+                spacing: 20
+            ) {
+                TextField(
+                    "Título",
+                    text:
+                        $viewModel.title
+                )
+                .textFieldStyle(
+                    .roundedBorder
+                )
+
+                TextField(
+                    "Descrição",
+                    text:
+                        $viewModel.description,
+                    axis: .vertical
+                )
+                .lineLimit(
+                    4...8
+                )
+                .textFieldStyle(
+                    .roundedBorder
+                )
+
+                PhotosPicker(
+                    selection:
+                        $selectedItem,
+                    matching:
+                        .videos
+                ) {
+                    Label(
+                        viewModel
+                            .selectedVideoURL
+                        == nil
+                        ? "Selecionar vídeo"
+                        : "Vídeo selecionado",
+                        systemImage:
+                            "video.badge.plus"
+                    )
+                    .frame(
+                        maxWidth:
+                            .infinity
+                    )
+                    .padding()
+                    .background(
+                        Color.persianBlue
+                            .opacity(0.15)
+                    )
+                    .clipShape(
+                        RoundedRectangle(
+                            cornerRadius: 14
+                        )
+                    )
+                }
+
+                if let error =
+                    viewModel.errorMessage {
+
+                    Text(error)
+                        .foregroundStyle(
+                            .red
+                        )
+                }
+
+                Button {
+                    viewModel.upload()
+
+                } label: {
+                    if viewModel
+                        .isUploading {
+
+                        ProgressView()
+                            .tint(.white)
+
+                    } else {
+                        Text(
+                            "Enviar para análise"
+                        )
+                        .bold()
+                    }
+                }
+                .frame(
+                    maxWidth:
+                        .infinity
+                )
+                .padding()
+                .background(
+                    Color.persianBlue
+                )
+                .foregroundStyle(
+                    .white
+                )
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: 14
+                    )
+                )
+                .disabled(
+                    viewModel.isUploading
+                )
+            }
+            .padding()
+        }
+        .navigationTitle(
+            "Novo vídeo"
+        )
+        .onChange(
+            of: selectedItem
+        ) {
+            _,
+            item in
+
+            guard let item
+            else {
+                return
+            }
+
+            Task {
+                if let movie =
+                    try? await item
+                        .loadTransferable(
+                            type:
+                                PickedMovie.self
+                        ) {
+
+                    viewModel.selectVideo(
+                        movie.url
+                    )
+                }
+            }
+        }
+        .onChange(
+            of:
+                viewModel.didUpload
+        ) {
+            _,
+            didUpload in
+
+            guard didUpload else {
+                return
+            }
+
+            coordinator.pop()
+        }
+    }
+}

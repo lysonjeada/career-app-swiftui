@@ -39,6 +39,12 @@ struct ContentView: View {
                         Label(HomeStrings.resumeTitle, systemImage: "book.fill")
                     }
                     .tag(TabSelection.tracker)
+                
+                TutorsView()
+                    .tabItem {
+                        Label(HomeStrings.tutorsTitle, systemImage: "person.circle")
+                    }
+                    .tag(TabSelection.tutors)
 
                 MenuView(coordinator: coordinator)
                     .tabItem {
