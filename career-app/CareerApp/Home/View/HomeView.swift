@@ -35,6 +35,21 @@ struct HomeView: View {
                         showNextInterviews()
                         showArticlesView()
                         showJobApplication()
+                        if !viewModel.videos.isEmpty {
+                            HomeVideosCarousel(
+                                videos:
+                                    viewModel.videos
+                            ) { video in
+
+                                coordinator.push(
+                                    page:
+                                        .videoDetail(
+                                            videoId:
+                                                video.id
+                                        )
+                                )
+                            }
+                        }
                     }
                 }
             case .error:

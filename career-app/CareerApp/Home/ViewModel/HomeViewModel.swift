@@ -51,6 +51,13 @@ final class HomeViewModel:
 
     private let jobService:
         JobApplicationServiceProtocol
+    
+    @Published private(set)
+    var videos: [TechVideo] = []
+
+    private let videoService:
+        VideoServiceProtocol =
+        VideoService()
 
     init(
         service: HomeServiceProtocol =
@@ -148,6 +155,8 @@ final class HomeViewModel:
                         """
                     )
                 }
+                
+                
 
                 jobApplications =
                     interviews.map {
@@ -304,21 +313,24 @@ final class HomeViewModel:
                 )
             }
 
-            // MARK: - GitHub Jobs
+            // MARK: - Vídeos
 
             do {
-                githubJobListing =
-                    try await jobService
-                        .fetchJobListings(
-                            repository:
-                                repository
+                let response =
+                    try await videoService
+                        .fetchApprovedVideos(
+                            page: 1,
+                            pageSize: 10
                         )
+
+                videos =
+                    response.items
 
             } catch {
                 print(
                     """
-                    ❌ Erro ao buscar vagas do GitHub:
-                    \(error.localizedDescription)
+                    ❌ Erro ao carregar vídeos da Home:
+                    \(error)
                     """
                 )
             }

@@ -8,11 +8,15 @@
 import Foundation
 
 final class AuthSession {
-    static let shared = AuthSession()
+    static let shared =
+        AuthSession()
 
     private enum Keys {
         static let accessToken =
             "auth_access_token"
+
+        static let refreshToken =
+            "auth_refresh_token"
 
         static let userId =
             "auth_user_id"
@@ -21,8 +25,14 @@ final class AuthSession {
     private init() {}
 
     var accessToken: String? {
-        UserDefaults.standard.string(
-            forKey: Keys.accessToken
+        KeychainStore.read(
+            key: Keys.accessToken
+        )
+    }
+
+    var refreshToken: String? {
+        KeychainStore.read(
+            key: Keys.refreshToken
         )
     }
 
@@ -33,8 +43,8 @@ final class AuthSession {
     }
 
     var isAuthenticated: Bool {
-        guard let accessToken,
-              !accessToken.isEmpty
+        guard let refreshToken,
+              !refreshToken.isEmpty
         else {
             return false
         }
@@ -43,37 +53,44 @@ final class AuthSession {
     }
 
     func save(
-        response: AuthenticationLoginResponse
+        response:
+            AuthenticationLoginResponse
     ) {
-        print(
-            """
-            💾 Salvando AuthSession...
-            Token recebido: \(response.accessToken)
-            """
-        )
-
-        UserDefaults.standard.set(
-            response.accessToken,
-            forKey: Keys.accessToken
+        saveTokens(
+            accessToken:
+                response.accessToken,
+            refreshToken:
+                response.refreshToken
         )
 
         UserDefaults.standard.set(
             response.id.uuidString,
             forKey: Keys.userId
         )
+    }
 
-        print(
-            """
-            ✅ AuthSession salva
-            Token salvo: \(accessToken ?? "SEM TOKEN")
-            User ID salvo: \(userId ?? "SEM USER ID")
-            """
+    func saveTokens(
+        accessToken: String,
+        refreshToken: String
+    ) {
+        KeychainStore.save(
+            accessToken,
+            key: Keys.accessToken
+        )
+
+        KeychainStore.save(
+            refreshToken,
+            key: Keys.refreshToken
         )
     }
 
     func clear() {
-        UserDefaults.standard.removeObject(
-            forKey: Keys.accessToken
+        KeychainStore.delete(
+            key: Keys.accessToken
+        )
+
+        KeychainStore.delete(
+            key: Keys.refreshToken
         )
 
         UserDefaults.standard.removeObject(

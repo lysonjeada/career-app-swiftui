@@ -7,13 +7,8 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct MenuView: View {
-    @StateObject var coordinator: Coordinator // Deve ser @EnvironmentObject se for o mesmo coordinator do App
-    
-    // Se o coordinator for o EnvironmentObject do seu App, use assim:
-    // @EnvironmentObject var coordinator: Coordinator
+    @StateObject var coordinator: Coordinator
     
     var body: some View {
         NavigationStack(path: $coordinator.path) { // Garanta que o NavigationStack usa o path do coordinator
@@ -32,6 +27,35 @@ struct MenuView: View {
                         }
                     }
                     .listRowBackground(Color.backgroundLightGray)
+                    
+                    Button {
+                        coordinator.push(
+                            page: .videos
+                        )
+
+                    } label: {
+                        HStack {
+                            Text("Vídeos")
+                                .foregroundColor(
+                                    .persianBlue
+                                )
+                                .font(
+                                    .system(size: 20)
+                                )
+
+                            Spacer()
+
+                            Image(
+                                systemName: "video"
+                            )
+                            .foregroundColor(
+                                .persianBlue
+                            )
+                        }
+                    }
+                    .listRowBackground(
+                        Color.backgroundLightGray
+                    )
                     
                     // --- BOTÃO DE SAIR DA CONTA ---
                     Button {
@@ -62,29 +86,6 @@ struct MenuView: View {
         }
     }
 }
-
-// Exemplo de RootView no seu App
-/*
- @main
- struct MyApp: App {
-     @StateObject var coordinator = Coordinator()
-
-     var body: some Scene {
-         WindowGroup {
-             // A RootView que decide qual tela mostrar
-             if coordinator.isLoggedIn {
-                 MainAppView() // Ou uma TabView, etc.
-                     .environmentObject(coordinator)
-             } else {
-                 LoginView(viewModel: LoginViewModel(), onLoginSuccess: {
-                     coordinator.isLoggedIn = true // Define como logado após sucesso
-                 })
-                     .environmentObject(coordinator)
-             }
-         }
-     }
- }
- */
 
 // Preview da MenuView
 struct MenuView_Previews: PreviewProvider {

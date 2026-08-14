@@ -15,6 +15,9 @@ protocol AuthenticationServiceProtocol {
     func fetchLogin(
         requestBody: AuthenticationLoginRequest
     ) async throws -> AuthenticationLoginResponse
+    func refreshToken(
+        refreshToken: String
+    ) async throws -> TokenRefreshResponse
 }
 
 enum AuthenticationServiceError: LocalizedError {
@@ -365,6 +368,91 @@ final class AuthenticationService:
             throw AuthenticationServiceError
                 .decodingError(error)
         }
+    }
+    
+    func refreshToken(
+        refreshToken: String
+    ) async throws
+        -> TokenRefreshResponse {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/users/refresh"
+        ) else {
+            throw AuthenticationServiceError
+                .invalidURL
+        }
+
+        let body =
+            RefreshTokenRequest(
+                refreshToken:
+                    refreshToken
+            )
+
+        let encoder =
+            JSONEncoder()
+
+        encoder.keyEncodingStrategy =
+            .convertToSnakeCase
+
+        let data =
+            try encoder.encode(
+                body
+            )
+
+        var request =
+            URLRequest(url: url)
+
+        request.httpMethod =
+            "POST"
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField:
+                "Content-Type"
+        )
+
+        request.httpBody =
+            data
+
+        let (
+            responseData,
+            response
+        ) = try await URLSession.shared
+            .data(
+                for: request
+            )
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw AuthenticationServiceError
+                .invalidResponse
+        }
+
+        guard
+            200..<300 ~=
+                httpResponse.statusCode
+        else {
+            throw AuthenticationServiceError
+                .badStatusCode(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message:
+                        "Não foi possível renovar a sessão."
+                )
+        }
+
+        let decoder =
+            JSONDecoder()
+
+        decoder.keyDecodingStrategy =
+            .convertFromSnakeCase
+
+        return try decoder.decode(
+            TokenRefreshResponse.self,
+            from: responseData
+        )
     }
 }
 

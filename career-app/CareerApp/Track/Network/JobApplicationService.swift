@@ -34,19 +34,14 @@ class JobApplicationService: JobApplicationServiceProtocol {
         url: URL,
         method: String
     ) throws -> URLRequest {
-        print(
-            """
-            🔎 AuthSession accessToken:
-            \(AuthSession.shared.accessToken ?? "SEM TOKEN")
-            """
-        )
-
-        guard let token =
-            AuthSession.shared.accessToken,
-              !token.isEmpty
+        guard AuthSession.shared.isAuthenticated,
+              let token =
+                AuthSession.shared.accessToken
         else {
+            AuthSession.shared.clear()
+
             print(
-                "❌ Não existe token na AuthSession"
+                "❌ Sessão inexistente ou expirada"
             )
 
             throw URLError(
@@ -54,9 +49,11 @@ class JobApplicationService: JobApplicationServiceProtocol {
             )
         }
 
-        var request = URLRequest(url: url)
+        var request =
+            URLRequest(url: url)
 
-        request.httpMethod = method
+        request.httpMethod =
+            method
 
         request.setValue(
             "application/json",
@@ -94,7 +91,7 @@ class JobApplicationService: JobApplicationServiceProtocol {
         )
 
         let (data, response) =
-            try await URLSession.shared.data(
+            try await AuthenticatedHTTPClient.shared.data(
                 for: request
             )
 
@@ -144,7 +141,7 @@ class JobApplicationService: JobApplicationServiceProtocol {
             )
 
         let (data, response) =
-            try await URLSession.shared.data(
+            try await AuthenticatedHTTPClient.shared.data(
                 for: request
             )
 
@@ -198,7 +195,7 @@ class JobApplicationService: JobApplicationServiceProtocol {
         )
 
         let (data, response) =
-            try await URLSession.shared.data(
+            try await AuthenticatedHTTPClient.shared.data(
                 for: request
             )
 
@@ -393,7 +390,7 @@ class JobApplicationService: JobApplicationServiceProtocol {
             (
                 responseData,
                 response
-            ) = try await URLSession.shared.data(
+            ) = try await AuthenticatedHTTPClient.shared.data(
                 for: request
             )
 
@@ -755,7 +752,7 @@ extension JobApplicationService {
         )
 
         let (data, response) =
-            try await URLSession.shared.data(
+            try await AuthenticatedHTTPClient.shared.data(
                 for: request
             )
 
@@ -799,7 +796,7 @@ extension JobApplicationService {
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
             print("✅ Código de resposta (GET Job Listings): \(httpResponse.statusCode)")
