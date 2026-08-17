@@ -47,12 +47,29 @@ struct ArticleCard: View {
             }
             .padding(.top, 4)
             .padding(.horizontal, 16)
-            Text(article.description)
-                .font(.system(size: 12))
-                .foregroundColor(.descriptionGray)
-                .lineLimit(3)
-                .padding(.horizontal, 16)
-                .padding(.bottom, 4)
+            let description = article.description
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+
+            if description.count < 4 {
+                Text("""
+                    No description available
+                    Click to see more details
+                    Read the full article
+                    """)
+                    .font(.system(size: 12))
+                    .foregroundColor(.descriptionGray)
+                    .lineLimit(3)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 4)
+            } else {
+                Text(description)
+                    .font(.system(size: 12))
+                    .foregroundColor(.descriptionGray)
+                    .lineLimit(3)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 4)
+            }
+            
             
             HStack {
                 Text(article.readable_publish_date)
