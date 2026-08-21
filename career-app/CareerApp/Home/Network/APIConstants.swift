@@ -9,6 +9,6 @@ import Foundation
 
 enum APIConstants {
     static let baseURL = "https://private-95fcf2-techstep.apiary-mock.com"
-    static let pythonURL = "http://192.168.0.67:8000"
+    static let pythonURL = "https://techstep-backend-app-production.up.railway.app"
 }
 

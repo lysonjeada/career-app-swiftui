@@ -32,8 +32,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "163"
             endingLineNumber = "163"
-            landmarkName = "saveProfile()"
-            landmarkType = "7">
+            landmarkName = "profileImageSection"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD - 7682f58f55447eca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in career_app.ProfileView.profileImageSection.getter : some"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Profile/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163">
+               </Location>
+               <Location
+                  uuid = "9E5AEE00-E4F9-49B8-98EA-5B6056DF36CD - 7682f58f55447eca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in career_app.ProfileView.profileImageSection.getter : some"
+                  moduleName = "career-app.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amaryllisbaldrez/Documents/career-app-swiftui/career-app/CareerApp/Profile/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
