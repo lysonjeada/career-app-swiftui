@@ -112,6 +112,8 @@ struct ResumeFeedbackView: View {
             isLoading = false
         case .error:
             isLoading = false
+        case .insufficientCredits:
+            isLoading = false
         }
     }
 }

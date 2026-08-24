@@ -8,6 +8,7 @@ import Foundation
 
 final class InterviewSimulationServiceMock: InterviewSimulationServiceProtocol {
     var isSuccess: Bool
+    var shouldThrowInsufficientCredits = false
     private(set) var receivedJobTitle: String?
     private(set) var receivedSeniority: String?
 
@@ -22,6 +23,10 @@ final class InterviewSimulationServiceMock: InterviewSimulationServiceProtocol {
     ) async throws -> [String] {
         receivedJobTitle = jobTitle
         receivedSeniority = seniority
+
+        guard !shouldThrowInsufficientCredits else {
+            throw APIError.insufficientCredits
+        }
 
         guard isSuccess else {
             throw URLError(.badServerResponse)

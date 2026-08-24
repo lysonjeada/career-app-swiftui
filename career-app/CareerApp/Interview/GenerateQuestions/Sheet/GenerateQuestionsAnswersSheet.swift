@@ -85,6 +85,9 @@ struct GenerateQuestionsAnswersSheet: View {
                 .padding()
             case .error(_):
                 Text("erro")
+
+            case .insufficientCredits:
+                InsufficientCreditsPromptView()
             }
         }
         .task {

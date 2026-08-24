@@ -74,6 +74,21 @@ struct StudyPlanViewModelTests {
     }
 
     @Test @MainActor
+    func testGenerateStudyPlan_WhenBackendReturnsInsufficientCredits_SetsInsufficientCreditsState() async throws {
+        // Arrange
+        let service = StudyPlanServiceMock(isSuccess: true)
+        service.shouldThrowInsufficientCredits = true
+        let viewModel = StudyPlanViewModel(service: service)
+
+        // Act
+        await viewModel.generateStudyPlan(jobTitle: "iOS Developer", seniority: "Pleno", description: "", resumeURL: nil)
+
+        // Assert
+        #expect(viewModel.state == .insufficientCredits)
+        #expect(viewModel.studyPlan == nil)
+    }
+
+    @Test @MainActor
     func testRetry_WithoutPreviousRequest_SetsIdleState() async throws {
         // Arrange
         let service = StudyPlanServiceMock(isSuccess: true)

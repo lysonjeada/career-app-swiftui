@@ -50,11 +50,14 @@ final class InterviewService: InterviewServiceProtocol {
         request.httpBody = body
         request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+
+        guard httpResponse.statusCode == 200 else {
+            throw APIError.from(statusCode: httpResponse.statusCode, data: data)
         }
 
         let decoded = try JSONDecoder().decode(ResumeFeedbackResponse.self, from: data)
@@ -113,7 +116,11 @@ extension InterviewService {
         print("📤 Enviando requisição com body de \(body.count) bytes")
 
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await AuthenticatedHTTPClient.shared.data(for: request)
+
+            if let httpResponse = response as? HTTPURLResponse, !(200..<300).contains(httpResponse.statusCode) {
+                throw APIError.from(statusCode: httpResponse.statusCode, data: data)
+            }
 
             if let httpResponse = response as? HTTPURLResponse {
                 print("📬 Resposta recebida com status code: \(httpResponse.statusCode)")

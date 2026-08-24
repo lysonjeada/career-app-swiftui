@@ -37,7 +37,7 @@ final class GenerateQuestionsService: GenerateQuestionsServiceProtocol {
             )
         }.value
 
-        let (data, response) = try await URLSession.shared.data(
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(
             for: request
         )
 
@@ -48,11 +48,9 @@ final class GenerateQuestionsService: GenerateQuestionsServiceProtocol {
         }
 
         guard 200..<300 ~= httpResponse.statusCode else {
-            let serverMessage = Self.extractServerMessage(from: data)
-
-            throw GenerateQuestionsError.serverError(
+            throw APIError.from(
                 statusCode: httpResponse.statusCode,
-                message: serverMessage
+                data: data
             )
         }
 
@@ -176,18 +174,6 @@ private extension GenerateQuestionsService {
         }
     }
 
-    nonisolated static func extractServerMessage(
-        from data: Data
-    ) -> String? {
-        if let response = try? JSONDecoder().decode(
-            ServerErrorResponse.self,
-            from: data
-        ) {
-            return response.detail
-        }
-
-        return String(data: data, encoding: .utf8)
-    }
 }
 
 private extension Data {
@@ -240,7 +226,6 @@ private enum GenerateQuestionsError: LocalizedError {
     case invalidURL
     case invalidResponse
     case couldNotReadResume(String)
-    case serverError(statusCode: Int, message: String?)
     case noQuestions
 
     var errorDescription: String? {
@@ -254,21 +239,10 @@ private enum GenerateQuestionsError: LocalizedError {
         case let .couldNotReadResume(message):
             return "Não foi possível ler o currículo: \(message)"
 
-        case let .serverError(statusCode, message):
-            if let message, !message.isEmpty {
-                return "Erro \(statusCode): \(message)"
-            }
-
-            return "O servidor retornou o erro \(statusCode)."
-
         case .noQuestions:
             return "O servidor não retornou nenhuma pergunta."
         }
     }
-}
-
-private struct ServerErrorResponse: Decodable {
-    let detail: String?
 }
 
 struct QuestionResponse: Decodable {

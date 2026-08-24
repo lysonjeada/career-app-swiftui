@@ -1,0 +1,111 @@
+{
+  "identifier" : "1E9A0E2B-6C2F-4B7C-9C2A-3F7A2E1B9C10",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "4.90",
+      "familyShareable" : false,
+      "internalID" : "091459c2-7757-4ba9-aa9c-affa6f8697d3",
+      "localizations" : [
+        {
+          "description" : "Pacote de 10 créditos de IA",
+          "displayName" : "10 Créditos de IA",
+          "locale" : "pt_BR"
+        }
+      ],
+      "productID" : "lys.com.career-app.credits.10",
+      "referenceName" : "10 Créditos de IA",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "12.90",
+      "familyShareable" : false,
+      "internalID" : "768dd7e4-52d3-478f-9de3-b1b6c3669948",
+      "localizations" : [
+        {
+          "description" : "Pacote de 30 créditos de IA",
+          "displayName" : "30 Créditos de IA",
+          "locale" : "pt_BR"
+        }
+      ],
+      "productID" : "lys.com.career-app.credits.30",
+      "referenceName" : "30 Créditos de IA",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "34.90",
+      "familyShareable" : false,
+      "internalID" : "70586fa6-a7ff-406f-a5e7-dc69b1e79de9",
+      "localizations" : [
+        {
+          "description" : "Pacote de 100 créditos de IA",
+          "displayName" : "100 Créditos de IA",
+          "locale" : "pt_BR"
+        }
+      ],
+      "productID" : "lys.com.career-app.credits.100",
+      "referenceName" : "100 Créditos de IA",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0",
+    "_developerTeamID" : "0",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "pt_BR",
+    "_storefront" : "BRA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

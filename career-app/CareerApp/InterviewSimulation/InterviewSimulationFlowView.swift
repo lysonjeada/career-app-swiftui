@@ -82,6 +82,9 @@ struct InterviewSimulationFlowView: View {
                         viewModel.restart()
                     }
                 )
+
+            case .insufficientCredits:
+                InsufficientCreditsPromptView()
             }
         }
         .navigationTitle("Entrevista simulada")

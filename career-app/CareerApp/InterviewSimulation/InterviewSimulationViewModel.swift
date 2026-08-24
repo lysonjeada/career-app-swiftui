@@ -18,6 +18,7 @@ final class InterviewSimulationViewModel: ObservableObject {
         case evaluating
         case completed
         case evaluationFailed
+        case insufficientCredits
     }
 
     @Published private(set) var state: State = .idle
@@ -148,6 +149,9 @@ final class InterviewSimulationViewModel: ObservableObject {
 
             startTimer(reset: true)
 
+        } catch APIError.insufficientCredits {
+            state = .insufficientCredits
+
         } catch {
             state = .idle
             errorMessage = error.localizedDescription
@@ -183,6 +187,9 @@ final class InterviewSimulationViewModel: ObservableObject {
                 inputType: .audio,
                 responseTime: responseTime
             )
+
+        } catch APIError.insufficientCredits {
+            state = .insufficientCredits
 
         } catch {
             state = .answering
@@ -274,6 +281,9 @@ final class InterviewSimulationViewModel: ObservableObject {
             )
 
             state = .completed
+
+        } catch APIError.insufficientCredits {
+            state = .insufficientCredits
 
         } catch {
             errorMessage = error.localizedDescription

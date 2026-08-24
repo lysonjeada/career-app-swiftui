@@ -67,6 +67,9 @@ struct FeedbackSheetView: View {
 
                     case .idle:
                         EmptyView()
+
+                    case .insufficientCredits:
+                        InsufficientCreditsPromptView()
                     }
                 }
                 .padding()

@@ -43,4 +43,21 @@ struct ResumeFeedbackViewModelTests {
         #expect(viewModel.errorMessage != nil)
         #expect(viewModel.response == nil)
     }
+
+    @Test @MainActor
+    func testSubmitResumeFeedback_WhenBackendReturnsInsufficientCredits_SetsInsufficientCreditsState() async throws {
+        // Arrange
+        let service = InterviewServiceMock(isSuccess: true)
+        service.shouldThrowInsufficientCredits = true
+        let viewModel = ResumeFeedbackViewModel(service: service)
+        let resumeURL = URL(fileURLWithPath: "/tmp/resume.pdf")
+
+        // Act
+        viewModel.submitResumeFeedback(resumeURL: resumeURL)
+        try await awaitCondition(until: viewModel.viewState == .insufficientCredits, timeout: 5.0)
+
+        // Assert
+        #expect(viewModel.viewState == .insufficientCredits)
+        #expect(viewModel.response == nil)
+    }
 }

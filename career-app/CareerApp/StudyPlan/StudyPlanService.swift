@@ -35,7 +35,7 @@ final class StudyPlanService: StudyPlanServiceProtocol {
             )
         }.value
 
-        let (data, response) = try await URLSession.shared.data(
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(
             for: request
         )
 
@@ -174,14 +174,9 @@ final class StudyPlanService: StudyPlanServiceProtocol {
         }
 
         guard 200..<300 ~= httpResponse.statusCode else {
-            let serverMessage = String(
-                data: data,
-                encoding: .utf8
-            )
-
-            throw StudyPlanServiceError.serverError(
+            throw APIError.from(
                 statusCode: httpResponse.statusCode,
-                message: serverMessage
+                data: data
             )
         }
     }

@@ -19,6 +19,7 @@ final class ResumeFeedbackViewModel: ObservableObject {
         case polling
         case loaded
         case error
+        case insufficientCredits
     }
 
     @Published var feedbackText: String?
@@ -51,6 +52,8 @@ final class ResumeFeedbackViewModel: ObservableObject {
                 self.response = feedbackResponse
                 viewState = .loaded
 //                startPolling(for: taskID)
+            } catch APIError.insufficientCredits {
+                viewState = .insufficientCredits
             } catch {
                 errorMessage = error.localizedDescription
                 viewState = .error

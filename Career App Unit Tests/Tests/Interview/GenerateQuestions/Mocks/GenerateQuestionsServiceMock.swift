@@ -8,6 +8,7 @@ import Foundation
 
 final class GenerateQuestionsServiceMock: GenerateQuestionsServiceProtocol {
     var isSuccess: Bool
+    var shouldThrowInsufficientCredits = false
     private(set) var receivedResumeURL: URL?
     private(set) var receivedJobTitle: String?
     private(set) var receivedSeniority: String?
@@ -29,6 +30,10 @@ final class GenerateQuestionsServiceMock: GenerateQuestionsServiceProtocol {
         receivedJobTitle = jobTitle
         receivedSeniority = seniority
         receivedDescription = description
+
+        guard !shouldThrowInsufficientCredits else {
+            throw APIError.insufficientCredits
+        }
 
         guard isSuccess else {
             throw URLError(.badServerResponse)

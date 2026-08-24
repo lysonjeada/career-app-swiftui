@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09A3393C34FB655DDEA017C0 /* AICreditsTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915F00C3862B6743E112BDC /* AICreditsTransactionObserver.swift */; };
+		162A1B35649972BA93AB980A /* AICreditsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */; };
+		1C612CBE2A81EBB676A68153 /* AICreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD4771FECCE33F724CA47E /* AICreditsView.swift */; };
 		240092EE2CCC1CE10097FBCD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAB2CCB2F1600D7CF6B /* XCTest.framework */; platformFilter = ios; };
 		240092EF2CCC1CE10097FBCD /* XCTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 243BFFAB2CCB2F1600D7CF6B /* XCTest.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		241917C92C6AE804004147DF /* career_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241917C82C6AE804004147DF /* career_appApp.swift */; };
@@ -32,6 +35,8 @@
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
 		24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C4B2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D89C4D2C81834800995945 /* AppDelegate.swift */; };
+		33C18116FF149C21BE4F5D59 /* InsufficientCreditsPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */; };
+		59E0D060BA3CACDE137F68E4 /* AICreditsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */; };
 		700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F72DFB38A7008CF3AF /* CareerAPI.swift */; };
 		700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F92DFB38BE008CF3AF /* CareerURL.swift */; };
 		700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512FB2DFB3903008CF3AF /* HTTPMethod.swift */; };
@@ -187,6 +192,8 @@
 		70E5D5BA3023C86D00BC0103 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5B93023C86C00BC0103 /* EmailVerificationView.swift */; };
 		70E5D5BC3023C87700BC0103 /* EmailVerificationView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */; };
 		70E5D5BE3023CB2000BC0103 /* AuthenticationRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */; };
+		A23B5D9829603AC9CF1CCF9D /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */; };
+		AD0764D7AC4BA4EA91EB7662 /* AICreditProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653106DAC1007BD8A077DF1E /* AICreditProduct.swift */; };
 		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 /* End PBXBuildFile section */
 
@@ -250,6 +257,8 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsService.swift; sourceTree = "<group>"; };
+		653106DAC1007BD8A077DF1E /* AICreditProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditProduct.swift; sourceTree = "<group>"; };
 		700512F72DFB38A7008CF3AF /* CareerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAPI.swift; sourceTree = "<group>"; };
 		700512F92DFB38BE008CF3AF /* CareerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerURL.swift; sourceTree = "<group>"; };
 		700512FB2DFB3903008CF3AF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -401,6 +410,12 @@
 		70E5D5B93023C86C00BC0103 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmailVerificationView+Preview.swift"; sourceTree = "<group>"; };
 		70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRegisterResponse.swift; sourceTree = "<group>"; };
+		A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		B915F00C3862B6743E112BDC /* AICreditsTransactionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsTransactionObserver.swift; sourceTree = "<group>"; };
+		CAFD4771FECCE33F724CA47E /* AICreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsView.swift; sourceTree = "<group>"; };
+		EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsViewModel.swift; sourceTree = "<group>"; };
+		F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsufficientCreditsPromptView.swift; sourceTree = "<group>"; };
+		53523DC91210BB058F965D57 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -478,6 +493,7 @@
 				24923F9C2CBF4F870081E887 /* HomeStrings.swift */,
 				24923F9E2CBF65060081E887 /* Localizable.xcstrings */,
 				24923FA22CC053920081E887 /* LocalizedStrings.swift */,
+				53523DC91210BB058F965D57 /* Products.storekit */,
 			);
 			path = "career-app";
 			sourceTree = "<group>";
@@ -576,6 +592,20 @@
 				1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		47781AEB22E3F895C9BF6EFE /* AICredits */ = {
+			isa = PBXGroup;
+			children = (
+				F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */,
+				653106DAC1007BD8A077DF1E /* AICreditProduct.swift */,
+				A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */,
+				5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */,
+				EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */,
+				B915F00C3862B6743E112BDC /* AICreditsTransactionObserver.swift */,
+				CAFD4771FECCE33F724CA47E /* AICreditsView.swift */,
+			);
+			path = AICredits;
 			sourceTree = "<group>";
 		};
 		70056D562E2C1143006EA1A1 /* ViewModel */ = {
@@ -750,6 +780,7 @@
 				7084D3E7302D04FD009F5DB9 /* Tutors */,
 				70E5D597301CFEE200BC0103 /* ProgressDashboard */,
 				70E5D572301163FA00BC0103 /* StudyPlan */,
+				47781AEB22E3F895C9BF6EFE /* AICredits */,
 				70CE6A4C3010010C006C7846 /* InterviewSimulation */,
 				70056D652E2C21AE006EA1A1 /* Authentication */,
 				70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */,
@@ -1272,6 +1303,13 @@
 				70E5D5963012433D00BC0103 /* InterviewSimulationResultView+Preview.swift in Sources */,
 				244DDAB52C797567007FB768 /* CalendarView.swift in Sources */,
 				7068862A2E367CE400C4735F /* APIError.swift in Sources */,
+				AD0764D7AC4BA4EA91EB7662 /* AICreditProduct.swift in Sources */,
+				A23B5D9829603AC9CF1CCF9D /* PurchaseService.swift in Sources */,
+				162A1B35649972BA93AB980A /* AICreditsService.swift in Sources */,
+				59E0D060BA3CACDE137F68E4 /* AICreditsViewModel.swift in Sources */,
+				09A3393C34FB655DDEA017C0 /* AICreditsTransactionObserver.swift in Sources */,
+				1C612CBE2A81EBB676A68153 /* AICreditsView.swift in Sources */,
+				33C18116FF149C21BE4F5D59 /* InsufficientCreditsPromptView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

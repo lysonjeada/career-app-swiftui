@@ -15,6 +15,7 @@ final class StudyPlanViewModel: ObservableObject {
         case loading
         case loaded
         case error(String)
+        case insufficientCredits
     }
 
     @Published private(set) var state: State = .idle
@@ -106,6 +107,9 @@ final class StudyPlanViewModel: ObservableObject {
             )
 
             state = .loaded
+
+        } catch APIError.insufficientCredits {
+            state = .insufficientCredits
 
         } catch {
             state = .error(

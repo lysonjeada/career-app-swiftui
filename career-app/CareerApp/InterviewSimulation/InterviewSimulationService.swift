@@ -92,7 +92,7 @@ final class InterviewSimulationService:
 
         request.httpBody = body
 
-        let (data, response) = try await URLSession.shared.data(
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(
             for: request
         )
 
@@ -152,7 +152,7 @@ final class InterviewSimulationService:
 
         request.httpBody = try JSONEncoder().encode(body)
 
-        let (data, response) = try await URLSession.shared.data(
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(
             for: request
         )
 
@@ -173,14 +173,9 @@ final class InterviewSimulationService:
         }
 
         guard 200..<300 ~= httpResponse.statusCode else {
-            let message = String(
-                data: data,
-                encoding: .utf8
-            )
-
-            throw InterviewSimulationServiceError.serverError(
+            throw APIError.from(
                 statusCode: httpResponse.statusCode,
-                message: message
+                data: data
             )
         }
     }
@@ -262,7 +257,6 @@ private struct EvaluationAnswerRequest: Encodable {
 private enum InterviewSimulationServiceError: LocalizedError {
     case invalidURL
     case invalidResponse
-    case serverError(statusCode: Int, message: String?)
 
     var errorDescription: String? {
         switch self {
@@ -271,11 +265,6 @@ private enum InterviewSimulationServiceError: LocalizedError {
 
         case .invalidResponse:
             return "O servidor retornou uma resposta inválida."
-
-        case let .serverError(statusCode, message):
-            return """
-            Erro \(statusCode): \(message ?? "Erro desconhecido.")
-            """
         }
     }
 }

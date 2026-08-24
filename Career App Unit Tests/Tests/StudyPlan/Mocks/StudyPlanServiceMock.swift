@@ -8,6 +8,7 @@ import Foundation
 
 final class StudyPlanServiceMock: StudyPlanServiceProtocol {
     var isSuccess: Bool
+    var shouldThrowInsufficientCredits = false
     private(set) var receivedJobTitle: String?
     private(set) var receivedSeniority: String?
     private(set) var callCount = 0
@@ -25,6 +26,10 @@ final class StudyPlanServiceMock: StudyPlanServiceProtocol {
         callCount += 1
         receivedJobTitle = jobTitle
         receivedSeniority = seniority
+
+        guard !shouldThrowInsufficientCredits else {
+            throw APIError.insufficientCredits
+        }
 
         guard isSuccess else {
             throw StudyPlanServiceError.serverError(statusCode: 500, message: "Erro simulado.")

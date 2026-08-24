@@ -56,7 +56,36 @@ struct MenuView: View {
                     .listRowBackground(
                         Color.backgroundLightGray
                     )
-                    
+
+                    Button {
+                        coordinator.push(
+                            page: .aiCredits
+                        )
+
+                    } label: {
+                        HStack {
+                            Text("Créditos de IA")
+                                .foregroundColor(
+                                    .persianBlue
+                                )
+                                .font(
+                                    .system(size: 20)
+                                )
+
+                            Spacer()
+
+                            Image(
+                                systemName: "sparkles"
+                            )
+                            .foregroundColor(
+                                .persianBlue
+                            )
+                        }
+                    }
+                    .listRowBackground(
+                        Color.backgroundLightGray
+                    )
+
                     // --- BOTÃO DE SAIR DA CONTA ---
                     Button {
                         coordinator.performLogout() // Chama o novo método de logout

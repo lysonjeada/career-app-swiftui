@@ -41,6 +41,21 @@ struct InterviewSimulationViewModelTests {
     }
 
     @Test @MainActor
+    func testStartSimulation_WhenBackendReturnsInsufficientCredits_SetsInsufficientCreditsState() async throws {
+        // Arrange
+        let service = InterviewSimulationServiceMock(isSuccess: true)
+        service.shouldThrowInsufficientCredits = true
+        let viewModel = InterviewSimulationViewModel(service: service)
+
+        // Act
+        await viewModel.startSimulation(jobTitle: "iOS Developer", seniority: "Pleno", description: "")
+
+        // Assert
+        #expect(viewModel.state == .insufficientCredits)
+        #expect(viewModel.questions.isEmpty)
+    }
+
+    @Test @MainActor
     func testStartSimulation_WithPlaceholderSeniority_SetsErrorMessageAndKeepsIdle() async throws {
         // Arrange
         let service = InterviewSimulationServiceMock(isSuccess: true)

@@ -56,6 +56,9 @@ struct StudyPlanFlowView: View {
                         viewModel.restart()
                     }
                 )
+
+            case .insufficientCredits:
+                InsufficientCreditsPromptView()
             }
         }
         .navigationTitle("Plano de estudos")

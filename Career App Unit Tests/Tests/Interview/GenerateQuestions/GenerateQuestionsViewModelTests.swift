@@ -101,6 +101,27 @@ struct GenerateQuestionsViewModelTests {
     }
 
     @Test @MainActor
+    func testGenerateQuestions_WhenBackendReturnsInsufficientCredits_SetsInsufficientCreditsState() async throws {
+        // Arrange
+        let service = GenerateQuestionsServiceMock(isSuccess: true)
+        service.shouldThrowInsufficientCredits = true
+        let viewModel = GenerateQuestionsViewModel(service: service)
+
+        // Act
+        viewModel.generateQuestions(
+            resumeURL: nil,
+            jobTitle: "iOS Developer",
+            seniority: "Pleno",
+            description: ""
+        )
+        try await awaitCondition(until: viewModel.viewState == .insufficientCredits, timeout: 5.0)
+
+        // Assert
+        #expect(viewModel.viewState == .insufficientCredits)
+        #expect(viewModel.generatedQuestions.isEmpty)
+    }
+
+    @Test @MainActor
     func testRetry_CallsGenerateQuestionsAgainWithSameParameters() async throws {
         // Arrange
         let service = GenerateQuestionsServiceMock(isSuccess: true)

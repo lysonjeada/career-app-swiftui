@@ -22,6 +22,13 @@ struct career_appApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(coordinator)
                 .environmentObject(deepLinkManager)
+                .task {
+                    // Observa compras de créditos de IA aprovadas pela
+                    // Apple mas nunca confirmadas no backend (app
+                    // fechado logo após a compra, queda de rede) pela
+                    // vida inteira do app.
+                    await AICreditsTransactionObserver.shared.start()
+                }
         }
     }
     

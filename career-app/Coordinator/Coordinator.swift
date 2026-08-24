@@ -189,6 +189,9 @@ final class Coordinator: ObservableObject {
                 videoId: videoId,
                 coordinator: self
             )
+
+        case .aiCredits:
+            AICreditsView()
         }
     }
     
@@ -228,6 +231,7 @@ enum AppPages: Hashable {
     case videoDetail(
         videoId: String
     )
+    case aiCredits
 }
 
 enum Sheet: String, Identifiable {

@@ -53,6 +53,7 @@ final class GenerateQuestionsViewModel: ObservableObject {
         case loading
         case loaded
         case error(String)
+        case insufficientCredits
     }
 
     init(service: GenerateQuestionsServiceProtocol = GenerateQuestionsService()) {
@@ -130,6 +131,9 @@ final class GenerateQuestionsViewModel: ObservableObject {
 
             } catch is CancellationError {
                 // Uma nova geração substituiu a anterior.
+            } catch APIError.insufficientCredits {
+                generatedQuestions = []
+                viewState = .insufficientCredits
             } catch {
                 generatedQuestions = []
                 viewState = .error(error.localizedDescription)

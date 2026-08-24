@@ -8,6 +8,7 @@ import Foundation
 
 final class InterviewServiceMock: InterviewServiceProtocol {
     var isSuccess: Bool
+    var shouldThrowInsufficientCredits = false
     private(set) var receivedFetchResumeFeedbackURL: URL?
     private(set) var receivedSubmitFeedbackURL: URL?
     private(set) var receivedCheckStatusTaskID: String?
@@ -19,6 +20,10 @@ final class InterviewServiceMock: InterviewServiceProtocol {
 
     func fetchResumeFeedback(resumeURL: URL) async throws -> ResumeFeedbackResponse {
         receivedFetchResumeFeedbackURL = resumeURL
+
+        guard !shouldThrowInsufficientCredits else {
+            throw APIError.insufficientCredits
+        }
 
         guard isSuccess else {
             throw URLError(.badServerResponse)
