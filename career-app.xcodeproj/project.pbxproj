@@ -195,6 +195,7 @@
 		A23B5D9829603AC9CF1CCF9D /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */; };
 		AD0764D7AC4BA4EA91EB7662 /* AICreditProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653106DAC1007BD8A077DF1E /* AICreditProduct.swift */; };
 		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
+		A660568744626A43662DC173 /* VideoPlaybackAudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -416,6 +417,7 @@
 		CAFD4771FECCE33F724CA47E /* AICreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsView.swift; sourceTree = "<group>"; };
 		EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsViewModel.swift; sourceTree = "<group>"; };
 		F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsufficientCreditsPromptView.swift; sourceTree = "<group>"; };
+		6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackAudioSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -958,6 +960,7 @@
 				70056D542E2BDE0B006EA1A1 /* Loadable.swift */,
 				249240602CC86F2C0081E887 /* Extensions */,
 				70D288592D24FC7B004E9033 /* KeyboardObserver.swift */,
+				6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1309,6 +1312,7 @@
 				59E0D060BA3CACDE137F68E4 /* AICreditsViewModel.swift in Sources */,
 				09A3393C34FB655DDEA017C0 /* AICreditsTransactionObserver.swift in Sources */,
 				1C612CBE2A81EBB676A68153 /* AICreditsView.swift in Sources */,
+				A660568744626A43662DC173 /* VideoPlaybackAudioSession.swift in Sources */,
 				33C18116FF149C21BE4F5D59 /* InsufficientCreditsPromptView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

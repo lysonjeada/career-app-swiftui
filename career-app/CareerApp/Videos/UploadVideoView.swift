@@ -157,6 +157,10 @@ struct UploadVideoView: View {
         .navigationTitle(
             "Novo vídeo"
         )
+        .onDisappear {
+            VideoPlaybackAudioSession
+                .deactivate()
+        }
         .onChange(
             of: selectedItem
         ) {
@@ -179,6 +183,9 @@ struct UploadVideoView: View {
                     viewModel.selectVideo(
                         movie.url
                     )
+
+                    VideoPlaybackAudioSession
+                        .activate()
 
                     player = AVPlayer(
                         url: movie.url

@@ -124,6 +124,14 @@ struct VideoDetailView: View {
         .navigationTitle(
             "Vídeo"
         )
+        .onAppear {
+            VideoPlaybackAudioSession
+                .activate()
+        }
+        .onDisappear {
+            VideoPlaybackAudioSession
+                .deactivate()
+        }
         .task {
             do {
                 video =
