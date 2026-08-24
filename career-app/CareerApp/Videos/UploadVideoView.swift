@@ -5,6 +5,7 @@
 //  Created by Amaryllis Baldrez on 14/08/26.
 //
 
+import AVKit
 import PhotosUI
 import SwiftUI
 
@@ -19,6 +20,10 @@ struct UploadVideoView: View {
     @State
     private var selectedItem:
         PhotosPickerItem?
+
+    @State
+    private var player:
+        AVPlayer?
 
     var body: some View {
         ScrollView {
@@ -76,6 +81,28 @@ struct UploadVideoView: View {
                         RoundedRectangle(
                             cornerRadius: 14
                         )
+                    )
+                }
+
+                if let player {
+                    VideoPlayer(
+                        player: player
+                    )
+                    .frame(
+                        height: 220
+                    )
+                    .clipShape(
+                        RoundedRectangle(
+                            cornerRadius: 14
+                        )
+                    )
+
+                    Text(
+                        "Confira se este é o vídeo certo antes de enviar."
+                    )
+                    .font(.caption)
+                    .foregroundStyle(
+                        .secondary
                     )
                 }
 
@@ -151,6 +178,10 @@ struct UploadVideoView: View {
 
                     viewModel.selectVideo(
                         movie.url
+                    )
+
+                    player = AVPlayer(
+                        url: movie.url
                     )
                 }
             }

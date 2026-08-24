@@ -71,6 +71,25 @@ final class VideoServiceMock: VideoServiceProtocol {
             throw URLError(.badServerResponse)
         }
     }
+
+    var resendReviewNotificationResult: TechVideo?
+    private(set) var receivedResendVideoId: String?
+    private(set) var resendCallCount = 0
+
+    func resendReviewNotification(id: String) async throws -> TechVideo {
+        resendCallCount += 1
+        receivedResendVideoId = id
+
+        guard isSuccess else {
+            throw URLError(.badServerResponse)
+        }
+
+        guard let result = resendReviewNotificationResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
+    }
 }
 
 extension TechVideo {
@@ -78,7 +97,8 @@ extension TechVideo {
         id: String = "video-1",
         userId: String = "user-1",
         title: String = "Vídeo de teste",
-        status: VideoReviewStatus = .approved
+        status: VideoReviewStatus = .approved,
+        nextResendAllowedAt: String? = nil
     ) -> TechVideo {
         TechVideo(
             id: id,
@@ -89,7 +109,8 @@ extension TechVideo {
             rejectionReason: nil,
             createdAt: "2026-08-24T00:00:00Z",
             reviewedAt: nil,
-            streamPath: nil
+            streamPath: nil,
+            nextResendAllowedAt: nextResendAllowedAt
         )
     }
 }

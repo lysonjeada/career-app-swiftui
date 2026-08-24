@@ -22,7 +22,20 @@ struct VideoDetailView: View {
     private var isLoading =
         true
 
-    private let service =
+    @State
+    private var isResending =
+        false
+
+    @State
+    private var resendMessage:
+        String?
+
+    @State
+    private var resendErrorMessage:
+        String?
+
+    private let service:
+        VideoServiceProtocol =
         VideoService()
 
     var body: some View {
@@ -83,6 +96,10 @@ struct VideoDetailView: View {
                         .foregroundStyle(
                             .orange
                         )
+
+                        resendReviewSection(
+                            for: video
+                        )
                     }
 
                     if
@@ -124,5 +141,113 @@ struct VideoDetailView: View {
             isLoading =
                 false
         }
+    }
+
+    @ViewBuilder
+    private func resendReviewSection(
+        for video: TechVideo
+    ) -> some View {
+        VStack(
+            alignment: .leading,
+            spacing: 6
+        ) {
+            if video
+                .canResendReviewNotification {
+
+                Button {
+                    Task {
+                        await resendReviewNotification()
+                    }
+                } label: {
+                    if isResending {
+                        ProgressView()
+                    } else {
+                        Label(
+                            "Reenviar notificação de revisão",
+                            systemImage:
+                                "envelope.arrow.triangle.branch"
+                        )
+                    }
+                }
+                .buttonStyle(
+                    .bordered
+                )
+                .tint(.persianBlue)
+                .disabled(
+                    isResending
+                )
+
+            } else if let nextDate =
+                video.nextResendAllowedDate {
+
+                HStack(
+                    spacing: 4
+                ) {
+                    Text(
+                        "Você poderá reenviar novamente"
+                    )
+                    .font(.caption)
+                    .foregroundStyle(
+                        .secondary
+                    )
+
+                    Text(
+                        nextDate,
+                        style: .relative
+                    )
+                    .font(.caption)
+                    .foregroundStyle(
+                        .secondary
+                    )
+                }
+            }
+
+            if let resendMessage {
+                Text(resendMessage)
+                    .font(.caption)
+                    .foregroundStyle(
+                        .green
+                    )
+            }
+
+            if let resendErrorMessage {
+                Text(resendErrorMessage)
+                    .font(.caption)
+                    .foregroundStyle(
+                        .red
+                    )
+            }
+        }
+    }
+
+    @MainActor
+    private func resendReviewNotification() async {
+        guard let video else {
+            return
+        }
+
+        isResending = true
+        resendMessage = nil
+        resendErrorMessage = nil
+
+        do {
+            let updatedVideo =
+                try await service
+                    .resendReviewNotification(
+                        id: video.id
+                    )
+
+            self.video =
+                updatedVideo
+
+            resendMessage =
+                "Notificação reenviada com sucesso."
+
+        } catch {
+            resendErrorMessage =
+                error.localizedDescription
+        }
+
+        isResending = false
     }
 }

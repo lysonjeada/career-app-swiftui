@@ -35,6 +35,10 @@ protocol VideoServiceProtocol {
     func deleteVideo(
         id: String
     ) async throws
+
+    func resendReviewNotification(
+        id: String
+    ) async throws -> TechVideo
 }
 
 
@@ -413,6 +417,64 @@ final class VideoService:
     }
 
 
+    func resendReviewNotification(
+        id: String
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(id)/resend-review"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request =
+            try authorizedRequest(
+                url: url,
+                method: "POST"
+            )
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField:
+                "Accept"
+        )
+
+        let (data, response) =
+            try await URLSession.shared
+                .data(
+                    for: request
+                )
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw VideoServiceError
+                .invalidResponse
+        }
+
+        guard
+            200..<300 ~=
+                httpResponse.statusCode
+        else {
+            throw VideoServiceError
+                .serverError(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message:
+                        Self.extractVideoError(
+                            from: data
+                        )
+                )
+        }
+
+        return try decoder.decode(
+            ResendReviewResponse.self,
+            from: data
+        ).video
+    }
+
+
     private func authorizedRequest(
         url: URL,
         method: String
@@ -488,6 +550,16 @@ final class VideoService:
 
                 return message
             }
+
+            if let detail =
+                json["detail"]
+                    as? [String: Any],
+               let message =
+                detail["message"]
+                    as? String {
+
+                return message
+            }
         }
 
         return String(
@@ -495,6 +567,11 @@ final class VideoService:
             encoding: .utf8
         )
     }
+}
+
+private struct ResendReviewResponse: Decodable {
+    let video: TechVideo
+    let nextResendAllowedAt: String
 }
 
 enum VideoServiceError:

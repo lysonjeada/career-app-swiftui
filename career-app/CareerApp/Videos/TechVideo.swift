@@ -49,6 +49,11 @@ struct TechVideo:
 
     let streamPath: String?
 
+    /// Só vem preenchido quando `status == .pending`: quando o botão
+    /// de reenviar a notificação de revisão volta a ficar
+    /// disponível (1x por dia por vídeo).
+    let nextResendAllowedAt: String?
+
     var streamURL: URL? {
         guard let streamPath
         else {
@@ -61,6 +66,56 @@ struct TechVideo:
                 \(APIConstants.pythonURL)\(streamPath)
                 """
         )
+    }
+
+    /// `true` quando o vídeo está em análise e o botão de reenvio
+    /// pode ser exibido habilitado (nunca reenviado, ou já passou
+    /// 24h desde o último reenvio/upload).
+    var canResendReviewNotification: Bool {
+        guard status == .pending
+        else {
+            return false
+        }
+
+        guard let date =
+            Self.parseDate(
+                nextResendAllowedAt
+            )
+        else {
+            return true
+        }
+
+        return Date() >= date
+    }
+
+    var nextResendAllowedDate: Date? {
+        Self.parseDate(
+            nextResendAllowedAt
+        )
+    }
+
+    private static func parseDate(
+        _ string: String?
+    ) -> Date? {
+        guard let string else {
+            return nil
+        }
+
+        let withFractional =
+            ISO8601DateFormatter()
+
+        withFractional.formatOptions = [
+            .withInternetDateTime,
+            .withFractionalSeconds,
+        ]
+
+        if let date = withFractional
+            .date(from: string) {
+            return date
+        }
+
+        return ISO8601DateFormatter()
+            .date(from: string)
     }
 }
 
