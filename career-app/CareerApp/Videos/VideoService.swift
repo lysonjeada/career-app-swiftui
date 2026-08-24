@@ -31,6 +31,10 @@ protocol VideoServiceProtocol {
         fileURL: URL
     ) async throws
         -> TechVideo
+
+    func deleteVideo(
+        id: String
+    ) async throws
 }
 
 
@@ -376,6 +380,35 @@ final class VideoService:
         return try decoder.decode(
             TechVideo.self,
             from: data
+        )
+    }
+
+
+    func deleteVideo(
+        id: String
+    ) async throws {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(id)"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        let request =
+            try authorizedRequest(
+                url: url,
+                method: "DELETE"
+            )
+
+        let (_, response) =
+            try await URLSession.shared
+                .data(
+                    for: request
+                )
+
+        try validate(
+            response
         )
     }
 

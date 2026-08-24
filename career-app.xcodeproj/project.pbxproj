@@ -257,6 +257,7 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		53523DC91210BB058F965D57 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsService.swift; sourceTree = "<group>"; };
 		653106DAC1007BD8A077DF1E /* AICreditProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditProduct.swift; sourceTree = "<group>"; };
 		700512F72DFB38A7008CF3AF /* CareerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAPI.swift; sourceTree = "<group>"; };
@@ -415,7 +416,6 @@
 		CAFD4771FECCE33F724CA47E /* AICreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsView.swift; sourceTree = "<group>"; };
 		EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsViewModel.swift; sourceTree = "<group>"; };
 		F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsufficientCreditsPromptView.swift; sourceTree = "<group>"; };
-		53523DC91210BB058F965D57 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */

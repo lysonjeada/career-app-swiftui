@@ -30,6 +30,10 @@ final class VideosViewModel:
     var isLoadingMore =
         false
 
+    @Published private(set)
+    var deletionErrorMessage:
+        String?
+
     private var page = 1
 
     private let pageSize = 10
@@ -146,5 +150,37 @@ final class VideosViewModel:
                 )
             }
         }
+    }
+
+    func deleteVideo(
+        _ video: TechVideo
+    ) {
+        Task {
+            do {
+                try await service
+                    .deleteVideo(
+                        id: video.id
+                    )
+
+                videos.removeAll {
+                    $0.id == video.id
+                }
+
+            } catch {
+                print(
+                    """
+                    ❌ Exclusão de vídeo:
+                    \(error)
+                    """
+                )
+
+                deletionErrorMessage =
+                    "Não foi possível excluir o vídeo."
+            }
+        }
+    }
+
+    func clearDeletionError() {
+        deletionErrorMessage = nil
     }
 }

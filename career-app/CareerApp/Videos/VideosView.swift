@@ -15,6 +15,10 @@ struct VideosView: View {
     @StateObject
     var coordinator: Coordinator
 
+    @State
+    private var videoPendingDeletion:
+        TechVideo?
+
     var body: some View {
         Group {
             switch viewModel.viewState {
@@ -22,7 +26,11 @@ struct VideosView: View {
                 ProgressView()
 
             case .loaded:
-                videoList
+                if viewModel.videos.isEmpty {
+                    emptyState
+                } else {
+                    videoList
+                }
 
             case .error:
                 ContentUnavailableView {
@@ -64,51 +72,171 @@ struct VideosView: View {
         .onAppear {
             viewModel.fetchVideos()
         }
+        .confirmationDialog(
+            "Excluir vídeo?",
+            isPresented: Binding(
+                get: {
+                    videoPendingDeletion != nil
+                },
+                set: { isPresented in
+                    if !isPresented {
+                        videoPendingDeletion = nil
+                    }
+                }
+            ),
+            presenting: videoPendingDeletion
+        ) { video in
+            Button(
+                "Excluir",
+                role: .destructive
+            ) {
+                viewModel.deleteVideo(video)
+                videoPendingDeletion = nil
+            }
+
+            Button(
+                "Cancelar",
+                role: .cancel
+            ) {
+                videoPendingDeletion = nil
+            }
+        } message: { video in
+            Text(
+                """
+                Tem certeza que deseja excluir \
+                "\(video.title)"? Essa ação não \
+                pode ser desfeita.
+                """
+            )
+        }
+        .alert(
+            "Não foi possível excluir",
+            isPresented: Binding(
+                get: {
+                    viewModel.deletionErrorMessage != nil
+                },
+                set: { isPresented in
+                    if !isPresented {
+                        viewModel.clearDeletionError()
+                    }
+                }
+            )
+        ) {
+            Button("OK") {
+                viewModel.clearDeletionError()
+            }
+        } message: {
+            Text(
+                viewModel.deletionErrorMessage
+                    ?? ""
+            )
+        }
+    }
+
+    private var emptyState:
+        some View {
+
+        ContentUnavailableView {
+            Label(
+                "Nenhum vídeo enviado",
+                systemImage:
+                    "video.slash"
+            )
+        } description: {
+            Text(
+                "Envie seu primeiro vídeo de apresentação para começar."
+            )
+        } actions: {
+            Button(
+                "Enviar vídeo"
+            ) {
+                coordinator.push(
+                    page:
+                        .uploadVideo
+                )
+            }
+        }
     }
 
     private var videoList:
         some View {
 
-        ScrollView {
-            LazyVStack(
-                spacing: 14
-            ) {
-                ForEach(
-                    viewModel.videos
-                ) { video in
+        List {
+            ForEach(
+                viewModel.videos
+            ) { video in
 
-                    Button {
-                        coordinator.push(
-                            page:
-                                .videoDetail(
-                                    videoId:
-                                        video.id
-                                )
-                        )
+                Button {
+                    coordinator.push(
+                        page:
+                            .videoDetail(
+                                videoId:
+                                    video.id
+                            )
+                    )
 
-                    } label: {
-                        VideoRow(
+                } label: {
+                    VideoRow(
+                        video: video
+                    )
+                }
+                .buttonStyle(
+                    .plain
+                )
+                .onAppear {
+                    viewModel
+                        .loadMoreIfNeeded(
                             video: video
                         )
-                    }
-                    .buttonStyle(
-                        .plain
-                    )
-                    .onAppear {
-                        viewModel
-                            .loadMoreIfNeeded(
-                                video: video
-                            )
-                    }
                 }
-
-                if viewModel
-                    .isLoadingMore {
-
-                    ProgressView()
+                .listRowSeparator(
+                    .hidden
+                )
+                .listRowBackground(
+                    Color.clear
+                )
+                .listRowInsets(
+                    EdgeInsets(
+                        top: 7,
+                        leading: 16,
+                        bottom: 7,
+                        trailing: 16
+                    )
+                )
+                .swipeActions(
+                    edge: .trailing,
+                    allowsFullSwipe: true
+                ) {
+                    Button(
+                        role: .destructive
+                    ) {
+                        videoPendingDeletion =
+                            video
+                    } label: {
+                        Label(
+                            "Excluir",
+                            systemImage:
+                                "trash"
+                        )
+                    }
                 }
             }
-            .padding()
+
+            if viewModel
+                .isLoadingMore {
+
+                ProgressView()
+                    .frame(
+                        maxWidth: .infinity
+                    )
+                    .listRowSeparator(
+                        .hidden
+                    )
+                    .listRowBackground(
+                        Color.clear
+                    )
+            }
         }
+        .listStyle(.plain)
     }
 }
