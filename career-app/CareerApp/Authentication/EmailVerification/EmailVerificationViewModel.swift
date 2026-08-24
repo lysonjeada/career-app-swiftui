@@ -79,10 +79,7 @@ final class EmailVerificationViewModel:
     func verify() {
         guard canVerify else {
             errorMessage = (
-                """
-                Digite o código
-                de seis dígitos.
-                """
+                "Digite o código de seis dígitos."
             )
             return
         }

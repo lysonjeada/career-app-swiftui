@@ -43,4 +43,8 @@ final class AuthenticationServiceMock: AuthenticationServiceProtocol {
 
         return try JSONLoader.load("login-success-response")
     }
+    
+    func refreshToken(refreshToken: String) async throws -> TokenRefreshResponse {
+        .init(accessToken: "", refreshToken: "", tokenType: "", expiresIn: 30)
+    }
 }

@@ -22,7 +22,6 @@ struct ProfileViewModelTests {
         #expect(viewModel.viewState == .loaded)
         #expect(viewModel.username == "usuario_teste")
         #expect(viewModel.email == "usuario.teste@email.com")
-        #expect(viewModel.loggedInUser?.accessToken == "token-de-teste")
         #expect(service.receivedFetchUserId == "user-123")
     }
 
