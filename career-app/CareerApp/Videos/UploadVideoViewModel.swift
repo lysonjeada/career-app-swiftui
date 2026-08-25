@@ -43,6 +43,16 @@ final class UploadVideoViewModel:
     private let service:
         VideoServiceProtocol
 
+    var canUpload: Bool {
+        !title
+            .trimmingCharacters(
+                in: .whitespacesAndNewlines
+            )
+            .isEmpty
+        && selectedVideoURL != nil
+        && !isUploading
+    }
+
     init(
         service:
             VideoServiceProtocol =

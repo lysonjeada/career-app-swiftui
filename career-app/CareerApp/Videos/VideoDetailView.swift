@@ -378,54 +378,70 @@ struct VideoDetailView: View {
                 )
             )
 
-            PhotosPicker(
-                selection:
-                    $selectedThumbnailItem,
-                matching: .images
-            ) {
-                Label(
-                    "Editar thumbnail",
-                    systemImage:
-                        "photo.badge.plus"
+            if isOwner(of: video) {
+                PhotosPicker(
+                    selection:
+                        $selectedThumbnailItem,
+                    matching: .images
+                ) {
+                    Label(
+                        "Editar thumbnail",
+                        systemImage:
+                            "photo.badge.plus"
+                    )
+                }
+                .disabled(
+                    isUpdatingThumbnail
                 )
-            }
-            .disabled(
-                isUpdatingThumbnail
-            )
 
-            if video.thumbnailStatus == .pending {
-                Label(
-                    "Sua nova thumbnail está aguardando análise.",
-                    systemImage: "clock"
-                )
-                .font(.caption)
-                .foregroundStyle(.orange)
+                if video.thumbnailStatus == .pending {
+                    Label(
+                        "Sua nova thumbnail está aguardando análise.",
+                        systemImage: "clock"
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.orange)
 
-                thumbnailResendSection(
-                    for: video
-                )
-            }
+                    thumbnailResendSection(
+                        for: video
+                    )
+                }
 
-            if
-                video.thumbnailStatus == .rejected,
-                let reason =
-                    video.thumbnailRejectionReason {
+                if
+                    video.thumbnailStatus == .rejected,
+                    let reason =
+                        video.thumbnailRejectionReason {
 
-                Label(
-                    reason,
-                    systemImage:
-                        "xmark.circle"
-                )
-                .font(.caption)
-                .foregroundStyle(.red)
-            }
-
-            if let thumbnailErrorMessage {
-                Text(thumbnailErrorMessage)
+                    Label(
+                        reason,
+                        systemImage:
+                            "xmark.circle"
+                    )
                     .font(.caption)
                     .foregroundStyle(.red)
+                }
+
+                if let thumbnailErrorMessage {
+                    Text(thumbnailErrorMessage)
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
             }
         }
+    }
+
+    /// Só quem enviou o vídeo pode trocar a thumbnail — mesma regra
+    /// que já vale para excluir o vídeo no backend.
+    private func isOwner(
+        of video: TechVideo
+    ) -> Bool {
+        guard let currentUserId =
+            AuthSession.shared.userId
+        else {
+            return false
+        }
+
+        return video.userId == currentUserId
     }
 
     @ViewBuilder

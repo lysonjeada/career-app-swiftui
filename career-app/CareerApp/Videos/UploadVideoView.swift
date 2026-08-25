@@ -202,6 +202,11 @@ struct UploadVideoView: View {
                 .padding()
                 .background(
                     Color.persianBlue
+                        .opacity(
+                            viewModel.canUpload
+                                ? 1
+                                : 0.4
+                        )
                 )
                 .foregroundStyle(
                     .white
@@ -212,7 +217,7 @@ struct UploadVideoView: View {
                     )
                 )
                 .disabled(
-                    viewModel.isUploading
+                    !viewModel.canUpload
                 )
             }
             .padding()
