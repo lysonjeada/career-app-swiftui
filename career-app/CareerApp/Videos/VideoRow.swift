@@ -23,18 +23,50 @@ struct VideoRow: View {
                         .opacity(0.12)
                 )
 
-                Image(
-                    systemName:
-                        "play.rectangle.fill"
-                )
-                .font(.title)
-                .foregroundStyle(
-                    Color.persianBlue
-                )
+                if let thumbnailURL =
+                    video.thumbnailURL {
+
+                    AsyncImage(
+                        url: thumbnailURL
+                    ) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Image(
+                            systemName:
+                                "play.rectangle.fill"
+                        )
+                        .font(.title)
+                        .foregroundStyle(
+                            Color.persianBlue
+                        )
+                    }
+                    .frame(
+                        width: 80,
+                        height: 70
+                    )
+                    .clipped()
+
+                } else {
+                    Image(
+                        systemName:
+                            "play.rectangle.fill"
+                    )
+                    .font(.title)
+                    .foregroundStyle(
+                        Color.persianBlue
+                    )
+                }
             }
             .frame(
                 width: 80,
                 height: 70
+            )
+            .clipShape(
+                RoundedRectangle(
+                    cornerRadius: 14
+                )
             )
 
             VStack(

@@ -11,7 +11,9 @@ enum MultipartFileBuilder {
     static func build(
         title: String,
         description: String,
-        videoURL: URL
+        videoURL: URL,
+        autoThumbnailData: Data? = nil,
+        customThumbnailData: Data? = nil
     ) throws -> (
         fileURL: URL,
         boundary: String
@@ -119,9 +121,46 @@ enum MultipartFileBuilder {
             )
         }
 
+        try write("\r\n")
+
+        if let autoThumbnailData {
+            try write(
+                """
+                --\(boundary)\r
+                Content-Disposition: form-data; name="auto_thumbnail"; filename="auto.jpg"\r
+                Content-Type: image/jpeg\r
+                \r
+
+                """
+            )
+
+            try output.write(
+                contentsOf: autoThumbnailData
+            )
+
+            try write("\r\n")
+        }
+
+        if let customThumbnailData {
+            try write(
+                """
+                --\(boundary)\r
+                Content-Disposition: form-data; name="thumbnail"; filename="thumbnail.jpg"\r
+                Content-Type: image/jpeg\r
+                \r
+
+                """
+            )
+
+            try output.write(
+                contentsOf: customThumbnailData
+            )
+
+            try write("\r\n")
+        }
+
         try write(
             """
-            \r
             --\(boundary)--\r
 
             """

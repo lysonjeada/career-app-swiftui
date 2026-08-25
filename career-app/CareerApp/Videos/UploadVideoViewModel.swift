@@ -21,6 +21,13 @@ final class UploadVideoViewModel:
     var selectedVideoURL:
         URL?
 
+    /// Imagem escolhida pelo usuário para a thumbnail (opcional). Se
+    /// `nil`, o upload usa só o frame gerado automaticamente a
+    /// partir do vídeo.
+    @Published private(set)
+    var customThumbnailData:
+        Data?
+
     @Published private(set)
     var isUploading =
         false
@@ -52,6 +59,13 @@ final class UploadVideoViewModel:
             url
     }
 
+    func selectThumbnail(
+        _ data: Data
+    ) {
+        customThumbnailData =
+            data
+    }
+
     func upload() {
         guard
             !title
@@ -80,6 +94,12 @@ final class UploadVideoViewModel:
                     false
             }
 
+            let autoThumbnailData =
+                await VideoThumbnailGenerator
+                    .generateFirstFrameJPEG(
+                        from: selectedVideoURL
+                    )
+
             do {
                 _ = try await service
                     .uploadVideo(
@@ -87,7 +107,11 @@ final class UploadVideoViewModel:
                         description:
                             description,
                         fileURL:
-                            selectedVideoURL
+                            selectedVideoURL,
+                        autoThumbnailData:
+                            autoThumbnailData,
+                        customThumbnailData:
+                            customThumbnailData
                     )
 
                 didUpload =

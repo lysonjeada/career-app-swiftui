@@ -28,7 +28,9 @@ protocol VideoServiceProtocol {
     func uploadVideo(
         title: String,
         description: String,
-        fileURL: URL
+        fileURL: URL,
+        autoThumbnailData: Data?,
+        customThumbnailData: Data?
     ) async throws
         -> TechVideo
 
@@ -37,6 +39,18 @@ protocol VideoServiceProtocol {
     ) async throws
 
     func resendReviewNotification(
+        id: String
+    ) async throws -> TechVideo
+
+    /// Envia uma nova imagem para a thumbnail — fica pendente de
+    /// aprovação por e-mail; a thumbnail exibida (`thumbnailUrl`)
+    /// continua sendo a anterior até a decisão.
+    func updateThumbnail(
+        id: String,
+        imageData: Data
+    ) async throws -> TechVideo
+
+    func resendThumbnailReviewNotification(
         id: String
     ) async throws -> TechVideo
 }
@@ -60,7 +74,9 @@ final class VideoService:
     func uploadVideo(
         title: String,
         description: String,
-        fileURL: URL
+        fileURL: URL,
+        autoThumbnailData: Data? = nil,
+        customThumbnailData: Data? = nil
     ) async throws -> TechVideo {
         guard let url = URL(
             string:
@@ -85,7 +101,9 @@ final class VideoService:
             try MultipartFileBuilder.build(
                 title: title,
                 description: description,
-                videoURL: fileURL
+                videoURL: fileURL,
+                autoThumbnailData: autoThumbnailData,
+                customThumbnailData: customThumbnailData
             )
 
         defer {
@@ -475,6 +493,162 @@ final class VideoService:
     }
 
 
+    func updateThumbnail(
+        id: String,
+        imageData: Data
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(id)/thumbnail"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        let boundary =
+            "Boundary-\(UUID().uuidString)"
+
+        var body = Data()
+
+        func append(
+            _ string: String
+        ) {
+            if let data = string.data(
+                using: .utf8
+            ) {
+                body.append(data)
+            }
+        }
+
+        append(
+            """
+            --\(boundary)\r
+            Content-Disposition: form-data; name="thumbnail"; filename="thumbnail.jpg"\r
+            Content-Type: image/jpeg\r
+            \r
+
+            """
+        )
+
+        body.append(imageData)
+
+        append(
+            """
+            \r
+            --\(boundary)--\r
+
+            """
+        )
+
+        var request = URLRequest(url: url)
+
+        request.httpMethod = "PUT"
+
+        request.setValue(
+            """
+            multipart/form-data; boundary=\(boundary)
+            """,
+            forHTTPHeaderField:
+                "Content-Type"
+        )
+
+        request.httpBody = body
+
+        // Via AuthenticatedHTTPClient (não authorizedRequest +
+        // URLSession direto) para reaproveitar o refresh automático
+        // de token em caso de 401, igual ao uploadVideo.
+        let (data, response) =
+            try await AuthenticatedHTTPClient
+                .shared
+                .data(for: request)
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw VideoServiceError
+                .invalidResponse
+        }
+
+        guard
+            200..<300 ~=
+                httpResponse.statusCode
+        else {
+            throw VideoServiceError
+                .serverError(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message:
+                        Self.extractVideoError(
+                            from: data
+                        )
+                )
+        }
+
+        return try decoder.decode(
+            TechVideo.self,
+            from: data
+        )
+    }
+
+
+    func resendThumbnailReviewNotification(
+        id: String
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(id)/resend-thumbnail-review"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request =
+            try authorizedRequest(
+                url: url,
+                method: "POST"
+            )
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField:
+                "Accept"
+        )
+
+        let (data, response) =
+            try await URLSession.shared
+                .data(
+                    for: request
+                )
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw VideoServiceError
+                .invalidResponse
+        }
+
+        guard
+            200..<300 ~=
+                httpResponse.statusCode
+        else {
+            throw VideoServiceError
+                .serverError(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message:
+                        Self.extractVideoError(
+                            from: data
+                        )
+                )
+        }
+
+        return try decoder.decode(
+            ResendThumbnailReviewResponse.self,
+            from: data
+        ).video
+    }
+
+
     private func authorizedRequest(
         url: URL,
         method: String
@@ -570,6 +744,11 @@ final class VideoService:
 }
 
 private struct ResendReviewResponse: Decodable {
+    let video: TechVideo
+    let nextResendAllowedAt: String
+}
+
+private struct ResendThumbnailReviewResponse: Decodable {
     let video: TechVideo
     let nextResendAllowedAt: String
 }

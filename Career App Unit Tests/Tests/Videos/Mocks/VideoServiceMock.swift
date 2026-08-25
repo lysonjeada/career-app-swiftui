@@ -55,12 +55,47 @@ final class VideoServiceMock: VideoServiceProtocol {
         return video
     }
 
-    func uploadVideo(title: String, description: String, fileURL: URL) async throws -> TechVideo {
+    func uploadVideo(
+        title: String,
+        description: String,
+        fileURL: URL,
+        autoThumbnailData: Data?,
+        customThumbnailData: Data?
+    ) async throws -> TechVideo {
         guard isSuccess, let video = videosToReturn.first else {
             throw URLError(.badServerResponse)
         }
 
         return video
+    }
+
+    var updateThumbnailResult: TechVideo?
+    private(set) var receivedUpdateThumbnailVideoId: String?
+
+    func updateThumbnail(
+        id: String,
+        imageData: Data
+    ) async throws -> TechVideo {
+        receivedUpdateThumbnailVideoId = id
+
+        guard isSuccess, let result = updateThumbnailResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
+    }
+
+    var resendThumbnailReviewNotificationResult: TechVideo?
+    private(set) var receivedResendThumbnailVideoId: String?
+
+    func resendThumbnailReviewNotification(id: String) async throws -> TechVideo {
+        receivedResendThumbnailVideoId = id
+
+        guard isSuccess, let result = resendThumbnailReviewNotificationResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
     }
 
     func deleteVideo(id: String) async throws {
@@ -110,7 +145,11 @@ extension TechVideo {
             createdAt: "2026-08-24T00:00:00Z",
             reviewedAt: nil,
             streamPath: nil,
-            nextResendAllowedAt: nextResendAllowedAt
+            nextResendAllowedAt: nextResendAllowedAt,
+            thumbnailUrl: nil,
+            thumbnailStatus: .auto,
+            thumbnailRejectionReason: nil,
+            thumbnailNextResendAllowedAt: nil
         )
     }
 }

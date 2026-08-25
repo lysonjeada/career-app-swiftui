@@ -55,6 +55,34 @@ struct HomeVideosCarousel: View {
                                         .opacity(0.14)
                                 )
 
+                                if let thumbnailURL =
+                                    video.thumbnailURL {
+
+                                    AsyncImage(
+                                        url: thumbnailURL
+                                    ) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        Color.clear
+                                    }
+                                    .frame(
+                                        width: 220,
+                                        height: 150
+                                    )
+                                    .clipped()
+
+                                    LinearGradient(
+                                        colors: [
+                                            .black.opacity(0.55),
+                                            .clear,
+                                        ],
+                                        startPoint: .bottom,
+                                        endPoint: .center
+                                    )
+                                }
+
                                 VStack(
                                     spacing: 12
                                 ) {
@@ -77,13 +105,20 @@ struct HomeVideosCarousel: View {
                                     .lineLimit(2)
                                 }
                                 .foregroundStyle(
-                                    Color.persianBlue
+                                    video.thumbnailURL == nil
+                                        ? Color.persianBlue
+                                        : Color.white
                                 )
                                 .padding()
                             }
                             .frame(
                                 width: 220,
                                 height: 150
+                            )
+                            .clipShape(
+                                RoundedRectangle(
+                                    cornerRadius: 18
+                                )
                             )
                         }
                         .buttonStyle(
