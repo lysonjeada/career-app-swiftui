@@ -48,8 +48,6 @@ struct ProfileView: View {
             .padding(.vertical)
         }
         .background(Color.backgroundLightGray)
-        .navigationConfig(title: "Profile", backAction: { coordinator.pop() })
-        .background(Color.backgroundLightGray)
         .navigationConfig(
             title: "Profile",
             backAction: {
@@ -115,8 +113,6 @@ struct ProfileView: View {
         .onAppear(
             perform: loadProfile
         )
-        .errorAlert(isPresented: $showErrorAlert, message: errorMessage)
-        .onAppear(perform: loadProfile)
     }
     
     // MARK: - Subviews
