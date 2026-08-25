@@ -112,13 +112,7 @@ struct HomeView: View {
                     .foregroundColor(Color.titleSectionColor)
                 
                 if viewModel.nextJobApplications.isEmpty {
-                    EmptyInterviewListView(action: {
-                        if let url = URL(string: "https://dev.to/") {
-                            UIApplication.shared.open(url)
-                        }
-                    },
-                                           actionTitle: "Fazer login",
-                                           actionDescription: "Faça o login para cadastrar\ne consultar entrevistas", isNextInterview: true)
+                    buildEmptyInterviewList(isNextInterview: true)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
@@ -153,13 +147,7 @@ struct HomeView: View {
                 .foregroundColor(Color.titleSectionColor)
             
             if viewModel.jobApplications.isEmpty {
-                EmptyInterviewListView(action: {
-                    if let url = URL(string: "https://dev.to/") {
-                        UIApplication.shared.open(url)
-                    }
-                },
-                                       actionTitle: "Fazer login",
-                                       actionDescription: "Faça o login para cadastrar\ne consultar entrevistas", isNextInterview: false)
+                buildEmptyInterviewList(isNextInterview: false)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
@@ -233,6 +221,29 @@ struct HomeView: View {
         }
     }
     
+    @ViewBuilder
+    private func buildEmptyInterviewList(isNextInterview: Bool) -> some View {
+        if AuthSession.shared.isAuthenticated {
+            EmptyInterviewListView(
+                action: {
+                    coordinator.push(page: .addJob)
+                },
+                actionTitle: "Adicionar candidatura",
+                actionDescription: "Cadastre uma candidatura para\nacompanhar suas entrevistas",
+                isNextInterview: isNextInterview
+            )
+        } else {
+            EmptyInterviewListView(
+                action: {
+                    coordinator.push(page: .login)
+                },
+                actionTitle: "Fazer login",
+                actionDescription: "Faça o login para cadastrar\ne consultar entrevistas",
+                isNextInterview: isNextInterview
+            )
+        }
+    }
+
     @ViewBuilder
     func showGithubJobs() -> some View {
         JobHorizontalList(viewModel: viewModel)

@@ -18,7 +18,11 @@ struct LoginView: View {
     var onLoginSuccess: (_ userId: String) -> Void
     
     var onVerificationRequired:
-        (_ email: String) -> Void
+        (
+            _ email: String,
+            _ username: String,
+            _ password: String
+        ) -> Void
     
     var body: some View {
         ZStack(alignment: .bottom) { // ZStack para a snackbar
@@ -69,7 +73,7 @@ struct LoginView: View {
                 return
             }
 
-            onVerificationRequired(email)
+            onVerificationRequired(email, username, password)
 
             viewModel.clearPendingVerificationEmail()
         }
@@ -157,6 +161,6 @@ struct LoginView: View {
 // Preview
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in }, onVerificationRequired: { email in })
+        LoginView(viewModel: LoginViewModel(), onLoginSuccess: { userId in }, onVerificationRequired: { email, username, password in })
     }
 }

@@ -98,11 +98,13 @@ final class Coordinator: ObservableObject {
             LoginView(viewModel: self.loginViewModel, onLoginSuccess: { [weak self] userId in
                 self?.currentUserId = userId
                 self?.isLoggedIn = true
-            }, onVerificationRequired: { email in
+            }, onVerificationRequired: { email, username, password in
                 self.push(
                     page:
                         .emailVerification(
-                            email: email
+                            email: email,
+                            username: username,
+                            password: password
                         )
                 )
             })
@@ -123,11 +125,13 @@ final class Coordinator: ObservableObject {
                     self.isLoggedIn = true
                     self.popToRoot()
                 },
-                onVerificationRequired: { email in
+                onVerificationRequired: { email, username, password in
                     self.push(
                         page:
                                 .emailVerification(
-                                    email: email
+                                    email: email,
+                                    username: username,
+                                    password: password
                                 )
                     )
                 }
@@ -146,27 +150,32 @@ final class Coordinator: ObservableObject {
             JobApplicationTrackerView(listViewModel: self.jobApplicationTrackerListViewModel, coordinator: self)
         case .signUp:
             let signUpViewModel = SignUpViewModel()
-            
+
             SignUpView(
                 viewModel: signUpViewModel,
                 goToLogin: {
                     self.pop()
                 },
-                onVerificationRequired: { email in
+                onVerificationRequired: { email, username, password in
                     self.push(
                         page: .emailVerification(
-                            email: email
+                            email: email,
+                            username: username,
+                            password: password
                         )
                     )
                 }
             )
         case .forgotPassword:
             ForgotPasswordView(goToLogin: { self.push(page: .login) } )
-        case let .emailVerification(email):
+        case let .emailVerification(email, username, password):
             EmailVerificationView(
                 email: email,
                 onVerified: {
-                    self.goToLogin()
+                    self.completeVerifiedLogin(
+                        username: username,
+                        password: password
+                    )
                 },
                 goBack: {
                     self.pop()
@@ -213,6 +222,41 @@ final class Coordinator: ObservableObject {
             page: .login
         )
     }
+
+    /// Faz o login automaticamente com as credenciais recém-digitadas
+    /// assim que o código de verificação é confirmado — evita mandar o
+    /// usuário de volta para a tela de login logo depois de cadastrar
+    /// ou verificar a conta.
+    @MainActor
+    private func completeVerifiedLogin(
+        username: String,
+        password: String
+    ) {
+        Task { [weak self] in
+            guard let self else { return }
+
+            do {
+                let response = try await AuthenticationService()
+                    .fetchLogin(
+                        requestBody: .init(
+                            username: username,
+                            password: password
+                        )
+                    )
+
+                AuthSession.shared.save(response: response)
+
+                self.currentUserId = response.id.uuidString
+                self.isLoggedIn = true
+
+            } catch {
+                // A conta já foi verificada; se o login automático
+                // falhar (ex.: instabilidade de rede), o usuário ainda
+                // consegue entrar manualmente com as mesmas credenciais.
+                self.goToLogin()
+            }
+        }
+    }
 }
 
 enum AppPages: Hashable {
@@ -225,7 +269,11 @@ enum AppPages: Hashable {
     case editJob(JobApplication)
     case signUp
     case forgotPassword
-    case emailVerification(email: String)
+    case emailVerification(
+        email: String,
+        username: String,
+        password: String
+    )
     case videos
     case uploadVideo
     case videoDetail(

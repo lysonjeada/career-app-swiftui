@@ -19,7 +19,11 @@ struct SignUpView: View {
         SignUpViewModel
 
     var goToLogin: () -> Void
-    var onVerificationRequired: (String) -> Void
+    var onVerificationRequired: (
+        _ email: String,
+        _ username: String,
+        _ password: String
+    ) -> Void
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -83,7 +87,9 @@ struct SignUpView: View {
             }
 
             onVerificationRequired(
-                registeredEmail
+                registeredEmail,
+                username,
+                password
             )
         }
     }
