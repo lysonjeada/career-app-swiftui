@@ -55,6 +55,7 @@ class JobApplicationTrackerListViewModel: ObservableObject {
     @Published var snackBarMessage: String = "" // Novo: Mensagem da snack bar
 
     private var task: Task<Void, Never>?
+    private var snackBarTask: Task<Void, Never>?
 
     init(service: JobApplicationServiceProtocol = JobApplicationService()) {
         self.service = service
@@ -265,21 +266,28 @@ class JobApplicationTrackerListViewModel: ObservableObject {
 
     @MainActor
     private func showErrorSnackBar(message: String) {
-        self.snackBarMessage = message
-        self.showSnackBar = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Esconde após 3 segundos
-            self.showSnackBar = false
-            self.snackBarMessage = "" // Limpa a mensagem
-        }
+        showSnackBar(message: message)
     }
 
     @MainActor
     private func showSuccessSnackBar(message: String) {
+        showSnackBar(message: message)
+    }
+
+    @MainActor
+    private func showSnackBar(message: String) {
+        snackBarTask?.cancel()
+
         self.snackBarMessage = message
         self.showSnackBar = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Esconde após 3 segundos
-            self.showSnackBar = false
-            self.snackBarMessage = "" // Limpa a mensagem
+
+        snackBarTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(3))
+
+            guard !Task.isCancelled else { return }
+
+            self?.showSnackBar = false
+            self?.snackBarMessage = "" // Limpa a mensagem
         }
     }
 }

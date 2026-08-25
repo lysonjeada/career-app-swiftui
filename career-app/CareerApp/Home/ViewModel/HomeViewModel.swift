@@ -100,6 +100,29 @@ final class HomeViewModel:
             githubJobListing = []
             availableJobs = []
 
+            // As cinco chamadas abaixo são independentes entre si (nenhuma
+            // usa o resultado da outra), então disparamos todas de uma vez
+            // com `async let` em vez de aguardá-las uma a uma — o tempo
+            // total passa a ser o da chamada mais lenta, não a soma de
+            // todas.
+            async let articlesResult =
+                service.fetchArticles(tag: tag)
+
+            async let interviewsResult =
+                jobService.fetchInterviews()
+
+            async let nextInterviewsResult =
+                jobService.fetchNextInterviews()
+
+            async let videosResult =
+                videoService.fetchApprovedVideos(
+                    page: 1,
+                    pageSize: 10
+                )
+
+            async let availableJobsResult =
+                jobService.fetchAvailableRepositories()
+
             // MARK: - Articles
 
             do {
@@ -108,9 +131,7 @@ final class HomeViewModel:
                 )
 
                 articles =
-                    try await service.fetchArticles(
-                        tag: tag
-                    )
+                    try await articlesResult
 
                 print(
                     """
@@ -136,8 +157,7 @@ final class HomeViewModel:
                 )
 
                 let interviews =
-                    try await jobService
-                        .fetchInterviews()
+                    try await interviewsResult
 
                 print(
                     """
@@ -216,8 +236,7 @@ final class HomeViewModel:
                 )
 
                 let nextInterviews =
-                    try await jobService
-                        .fetchNextInterviews()
+                    try await nextInterviewsResult
 
                 print(
                     """
@@ -317,11 +336,7 @@ final class HomeViewModel:
 
             do {
                 let response =
-                    try await videoService
-                        .fetchApprovedVideos(
-                            page: 1,
-                            pageSize: 10
-                        )
+                    try await videosResult
 
                 videos =
                     response.items
@@ -339,8 +354,7 @@ final class HomeViewModel:
 
             do {
                 availableJobs =
-                    try await jobService
-                        .fetchAvailableRepositories()
+                    try await availableJobsResult
 
             } catch {
                 print(

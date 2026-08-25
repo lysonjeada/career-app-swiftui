@@ -26,20 +26,13 @@ struct CalendarView: View {
         }
     }
 
+    @MainActor
     private func requestAccess() {
-        eventStore.requestFullAccessToEvents { granted, error in
-            if granted {
-                DispatchQueue.main.async {
-                    isAuthorized = true
-                    showingCalendar = true
-                }
-            } else {
-                // Handle the case where the user denied access
-                DispatchQueue.main.async {
-                    isAuthorized = false
-                    showingCalendar = false
-                }
-            }
+        Task {
+            let granted = (try? await eventStore.requestFullAccessToEvents()) ?? false
+
+            isAuthorized = granted
+            showingCalendar = granted
         }
     }
 }
