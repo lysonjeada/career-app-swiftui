@@ -41,8 +41,11 @@ final class ProgressDashboardService:
         request.httpMethod = "GET"
         request.timeoutInterval = 60
 
+        // Sem isso, a requisição saía sem o header Authorization —
+        // o endpoint exige autenticação e sempre respondia 401,
+        // independente de o usuário estar logado ou o token válido.
         let (data, response) =
-            try await URLSession.shared.data(
+            try await AuthenticatedHTTPClient.shared.data(
                 for: request
             )
 
