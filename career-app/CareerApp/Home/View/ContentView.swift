@@ -54,25 +54,29 @@ struct ContentView: View {
             }
             .tint(.persianBlue) // Cor dos itens selecionados do tab bar
             .onAppear {
-                // Sempre entra pela aba Home num login novo — sem isso,
-                // a aba fica travada na última selecionada antes do
-                // logout (ex.: saiu da conta a partir do Menu e o
-                // próximo login reabre direto na aba Menu).
-                deepLinkManager.selectedTab = .home
+                // O reset da aba para Home num login novo fica em
+                // Coordinator.isLoggedIn.didSet (amarrado à transição
+                // de estado) — aqui dispararia de novo a cada
+                // push/pop que volta pra raiz, travando "voltar" em
+                // qualquer tela na aba Home.
 
                 // Configuração da aparência do tab bar para iOS 15+
+                //
+                // Não forçamos mais iconColor/titleTextAttributes
+                // brancos aqui: a tab bar flutuante (Liquid Glass, a
+                // partir do iOS 18) usa um material translúcido que
+                // se adapta ao tema do sistema e não respeita mais o
+                // backgroundColor customizado — forçar branco fixo
+                // ficava ilegível no light mode (fundo claro + texto
+                // branco). Deixamos o item selecionado seguir o
+                // .tint(.persianBlue) da TabView (cor adaptativa,
+                // ver Utils/Extensions/Color.swift) e o não
+                // selecionado no cinza padrão do sistema — os dois
+                // já contrastam bem nos dois temas.
                 let appearance = UITabBarAppearance()
                 appearance.configureWithOpaqueBackground()
                 appearance.backgroundColor = UIColor(Color.persianBlue)
-                
-                // Cor dos itens não selecionados
-                appearance.stackedLayoutAppearance.normal.iconColor = UIColor.white.withAlphaComponent(0.6)
-                appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white.withAlphaComponent(0.6)]
-                
-                // Cor dos itens selecionados
-                appearance.stackedLayoutAppearance.selected.iconColor = UIColor.white
-                appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white]
-                
+
                 UITabBar.appearance().standardAppearance = appearance
                 UITabBar.appearance().scrollEdgeAppearance = appearance
                 

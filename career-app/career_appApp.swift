@@ -22,6 +22,9 @@ struct career_appApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(coordinator)
                 .environmentObject(deepLinkManager)
+                .onAppear {
+                    coordinator.deepLinkManager = deepLinkManager
+                }
                 .task {
                     // Observa compras de créditos de IA aprovadas pela
                     // Apple mas nunca confirmadas no backend (app

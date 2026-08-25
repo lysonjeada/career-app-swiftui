@@ -16,6 +16,15 @@ import FirebaseAnalytics // Se você usa
 
 @MainActor
 final class Coordinator: ObservableObject {
+    // Injetado uma vez em career_appApp — usado só para resetar a aba
+    // selecionada para Home num login novo (ver isLoggedIn.didSet).
+    // Isso precisa acontecer aqui, amarrado à transição de estado, e
+    // não num .onAppear da ContentView: .onAppear dispara de novo
+    // toda vez que se volta para a raiz depois de um push/pop
+    // qualquer, o que resetava a aba errado ao simplesmente apertar
+    // "voltar" em qualquer tela.
+    weak var deepLinkManager: DeepLinkManager?
+
     @Published var isLoggedIn: Bool {
         didSet {
             UserDefaults.standard.set(isLoggedIn, forKey: "isUserLoggedIn")
@@ -23,6 +32,7 @@ final class Coordinator: ObservableObject {
             if isLoggedIn {
                 // Se logou, limpa a pilha de navegação para iniciar um novo fluxo
                 path = NavigationPath()
+                deepLinkManager?.selectedTab = .home
                 // Não faça push aqui, a buildRootView vai renderizar ContentView
             } else {
                 // Se deslogou, limpa a pilha e remove o userId salvo
