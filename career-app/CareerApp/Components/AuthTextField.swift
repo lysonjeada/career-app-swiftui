@@ -43,5 +43,11 @@ struct AuthTextField: View {
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(8)
+        // Email, username e senha nunca devem ser autocapitalizados —
+        // isso corrompia o texto digitado (ex.: "justinbieber" virava
+        // "Justinbieber") e causava falha de login por credencial
+        // divergente da cadastrada.
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled(true)
     }
 }

@@ -54,6 +54,12 @@ struct ContentView: View {
             }
             .tint(.persianBlue) // Cor dos itens selecionados do tab bar
             .onAppear {
+                // Sempre entra pela aba Home num login novo — sem isso,
+                // a aba fica travada na última selecionada antes do
+                // logout (ex.: saiu da conta a partir do Menu e o
+                // próximo login reabre direto na aba Menu).
+                deepLinkManager.selectedTab = .home
+
                 // Configuração da aparência do tab bar para iOS 15+
                 let appearance = UITabBarAppearance()
                 appearance.configureWithOpaqueBackground()
