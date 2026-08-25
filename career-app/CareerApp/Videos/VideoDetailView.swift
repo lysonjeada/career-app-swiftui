@@ -24,6 +24,10 @@ struct VideoDetailView: View {
         true
 
     @State
+    private var loadErrorMessage:
+        String?
+
+    @State
     private var isResending =
         false
 
@@ -59,6 +63,16 @@ struct VideoDetailView: View {
     private var thumbnailResendErrorMessage:
         String?
 
+    /// Criado uma única vez (não a cada re-render do body) e
+    /// pausado antes de ser liberado — construir um `AVPlayer` novo
+    /// inline no body (como antes) recria a conexão de rede a cada
+    /// mudança de @State nesta tela, e derrubar um AVPlayer preso
+    /// carregando/bufferizando trava a thread principal por vários
+    /// segundos quando a tela é fechada (a "tela preta" ao voltar).
+    @State
+    private var player:
+        AVPlayer?
+
     private let service:
         VideoServiceProtocol =
         VideoService()
@@ -67,6 +81,32 @@ struct VideoDetailView: View {
         ScrollView {
             if isLoading {
                 ProgressView()
+                    .padding(.top, 80)
+
+            } else if let loadErrorMessage {
+                VStack(spacing: 12) {
+                    Image(
+                        systemName:
+                            "exclamationmark.triangle"
+                    )
+                    .font(.largeTitle)
+                    .foregroundStyle(.orange)
+
+                    Text(loadErrorMessage)
+                        .multilineTextAlignment(
+                            .center
+                        )
+                        .foregroundStyle(.secondary)
+
+                    Button("Tentar novamente") {
+                        Task {
+                            await loadVideo()
+                        }
+                    }
+                    .buttonStyle(.bordered)
+                }
+                .padding(.top, 80)
+                .padding(.horizontal, 24)
 
             } else if let video {
                 VStack(
@@ -80,14 +120,18 @@ struct VideoDetailView: View {
                             video.streamURL {
 
                         VideoPlayer(
-                            player:
-                                AVPlayer(
-                                    url: url
-                                )
+                            player: player
                         )
                         .frame(
                             height: 260
                         )
+                        .onAppear {
+                            if player == nil {
+                                player = AVPlayer(
+                                    url: url
+                                )
+                            }
+                        }
                     }
 
                     thumbnailSection(
@@ -158,6 +202,13 @@ struct VideoDetailView: View {
                 .activate()
         }
         .onDisappear {
+            // Pausar antes de soltar a referência evita que o
+            // AVPlayer siga tentando bufferizar em segundo plano
+            // enquanto é desalocado — é isso que travava a thread
+            // principal por vários segundos ao sair da tela.
+            player?.pause()
+            player = nil
+
             VideoPlaybackAudioSession
                 .deactivate()
         }
@@ -188,22 +239,32 @@ struct VideoDetailView: View {
             }
         }
         .task {
-            do {
-                video =
-                    try await service
-                        .fetchVideo(
-                            id:
-                                videoId
-                        )
-            } catch {
-                print(
-                    "❌ \(error)"
-                )
-            }
-
-            isLoading =
-                false
+            await loadVideo()
         }
+    }
+
+    @MainActor
+    private func loadVideo() async {
+        isLoading = true
+        loadErrorMessage = nil
+
+        do {
+            video =
+                try await service
+                    .fetchVideo(
+                        id: videoId
+                    )
+
+        } catch {
+            print(
+                "❌ \(error)"
+            )
+
+            loadErrorMessage =
+                error.localizedDescription
+        }
+
+        isLoading = false
     }
 
     @ViewBuilder
