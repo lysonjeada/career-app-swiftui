@@ -15,7 +15,7 @@ struct HomeVideosCarousel: View {
 
     var body: some View {
         VStack(
-            alignment: .leading,
+            alignment: .center,
             spacing: 14
         ) {
             Text(
