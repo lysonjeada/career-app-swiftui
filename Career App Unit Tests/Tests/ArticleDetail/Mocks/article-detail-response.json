@@ -37,5 +37,6 @@
     "profile_image": "https://dev.to/profile.png",
     "profile_image_90": "https://dev.to/profile_90.png"
   },
-  "organization": null
+  "organization": null,
+  "is_favorited": true
 }

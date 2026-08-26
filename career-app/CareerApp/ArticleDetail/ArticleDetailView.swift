@@ -28,18 +28,25 @@ struct ArticleDetailView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Fundo Persian Blue com opacidade
-                Color.white
-                    .edgesIgnoringSafeArea(.all)
-                
-                // Conteúdo principal
-                switch viewModel.viewState {
-                case .loading:
-                    LoadingView()
-                case .loaded:
-                    ScrollView {
+        // Sem NavigationView aqui — esta tela já é empurrada dentro do
+        // NavigationStack único do app (via Coordinator.path). Um
+        // NavigationView aninhado nunca era necessário e, quando essa
+        // tela é aberta a partir de um ponto mais profundo da pilha
+        // (ex.: Menu -> Favoritos -> Artigos -> detalhe), gerava um
+        // "AttributeGraph: cycle detected" que travava a tela no
+        // spinner de loading para sempre, mesmo com o fetch concluído
+        // com sucesso.
+        ZStack {
+            // Fundo Persian Blue com opacidade
+            Color.white
+                .edgesIgnoringSafeArea(.all)
+
+            // Conteúdo principal
+            switch viewModel.viewState {
+            case .loading:
+                LoadingView()
+            case .loaded:
+                ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
                             // Título + favoritar — o título fica com
                             // largura flexível e quebra em várias
@@ -109,14 +116,10 @@ struct ArticleDetailView: View {
                                 }
                             }
                             .padding(.vertical, 16)
-                            
-                            // Corpo do artigo
-                            if let body = viewModel.article?.bodyHtml {
-                                Text(htmlToPlainText(body))
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.white.opacity(0.85))
-                                    .lineSpacing(6)
-                            }
+                            // Sem corpo do artigo aqui de propósito —
+                            // o dev.to não autoriza reproduzir o
+                            // artigo inteiro fora do site deles; o
+                            // botão acima leva pra lá.
                         }
                         .padding(.horizontal, 20)
                     }
@@ -125,7 +128,6 @@ struct ArticleDetailView: View {
             .onAppear {
                 viewModel.fetchArticles()
             }
-        }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

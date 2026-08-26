@@ -62,8 +62,18 @@ final class ArticleService: ArticleServiceProtocol {
             print("🟡 Dados brutos recebidos: \(rawDataString ?? "vazio/não decodificável")")
             
             // 5. Decodificação
+            //
+            // ArticleDetail já declara CodingKeys explícitos em
+            // snake_case (ex.: `case isFavorited = "is_favorited"`).
+            // Somar `.convertFromSnakeCase` aqui faz o decoder converter
+            // a chave do JSON ("is_favorited" -> "isFavorited") e depois
+            // tentar casar com o `stringValue` do CodingKey, que é
+            // literalmente "is_favorited" — nunca bate. Pra todo campo
+            // Optional com CodingKey explícito isso falha em silêncio e
+            // vira nil (era a causa real da estrela de favorito voltar
+            // desmarcada: `article.isFavorited` chegava sempre nil, e
+            // `?? false` escondia o problema).
             let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase // Caso a API use snake_case
             let fetchedArticle = try decoder.decode(ArticleDetail.self, from: data)
             print("🟢 Artigo decodificado com sucesso: \(fetchedArticle)")
             return fetchedArticle
@@ -144,8 +154,9 @@ final class ArticleService: ArticleServiceProtocol {
             throw URLError(.badServerResponse)
         }
 
+        // Sem .convertFromSnakeCase — ArticleDetail já tem CodingKeys
+        // explícitos em snake_case (ver fetchArticle acima).
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         return try decoder.decode(
             ArticleFavoritesResponse.self,

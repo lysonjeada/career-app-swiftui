@@ -12,22 +12,22 @@ struct FavoritesView: View {
         String,
         CaseIterable,
         Identifiable {
-
+        
         case videos = "Vídeos"
         case articles = "Artigos"
-
+        
         var id: String {
             rawValue
         }
     }
-
+    
     @State
     private var selectedKind:
         FavoriteKind = .videos
-
+    
     @StateObject
     var coordinator: Coordinator
-
+    
     var body: some View {
         VStack(spacing: 0) {
             Picker(
@@ -37,31 +37,47 @@ struct FavoritesView: View {
                 ForEach(
                     FavoriteKind.allCases
                 ) { kind in
-                    Text(kind.rawValue)
-                        .tag(kind)
+                    Text(
+                        kind.rawValue
+                    )
+                    .tag(kind)
                 }
             }
             .pickerStyle(.segmented)
             .padding()
-
+            
             Group {
                 switch selectedKind {
                 case .videos:
                     FavoriteVideosView(
-                        coordinator: coordinator
+                        coordinator:
+                            coordinator
                     )
-
+                    
                 case .articles:
-                    FavoriteArticlesView { articleId in
+                    FavoriteArticlesView {
+                        articleId in
+                        
                         coordinator.push(
-                            page: .articleDetail(
-                                id: articleId
-                            )
+                            page:
+                                .articleDetail(
+                                    id:
+                                        articleId
+                                )
                         )
                     }
                 }
             }
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity
+            )
         }
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .top
+        )
         .navigationTitle(
             "Favoritos"
         )

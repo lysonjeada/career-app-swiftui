@@ -37,6 +37,14 @@ actor AuthenticatedHTTPClient {
         var authorizedRequest =
             request
 
+        // O backend não manda Cache-Control/Vary nessas rotas, e o
+        // URLCache do iOS cacheia por URL só — ignora o header
+        // Authorization. Sem isso, a mesma URL de detalhe (ex.: um
+        // artigo) fica presa na resposta cacheada de antes de
+        // favoritar, mesmo com o servidor já respondendo certo.
+        authorizedRequest.cachePolicy =
+            .reloadIgnoringLocalCacheData
+
         authorizedRequest.setValue(
             "Bearer \(accessToken)",
             forHTTPHeaderField:
