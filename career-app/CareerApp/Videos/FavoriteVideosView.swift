@@ -44,9 +44,6 @@ struct FavoriteVideosView: View {
                 }
             }
         }
-        .navigationTitle(
-            "Favoritos"
-        )
         .onAppear {
             viewModel.fetchFavorites()
         }

@@ -212,8 +212,8 @@ final class Coordinator: ObservableObject {
         case .aiCredits:
             AICreditsView()
 
-        case .favoriteVideos:
-            FavoriteVideosView(
+        case .favorites:
+            FavoritesView(
                 coordinator: self
             )
         }
@@ -295,7 +295,7 @@ enum AppPages: Hashable {
         videoId: String
     )
     case aiCredits
-    case favoriteVideos
+    case favorites
 }
 
 enum Sheet: String, Identifiable {

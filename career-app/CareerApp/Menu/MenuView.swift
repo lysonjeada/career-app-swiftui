@@ -57,7 +57,7 @@ struct MenuView: View {
 
             Button {
                 coordinator.push(
-                    page: .favoriteVideos
+                    page: .favorites
                 )
 
             } label: {

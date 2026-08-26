@@ -9,23 +9,45 @@ import Foundation
 
 protocol ArticleServiceProtocol {
     func fetchArticle(id: Int) async throws -> ArticleDetail
+
+    func addFavorite(articleId: Int) async throws -> Bool
+    func removeFavorite(articleId: Int) async throws -> Bool
+    func fetchFavoriteArticles() async throws -> [ArticleDetail]
 }
 
 final class ArticleService: ArticleServiceProtocol {
     func fetchArticle(id: Int) async throws -> ArticleDetail {
         print("🟢 Iniciando fetchArticle para o ID: \(id)")
-        
-        // 1. Verificação da URL
-        guard let url = URL(string: "https://dev.to/api/articles/\(id)") else {
+
+        // O app nunca fala direto com o dev.to — o backend intermedia
+        // essa busca e anota `is_favorited` quando o usuário está
+        // logado.
+        guard let url = URL(string: "\(APIConstants.pythonURL)/articles/\(id)") else {
             print("🔴 Erro: URL inválida para o ID \(id)")
             throw URLError(.badURL)
         }
         print("🟡 URL construída: \(url.absoluteString)")
-        
+
+        let request = URLRequest(url: url)
+
         // 2. Chamada à API
         do {
             print("🟡 Fazendo requisição...")
-            let (data, response) = try await URLSession.shared.data(from: url)
+
+            // A rota é pública/opcional no backend (convidado também
+            // vê o artigo), mas quando HÁ sessão precisa passar pelo
+            // AuthenticatedHTTPClient — ele renova o token se estiver
+            // expirado. Ler `AuthSession.shared.accessToken` direto
+            // (como antes) mandava um token vencido sem renovar; o
+            // backend então tratava a requisição como se fosse de um
+            // convidado e devolvia `is_favorited: false` mesmo
+            // quando o artigo já tinha sido favoritado — sem erro
+            // nenhum aparecer, o que tornava impossível desfazer o
+            // favorito pela tela de detalhe.
+            let (data, response) =
+                AuthSession.shared.isAuthenticated
+                ? try await AuthenticatedHTTPClient.shared.data(for: request)
+                : try await URLSession.shared.data(for: request)
             
             // 3. Verificação do status HTTP (opcional)
             if let httpResponse = response as? HTTPURLResponse {
@@ -54,4 +76,92 @@ final class ArticleService: ArticleServiceProtocol {
             throw error // Re-lança o erro para o caller
         }
     }
+
+    func addFavorite(articleId: Int) async throws -> Bool {
+        try await sendFavoriteRequest(
+            articleId: articleId,
+            method: "POST"
+        )
+    }
+
+    func removeFavorite(articleId: Int) async throws -> Bool {
+        try await sendFavoriteRequest(
+            articleId: articleId,
+            method: "DELETE"
+        )
+    }
+
+    private func sendFavoriteRequest(
+        articleId: Int,
+        method: String
+    ) async throws -> Bool {
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/articles/\(articleId)/favorite"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+
+        let (data, response) =
+            try await AuthenticatedHTTPClient.shared.data(
+                for: request
+            )
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              200..<300 ~= httpResponse.statusCode
+        else {
+            throw URLError(.badServerResponse)
+        }
+
+        let decoded = try JSONDecoder().decode(
+            FavoriteToggleResponse.self,
+            from: data
+        )
+
+        return decoded.isFavorited
+    }
+
+    func fetchFavoriteArticles() async throws -> [ArticleDetail] {
+        guard let url = URL(
+            string: "\(APIConstants.pythonURL)/articles/favorites"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        let request = URLRequest(url: url)
+
+        let (data, response) =
+            try await AuthenticatedHTTPClient.shared.data(
+                for: request
+            )
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              200..<300 ~= httpResponse.statusCode
+        else {
+            throw URLError(.badServerResponse)
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+        return try decoder.decode(
+            ArticleFavoritesResponse.self,
+            from: data
+        ).items
+    }
+}
+
+private struct FavoriteToggleResponse: Decodable {
+    let isFavorited: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case isFavorited = "is_favorited"
+    }
+}
+
+private struct ArticleFavoritesResponse: Decodable {
+    let items: [ArticleDetail]
 }

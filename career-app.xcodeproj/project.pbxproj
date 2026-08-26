@@ -115,6 +115,9 @@
 		2B1167518E7759408C3E92C2 /* VideoThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */; };
 		A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */; };
 		7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */; };
+		5CE00DAF29318A6EAD1E8F40 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FE0124D3F03F5E13169761 /* FavoritesView.swift */; };
+		2DE5A27059C13F53AEA89937 /* FavoriteArticlesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */; };
+		59A1BD141916B46709558D90 /* FavoriteArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */; };
 		7084D40E302F8DC1009F5DB9 /* PickedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */; };
 		7084D410302F8DD1009F5DB9 /* UploadVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */; };
 		7084D412302F8DEB009F5DB9 /* UploadVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */; };
@@ -340,6 +343,9 @@
 		DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailGenerator.swift; sourceTree = "<group>"; };
 		BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosViewModel.swift; sourceTree = "<group>"; };
 		EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosView.swift; sourceTree = "<group>"; };
+		B0FE0124D3F03F5E13169761 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesViewModel.swift; sourceTree = "<group>"; };
+		093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesView.swift; sourceTree = "<group>"; };
 		7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedMovie.swift; sourceTree = "<group>"; };
 		7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoViewModel.swift; sourceTree = "<group>"; };
 		7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoView.swift; sourceTree = "<group>"; };
@@ -836,6 +842,7 @@
 			isa = PBXGroup;
 			children = (
 				70A76C8E2D7928E000C5B709 /* MenuView.swift */,
+				B0FE0124D3F03F5E13169761 /* FavoritesView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -847,6 +854,8 @@
 				70A76C952D7A8C4C00C5B709 /* ArticleService.swift */,
 				70A76C932D7A8C3100C5B709 /* ArticleDetailViewModel.swift */,
 				70A76C912D7A8C1B00C5B709 /* ArticleDetailView.swift */,
+				436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */,
+				093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */,
 			);
 			path = ArticleDetail;
 			sourceTree = "<group>";
@@ -1302,6 +1311,9 @@
 				2B1167518E7759408C3E92C2 /* VideoThumbnailGenerator.swift in Sources */,
 				A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */,
 				7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */,
+				5CE00DAF29318A6EAD1E8F40 /* FavoritesView.swift in Sources */,
+				2DE5A27059C13F53AEA89937 /* FavoriteArticlesViewModel.swift in Sources */,
+				59A1BD141916B46709558D90 /* FavoriteArticlesView.swift in Sources */,
 				24923FA32CC053920081E887 /* LocalizedStrings.swift in Sources */,
 				70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */,
 				702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */,

@@ -41,13 +41,37 @@ struct ArticleDetailView: View {
                 case .loaded:
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
-                            // Título
-                            Text(viewModel.article?.title ?? "Artigo não encontrado")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(.persianBlue)
-                                .lineLimit(nil)
-                                .padding(.top, 20)
-                            
+                            // Título + favoritar — o título fica com
+                            // largura flexível e quebra em várias
+                            // linhas (sem truncar); a estrela tem
+                            // tamanho fixo e não disputa espaço com
+                            // o texto.
+                            HStack(alignment: .top, spacing: 12) {
+                                Text(viewModel.article?.title ?? "Artigo não encontrado")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(.persianBlue)
+                                    .lineLimit(nil)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                                Button {
+                                    viewModel.toggleFavorite()
+                                } label: {
+                                    Image(systemName: viewModel.isFavorited ? "star.fill" : "star")
+                                        .font(.system(size: 22))
+                                        .foregroundColor(.yellow)
+                                }
+                                .disabled(viewModel.isTogglingFavorite)
+                                .fixedSize()
+                            }
+                            .padding(.top, 20)
+
+                            if let favoriteErrorMessage = viewModel.favoriteErrorMessage {
+                                Text(favoriteErrorMessage)
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                            }
+
                             TagCloudView(tags: viewModel.article?.tags ?? [])
                                 .padding(.top, 4)
                             
@@ -107,12 +131,6 @@ struct ArticleDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 backButton
-            }
-            ToolbarItem(placement: .automatic) {
-                Text(viewModel.article?.title ?? "")
-                    .bold()
-                    .font(.system(size: 24))
-                    .foregroundColor(.persianBlue)
             }
         }
     }

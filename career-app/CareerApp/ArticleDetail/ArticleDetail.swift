@@ -38,7 +38,12 @@ struct ArticleDetail: Codable {
     let bodyMarkdown: String? 
     let user: UserDetail?
     let organization: Organization?
-    
+
+    /// Anotado pelo nosso backend (não vem do dev.to) — só reflete o
+    /// estado real quando a requisição foi feita com o usuário
+    /// logado; para convidado, sempre `false`.
+    let isFavorited: Bool?
+
     enum CodingKeys: String, CodingKey {
         case typeOf = "type_of"
         case id
@@ -70,6 +75,7 @@ struct ArticleDetail: Codable {
         case bodyMarkdown = "body_markdown"
         case user
         case organization
+        case isFavorited = "is_favorited"
     }
 }
 

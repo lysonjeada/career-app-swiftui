@@ -13,7 +13,10 @@ protocol HomeServiceProtocol {
 
 final class HomeService: HomeServiceProtocol {
     func fetchArticles(tag: String? = nil) async throws -> [Article] {
-        var urlString = "https://dev.to/api/articles"
+        // O app nunca fala direto com o dev.to — o backend intermedia
+        // essa busca (permite, por exemplo, anotar favoritos sem o
+        // cliente precisar conhecer a API externa).
+        var urlString = "\(APIConstants.pythonURL)/articles/"
         if let tag = tag, !tag.isEmpty {
             urlString += "?tag=\(tag)"
         }

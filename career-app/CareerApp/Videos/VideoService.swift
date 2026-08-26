@@ -347,7 +347,7 @@ final class VideoService:
         )
 
         let (data, response) =
-            try await URLSession.shared
+            try await AuthenticatedHTTPClient.shared
                 .data(
                     for: request
                 )
@@ -416,7 +416,7 @@ final class VideoService:
             )
 
         let (data, response) =
-            try await URLSession.shared
+            try await AuthenticatedHTTPClient.shared
                 .data(
                     for: request
                 )
@@ -450,7 +450,7 @@ final class VideoService:
             )
 
         let (_, response) =
-            try await URLSession.shared
+            try await AuthenticatedHTTPClient.shared
                 .data(
                     for: request
                 )
@@ -485,7 +485,7 @@ final class VideoService:
         )
 
         let (data, response) =
-            try await URLSession.shared
+            try await AuthenticatedHTTPClient.shared
                 .data(
                     for: request
                 )
@@ -641,7 +641,7 @@ final class VideoService:
         )
 
         let (data, response) =
-            try await URLSession.shared
+            try await AuthenticatedHTTPClient.shared
                 .data(
                     for: request
                 )
@@ -788,7 +788,7 @@ final class VideoService:
         )
 
         let (data, response) =
-            try await URLSession.shared
+            try await AuthenticatedHTTPClient.shared
                 .data(
                     for: request
                 )

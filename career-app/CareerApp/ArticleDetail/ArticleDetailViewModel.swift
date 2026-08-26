@@ -16,11 +16,15 @@ final class ArticleDetailViewModel: ObservableObject {
     }
     
     @Published private(set) var viewState: State = .loading
-    
+
+    @Published private(set) var isFavorited = false
+    @Published private(set) var isTogglingFavorite = false
+    @Published var favoriteErrorMessage: String?
+
     private(set) var article: ArticleDetail?
     private var task: Task <Void, Never>?
     var articleId: Int
-    
+
     private let service: ArticleServiceProtocol
 
     init(articleId: Int, service: ArticleServiceProtocol = ArticleService()) {
@@ -45,11 +49,43 @@ final class ArticleDetailViewModel: ObservableObject {
                 guard !Task.isCancelled else { return }
                 
                 self.article = article
+                self.isFavorited = article.isFavorited ?? false
                 self.viewState = .loaded
             } catch {
                 guard !Task.isCancelled else { return }
                 print(error)
 //                self.viewState = .error(error)
+            }
+        }
+    }
+
+    @MainActor
+    func toggleFavorite() {
+        guard let id = article?.id,
+              !isTogglingFavorite
+        else {
+            return
+        }
+
+        let shouldFavorite = !isFavorited
+
+        isTogglingFavorite = true
+        favoriteErrorMessage = nil
+
+        Task {
+            defer {
+                isTogglingFavorite = false
+            }
+
+            do {
+                isFavorited =
+                    shouldFavorite
+                    ? try await service.addFavorite(articleId: id)
+                    : try await service.removeFavorite(articleId: id)
+
+            } catch {
+                favoriteErrorMessage =
+                    error.localizedDescription
             }
         }
     }
