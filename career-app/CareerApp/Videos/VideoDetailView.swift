@@ -63,6 +63,22 @@ struct VideoDetailView: View {
     private var thumbnailResendErrorMessage:
         String?
 
+    @State
+    private var isReacting =
+        false
+
+    @State
+    private var reactionErrorMessage:
+        String?
+
+    @State
+    private var isTogglingFavorite =
+        false
+
+    @State
+    private var favoriteErrorMessage:
+        String?
+
     /// Criado uma única vez (não a cada re-render do body) e
     /// pausado antes de ser liberado — construir um `AVPlayer` novo
     /// inline no body (como antes) recria a conexão de rede a cada
@@ -134,19 +150,17 @@ struct VideoDetailView: View {
                         }
                     }
 
-                    thumbnailSection(
-                        for: video
-                    )
+                    if isOwner(of: video) {
+                        thumbnailSection(
+                            for: video
+                        )
+                    }
 
                     Text(
                         video.title
                     )
                     .font(
                         .title2.bold()
-                    )
-
-                    Text(
-                        video.status.title
                     )
 
                     if let description =
@@ -157,37 +171,48 @@ struct VideoDetailView: View {
                         )
                     }
 
-                    if
-                        video.status
-                        == .pending {
-
-                        Label(
-                            "Este vídeo está aguardando análise.",
-                            systemImage:
-                                "clock"
-                        )
-                        .foregroundStyle(
-                            .orange
+                    if isOwner(of: video) {
+                        Text(
+                            video.status.title
                         )
 
-                        resendReviewSection(
+                        if
+                            video.status
+                            == .pending {
+
+                            Label(
+                                "Este vídeo está aguardando análise.",
+                                systemImage:
+                                    "clock"
+                            )
+                            .foregroundStyle(
+                                .orange
+                            )
+
+                            resendReviewSection(
+                                for: video
+                            )
+                        }
+
+                        if
+                            video.status
+                            == .rejected,
+                            let reason =
+                                video.rejectionReason {
+
+                            Label(
+                                reason,
+                                systemImage:
+                                    "xmark.circle"
+                            )
+                            .foregroundStyle(
+                                .red
+                            )
+                        }
+
+                    } else {
+                        reactionSection(
                             for: video
-                        )
-                    }
-
-                    if
-                        video.status
-                        == .rejected,
-                        let reason =
-                            video.rejectionReason {
-
-                        Label(
-                            reason,
-                            systemImage:
-                                "xmark.circle"
-                        )
-                        .foregroundStyle(
-                            .red
                         )
                     }
                 }
@@ -616,5 +641,152 @@ struct VideoDetailView: View {
         }
 
         isResendingThumbnail = false
+    }
+
+    @ViewBuilder
+    private func reactionSection(
+        for video: TechVideo
+    ) -> some View {
+        VStack(
+            alignment: .leading,
+            spacing: 8
+        ) {
+            HStack(spacing: 24) {
+                Button {
+                    Task {
+                        await toggleReaction(.like)
+                    }
+                } label: {
+                    Label(
+                        "\(video.likesCount)",
+                        systemImage:
+                            video.myReaction == .like
+                            ? "hand.thumbsup.fill"
+                            : "hand.thumbsup"
+                    )
+                }
+                .tint(
+                    video.myReaction == .like
+                        ? Color.persianBlue
+                        : .secondary
+                )
+
+                Button {
+                    Task {
+                        await toggleReaction(.dislike)
+                    }
+                } label: {
+                    Label(
+                        "\(video.dislikesCount)",
+                        systemImage:
+                            video.myReaction == .dislike
+                            ? "hand.thumbsdown.fill"
+                            : "hand.thumbsdown"
+                    )
+                }
+                .tint(
+                    video.myReaction == .dislike
+                        ? .red
+                        : .secondary
+                )
+
+                Spacer()
+
+                Button {
+                    Task {
+                        await toggleFavorite()
+                    }
+                } label: {
+                    Image(
+                        systemName:
+                            video.isFavorited
+                            ? "star.fill"
+                            : "star"
+                    )
+                }
+                .tint(
+                    video.isFavorited
+                        ? .yellow
+                        : .secondary
+                )
+            }
+            .disabled(
+                isReacting || isTogglingFavorite
+            )
+            .font(.title3)
+
+            if let reactionErrorMessage {
+                Text(reactionErrorMessage)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
+
+            if let favoriteErrorMessage {
+                Text(favoriteErrorMessage)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
+        }
+    }
+
+    @MainActor
+    private func toggleReaction(
+        _ reaction: VideoReactionType
+    ) async {
+        guard let video else {
+            return
+        }
+
+        isReacting = true
+        reactionErrorMessage = nil
+
+        do {
+            let updatedVideo =
+                video.myReaction == reaction
+                ? try await service.removeReaction(
+                    videoId: video.id
+                )
+                : try await service.setReaction(
+                    videoId: video.id,
+                    reaction: reaction
+                )
+
+            self.video = updatedVideo
+
+        } catch {
+            reactionErrorMessage =
+                error.localizedDescription
+        }
+
+        isReacting = false
+    }
+
+    @MainActor
+    private func toggleFavorite() async {
+        guard let video else {
+            return
+        }
+
+        isTogglingFavorite = true
+        favoriteErrorMessage = nil
+
+        do {
+            let updatedVideo =
+                video.isFavorited
+                ? try await service.removeFavorite(
+                    videoId: video.id
+                )
+                : try await service.addFavorite(
+                    videoId: video.id
+                )
+
+            self.video = updatedVideo
+
+        } catch {
+            favoriteErrorMessage =
+                error.localizedDescription
+        }
+
+        isTogglingFavorite = false
     }
 }

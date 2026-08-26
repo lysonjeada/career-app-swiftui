@@ -57,6 +57,35 @@ struct MenuView: View {
 
             Button {
                 coordinator.push(
+                    page: .favoriteVideos
+                )
+
+            } label: {
+                HStack {
+                    Text("Favoritos")
+                        .foregroundColor(
+                            .persianBlue
+                        )
+                        .font(
+                            .system(size: 20)
+                        )
+
+                    Spacer()
+
+                    Image(
+                        systemName: "star"
+                    )
+                    .foregroundColor(
+                        .persianBlue
+                    )
+                }
+            }
+            .listRowBackground(
+                Color.backgroundLightGray
+            )
+
+            Button {
+                coordinator.push(
                     page: .aiCredits
                 )
 

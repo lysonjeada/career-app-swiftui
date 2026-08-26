@@ -53,6 +53,32 @@ protocol VideoServiceProtocol {
     func resendThumbnailReviewNotification(
         id: String
     ) async throws -> TechVideo
+
+    /// Define a reação do usuário atual (like ou dislike) —
+    /// substitui uma reação anterior, já que só é permitida 1 por
+    /// usuário por vídeo.
+    func setReaction(
+        videoId: String,
+        reaction: VideoReactionType
+    ) async throws -> TechVideo
+
+    /// Remove a reação do usuário atual, se houver.
+    func removeReaction(
+        videoId: String
+    ) async throws -> TechVideo
+
+    func addFavorite(
+        videoId: String
+    ) async throws -> TechVideo
+
+    func removeFavorite(
+        videoId: String
+    ) async throws -> TechVideo
+
+    func fetchFavoriteVideos(
+        page: Int,
+        pageSize: Int
+    ) async throws -> VideoPageResponse
 }
 
 
@@ -646,6 +672,176 @@ final class VideoService:
             ResendThumbnailReviewResponse.self,
             from: data
         ).video
+    }
+
+
+    func setReaction(
+        videoId: String,
+        reaction: VideoReactionType
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(videoId)/reaction"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        request.httpBody = try JSONEncoder().encode(
+            ["reaction": reaction.rawValue]
+        )
+
+        return try await sendAuthenticatedVideoRequest(
+            request
+        )
+    }
+
+    func removeReaction(
+        videoId: String
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(videoId)/reaction"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+
+        return try await sendAuthenticatedVideoRequest(
+            request
+        )
+    }
+
+    func addFavorite(
+        videoId: String
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(videoId)/favorite"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        return try await sendAuthenticatedVideoRequest(
+            request
+        )
+    }
+
+    func removeFavorite(
+        videoId: String
+    ) async throws -> TechVideo {
+
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/videos/\(videoId)/favorite"
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+
+        return try await sendAuthenticatedVideoRequest(
+            request
+        )
+    }
+
+    func fetchFavoriteVideos(
+        page: Int,
+        pageSize: Int
+    ) async throws -> VideoPageResponse {
+
+        guard let url = URL(
+            string:
+                """
+                \(APIConstants.pythonURL)/videos/favorites?page=\(page)&page_size=\(pageSize)
+                """
+        ) else {
+            throw URLError(.badURL)
+        }
+
+        var request =
+            try authorizedRequest(
+                url: url,
+                method: "GET"
+            )
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField:
+                "Accept"
+        )
+
+        let (data, response) =
+            try await URLSession.shared
+                .data(
+                    for: request
+                )
+
+        try validate(
+            response
+        )
+
+        return try decoder.decode(
+            VideoPageResponse.self,
+            from: data
+        )
+    }
+
+    /// Helper comum a reação/favorito: todos são POST/DELETE simples
+    /// sem corpo relevante na resposta além do TechVideo atualizado,
+    /// via AuthenticatedHTTPClient (renova o token automaticamente
+    /// em caso de 401, ao contrário de authorizedRequest +
+    /// URLSession direto).
+    private func sendAuthenticatedVideoRequest(
+        _ request: URLRequest
+    ) async throws -> TechVideo {
+        let (data, response) =
+            try await AuthenticatedHTTPClient
+                .shared
+                .data(for: request)
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw VideoServiceError
+                .invalidResponse
+        }
+
+        guard
+            200..<300 ~=
+                httpResponse.statusCode
+        else {
+            throw VideoServiceError
+                .serverError(
+                    statusCode:
+                        httpResponse.statusCode,
+                    message:
+                        Self.extractVideoError(
+                            from: data
+                        )
+                )
+        }
+
+        return try decoder.decode(
+            TechVideo.self,
+            from: data
+        )
     }
 
 

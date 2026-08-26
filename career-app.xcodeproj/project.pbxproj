@@ -113,6 +113,8 @@
 		7084D40A302F8DA4009F5DB9 /* VideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D409302F8DA1009F5DB9 /* VideosView.swift */; };
 		7084D40C302F8DB0009F5DB9 /* VideoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40B302F8DAE009F5DB9 /* VideoRow.swift */; };
 		2B1167518E7759408C3E92C2 /* VideoThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */; };
+		A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */; };
+		7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */; };
 		7084D40E302F8DC1009F5DB9 /* PickedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */; };
 		7084D410302F8DD1009F5DB9 /* UploadVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */; };
 		7084D412302F8DEB009F5DB9 /* UploadVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */; };
@@ -336,6 +338,8 @@
 		7084D409302F8DA1009F5DB9 /* VideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosView.swift; sourceTree = "<group>"; };
 		7084D40B302F8DAE009F5DB9 /* VideoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRow.swift; sourceTree = "<group>"; };
 		DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailGenerator.swift; sourceTree = "<group>"; };
+		BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosViewModel.swift; sourceTree = "<group>"; };
+		EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosView.swift; sourceTree = "<group>"; };
 		7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedMovie.swift; sourceTree = "<group>"; };
 		7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoViewModel.swift; sourceTree = "<group>"; };
 		7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoView.swift; sourceTree = "<group>"; };
@@ -772,6 +776,8 @@
 				7084D403302F8D10009F5DB9 /* VideoService.swift */,
 				7084D401302F8CF9009F5DB9 /* TechVideo.swift */,
 				DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */,
+				BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */,
+				EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */,
 			);
 			path = Videos;
 			sourceTree = "<group>";
@@ -1294,6 +1300,8 @@
 				70A76C8F2D7928E400C5B709 /* MenuView.swift in Sources */,
 				7084D40C302F8DB0009F5DB9 /* VideoRow.swift in Sources */,
 				2B1167518E7759408C3E92C2 /* VideoThumbnailGenerator.swift in Sources */,
+				A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */,
+				7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */,
 				24923FA32CC053920081E887 /* LocalizedStrings.swift in Sources */,
 				70D288532D2472D3004E9033 /* CardHorizontal.swift in Sources */,
 				702E952E2D984E2000C5EF1D /* ArticleDetailButton.swift in Sources */,

@@ -41,6 +41,15 @@ enum ThumbnailReviewStatus:
 }
 
 
+enum VideoReactionType:
+    String,
+    Codable {
+
+    case like
+    case dislike
+}
+
+
 struct TechVideo:
     Identifiable,
     Codable {
@@ -82,6 +91,16 @@ struct TechVideo:
     /// Mesmo conceito de `nextResendAllowedAt`, para o reenvio do
     /// e-mail de revisão da thumbnail pendente.
     let thumbnailNextResendAllowedAt: String?
+
+    let likesCount: Int
+    let dislikesCount: Int
+
+    /// Reação do usuário autenticado atual — `nil` quando ele não
+    /// curtiu nem descurtiu. Só vem preenchido em endpoints que
+    /// calculam isso (detalhe do vídeo, reagir/favoritar, favoritos).
+    let myReaction: VideoReactionType?
+
+    let isFavorited: Bool
 
     var streamURL: URL? {
         guard let streamPath

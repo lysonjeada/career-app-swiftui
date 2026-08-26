@@ -125,6 +125,70 @@ final class VideoServiceMock: VideoServiceProtocol {
 
         return result
     }
+
+    var reactionResult: TechVideo?
+    private(set) var receivedReactionVideoId: String?
+    private(set) var receivedReaction: VideoReactionType?
+
+    func setReaction(videoId: String, reaction: VideoReactionType) async throws -> TechVideo {
+        receivedReactionVideoId = videoId
+        receivedReaction = reaction
+
+        guard isSuccess, let result = reactionResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
+    }
+
+    func removeReaction(videoId: String) async throws -> TechVideo {
+        receivedReactionVideoId = videoId
+        receivedReaction = nil
+
+        guard isSuccess, let result = reactionResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
+    }
+
+    var favoriteResult: TechVideo?
+    private(set) var receivedFavoriteVideoId: String?
+
+    func addFavorite(videoId: String) async throws -> TechVideo {
+        receivedFavoriteVideoId = videoId
+
+        guard isSuccess, let result = favoriteResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
+    }
+
+    func removeFavorite(videoId: String) async throws -> TechVideo {
+        receivedFavoriteVideoId = videoId
+
+        guard isSuccess, let result = favoriteResult else {
+            throw URLError(.badServerResponse)
+        }
+
+        return result
+    }
+
+    func fetchFavoriteVideos(page: Int, pageSize: Int) async throws -> VideoPageResponse {
+        guard isSuccess else {
+            throw URLError(.badServerResponse)
+        }
+
+        return VideoPageResponse(
+            items: videosToReturn,
+            page: page,
+            pageSize: pageSize,
+            total: videosToReturn.count,
+            totalPages: 1,
+            hasNext: hasNextToReturn
+        )
+    }
 }
 
 extension TechVideo {
@@ -149,7 +213,11 @@ extension TechVideo {
             thumbnailUrl: nil,
             thumbnailStatus: .auto,
             thumbnailRejectionReason: nil,
-            thumbnailNextResendAllowedAt: nil
+            thumbnailNextResendAllowedAt: nil,
+            likesCount: 0,
+            dislikesCount: 0,
+            myReaction: nil,
+            isFavorited: false
         )
     }
 }
