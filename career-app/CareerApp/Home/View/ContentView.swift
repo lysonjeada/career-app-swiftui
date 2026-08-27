@@ -42,7 +42,15 @@ struct ContentView: View {
                 
                 TutorsView()
                     .tabItem {
-                        Label(HomeStrings.tutorsTitle, systemImage: "person.circle")
+                        // A tab bar flutuante (iOS 18+) ignora tanto
+                        // .badge() customizado (sempre vira bolha
+                        // vermelha do sistema) quanto cor customizada
+                        // no Label (testei os dois — sem efeito
+                        // nenhum, o próprio SO decide a cor pelo
+                        // estado selecionado/não selecionado). O
+                        // único jeito confiável de comunicar "em
+                        // breve" aqui é o próprio texto do item.
+                        Label("Em breve", systemImage: "person.2")
                     }
                     .tag(TabSelection.tutors)
 
@@ -79,7 +87,7 @@ struct ContentView: View {
 
                 UITabBar.appearance().standardAppearance = appearance
                 UITabBar.appearance().scrollEdgeAppearance = appearance
-                
+
                 print("ContentView loaded with userId: \(userId ?? "nil")")
             }
             .toolbar {
