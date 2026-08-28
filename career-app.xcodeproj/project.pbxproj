@@ -35,8 +35,13 @@
 		24D89C4A2C8175DC00995945 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C492C8175DC00995945 /* FirebaseAnalytics */; };
 		24D89C4C2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 24D89C4B2C8175DC00995945 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D89C4D2C81834800995945 /* AppDelegate.swift */; };
+		2B1167518E7759408C3E92C2 /* VideoThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */; };
+		2DE5A27059C13F53AEA89937 /* FavoriteArticlesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */; };
 		33C18116FF149C21BE4F5D59 /* InsufficientCreditsPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */; };
+		59A1BD141916B46709558D90 /* FavoriteArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */; };
 		59E0D060BA3CACDE137F68E4 /* AICreditsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */; };
+		5CE00DAF29318A6EAD1E8F40 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FE0124D3F03F5E13169761 /* FavoritesView.swift */; };
+		6534AFABA3AD6C180524993B /* VerifyPasswordResetCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D12A54DC741FF3C05006E2 /* VerifyPasswordResetCodeView.swift */; };
 		700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F72DFB38A7008CF3AF /* CareerAPI.swift */; };
 		700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F92DFB38BE008CF3AF /* CareerURL.swift */; };
 		700512FC2DFB3906008CF3AF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512FB2DFB3903008CF3AF /* HTTPMethod.swift */; };
@@ -112,12 +117,6 @@
 		7084D408302F8D8D009F5DB9 /* VideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D407302F8D8A009F5DB9 /* VideosViewModel.swift */; };
 		7084D40A302F8DA4009F5DB9 /* VideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D409302F8DA1009F5DB9 /* VideosView.swift */; };
 		7084D40C302F8DB0009F5DB9 /* VideoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40B302F8DAE009F5DB9 /* VideoRow.swift */; };
-		2B1167518E7759408C3E92C2 /* VideoThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */; };
-		A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */; };
-		7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */; };
-		5CE00DAF29318A6EAD1E8F40 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FE0124D3F03F5E13169761 /* FavoritesView.swift */; };
-		2DE5A27059C13F53AEA89937 /* FavoriteArticlesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */; };
-		59A1BD141916B46709558D90 /* FavoriteArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */; };
 		7084D40E302F8DC1009F5DB9 /* PickedMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */; };
 		7084D410302F8DD1009F5DB9 /* UploadVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */; };
 		7084D412302F8DEB009F5DB9 /* UploadVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */; };
@@ -198,10 +197,15 @@
 		70E5D5BA3023C86D00BC0103 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5B93023C86C00BC0103 /* EmailVerificationView.swift */; };
 		70E5D5BC3023C87700BC0103 /* EmailVerificationView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */; };
 		70E5D5BE3023CB2000BC0103 /* AuthenticationRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */; };
+		7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */; };
+		8B9326B351914A85AC4CBDA9 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A851556DDD672F5FD341C9 /* ResetPasswordView.swift */; };
 		A23B5D9829603AC9CF1CCF9D /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */; };
-		AD0764D7AC4BA4EA91EB7662 /* AICreditProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653106DAC1007BD8A077DF1E /* AICreditProduct.swift */; };
-		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 		A660568744626A43662DC173 /* VideoPlaybackAudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */; };
+		A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */; };
+		AD0764D7AC4BA4EA91EB7662 /* AICreditProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653106DAC1007BD8A077DF1E /* AICreditProduct.swift */; };
+		C844C9AD3AD6D507ABEDBB5B /* PasswordResetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F8181182FD3D29CB4BBF3 /* PasswordResetModels.swift */; };
+		D88C7ABA1CAF1E46787779F8 /* PasswordResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C807C3E9201C61C6D72319F /* PasswordResetViewModel.swift */; };
+		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +243,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesView.swift; sourceTree = "<group>"; };
+		0C807C3E9201C61C6D72319F /* PasswordResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewModel.swift; sourceTree = "<group>"; };
 		1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateQuestionsService.swift; sourceTree = "<group>"; };
 		241917C52C6AE804004147DF /* career-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "career-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		241917C82C6AE804004147DF /* career_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = career_appApp.swift; sourceTree = "<group>"; };
@@ -264,9 +270,13 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		28D12A54DC741FF3C05006E2 /* VerifyPasswordResetCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasswordResetCodeView.swift; sourceTree = "<group>"; };
+		436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesViewModel.swift; sourceTree = "<group>"; };
 		53523DC91210BB058F965D57 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsService.swift; sourceTree = "<group>"; };
 		653106DAC1007BD8A077DF1E /* AICreditProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditProduct.swift; sourceTree = "<group>"; };
+		65A851556DDD672F5FD341C9 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackAudioSession.swift; sourceTree = "<group>"; };
 		700512F72DFB38A7008CF3AF /* CareerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAPI.swift; sourceTree = "<group>"; };
 		700512F92DFB38BE008CF3AF /* CareerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerURL.swift; sourceTree = "<group>"; };
 		700512FB2DFB3903008CF3AF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -340,12 +350,6 @@
 		7084D407302F8D8A009F5DB9 /* VideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosViewModel.swift; sourceTree = "<group>"; };
 		7084D409302F8DA1009F5DB9 /* VideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosView.swift; sourceTree = "<group>"; };
 		7084D40B302F8DAE009F5DB9 /* VideoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRow.swift; sourceTree = "<group>"; };
-		DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailGenerator.swift; sourceTree = "<group>"; };
-		BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosViewModel.swift; sourceTree = "<group>"; };
-		EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosView.swift; sourceTree = "<group>"; };
-		B0FE0124D3F03F5E13169761 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
-		436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesViewModel.swift; sourceTree = "<group>"; };
-		093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesView.swift; sourceTree = "<group>"; };
 		7084D40D302F8DBE009F5DB9 /* PickedMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedMovie.swift; sourceTree = "<group>"; };
 		7084D40F302F8DCD009F5DB9 /* UploadVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoViewModel.swift; sourceTree = "<group>"; };
 		7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoView.swift; sourceTree = "<group>"; };
@@ -425,11 +429,15 @@
 		70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmailVerificationView+Preview.swift"; sourceTree = "<group>"; };
 		70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRegisterResponse.swift; sourceTree = "<group>"; };
 		A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		B0FE0124D3F03F5E13169761 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		B915F00C3862B6743E112BDC /* AICreditsTransactionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsTransactionObserver.swift; sourceTree = "<group>"; };
+		BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosViewModel.swift; sourceTree = "<group>"; };
 		CAFD4771FECCE33F724CA47E /* AICreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsView.swift; sourceTree = "<group>"; };
+		DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailGenerator.swift; sourceTree = "<group>"; };
+		E18F8181182FD3D29CB4BBF3 /* PasswordResetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetModels.swift; sourceTree = "<group>"; };
+		EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosView.swift; sourceTree = "<group>"; };
 		EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsViewModel.swift; sourceTree = "<group>"; };
 		F092E0C05945E3F3399DE767 /* InsufficientCreditsPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsufficientCreditsPromptView.swift; sourceTree = "<group>"; };
-		6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackAudioSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -683,6 +691,10 @@
 			isa = PBXGroup;
 			children = (
 				703CD7E02E13300E00778C76 /* ForgotPasswordView.swift */,
+				E18F8181182FD3D29CB4BBF3 /* PasswordResetModels.swift */,
+				0C807C3E9201C61C6D72319F /* PasswordResetViewModel.swift */,
+				28D12A54DC741FF3C05006E2 /* VerifyPasswordResetCodeView.swift */,
+				65A851556DDD672F5FD341C9 /* ResetPasswordView.swift */,
 			);
 			path = ForgotPassword;
 			sourceTree = "<group>";
@@ -1218,6 +1230,10 @@
 				244DDAC42C7B9BFA007FB768 /* TextDocument.swift in Sources */,
 				701143602E0C668C0082EF47 /* JobApplicationTrackerListViewModel.swift in Sources */,
 				703CD7E12E13301900778C76 /* ForgotPasswordView.swift in Sources */,
+				C844C9AD3AD6D507ABEDBB5B /* PasswordResetModels.swift in Sources */,
+				D88C7ABA1CAF1E46787779F8 /* PasswordResetViewModel.swift in Sources */,
+				6534AFABA3AD6C180524993B /* VerifyPasswordResetCodeView.swift in Sources */,
+				8B9326B351914A85AC4CBDA9 /* ResetPasswordView.swift in Sources */,
 				70E5D57A301164A000BC0103 /* StudyPlanViewModel.swift in Sources */,
 				70D288552D24749B004E9033 /* Card.swift in Sources */,
 				241917CB2C6AE804004147DF /* ContentView.swift in Sources */,

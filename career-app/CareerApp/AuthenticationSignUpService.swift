@@ -18,6 +18,26 @@ protocol AuthenticationServiceProtocol {
     func refreshToken(
         refreshToken: String
     ) async throws -> TokenRefreshResponse
+
+    // MARK: - Password reset
+    //
+    // Sem Bearer token — o usuário que esqueceu a senha, por
+    // definição, não tem uma sessão válida. Usam URLSession puro
+    // (mesmo padrão de fetchLogin), nunca AuthenticatedHTTPClient.
+
+    func requestPasswordReset(
+        email: String
+    ) async throws -> ForgotPasswordResponse
+
+    func verifyPasswordResetCode(
+        email: String,
+        code: String
+    ) async throws -> VerifyPasswordResetCodeResponse
+
+    func resetPassword(
+        resetToken: String,
+        newPassword: String
+    ) async throws -> ResetPasswordResponse
 }
 
 enum AuthenticationServiceError: LocalizedError {
@@ -453,6 +473,181 @@ final class AuthenticationService:
             TokenRefreshResponse.self,
             from: responseData
         )
+    }
+
+    // MARK: - Password reset
+
+    func requestPasswordReset(
+        email: String
+    ) async throws -> ForgotPasswordResponse {
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/users/forgot-password"
+        ) else {
+            throw AuthenticationServiceError.invalidURL
+        }
+
+        let requestData = try JSONEncoder().encode(
+            ForgotPasswordRequest(email: email)
+        )
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 30
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        request.httpBody = requestData
+
+        let (responseData, response) =
+            try await URLSession.shared.data(for: request)
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw AuthenticationServiceError.invalidResponse
+        }
+
+        guard 200..<300 ~= httpResponse.statusCode else {
+            throw makeStatusCodeError(
+                statusCode: httpResponse.statusCode,
+                data: responseData
+            )
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+            return try decoder.decode(
+                ForgotPasswordResponse.self,
+                from: responseData
+            )
+        } catch {
+            throw AuthenticationServiceError.decodingError(error)
+        }
+    }
+
+    func verifyPasswordResetCode(
+        email: String,
+        code: String
+    ) async throws -> VerifyPasswordResetCodeResponse {
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/users/verify-reset-code"
+        ) else {
+            throw AuthenticationServiceError.invalidURL
+        }
+
+        let requestData = try JSONEncoder().encode(
+            VerifyPasswordResetCodeRequest(
+                email: email,
+                code: code
+            )
+        )
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 30
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        request.httpBody = requestData
+
+        let (responseData, response) =
+            try await URLSession.shared.data(for: request)
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw AuthenticationServiceError.invalidResponse
+        }
+
+        guard 200..<300 ~= httpResponse.statusCode else {
+            throw makeStatusCodeError(
+                statusCode: httpResponse.statusCode,
+                data: responseData
+            )
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+            return try decoder.decode(
+                VerifyPasswordResetCodeResponse.self,
+                from: responseData
+            )
+        } catch {
+            throw AuthenticationServiceError.decodingError(error)
+        }
+    }
+
+    func resetPassword(
+        resetToken: String,
+        newPassword: String
+    ) async throws -> ResetPasswordResponse {
+        guard let url = URL(
+            string:
+                "\(APIConstants.pythonURL)/users/reset-password"
+        ) else {
+            throw AuthenticationServiceError.invalidURL
+        }
+
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+
+        let requestData = try encoder.encode(
+            ResetPasswordRequest(
+                resetToken: resetToken,
+                newPassword: newPassword
+            )
+        )
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 30
+
+        request.setValue(
+            "application/json",
+            forHTTPHeaderField: "Content-Type"
+        )
+
+        request.httpBody = requestData
+
+        let (responseData, response) =
+            try await URLSession.shared.data(for: request)
+
+        guard let httpResponse =
+                response as? HTTPURLResponse
+        else {
+            throw AuthenticationServiceError.invalidResponse
+        }
+
+        guard 200..<300 ~= httpResponse.statusCode else {
+            throw makeStatusCodeError(
+                statusCode: httpResponse.statusCode,
+                data: responseData
+            )
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+            return try decoder.decode(
+                ResetPasswordResponse.self,
+                from: responseData
+            )
+        } catch {
+            throw AuthenticationServiceError.decodingError(error)
+        }
     }
 }
 

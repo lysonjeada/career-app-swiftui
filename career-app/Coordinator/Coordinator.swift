@@ -61,6 +61,12 @@ final class Coordinator: ObservableObject {
     @Published var fullScreenCover: FullScreenCover?
     
     var jobApplicationTrackerListViewModel = JobApplicationTrackerListViewModel()
+
+    // Compartilhado pelas 3 telas do fluxo de "esqueci minha senha"
+    // (mesma ideia do jobApplicationTrackerListViewModel acima) — o
+    // reset token emitido na verificação do código fica só em memória
+    // aqui dentro, nunca precisa passar pelo AppPages/NavigationPath.
+    var passwordResetViewModel = PasswordResetViewModel()
     // O LoginViewModel deve ser instanciado aqui no Coordinator
     // e passado para a LoginView no buildRootView
     var loginViewModel = LoginViewModel()
@@ -148,6 +154,27 @@ final class Coordinator: ObservableObject {
             )
             
         case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
+
+        case .forgotPassword:
+            ForgotPasswordView(
+                viewModel: self.passwordResetViewModel,
+                goToLogin: { self.push(page: .login) },
+                onCodeSent: { self.push(page: .verifyPasswordResetCode) }
+            )
+
+        case .verifyPasswordResetCode:
+            VerifyPasswordResetCodeView(
+                viewModel: self.passwordResetViewModel,
+                goBack: { self.pop() },
+                onVerified: { self.push(page: .resetPassword) }
+            )
+
+        case .resetPassword:
+            ResetPasswordView(
+                viewModel: self.passwordResetViewModel,
+                goToLogin: { self.goToLogin() }
+            )
+
         case .profile(let userId):
             let profileViewModel = ProfileViewModel()
             ProfileView(userId: userId, coordinator: self, viewModel: profileViewModel)
@@ -176,8 +203,6 @@ final class Coordinator: ObservableObject {
                     )
                 }
             )
-        case .forgotPassword:
-            ForgotPasswordView(goToLogin: { self.push(page: .login) } )
         case let .emailVerification(email, username, password):
             EmailVerificationView(
                 email: email,
@@ -284,6 +309,8 @@ enum AppPages: Hashable {
     case editJob(JobApplication)
     case signUp
     case forgotPassword
+    case verifyPasswordResetCode
+    case resetPassword
     case emailVerification(
         email: String,
         username: String,
