@@ -27,8 +27,6 @@ struct HomeViewModelTests {
         #expect(viewModel.articles.count == 1)
         #expect(viewModel.articles.first?.title == "Test Article")
         #expect(viewModel.jobApplications.count == 1)
-        #expect(viewModel.githubJobListing.count == 1)
-        #expect(viewModel.availableJobs.count == 3)
     }
 
     @Test @MainActor
@@ -48,8 +46,6 @@ struct HomeViewModelTests {
         #expect(viewModel.articles.isEmpty)
         #expect(viewModel.jobApplications.isEmpty)
         #expect(viewModel.nextJobApplications.isEmpty)
-        #expect(viewModel.githubJobListing.isEmpty)
-        #expect(viewModel.availableJobs.isEmpty)
     }
 
     @Test @MainActor
@@ -69,8 +65,6 @@ struct HomeViewModelTests {
         #expect(viewModel.articles.isEmpty)
         #expect(viewModel.jobApplications.count == 1)
         #expect(viewModel.nextJobApplications.count == 1)
-        #expect(viewModel.githubJobListing.count == 1)
-        #expect(viewModel.availableJobs.count == 3)
     }
 
     @Test @MainActor
@@ -90,8 +84,6 @@ struct HomeViewModelTests {
         #expect(viewModel.articles.count == 1)
         #expect(viewModel.jobApplications.isEmpty)
         #expect(viewModel.nextJobApplications.isEmpty)
-        #expect(viewModel.githubJobListing.isEmpty)
-        #expect(viewModel.availableJobs.isEmpty)
     }
 
     @Test @MainActor

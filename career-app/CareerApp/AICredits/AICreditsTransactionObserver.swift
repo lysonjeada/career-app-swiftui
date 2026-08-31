@@ -23,7 +23,12 @@ final class AICreditsTransactionObserver {
 
     private var updatesTask: Task<Void, Never>?
 
-    private init(
+    // Não-privado para permitir instâncias isoladas em testes — só
+    // start() é perigoso de chamar em mais de uma instância ao mesmo
+    // tempo (abriria dois listeners de StoreKit.Transaction.updates,
+    // duplicando chamadas de rede por transação), então o guard contra
+    // uso duplicado fica lá, não no init em si.
+    init(
         purchaseService: PurchaseServiceProtocol = PurchaseService(),
         creditsService: AICreditsServiceProtocol = AICreditsService()
     ) {

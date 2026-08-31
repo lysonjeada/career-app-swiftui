@@ -7,48 +7,6 @@
 
 import SwiftUI
 
-struct JobApplication: Identifiable, Equatable, Hashable {
-    var id: String
-    var company: String
-    var level: String
-    var role: String
-    var lastInterview: String?
-    var nextInterview: String?
-    var technicalSkills: [String]
-    
-    init(
-        id: String,
-        company: String,
-        level: String = "",
-        role: String,
-        lastInterview: String? = nil,
-        nextInterview: String? = nil,
-        technicalSkills: [String] = []
-    ) {
-        self.id = id
-        self.company = company
-        self.level = level
-        self.role = role
-        self.lastInterview = lastInterview
-        self.nextInterview = nextInterview
-        self.technicalSkills = technicalSkills
-    }
-}
-
-extension JobApplication {
-    init(from response: InterviewResponse) {
-        self.init(
-            id: response.id,
-            company: response.company_name,
-            level: response.job_seniority,
-            role: response.job_title,
-            lastInterview: response.last_interview_date?.toDate()?.toDayMonthString(),
-            nextInterview: response.next_interview_date?.toDate()?.toDayMonthString(),
-            technicalSkills: response.skills ?? []
-        )
-    }
-}
-
 struct JobApplicationTrackerView: View {
     @State private var jobApplications: [JobApplication] = [] // Mudei para tipo correto
     @StateObject var listViewModel: JobApplicationTrackerListViewModel
@@ -61,7 +19,7 @@ struct JobApplicationTrackerView: View {
     @State private var showAddForm = false
     @State private var isAnimating = false
     @State private var isEditingMode = false
-    @StateObject var coordinator: Coordinator
+    let coordinator: TrackCoordinator
     @State private var shouldRefresh = false
 
     var body: some View {
@@ -127,7 +85,7 @@ struct JobApplicationTrackerView: View {
     }
 
     func editJob(_ job: JobApplication) {
-        coordinator.push(page: .editJob(job))
+        coordinator.push(.editJob(job))
     }
 
     // Limpar os inputs após o cadastro (mantenha essa função, embora não seja chamada diretamente aqui)
@@ -238,13 +196,13 @@ private struct ApplicationsListView: View {
 private struct FloatingActionButtons: View {
     @Binding var isEditingMode: Bool
     @Binding var showAddForm: Bool
-    @StateObject var coordinator: Coordinator
-    
+    let coordinator: TrackCoordinator
+
     var body: some View {
         HStack(spacing: 48) {
             SecondaryButtonWithIcon(title: isEditingMode ? "checkmark" : "trash", action: { isEditingMode.toggle() })
 
-            PrimaryButtonWithIcon(title: "plus", action: { coordinator.push(page: .addJob) })
+            PrimaryButtonWithIcon(title: "plus", action: { coordinator.push(.addJob) })
         }
         .padding(.horizontal)
         .padding(.bottom, 24)

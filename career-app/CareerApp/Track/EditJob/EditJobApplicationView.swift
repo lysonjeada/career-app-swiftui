@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditJobApplicationView: View {
     let job: JobApplication
-    @StateObject var coordinator: Coordinator
+    let coordinator: TrackCoordinator
     
     @State private var company: String = ""
     @State private var role: String = ""
@@ -108,16 +108,21 @@ struct EditJobApplicationView: View {
             }
             
             Button(action: {
-                viewModel.editJob(
-                    id: job.id,
-                    company: company,
-                    role: role,
-                    level: level,
-                    lastInterview: lastInterview,
-                    nextInterview: nextInterview,
-                    technicalSkills: technicalSkills
-                )
-                coordinator.pop()
+                Task {
+                    let success = await viewModel.editJob(
+                        id: job.id,
+                        company: company,
+                        role: role,
+                        level: level,
+                        lastInterview: lastInterview,
+                        nextInterview: nextInterview,
+                        technicalSkills: technicalSkills
+                    )
+
+                    if success {
+                        coordinator.pop()
+                    }
+                }
             }) {
                 Text("Atualizar")
                     .bold()

@@ -23,7 +23,7 @@ struct AddJobApplicationForm: View {
     @State private var isSelectionModeActive: Bool = false
 
     @StateObject var viewModel: JobApplicationTrackerListViewModel
-    @StateObject var coordinator: Coordinator
+    let coordinator: TrackCoordinator
 
     @FocusState private var focusedField: Field?
 
@@ -62,7 +62,7 @@ struct AddJobApplicationForm: View {
                 skillsSection
 
                 // Enviar
-                Button(action: submitForm) {
+                Button(action: { Task { await submitForm() } }) {
                     Text("Adicionar Candidatura")
                         .bold()
                         .frame(maxWidth: .infinity)
@@ -182,8 +182,8 @@ struct AddJobApplicationForm: View {
 
     // MARK: - Actions
 
-    private func submitForm() {
-        viewModel.addInterview(
+    private func submitForm() async {
+        let success = await viewModel.addInterview(
             companyName: company,
             jobTitle: selectedRole.isEmpty ? jobTitle : selectedRole,
             jobSeniority: selectedSeniority.isEmpty ? level : selectedSeniority,
@@ -192,7 +192,10 @@ struct AddJobApplicationForm: View {
             location: location,
             skills: skills
         )
-        coordinator.pop()
+
+        if success {
+            coordinator.pop()
+        }
     }
 
     private func hideKeyboard() {
@@ -209,7 +212,7 @@ struct AddJobApplicationForm_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            AddJobApplicationForm(viewModel: JobApplicationTrackerListViewModel(), coordinator: Coordinator())
+            AddJobApplicationForm(viewModel: JobApplicationTrackerListViewModel(), coordinator: TrackCoordinator())
         }
         .previewDevice("iPhone 14")
         .previewDisplayName("Add Job Application Form")

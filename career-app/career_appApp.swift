@@ -11,7 +11,6 @@ import CoreData
 
 @main
 struct career_appApp: App {
-    @StateObject private var appCoordinator = AppCoordinator(path: NavigationPath())
     @StateObject private var coordinator = Coordinator()
     @StateObject private var deepLinkManager = DeepLinkManager()
     let persistenceController = PersistenceController.shared

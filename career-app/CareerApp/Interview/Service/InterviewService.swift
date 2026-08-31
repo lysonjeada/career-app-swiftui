@@ -20,7 +20,11 @@ protocol InterviewServiceProtocol {
 
 final class InterviewService: InterviewServiceProtocol {
     static let shared = InterviewService()
-    private init() {}
+
+    // Sem estado próprio (cada método monta a request na hora e delega
+    // pro AuthenticatedHTTPClient) — não há razão pra forçar singleton
+    // aqui, ao contrário dos outros Services da mesma feature.
+    init() {}
 
     func fetchResumeFeedback(resumeURL: URL) async throws -> ResumeFeedbackResponse {
         guard resumeURL.startAccessingSecurityScopedResource() else {
@@ -141,7 +145,7 @@ extension InterviewService {
     func checkFeedbackStatus(taskID: String) async throws -> Bool {
         let url = URL(string: "\(APIConstants.pythonURL)/feedback-status/\(taskID)")!
         print("🔄 Checando status do task_id: \(taskID)")
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await AuthenticatedHTTPClient.shared.data(for: URLRequest(url: url))
         let json = try JSONSerialization.jsonObject(with: data) as? [String: String]
         let status = json?["status"] ?? "unknown"
         print("📡 Status atual da task: \(status)")
@@ -151,7 +155,7 @@ extension InterviewService {
     func fetchFeedbackResult(taskID: String) async throws -> String {
         let url = URL(string: "\(APIConstants.pythonURL)/feedback-result/\(taskID)")!
         print("📥 Buscando resultado da task: \(taskID)")
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await AuthenticatedHTTPClient.shared.data(for: URLRequest(url: url))
 
         let stringResponse = String(data: data, encoding: .utf8) ?? "n/a"
         print("📨 Conteúdo da resposta final: \(stringResponse.prefix(300))...")

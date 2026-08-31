@@ -531,39 +531,11 @@ final class VideoService:
             throw URLError(.badURL)
         }
 
-        let boundary =
-            "Boundary-\(UUID().uuidString)"
-
-        var body = Data()
-
-        func append(
-            _ string: String
-        ) {
-            if let data = string.data(
-                using: .utf8
-            ) {
-                body.append(data)
-            }
-        }
-
-        append(
-            """
-            --\(boundary)\r
-            Content-Disposition: form-data; name="thumbnail"; filename="thumbnail.jpg"\r
-            Content-Type: image/jpeg\r
-            \r
-
-            """
-        )
-
-        body.append(imageData)
-
-        append(
-            """
-            \r
-            --\(boundary)--\r
-
-            """
+        let multipart = MultipartFileBuilder.buildSinglePart(
+            name: "thumbnail",
+            fileName: "thumbnail.jpg",
+            contentType: "image/jpeg",
+            data: imageData
         )
 
         var request = URLRequest(url: url)
@@ -572,13 +544,13 @@ final class VideoService:
 
         request.setValue(
             """
-            multipart/form-data; boundary=\(boundary)
+            multipart/form-data; boundary=\(multipart.boundary)
             """,
             forHTTPHeaderField:
                 "Content-Type"
         )
 
-        request.httpBody = body
+        request.httpBody = multipart.body
 
         // Via AuthenticatedHTTPClient (não authorizedRequest +
         // URLSession direto) para reaproveitar o refresh automático

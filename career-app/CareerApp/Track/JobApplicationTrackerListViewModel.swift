@@ -68,17 +68,7 @@ class JobApplicationTrackerListViewModel: ObservableObject {
         task = Task {
             do {
                 let interviews = try await service.fetchInterviews()
-                let apps = interviews.map {
-                    JobApplication(
-                        id: $0.id,
-                        company: $0.company_name,
-                        level: $0.job_seniority,
-                        role: $0.job_title,
-                        lastInterview: $0.last_interview_date?.toDate()?.toDayMonthString(),
-                        nextInterview: $0.next_interview_date?.toDate()?.toDayMonthString(),
-                        technicalSkills: $0.skills ?? []
-                    )
-                }
+                let apps = interviews.map { JobApplication(from: $0) }
 
                 setApplications(apps: apps)
                 self.viewState = .loaded
@@ -107,6 +97,7 @@ class JobApplicationTrackerListViewModel: ObservableObject {
     }
 
     @MainActor
+    @discardableResult
     func addInterview(
         companyName: String,
         jobTitle: String,
@@ -116,96 +107,46 @@ class JobApplicationTrackerListViewModel: ObservableObject {
         location: String,
         notes: String = "",
         skills: [String]
-    ) {
-        print(
-            """
-            🟡 addInterview foi chamado
-
-            Empresa: \(companyName)
-            Cargo: \(jobTitle)
-            Senioridade: \(jobSeniority)
-
-            📅 Datas recebidas pela ViewModel
-            lastInterview: '\(lastInterview)'
-            nextInterview: '\(nextInterview)'
-
-            📍 Localização:
-            '\(location)'
-
-            🧠 Skills:
-            \(skills)
-            """
-        )
-
+    ) async -> Bool {
         viewState = .loading
 
-        task?.cancel()
-
-        task = Task {
-            print(
-                "🟢 Entrou no Task do addInterview"
+        do {
+            try await service.addInterview(
+                companyName: companyName,
+                jobTitle: jobTitle,
+                jobSeniority: jobSeniority,
+                lastInterview: lastInterview,
+                nextInterview: nextInterview,
+                location: location,
+                notes: notes,
+                skills: skills
             )
 
-            do {
-                print(
-                    "📡 Antes de chamar service.addInterview"
-                )
+            fetchJobApplications()
 
-                try await service.addInterview(
-                    companyName: companyName,
-                    jobTitle: jobTitle,
-                    jobSeniority: jobSeniority,
-                    lastInterview: lastInterview,
-                    nextInterview: nextInterview,
-                    location: location,
-                    notes: notes,
-                    skills: skills
-                )
+            showSuccessSnackBar(
+                message: """
+                Candidatura adicionada com sucesso!
+                """
+            )
 
-                print(
-                    "✅ service.addInterview terminou"
-                )
+            viewState = .loaded
+            return true
 
-                fetchJobApplications()
+        } catch {
+            showErrorSnackBar(
+                message: """
+                Não foi possível adicionar a candidatura.
+                """
+            )
 
-                showSuccessSnackBar(
-                    message: """
-                    Candidatura adicionada com sucesso!
-                    """
-                )
-
-                viewState = .loaded
-
-            } catch is CancellationError {
-                print(
-                    "⚠️ Task de addInterview foi cancelada"
-                )
-
-                viewState = .loaded
-
-            } catch {
-                print(
-                    """
-                    ❌ Erro no addInterview:
-                    \(error)
-
-                    ❌ Localized description:
-                    \(error.localizedDescription)
-                    """
-                )
-
-                showErrorSnackBar(
-                    message: """
-                    Não foi possível adicionar a candidatura.
-                    """
-                )
-
-                viewState = .loaded
-            }
+            viewState = .loaded
+            return false
         }
     }
 
     @MainActor
+    @discardableResult
     func editJob(
         id: String,
         company: String,
@@ -214,34 +155,31 @@ class JobApplicationTrackerListViewModel: ObservableObject {
         lastInterview: String?,
         nextInterview: String?,
         technicalSkills: [String]
-    ) {
+    ) async -> Bool {
         viewState = .loading
 
-        task = Task { [weak self] in
-            do {
-                guard let self else { return }
+        // O formatDate() retorna Optional<String>, certifique-se que o InterviewRequest aceita nil
+        let request = InterviewRequest(
+            company_name: company,
+            job_title: role,
+            job_seniority: level,
+            last_interview_date: formatDate(lastInterview ?? ""), // Passa Optional<String>
+            next_interview_date: formatDate(nextInterview ?? ""), // Passa Optional<String>
+            location: nil,
+            notes: nil,
+            skills: technicalSkills
+        )
 
-                // O formatDate() retorna Optional<String>, certifique-se que o InterviewRequest aceita nil
-                let request = InterviewRequest(
-                    company_name: company,
-                    job_title: role,
-                    job_seniority: level,
-                    last_interview_date: self.formatDate(lastInterview ?? ""), // Passa Optional<String>
-                    next_interview_date: self.formatDate(nextInterview ?? ""), // Passa Optional<String>
-                    location: nil,
-                    notes: nil,
-                    skills: technicalSkills
-                )
-
-                try await self.service.updateInterview(interviewId: id, request: request)
-                self.fetchJobApplications()
-                self.viewState = .loaded
-                self.showSuccessSnackBar(message: "Candidatura atualizada com sucesso!")
-            } catch {
-                // print("❌ Erro ao atualizar entrevista: \(error.localizedDescription)") // REMOVIDO
-                self?.showErrorSnackBar(message: "Não foi possível atualizar a candidatura.")
-                self?.viewState = .loaded // Ou mantenha em loading até a próxima fetch
-            }
+        do {
+            try await service.updateInterview(interviewId: id, request: request)
+            fetchJobApplications()
+            viewState = .loaded
+            showSuccessSnackBar(message: "Candidatura atualizada com sucesso!")
+            return true
+        } catch {
+            showErrorSnackBar(message: "Não foi possível atualizar a candidatura.")
+            viewState = .loaded // Ou mantenha em loading até a próxima fetch
+            return false
         }
     }
 

@@ -5,15 +5,14 @@
 //  Created by Amaryllis Baldrez on 04/03/25.
 //
 
-import UIKit
-import SwiftUI
-
 import SwiftUI
 import Foundation // Para UUID, UserDefaults
-import FirebaseAnalytics // Se você usa
 
-// ... AppPages, Route, Sheet, FullScreenCover definitions ...
-
+/// Orquestrador raiz: só guarda o que é de verdade cross-cutting
+/// (sessão/login, o NavigationPath compartilhado) e delega a navegação
+/// de cada fluxo pro coordinator daquele fluxo (auth/track/profile/
+/// videos). Home e Menu não têm coordinator próprio porque não são
+/// donos de nenhuma tela — só disparam pushes nos coordinators abaixo.
 @MainActor
 final class Coordinator: ObservableObject {
     // Injetado uma vez em career_appApp — usado só para resetar a aba
@@ -42,7 +41,7 @@ final class Coordinator: ObservableObject {
             }
         }
     }
-    
+
     // NOVO: Propriedade para armazenar o userId atualmente logado
     // Publicada para que outras views possam reagir a ela
     @Published var currentUserId: String? {
@@ -55,195 +54,82 @@ final class Coordinator: ObservableObject {
             }
         }
     }
-    
-    @Published var path: NavigationPath = NavigationPath()
-    @Published var sheet: Sheet?
-    @Published var fullScreenCover: FullScreenCover?
-    
-    var jobApplicationTrackerListViewModel = JobApplicationTrackerListViewModel()
 
-    // Compartilhado pelas 3 telas do fluxo de "esqueci minha senha"
-    // (mesma ideia do jobApplicationTrackerListViewModel acima) — o
-    // reset token emitido na verificação do código fica só em memória
-    // aqui dentro, nunca precisa passar pelo AppPages/NavigationPath.
-    var passwordResetViewModel = PasswordResetViewModel()
-    // O LoginViewModel deve ser instanciado aqui no Coordinator
-    // e passado para a LoginView no buildRootView
-    var loginViewModel = LoginViewModel()
-    
+    @Published var path: NavigationPath = NavigationPath()
+
+    // Sub-coordinators — cada um cuida só da navegação do seu próprio
+    // fluxo, mas todos empurram no `path` acima (um NavigationPath só,
+    // pra não multiplicar NavigationStacks aninhadas dentro da TabView).
+    let auth = AuthCoordinator()
+    let track = TrackCoordinator()
+    let profile = ProfileCoordinator()
+    let videos = VideosCoordinator()
+
+    // Exceção: tem NavigationPath própria porque não pode sair da aba
+    // "Entrevistas" (ver InterviewAssistantCoordinator).
+    let interviewAssistant = InterviewAssistantCoordinator()
+
     init() {
         // Inicializa isLoggedIn com o valor salvo
         _isLoggedIn = Published(initialValue: UserDefaults.standard.bool(forKey: "isUserLoggedIn"))
         // Inicializa currentUserId com o valor salvo
         _currentUserId = Published(initialValue: UserDefaults.standard.string(forKey: "currentUserId"))
+
+        auth.root = self
+        track.root = self
+        profile.root = self
+        videos.root = self
     }
-    
-    func push(page: AppPages) {
-        path.append(page)
+
+    func push(_ route: RootRoute) {
+        path.append(route)
     }
-    
+
     func pop() {
+        // NavigationPath.removeLast() dá precondition failure (crash) se o
+        // path já estiver vazio. Isso é alcançável de verdade: com fluxos
+        // async (ex.: submitForm aguardando uma chamada de rede antes de
+        // decidir se navega), o usuário pode voltar manualmente (swipe/back)
+        // enquanto a operação está em andamento, esvaziando o path antes
+        // desse pop() programático rodar.
+        guard !path.isEmpty else {
+            return
+        }
+
         path.removeLast()
     }
-    
+
     func popToRoot() {
         path.removeLast(path.count) // Mais seguro do que path = NavigationPath()
     }
-    
-    func presentSheet(_ sheet: Sheet) {
-        self.sheet = sheet
-    }
-    
-    func presentFullScreenCover(_ cover: FullScreenCover) {
-        self.fullScreenCover = cover
-    }
-    
-    func dismissSheet() {
-        self.sheet = nil
-    }
-    
-    func dismissCover() {
-        self.fullScreenCover = nil
-    }
-    
+
     @ViewBuilder
     func buildRootView() -> some View {
         if isLoggedIn {
-            ContentView(viewModel: .init(), listViewModel: self.jobApplicationTrackerListViewModel, userId: self.currentUserId)
+            ContentView(viewModel: .init(), listViewModel: self.track.jobApplicationTrackerListViewModel, userId: self.currentUserId)
         } else {
-            LoginView(viewModel: self.loginViewModel, onLoginSuccess: { [weak self] userId in
-                self?.currentUserId = userId
-                self?.isLoggedIn = true
-            }, onVerificationRequired: { email, username, password in
-                self.push(
-                    page:
-                        .emailVerification(
-                            email: email,
-                            username: username,
-                            password: password
-                        )
-                )
-            })
+            self.auth.buildRootLoginView()
         }
     }
-    
+
+    /// Rotas que não pertencem a um fluxo só (ex.: artigo é aberto tanto
+    /// pela Home quanto por Favoritos; créditos de IA e favoritos são
+    /// telas únicas sem sub-navegação) — ficam direto no raiz em vez de
+    /// forçar um coordinator de uma tela só.
     @ViewBuilder
-    func build(page: AppPages) -> some View {
-        switch page {
-        case .main(let userId): // Este caso pode não ser mais necessário se buildRootView já lida com .main
-            ContentView(viewModel: .init(), listViewModel: self.jobApplicationTrackerListViewModel, userId: userId)
-            
-        case .login:
-            LoginView(
-                viewModel: LoginViewModel(),
-                onLoginSuccess: { userId in
-                    self.currentUserId = userId
-                    self.isLoggedIn = true
-                    self.popToRoot()
-                },
-                onVerificationRequired: { email, username, password in
-                    self.push(
-                        page:
-                                .emailVerification(
-                                    email: email,
-                                    username: username,
-                                    password: password
-                                )
-                    )
-                }
-            )
-            
-        case .articleDetail(let id): ArticleDetailView(viewModel: .init(articleId: id))
-
-        case .forgotPassword:
-            ForgotPasswordView(
-                viewModel: self.passwordResetViewModel,
-                goToLogin: { self.push(page: .login) },
-                onCodeSent: { self.push(page: .verifyPasswordResetCode) }
-            )
-
-        case .verifyPasswordResetCode:
-            VerifyPasswordResetCodeView(
-                viewModel: self.passwordResetViewModel,
-                goBack: { self.pop() },
-                onVerified: { self.push(page: .resetPassword) }
-            )
-
-        case .resetPassword:
-            ResetPasswordView(
-                viewModel: self.passwordResetViewModel,
-                goToLogin: { self.goToLogin() }
-            )
-
-        case .profile(let userId):
-            let profileViewModel = ProfileViewModel()
-            ProfileView(userId: userId, coordinator: self, viewModel: profileViewModel)
-            
-        case .addJob:
-            AddJobApplicationForm(viewModel: self.jobApplicationTrackerListViewModel, coordinator: self)
-        case .editJob(let job):
-            EditJobApplicationView(job: job, coordinator: self, viewModel: self.jobApplicationTrackerListViewModel)
-        case .listApplications:
-            JobApplicationTrackerView(listViewModel: self.jobApplicationTrackerListViewModel, coordinator: self)
-        case .signUp:
-            let signUpViewModel = SignUpViewModel()
-
-            SignUpView(
-                viewModel: signUpViewModel,
-                goToLogin: {
-                    self.pop()
-                },
-                onVerificationRequired: { email, username, password in
-                    self.push(
-                        page: .emailVerification(
-                            email: email,
-                            username: username,
-                            password: password
-                        )
-                    )
-                }
-            )
-        case let .emailVerification(email, username, password):
-            EmailVerificationView(
-                email: email,
-                onVerified: {
-                    self.completeVerifiedLogin(
-                        username: username,
-                        password: password
-                    )
-                },
-                goBack: {
-                    self.pop()
-                }
-            )
-        case .videos:
-            VideosView(
-                coordinator: self
-            )
-
-        case .uploadVideo:
-            UploadVideoView(
-                coordinator: self
-            )
-
-        case let .videoDetail(
-            videoId
-        ):
-            VideoDetailView(
-                videoId: videoId,
-                coordinator: self
-            )
+    func build(_ route: RootRoute) -> some View {
+        switch route {
+        case .articleDetail(let id):
+            ArticleDetailView(viewModel: .init(articleId: id))
 
         case .aiCredits:
             AICreditsView()
 
         case .favorites:
-            FavoritesView(
-                coordinator: self
-            )
+            FavoritesView(coordinator: self)
         }
     }
-    
+
     func performLogout() {
         self.isLoggedIn = false // Isso limpa currentUserId via didSet
         currentUserId = ""
@@ -253,145 +139,10 @@ final class Coordinator: ObservableObject {
         AuthSession.shared.clear()
         self.popToRoot()
     }
-    
-    @MainActor
-    private func goToLogin() {
-        path = NavigationPath()
-
-        push(
-            page: .login
-        )
-    }
-
-    /// Faz o login automaticamente com as credenciais recém-digitadas
-    /// assim que o código de verificação é confirmado — evita mandar o
-    /// usuário de volta para a tela de login logo depois de cadastrar
-    /// ou verificar a conta.
-    @MainActor
-    private func completeVerifiedLogin(
-        username: String,
-        password: String
-    ) {
-        Task { [weak self] in
-            guard let self else { return }
-
-            do {
-                let response = try await AuthenticationService()
-                    .fetchLogin(
-                        requestBody: .init(
-                            username: username,
-                            password: password
-                        )
-                    )
-
-                AuthSession.shared.save(response: response)
-
-                self.currentUserId = response.id.uuidString
-                self.isLoggedIn = true
-
-            } catch {
-                // A conta já foi verificada; se o login automático
-                // falhar (ex.: instabilidade de rede), o usuário ainda
-                // consegue entrar manualmente com as mesmas credenciais.
-                self.goToLogin()
-            }
-        }
-    }
 }
 
-enum AppPages: Hashable {
-    case main(userId: String?)
-    case login
+enum RootRoute: Hashable {
     case articleDetail(id: Int)
-    case listApplications
-    case profile(userId: String?)
-    case addJob
-    case editJob(JobApplication)
-    case signUp
-    case forgotPassword
-    case verifyPasswordResetCode
-    case resetPassword
-    case emailVerification(
-        email: String,
-        username: String,
-        password: String
-    )
-    case videos
-    case uploadVideo
-    case videoDetail(
-        videoId: String
-    )
     case aiCredits
     case favorites
 }
-
-enum Sheet: String, Identifiable {
-    var id: String {
-        self.rawValue
-    }
-    
-    case forgotPassword
-}
-
-enum FullScreenCover: String, Identifiable {
-    var id: String {
-        self.rawValue
-    }
-    
-    case signup
-}
-
-//public protocol Coordinator: CoordinatorDelegate {
-//    var delegate: CoordinatorDelegate? { get set }
-//    var childCoordinator: Coordinator? { get set }
-//    var viewController: UIViewController! { get set }
-//    var navigationController: UINavigationController? { get set }
-//    var modulePath: String? { get }
-//
-//    func start() -> UIViewController
-//    func start(usingPresenter presenter: CoordinatorPresenter, animated: Bool)
-//}
-//
-//extension Coordinator {
-//
-//    public var modulePath: String? { nil }
-//
-//    public func start() -> UIViewController {
-//        let coordinator = HomeCoordinator()
-//        coordinator.delegate = self
-//        coordinator.navigationController = navigationController
-//        coordinator.childCoordinator = childCoordinator
-//        return coordinator.start()
-//
-////        let viewModel = HomeViewModel()
-////        viewModel.coordinatorDelegate = HomeCoordinator.
-////        let view = HomeView(viewModel: viewModel)
-////        let viewController = UIHostingController(rootView: view)
-////        //        viewModel.coordinatorDelegate = self
-////        //        self.viewController = viewController
-////        return viewController
-//    }
-//
-//    public func start(usingPresenter presenter: CoordinatorPresenter, animated: Bool = false) {
-//        performStart(usingPresenter: presenter, animated: animated)
-//    }
-//
-//    public func performStart(usingPresenter presenter: CoordinatorPresenter, animated: Bool) {
-//        guard viewController != nil else {
-//            assertionFailure("view controller is null when pushing")
-//            return
-//        }
-//        navigationController = presenter.present(destiny: viewController, animated: animated)
-//    }
-//
-//    public func route(to coordinator: Coordinator,
-//                      withPresenter presenter: CoordinatorPresenter,
-//                      animated: Bool = true,
-//                      delegate: CoordinatorDelegate? = nil) {
-//        childCoordinator = coordinator
-//        coordinator.delegate = delegate ?? self
-//        coordinator.start(usingPresenter: presenter, animated: animated)
-//    }
-//}
-
-

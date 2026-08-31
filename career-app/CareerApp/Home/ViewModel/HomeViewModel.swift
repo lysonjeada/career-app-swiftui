@@ -35,14 +35,6 @@ final class HomeViewModel:
     var nextJobApplications:
         [JobApplication] = []
 
-    @Published private(set)
-    var githubJobListing:
-        [GitHubJobListing] = []
-
-    @Published private(set)
-    var availableJobs:
-        [String] = []
-
     private var task:
         Task<Void, Never>?
 
@@ -56,18 +48,25 @@ final class HomeViewModel:
     var videos: [TechVideo] = []
 
     private let videoService:
-        VideoServiceProtocol =
-        VideoService()
+        VideoServiceProtocol
+
+    var isAuthenticated: Bool {
+        AuthSession.shared.isAuthenticated
+    }
 
     init(
         service: HomeServiceProtocol =
             HomeService(),
         jobService:
             JobApplicationServiceProtocol =
-            JobApplicationService()
+            JobApplicationService(),
+        videoService:
+            VideoServiceProtocol =
+            VideoService()
     ) {
         self.service = service
         self.jobService = jobService
+        self.videoService = videoService
     }
 
     func fetchHome(
@@ -97,10 +96,8 @@ final class HomeViewModel:
             articles = []
             jobApplications = []
             nextJobApplications = []
-            githubJobListing = []
-            availableJobs = []
 
-            // As cinco chamadas abaixo são independentes entre si (nenhuma
+            // As quatro chamadas abaixo são independentes entre si (nenhuma
             // usa o resultado da outra), então disparamos todas de uma vez
             // com `async let` em vez de aguardá-las uma a uma — o tempo
             // total passa a ser o da chamada mais lenta, não a soma de
@@ -119,9 +116,6 @@ final class HomeViewModel:
                     page: 1,
                     pageSize: 10
                 )
-
-            async let availableJobsResult =
-                jobService.fetchAvailableRepositories()
 
             // MARK: - Articles
 
@@ -179,32 +173,7 @@ final class HomeViewModel:
                 
 
                 jobApplications =
-                    interviews.map {
-                        interview in
-
-                        JobApplication(
-                            id:
-                                interview.id,
-                            company:
-                                interview.company_name,
-                            level:
-                                interview.job_seniority,
-                            role:
-                                interview.job_title,
-                            lastInterview:
-                                interview
-                                    .last_interview_date?
-                                    .toDate()?
-                                    .toDayMonthString(),
-                            nextInterview:
-                                interview
-                                    .next_interview_date?
-                                    .toDate()?
-                                    .toDayMonthString(),
-                            technicalSkills:
-                                interview.skills ?? []
-                        )
-                    }
+                    interviews.map { JobApplication(from: $0) }
 
                 print(
                     """
@@ -290,25 +259,7 @@ final class HomeViewModel:
                             """
                         )
 
-                        return JobApplication(
-                            id:
-                                interview.id,
-                            company:
-                                interview.company_name,
-                            level:
-                                interview.job_seniority,
-                            role:
-                                interview.job_title,
-                            lastInterview:
-                                interview
-                                    .last_interview_date?
-                                    .toDate()?
-                                    .toDayMonthString(),
-                            nextInterview:
-                                convertedDate,
-                            technicalSkills:
-                                interview.skills ?? []
-                        )
+                        return JobApplication(from: interview)
                     }
 
                 print(
@@ -350,21 +301,6 @@ final class HomeViewModel:
                 )
             }
 
-            // MARK: - Repositories
-
-            do {
-                availableJobs =
-                    try await availableJobsResult
-
-            } catch {
-                print(
-                    """
-                    ❌ Erro ao buscar repositórios:
-                    \(error.localizedDescription)
-                    """
-                )
-            }
-
             // MARK: - Final State
 
             print(
@@ -379,20 +315,12 @@ final class HomeViewModel:
 
                 Próximas entrevistas:
                 \(nextJobApplications.count)
-
-                Vagas GitHub:
-                \(githubJobListing.count)
-
-                Repositórios:
-                \(availableJobs.count)
                 """
             )
 
             if articles.isEmpty &&
                 jobApplications.isEmpty &&
-                nextJobApplications.isEmpty &&
-                githubJobListing.isEmpty &&
-                availableJobs.isEmpty {
+                nextJobApplications.isEmpty {
 
                 viewState = .error
 

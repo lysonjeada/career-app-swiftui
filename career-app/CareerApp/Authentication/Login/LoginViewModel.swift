@@ -196,6 +196,39 @@ final class LoginViewModel: ObservableObject {
     func clearPendingVerificationEmail() {
         pendingVerificationEmail = nil
     }
+
+    /// Login automático logo depois que o código de verificação de
+    /// e-mail é confirmado — evita mandar o usuário de volta pra tela
+    /// de login após cadastrar ou verificar a conta. Diferente de
+    /// performLogin(), não trata "e-mail não verificado" (acabamos de
+    /// verificar) e não navega — só devolve o resultado; quem decide
+    /// a navegação a partir dele é o Coordinator.
+    func completeVerifiedLogin(
+        username: String,
+        password: String
+    ) async -> AuthenticationLoginResponse? {
+        do {
+            let response =
+                try await service.fetchLogin(
+                    requestBody: .init(
+                        username: username,
+                        password: password
+                    )
+                )
+
+            AuthSession.shared.save(
+                response: response
+            )
+
+            loggedInUser = response
+            viewState = .loaded
+
+            return response
+
+        } catch {
+            return nil
+        }
+    }
     
     // MARK: - Snackbar Helper
     private func showSnackbar(

@@ -12,8 +12,7 @@ struct FavoriteVideosView: View {
     private var viewModel =
         FavoriteVideosViewModel()
 
-    @StateObject
-    var coordinator: Coordinator
+    let coordinator: VideosCoordinator
 
     var body: some View {
         Group {
@@ -97,11 +96,10 @@ struct FavoriteVideosView: View {
 
                 Button {
                     coordinator.push(
-                        page:
-                            .videoDetail(
-                                videoId:
-                                    video.id
-                            )
+                        .videoDetail(
+                            videoId:
+                                video.id
+                        )
                     )
 
                 } label: {

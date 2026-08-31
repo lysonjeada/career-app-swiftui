@@ -12,8 +12,7 @@ struct VideosView: View {
     private var viewModel =
         VideosViewModel()
 
-    @StateObject
-    var coordinator: Coordinator
+    let coordinator: VideosCoordinator
 
     @State
     private var videoPendingDeletion:
@@ -58,8 +57,7 @@ struct VideosView: View {
             ) {
                 Button {
                     coordinator.push(
-                        page:
-                            .uploadVideo
+                        .uploadVideo
                     )
                 } label: {
                     Image(
@@ -151,8 +149,7 @@ struct VideosView: View {
                 "Enviar vídeo"
             ) {
                 coordinator.push(
-                    page:
-                        .uploadVideo
+                    .uploadVideo
                 )
             }
         }
@@ -168,11 +165,10 @@ struct VideosView: View {
 
                 Button {
                     coordinator.push(
-                        page:
-                            .videoDetail(
-                                videoId:
-                                    video.id
-                            )
+                        .videoDetail(
+                            videoId:
+                                video.id
+                        )
                     )
 
                 } label: {

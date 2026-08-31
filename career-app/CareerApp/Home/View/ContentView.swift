@@ -27,14 +27,15 @@ struct ContentView: View {
                     }
                     .tag(TabSelection.home)
                 
-                InterviewAssistantView(viewModel: GenerateQuestionsViewModel(),
+                InterviewAssistantView(interviewAssistant: coordinator.interviewAssistant,
+                                       viewModel: GenerateQuestionsViewModel(),
                                        resumeFeedbackViewModel: ResumeFeedbackViewModel())
                     .tabItem {
                         Label(HomeStrings.interviewTitle, systemImage: "mic.fill")
                     }
                     .tag(TabSelection.interview)
 
-                JobApplicationTrackerView(listViewModel: listViewModel, coordinator: coordinator)
+                JobApplicationTrackerView(listViewModel: listViewModel, coordinator: coordinator.track)
                     .tabItem {
                         Label(HomeStrings.resumeTitle, systemImage: "book.fill")
                     }
@@ -60,7 +61,6 @@ struct ContentView: View {
                     }
                     .tag(TabSelection.menu)
             }
-            .tint(.persianBlue) // Cor dos itens selecionados do tab bar
             .onAppear {
                 // O reset da aba para Home num login novo fica em
                 // Coordinator.isLoggedIn.didSet (amarrado à transição
@@ -70,20 +70,29 @@ struct ContentView: View {
 
                 // Configuração da aparência do tab bar para iOS 15+
                 //
-                // Não forçamos mais iconColor/titleTextAttributes
-                // brancos aqui: a tab bar flutuante (Liquid Glass, a
-                // partir do iOS 18) usa um material translúcido que
-                // se adapta ao tema do sistema e não respeita mais o
-                // backgroundColor customizado — forçar branco fixo
-                // ficava ilegível no light mode (fundo claro + texto
-                // branco). Deixamos o item selecionado seguir o
-                // .tint(.persianBlue) da TabView (cor adaptativa,
-                // ver Utils/Extensions/Color.swift) e o não
-                // selecionado no cinza padrão do sistema — os dois
-                // já contrastam bem nos dois temas.
+                // O fundo da tab bar é opaco e sempre persianBlue
+                // (não é o material translúcido do "Liquid Glass" —
+                // configureWithOpaqueBackground + backgroundColor
+                // continuam sendo respeitados neste app). Por isso o
+                // item selecionado precisa de uma cor explícita que
+                // contraste com esse fundo: deixá-lo seguir
+                // .tint(.persianBlue) fazia o ícone/texto selecionado
+                // ficar exatamente da cor do fundo — item "sumindo"
+                // sempre que a aba estava ativa. Branco no
+                // selecionado e cinza do sistema no não selecionado
+                // contrastam bem nos dois temas.
                 let appearance = UITabBarAppearance()
                 appearance.configureWithOpaqueBackground()
                 appearance.backgroundColor = UIColor(Color.persianBlue)
+
+                for layout in [
+                    appearance.stackedLayoutAppearance,
+                    appearance.inlineLayoutAppearance,
+                    appearance.compactInlineLayoutAppearance
+                ] {
+                    layout.selected.iconColor = .white
+                    layout.selected.titleTextAttributes = [.foregroundColor: UIColor.white]
+                }
 
                 UITabBar.appearance().standardAppearance = appearance
                 UITabBar.appearance().scrollEdgeAppearance = appearance
@@ -99,13 +108,13 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        coordinator.push(page: .profile(userId: userId))
+                        coordinator.profile.push(.profile(userId: userId))
                     }) {
                         Image(systemName: "person.circle")
                             .resizable()
                             .clipShape(Circle())
                             .frame(width: 28, height: 28)
-                            .foregroundColor(.persianBlue)
+                            .foregroundColor(.white)
                     }
                     
                     .buttonStyle(.plain)

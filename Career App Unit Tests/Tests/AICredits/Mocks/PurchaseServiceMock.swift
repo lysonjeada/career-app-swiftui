@@ -5,10 +5,9 @@
 
 @testable import career_app
 import Foundation
-import StoreKit
 
 final class PurchaseServiceMock: PurchaseServiceProtocol {
-    var productsToReturn: [Product] = []
+    var productsToReturn: [AICreditPackageDisplay] = []
     var productsError: Error?
     var purchaseResultToReturn: PurchaseResult = .userCancelled
     var purchaseError: Error?
@@ -17,7 +16,7 @@ final class PurchaseServiceMock: PurchaseServiceProtocol {
     private(set) var receivedPurchaseProductID: String?
     private(set) var purchaseCallCount = 0
 
-    func fetchProducts() async throws -> [Product] {
+    func fetchProducts() async throws -> [AICreditPackageDisplay] {
         if let productsError {
             throw productsError
         }

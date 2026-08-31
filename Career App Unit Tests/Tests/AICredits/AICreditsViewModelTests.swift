@@ -14,11 +14,7 @@ struct AICreditsViewModelTests {
 
     @Test @MainActor
     func testLoad_WhenNoProductsAreAvailable_SetsNoProductsAvailableStateButStillLoadsBalance() async throws {
-        // Arrange: `Product` não tem inicializador público, então não é
-        // possível popular `productsToReturn` com pacotes reais nos
-        // testes — este caso cobre o caminho real e testável (lista
-        // vazia) e confirma que o saldo ainda é carregado corretamente
-        // mesmo sem produtos.
+        // Arrange
         let creditsService = AICreditsServiceMock(isSuccess: true, balanceToReturn: 18)
         let purchaseService = PurchaseServiceMock()
         let viewModel = AICreditsViewModel(
@@ -34,6 +30,33 @@ struct AICreditsViewModelTests {
         #expect(viewModel.state == .noProductsAvailable)
         #expect(viewModel.balance == 18)
         #expect(viewModel.packages.isEmpty)
+    }
+
+    @Test @MainActor
+    func testLoad_WhenProductsAreAvailable_SetsLoadedStateAndSortsPackagesByCredits() async throws {
+        // Arrange: agora que `PurchaseServiceProtocol.fetchProducts()`
+        // retorna `AICreditPackageDisplay` (não mais `StoreKit.Product`,
+        // que não tem inicializador público), dá pra popular pacotes de
+        // verdade e testar o caminho "carregado" pela primeira vez.
+        let creditsService = AICreditsServiceMock(isSuccess: true, balanceToReturn: 5)
+        let purchaseService = PurchaseServiceMock()
+        purchaseService.productsToReturn = [
+            AICreditPackageDisplay(id: AICreditProduct.hundred.rawValue, credits: 100, priceText: "R$ 39,90"),
+            AICreditPackageDisplay(id: AICreditProduct.ten.rawValue, credits: 10, priceText: "R$ 4,90")
+        ]
+        let viewModel = AICreditsViewModel(
+            creditsService: creditsService,
+            purchaseService: purchaseService
+        )
+
+        // Act
+        viewModel.load()
+        try await awaitCondition(until: viewModel.state == .loaded, timeout: 5.0)
+
+        // Assert
+        #expect(viewModel.state == .loaded)
+        #expect(viewModel.balance == 5)
+        #expect(viewModel.packages.map(\.credits) == [10, 100])
     }
 
     @Test @MainActor

@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-#if DEBUG
-import StoreKit
-#endif
 
 struct AICreditsView: View {
     @StateObject private var viewModel = AICreditsViewModel()
@@ -307,7 +304,7 @@ private extension AICreditsViewModel {
         }
 
         final class NeverLoadingPurchaseService: PurchaseServiceProtocol {
-            func fetchProducts() async throws -> [Product] { [] }
+            func fetchProducts() async throws -> [AICreditPackageDisplay] { [] }
             func purchase(productID: String) async throws -> PurchaseResult {
                 .userCancelled
             }

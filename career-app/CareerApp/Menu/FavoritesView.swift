@@ -25,7 +25,7 @@ struct FavoritesView: View {
     private var selectedKind:
         FavoriteKind = .videos
     
-    @StateObject
+    @ObservedObject
     var coordinator: Coordinator
     
     var body: some View {
@@ -51,19 +51,18 @@ struct FavoritesView: View {
                 case .videos:
                     FavoriteVideosView(
                         coordinator:
-                            coordinator
+                            coordinator.videos
                     )
-                    
+
                 case .articles:
                     FavoriteArticlesView {
                         articleId in
-                        
+
                         coordinator.push(
-                            page:
-                                .articleDetail(
-                                    id:
-                                        articleId
-                                )
+                            .articleDetail(
+                                id:
+                                    articleId
+                            )
                         )
                     }
                 }

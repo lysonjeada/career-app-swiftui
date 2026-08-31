@@ -822,7 +822,7 @@ extension JobApplicationService {
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(for: request)
 
         if let httpResponse = response as? HTTPURLResponse {
             print("✅ Código de resposta (GET Repositories): \(httpResponse.statusCode)")

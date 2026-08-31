@@ -53,7 +53,7 @@ struct JobApplicationTrackerListViewModelTests {
         let viewModel = JobApplicationTrackerListViewModel(service: service)
 
         // Act
-        viewModel.addInterview(
+        let success = await viewModel.addInterview(
             companyName: "Empresa Nova",
             jobTitle: "iOS Developer",
             jobSeniority: "Pleno",
@@ -63,10 +63,10 @@ struct JobApplicationTrackerListViewModelTests {
             notes: "Observações",
             skills: ["Swift"]
         )
-        try await awaitCondition(until: viewModel.viewState == .loaded, timeout: 5.0)
         try await awaitCondition(until: !viewModel.jobApplications.isEmpty, timeout: 5.0)
 
         // Assert
+        #expect(success == true)
         #expect(service.receivedAddInterviewCompanyName == "Empresa Nova")
         #expect(service.receivedAddInterviewJobTitle == "iOS Developer")
         #expect(service.receivedAddInterviewSkills == ["Swift"])
@@ -81,7 +81,7 @@ struct JobApplicationTrackerListViewModelTests {
         let viewModel = JobApplicationTrackerListViewModel(service: service)
 
         // Act
-        viewModel.addInterview(
+        let success = await viewModel.addInterview(
             companyName: "Empresa Nova",
             jobTitle: "iOS Developer",
             jobSeniority: "Pleno",
@@ -91,9 +91,9 @@ struct JobApplicationTrackerListViewModelTests {
             notes: "Observações",
             skills: ["Swift"]
         )
-        try await awaitCondition(until: viewModel.viewState == .loaded, timeout: 5.0)
 
         // Assert
+        #expect(success == false)
         #expect(viewModel.jobApplications.isEmpty)
         #expect(viewModel.showSnackBar == true)
         #expect(viewModel.snackBarMessage == "Não foi possível adicionar a candidatura.")
@@ -139,7 +139,7 @@ struct JobApplicationTrackerListViewModelTests {
         let viewModel = JobApplicationTrackerListViewModel(service: service)
 
         // Act
-        viewModel.editJob(
+        let success = await viewModel.editJob(
             id: "interview-1",
             company: "Nova Empresa",
             role: "Backend Developer",
@@ -148,9 +148,9 @@ struct JobApplicationTrackerListViewModelTests {
             nextInterview: "20/03/2026",
             technicalSkills: ["Swift"]
         )
-        try await awaitCondition(until: viewModel.viewState == .loaded, timeout: 5.0)
 
         // Assert
+        #expect(success == true)
         #expect(service.receivedUpdateInterviewId == "interview-1")
         #expect(service.receivedUpdateInterviewRequest?.company_name == "Nova Empresa")
         #expect(service.receivedUpdateInterviewRequest?.job_title == "Backend Developer")
@@ -169,7 +169,7 @@ struct JobApplicationTrackerListViewModelTests {
         let viewModel = JobApplicationTrackerListViewModel(service: service)
 
         // Act
-        viewModel.editJob(
+        let success = await viewModel.editJob(
             id: "interview-1",
             company: "Nova Empresa",
             role: "Backend Developer",
@@ -178,9 +178,9 @@ struct JobApplicationTrackerListViewModelTests {
             nextInterview: "20/03/2026",
             technicalSkills: ["Swift"]
         )
-        try await awaitCondition(until: viewModel.viewState == .loaded, timeout: 5.0)
 
         // Assert
+        #expect(success == false)
         #expect(viewModel.showSnackBar == true)
         #expect(viewModel.snackBarMessage == "Não foi possível atualizar a candidatura.")
     }

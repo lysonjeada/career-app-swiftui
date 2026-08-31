@@ -2,11 +2,10 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var showFullArticleList = false
-    @StateObject var viewModel: HomeViewModel
+    @ObservedObject var viewModel: HomeViewModel
     private let articleLimit = 10
     @EnvironmentObject private var coordinator: Coordinator
-    @StateObject var deepLinkManager = DeepLinkManager()
-    
+
     struct Output {
         var goToMainScreen: () -> Void
         var goToForgotPassword: () -> Void
@@ -41,12 +40,11 @@ struct HomeView: View {
                                     viewModel.videos
                             ) { video in
 
-                                coordinator.push(
-                                    page:
-                                        .videoDetail(
-                                            videoId:
-                                                video.id
-                                        )
+                                coordinator.videos.push(
+                                    .videoDetail(
+                                        videoId:
+                                            video.id
+                                    )
                                 )
                             }
                         }
@@ -119,7 +117,7 @@ struct HomeView: View {
                             ForEach(viewModel.nextJobApplications, id: \.id) { job in
                                 buildDateCard(with: job)
                                     .onTapGesture {
-                                        coordinator.push(page: .editJob(job))
+                                        coordinator.track.push(.editJob(job))
                                     }
                                     .padding(.vertical, 24)
                                     .padding(.horizontal, 20)
@@ -154,7 +152,7 @@ struct HomeView: View {
                         ForEach(viewModel.jobApplications, id: \.id) { job in
                             buildCard(with: job)
                                 .onTapGesture {
-                                    coordinator.push(page: .editJob(job))
+                                    coordinator.track.push(.editJob(job))
                                 }
                                 .padding(.horizontal, 24)
                                 .padding(.vertical, 16)
@@ -223,10 +221,10 @@ struct HomeView: View {
     
     @ViewBuilder
     private func buildEmptyInterviewList(isNextInterview: Bool) -> some View {
-        if AuthSession.shared.isAuthenticated {
+        if viewModel.isAuthenticated {
             EmptyInterviewListView(
                 action: {
-                    coordinator.push(page: .addJob)
+                    coordinator.track.push(.addJob)
                 },
                 actionTitle: "Adicionar candidatura",
                 actionDescription: "Cadastre uma candidatura para\nacompanhar suas entrevistas",
@@ -235,7 +233,7 @@ struct HomeView: View {
         } else {
             EmptyInterviewListView(
                 action: {
-                    coordinator.push(page: .login)
+                    coordinator.auth.push(.login)
                 },
                 actionTitle: "Fazer login",
                 actionDescription: "Faça o login para cadastrar\ne consultar entrevistas",
@@ -244,11 +242,6 @@ struct HomeView: View {
         }
     }
 
-    @ViewBuilder
-    func showGithubJobs() -> some View {
-        JobHorizontalList(viewModel: viewModel)
-    }
-    
     func formatDate(_ dateString: String) -> String? {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "dd/MM/yyyy"

@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct MenuView: View {
-    @StateObject var coordinator: Coordinator
+    @ObservedObject var coordinator: Coordinator
 
     var body: some View {
         List {
             Button {
-                coordinator.push(page: .profile(userId: coordinator.currentUserId))
+                coordinator.profile.push(.profile(userId: coordinator.currentUserId))
             } label: {
                 HStack {
                     Text("Perfil")
@@ -27,8 +27,8 @@ struct MenuView: View {
             .listRowBackground(Color.backgroundLightGray)
 
             Button {
-                coordinator.push(
-                    page: .videos
+                coordinator.videos.push(
+                    .videos
                 )
 
             } label: {
@@ -57,7 +57,7 @@ struct MenuView: View {
 
             Button {
                 coordinator.push(
-                    page: .favorites
+                    .favorites
                 )
 
             } label: {
@@ -86,7 +86,7 @@ struct MenuView: View {
 
             Button {
                 coordinator.push(
-                    page: .aiCredits
+                    .aiCredits
                 )
 
             } label: {

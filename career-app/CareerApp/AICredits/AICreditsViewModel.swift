@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import StoreKit
 
 @MainActor
 final class AICreditsViewModel: ObservableObject {
@@ -65,11 +64,7 @@ final class AICreditsViewModel: ObservableObject {
                 guard !Task.isCancelled else { return }
 
                 balance = fetchedBalance
-                packages = Self.sortedByCredits(
-                    fetchedProducts.compactMap {
-                        AICreditPackageDisplay(product: $0)
-                    }
-                )
+                packages = Self.sortedByCredits(fetchedProducts)
 
                 state = packages.isEmpty
                     ? .noProductsAvailable
@@ -185,6 +180,9 @@ extension AICreditsViewModel {
 /// Representação de um pacote de créditos pronta para a View exibir —
 /// desacoplada de `StoreKit.Product` (que não tem inicializador
 /// público, então não dá para criar um fake dele em Previews/testes).
+/// Quem sabe mapear a partir de um `Product` de verdade é
+/// `PurchaseService` (ver extension em PurchaseService.swift) — esse
+/// é o único lugar que precisa importar StoreKit para isso.
 struct AICreditPackageDisplay: Identifiable, Equatable {
     let id: String
     let credits: Int
@@ -194,19 +192,5 @@ struct AICreditPackageDisplay: Identifiable, Equatable {
         self.id = id
         self.credits = credits
         self.priceText = priceText
-    }
-
-    init?(product: Product) {
-        guard let creditProduct = AICreditProduct(
-            rawValue: product.id
-        ) else {
-            return nil
-        }
-
-        self.init(
-            id: product.id,
-            credits: creditProduct.credits,
-            priceText: product.displayPrice
-        )
     }
 }

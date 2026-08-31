@@ -13,3 +13,14 @@ struct JobApplicationRequest: Codable {
     let nextInterview: String?
     let technicalSkills: [String]
 }
+
+struct InterviewRequest: Codable {
+    let company_name: String
+    let job_title: String
+    let job_seniority: String
+    let last_interview_date: String?
+    let next_interview_date: String?
+    let location: String?
+    let notes: String?
+    let skills: [String]?
+}

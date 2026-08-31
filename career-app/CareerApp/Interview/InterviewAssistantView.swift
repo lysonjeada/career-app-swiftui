@@ -10,6 +10,8 @@ import SwiftUI
 struct InterviewAssistantView: View {
     @FocusState private var keyboardFocused: Bool
 
+    @ObservedObject var interviewAssistant: InterviewAssistantCoordinator
+
     @StateObject var viewModel:
         GenerateQuestionsViewModel
 
@@ -17,13 +19,13 @@ struct InterviewAssistantView: View {
         ResumeFeedbackViewModel
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $interviewAssistant.path) {
             ScrollView {
                 VStack(spacing: 20) {
                     ProgressDashboardSection()
                             .padding(.top, 16)
-                    
-                    StudyPlanSection()
+
+                    StudyPlanSection(interviewAssistant: interviewAssistant)
                     
                     Text("Simulador de entrevista")
                         .font(.title2)
@@ -42,8 +44,8 @@ struct InterviewAssistantView: View {
                         )
                         .padding(.top, 24)
 
-                    NavigationLink {
-                        InterviewSimulationFlowView()
+                    Button {
+                        interviewAssistant.push(.interviewSimulation)
                     } label: {
                         InterviewSimulationLauncherCard()
                     }
@@ -84,6 +86,9 @@ struct InterviewAssistantView: View {
                     )
                 }
             )
+            .navigationDestination(for: InterviewAssistantPage.self) { page in
+                interviewAssistant.build(page)
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
@@ -109,6 +114,7 @@ private struct InterviewAssistantPreviewContainer: View {
 
     var body: some View {
         InterviewAssistantView(
+            interviewAssistant: InterviewAssistantCoordinator(),
             viewModel: questionsViewModel,
             resumeFeedbackViewModel: resumeFeedbackViewModel
         )

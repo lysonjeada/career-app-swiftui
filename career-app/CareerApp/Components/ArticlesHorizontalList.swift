@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ArticlesHorizontalList: View {
-    @StateObject var viewModel: HomeViewModel
-    @StateObject var coordinator: Coordinator
+    @ObservedObject var viewModel: HomeViewModel
+    @ObservedObject var coordinator: Coordinator
     @State var isClicked: Bool = false
     @Binding var showFullArticleList: Bool
     
@@ -44,7 +44,7 @@ struct ArticlesHorizontalList: View {
                             .frame(width: 200)
                             .padding(.vertical, 2)
                             .onTapGesture {
-                                coordinator.push(page: .articleDetail(id: article.id))
+                                coordinator.push(.articleDetail(id: article.id))
                             }
                     }
                     buildShowMoreButton()

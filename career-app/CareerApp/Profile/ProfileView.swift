@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreData
 
 // Adicione no topo do seu arquivo, fora da ProfileView
 struct DynamicTextField: Identifiable {
@@ -16,24 +15,15 @@ struct DynamicTextField: Identifiable {
 
 struct ProfileView: View {
     // MARK: - Properties
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: UserProfile.entity(), sortDescriptors: [])
-    private var profiles: FetchedResults<UserProfile>
     let userId: String?
-    @StateObject var coordinator: Coordinator
+    let coordinator: ProfileCoordinator
     @StateObject var viewModel: ProfileViewModel
-    
+
     // States
     @State private var profileImage: Image?
     @State private var imageData: Data?
     @State private var showImagePicker = false
     @State private var showDeleteConfirmation = false
-    @State private var name = ""
-    @State private var experience = ""
-    @State private var institution = ""
-    @State private var githubLink = ""
-    @State private var portfolioLink = ""
-    @State private var isSaving = false
     @State private var showErrorAlert = false
     @State private var errorMessage = ""
     
@@ -110,6 +100,20 @@ struct ProfileView: View {
 
             viewModel.clearDeletionError()
         }
+        .onChange(
+            of: viewModel.localProfileErrorMessage
+        ) { _, message in
+            guard let message,
+                  !message.isEmpty
+            else {
+                return
+            }
+
+            errorMessage = message
+            showErrorAlert = true
+
+            viewModel.clearLocalProfileError()
+        }
         .onAppear(
             perform: loadProfile
         )
@@ -178,25 +182,25 @@ struct ProfileView: View {
         SectionView(title: "Informações pessoais") {
             CustomTextField("Username", text: $viewModel.username)
             CustomTextField("Email", text: $viewModel.email)
-            CustomTextField("Experiência Profissional", text: $experience)
-            CustomTextField("Instituição de Ensino", text: $institution)
+            CustomTextField("Experiência Profissional", text: $viewModel.experience)
+            CustomTextField("Instituição de Ensino", text: $viewModel.institution)
         }
     }
-    
+
     private var linksSection: some View {
         SectionView(title: "Links") {
-            CustomTextField("GitHub", text: $githubLink, keyboard: .URL)
-            CustomTextField("Portfólio", text: $portfolioLink, keyboard: .URL)
+            CustomTextField("GitHub", text: $viewModel.githubLink, keyboard: .URL)
+            CustomTextField("Portfólio", text: $viewModel.portfolioLink, keyboard: .URL)
         }
     }
-    
+
     private var actionButtons: some View {
         HStack(spacing: 16) {
             ActionButton(
-                title: isSaving ? "Salvando..." : "Salvar",
-                isLoading: isSaving,
+                title: viewModel.isSavingLocalProfile ? "Salvando..." : "Salvar",
+                isLoading: viewModel.isSavingLocalProfile,
                 color: .persianBlue,
-                action: { saveProfile() }
+                action: { viewModel.saveLocalProfile(imageData: imageData) }
             )
             .frame(maxWidth: .infinity)  // Ocupa metade do espaço
             
@@ -219,76 +223,26 @@ struct ProfileView: View {
         .padding(.horizontal, 16)
     }
     
-    // MARK: - Core Data Operations
-    
-    private func saveProfile() {
-        isSaving = true
-        
-        let profile: UserProfile
-        
-        if let existing = profiles.first {
-            profile = existing
-        } else {
-            guard let entity = NSEntityDescription.entity(forEntityName: "UserProfile", in: viewContext) else {
-                print("Erro: Entidade não encontrada")
-                isSaving = false
-                return
-            }
-            profile = UserProfile(entity: entity, insertInto: viewContext)
-            profile.id = UUID()
-        }
-        
-        profile.name = name.isEmpty ? nil : name
-        profile.experience = experience.isEmpty ? nil : experience
-        profile.institution = institution.isEmpty ? nil : institution
-        profile.githubLink = githubLink.isEmpty ? nil : githubLink
-        profile.portfolioLink = portfolioLink.isEmpty ? nil : portfolioLink
-        profile.profileImage = imageData
-        // ... outros campos ...
-        
-        do {
-            try viewContext.save()
-            isSaving = false
-            //            coordinator.pop()
-        } catch {
-            print("Erro ao salvar: \(error)")
-            isSaving = false
-        }
-    }
-    
+    // MARK: - Perfil local
+
     private func loadProfile() {
-        guard let profile = profiles.first else { return }
-        
-        name = profile.name ?? ""
-        experience = profile.experience ?? ""
-        institution = profile.institution ?? ""
-        githubLink = profile.githubLink ?? ""
-        portfolioLink = profile.portfolioLink ?? ""
-        
-        if let savedImageData = profile.profileImage,
-           let uiImage = UIImage(data: savedImageData) {
-            profileImage = Image(uiImage: uiImage)
-            imageData = savedImageData
+        viewModel.loadLocalProfile()
+
+        guard let savedImageData = viewModel.profileImageData,
+              let uiImage = UIImage(data: savedImageData)
+        else {
+            return
         }
+
+        profileImage = Image(uiImage: uiImage)
+        imageData = savedImageData
     }
-    
+
     private func deleteProfileImage() {
-        // Remove da visualização
         profileImage = nil
         imageData = nil
-        
-        // Remove do Core Data
-        if let profile = profiles.first {
-            profile.profileImage = nil
-            do {
-                try viewContext.save()
-                print("Imagem removida com sucesso")
-            } catch {
-                print("Erro ao remover imagem: \(error.localizedDescription)")
-                errorMessage = "Erro ao remover imagem"
-                showErrorAlert = true
-            }
-        }
+
+        viewModel.deleteProfileImage()
     }
     
     @ViewBuilder
@@ -321,34 +275,10 @@ struct ProfileView: View {
     }
     
     private func deleteLocalProfile() {
-        guard let profile = profiles.first else {
-            return
-        }
+        viewModel.deleteLocalProfile()
 
-        viewContext.delete(profile)
-
-        do {
-            try viewContext.save()
-
-            profileImage = nil
-            imageData = nil
-
-            name = ""
-            experience = ""
-            institution = ""
-            githubLink = ""
-            portfolioLink = ""
-
-        } catch {
-            /*
-             A conta já foi excluída no servidor.
-             Um erro local não deve manter o usuário logado.
-             */
-            print(
-                "❌ Erro ao limpar perfil local:",
-                error.localizedDescription
-            )
-        }
+        profileImage = nil
+        imageData = nil
     }
 }
 
@@ -508,5 +438,5 @@ struct CustomTextField: View {
 }
 
 #Preview {
-    ProfileView(userId: nil, coordinator: Coordinator(), viewModel: ProfileViewModel())
+    ProfileView(userId: nil, coordinator: ProfileCoordinator(), viewModel: ProfileViewModel())
 }

@@ -34,16 +34,11 @@ struct CoordinatorView: View {
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             coordinator.buildRootView()
-                .navigationDestination(for: AppPages.self) { page in
-                    coordinator.build(page: page)
-                }
-                .navigationDestination(for: Route.self) { route in
-                    switch route {
-                    case .articleDetail(let articleId):
-                        ArticleDetailView(viewModel: ArticleDetailViewModel(articleId: articleId))
-                    }
-                }
+                .navigationDestination(for: RootRoute.self) { coordinator.build($0) }
+                .navigationDestination(for: AuthRoute.self) { coordinator.auth.build($0) }
+                .navigationDestination(for: TrackRoute.self) { coordinator.track.build($0) }
+                .navigationDestination(for: ProfileRoute.self) { coordinator.profile.build($0) }
+                .navigationDestination(for: VideosRoute.self) { coordinator.videos.build($0) }
         }
-        
     }
 }

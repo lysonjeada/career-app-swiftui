@@ -10,74 +10,12 @@ import PhotosUI
 import SwiftUI
 
 struct VideoDetailView: View {
-    let videoId: String
-
     @StateObject
-    var coordinator: Coordinator
-
-    @State
-    private var video:
-        TechVideo?
-
-    @State
-    private var isLoading =
-        true
-
-    @State
-    private var loadErrorMessage:
-        String?
-
-    @State
-    private var isResending =
-        false
-
-    @State
-    private var resendMessage:
-        String?
-
-    @State
-    private var resendErrorMessage:
-        String?
+    private var viewModel: VideoDetailViewModel
 
     @State
     private var selectedThumbnailItem:
         PhotosPickerItem?
-
-    @State
-    private var isUpdatingThumbnail =
-        false
-
-    @State
-    private var thumbnailErrorMessage:
-        String?
-
-    @State
-    private var isResendingThumbnail =
-        false
-
-    @State
-    private var thumbnailResendMessage:
-        String?
-
-    @State
-    private var thumbnailResendErrorMessage:
-        String?
-
-    @State
-    private var isReacting =
-        false
-
-    @State
-    private var reactionErrorMessage:
-        String?
-
-    @State
-    private var isTogglingFavorite =
-        false
-
-    @State
-    private var favoriteErrorMessage:
-        String?
 
     /// Criado uma única vez (não a cada re-render do body) e
     /// pausado antes de ser liberado — construir um `AVPlayer` novo
@@ -89,17 +27,24 @@ struct VideoDetailView: View {
     private var player:
         AVPlayer?
 
-    private let service:
-        VideoServiceProtocol =
-        VideoService()
+    init(
+        videoId: String
+    ) {
+        self._viewModel = StateObject(
+            wrappedValue:
+                VideoDetailViewModel(
+                    videoId: videoId
+                )
+        )
+    }
 
     var body: some View {
         ScrollView {
-            if isLoading {
+            if viewModel.isLoading {
                 ProgressView()
                     .padding(.top, 80)
 
-            } else if let loadErrorMessage {
+            } else if let loadErrorMessage = viewModel.loadErrorMessage {
                 VStack(spacing: 12) {
                     Image(
                         systemName:
@@ -116,7 +61,7 @@ struct VideoDetailView: View {
 
                     Button("Tentar novamente") {
                         Task {
-                            await loadVideo()
+                            await viewModel.loadVideo()
                         }
                     }
                     .buttonStyle(.bordered)
@@ -124,7 +69,7 @@ struct VideoDetailView: View {
                 .padding(.top, 80)
                 .padding(.horizontal, 24)
 
-            } else if let video {
+            } else if let video = viewModel.video {
                 VStack(
                     alignment: .leading,
                     spacing: 20
@@ -150,7 +95,7 @@ struct VideoDetailView: View {
                         }
                     }
 
-                    if isOwner(of: video) {
+                    if viewModel.isOwner {
                         thumbnailSection(
                             for: video
                         )
@@ -171,7 +116,7 @@ struct VideoDetailView: View {
                         )
                     }
 
-                    if isOwner(of: video) {
+                    if viewModel.isOwner {
                         Text(
                             video.status.title
                         )
@@ -258,38 +203,14 @@ struct VideoDetailView: View {
                     return
                 }
 
-                await updateThumbnail(
+                await viewModel.updateThumbnail(
                     imageData: data
                 )
             }
         }
         .task {
-            await loadVideo()
+            await viewModel.loadVideo()
         }
-    }
-
-    @MainActor
-    private func loadVideo() async {
-        isLoading = true
-        loadErrorMessage = nil
-
-        do {
-            video =
-                try await service
-                    .fetchVideo(
-                        id: videoId
-                    )
-
-        } catch {
-            print(
-                "❌ \(error)"
-            )
-
-            loadErrorMessage =
-                error.localizedDescription
-        }
-
-        isLoading = false
     }
 
     @ViewBuilder
@@ -305,10 +226,10 @@ struct VideoDetailView: View {
 
                 Button {
                     Task {
-                        await resendReviewNotification()
+                        await viewModel.resendReviewNotification()
                     }
                 } label: {
-                    if isResending {
+                    if viewModel.isResending {
                         ProgressView()
                     } else {
                         Label(
@@ -323,7 +244,7 @@ struct VideoDetailView: View {
                 )
                 .tint(.persianBlue)
                 .disabled(
-                    isResending
+                    viewModel.isResending
                 )
 
             } else if let nextDate =
@@ -351,7 +272,7 @@ struct VideoDetailView: View {
                 }
             }
 
-            if let resendMessage {
+            if let resendMessage = viewModel.resendMessage {
                 Text(resendMessage)
                     .font(.caption)
                     .foregroundStyle(
@@ -359,7 +280,7 @@ struct VideoDetailView: View {
                     )
             }
 
-            if let resendErrorMessage {
+            if let resendErrorMessage = viewModel.resendErrorMessage {
                 Text(resendErrorMessage)
                     .font(.caption)
                     .foregroundStyle(
@@ -367,37 +288,6 @@ struct VideoDetailView: View {
                     )
             }
         }
-    }
-
-    @MainActor
-    private func resendReviewNotification() async {
-        guard let video else {
-            return
-        }
-
-        isResending = true
-        resendMessage = nil
-        resendErrorMessage = nil
-
-        do {
-            let updatedVideo =
-                try await service
-                    .resendReviewNotification(
-                        id: video.id
-                    )
-
-            self.video =
-                updatedVideo
-
-            resendMessage =
-                "Notificação reenviada com sucesso."
-
-        } catch {
-            resendErrorMessage =
-                error.localizedDescription
-        }
-
-        isResending = false
     }
 
     @ViewBuilder
@@ -447,7 +337,7 @@ struct VideoDetailView: View {
                     .frame(height: 180)
                 }
 
-                if isUpdatingThumbnail {
+                if viewModel.isUpdatingThumbnail {
                     Color.black
                         .opacity(0.35)
 
@@ -464,7 +354,7 @@ struct VideoDetailView: View {
                 )
             )
 
-            if isOwner(of: video) {
+            if viewModel.isOwner {
                 PhotosPicker(
                     selection:
                         $selectedThumbnailItem,
@@ -477,7 +367,7 @@ struct VideoDetailView: View {
                     )
                 }
                 .disabled(
-                    isUpdatingThumbnail
+                    viewModel.isUpdatingThumbnail
                 )
 
                 if video.thumbnailStatus == .pending {
@@ -507,27 +397,13 @@ struct VideoDetailView: View {
                     .foregroundStyle(.red)
                 }
 
-                if let thumbnailErrorMessage {
+                if let thumbnailErrorMessage = viewModel.thumbnailErrorMessage {
                     Text(thumbnailErrorMessage)
                         .font(.caption)
                         .foregroundStyle(.red)
                 }
             }
         }
-    }
-
-    /// Só quem enviou o vídeo pode trocar a thumbnail — mesma regra
-    /// que já vale para excluir o vídeo no backend.
-    private func isOwner(
-        of video: TechVideo
-    ) -> Bool {
-        guard let currentUserId =
-            AuthSession.shared.userId
-        else {
-            return false
-        }
-
-        return video.userId == currentUserId
     }
 
     @ViewBuilder
@@ -541,10 +417,10 @@ struct VideoDetailView: View {
             if video.canResendThumbnailReview {
                 Button {
                     Task {
-                        await resendThumbnailReview()
+                        await viewModel.resendThumbnailReview()
                     }
                 } label: {
-                    if isResendingThumbnail {
+                    if viewModel.isResendingThumbnail {
                         ProgressView()
                     } else {
                         Label(
@@ -556,7 +432,7 @@ struct VideoDetailView: View {
                 }
                 .buttonStyle(.bordered)
                 .tint(.persianBlue)
-                .disabled(isResendingThumbnail)
+                .disabled(viewModel.isResendingThumbnail)
 
             } else if let nextDate =
                 video.thumbnailNextResendAllowedDate {
@@ -574,73 +450,18 @@ struct VideoDetailView: View {
                 }
             }
 
-            if let thumbnailResendMessage {
+            if let thumbnailResendMessage = viewModel.thumbnailResendMessage {
                 Text(thumbnailResendMessage)
                     .font(.caption)
                     .foregroundStyle(.green)
             }
 
-            if let thumbnailResendErrorMessage {
+            if let thumbnailResendErrorMessage = viewModel.thumbnailResendErrorMessage {
                 Text(thumbnailResendErrorMessage)
                     .font(.caption)
                     .foregroundStyle(.red)
             }
         }
-    }
-
-    @MainActor
-    private func updateThumbnail(
-        imageData: Data
-    ) async {
-        isUpdatingThumbnail = true
-        thumbnailErrorMessage = nil
-
-        do {
-            let updatedVideo =
-                try await service
-                    .updateThumbnail(
-                        id: videoId,
-                        imageData: imageData
-                    )
-
-            video = updatedVideo
-
-        } catch {
-            thumbnailErrorMessage =
-                error.localizedDescription
-        }
-
-        isUpdatingThumbnail = false
-    }
-
-    @MainActor
-    private func resendThumbnailReview() async {
-        guard let video else {
-            return
-        }
-
-        isResendingThumbnail = true
-        thumbnailResendMessage = nil
-        thumbnailResendErrorMessage = nil
-
-        do {
-            let updatedVideo =
-                try await service
-                    .resendThumbnailReviewNotification(
-                        id: video.id
-                    )
-
-            self.video = updatedVideo
-
-            thumbnailResendMessage =
-                "Notificação reenviada com sucesso."
-
-        } catch {
-            thumbnailResendErrorMessage =
-                error.localizedDescription
-        }
-
-        isResendingThumbnail = false
     }
 
     @ViewBuilder
@@ -654,7 +475,7 @@ struct VideoDetailView: View {
             HStack(spacing: 24) {
                 Button {
                     Task {
-                        await toggleReaction(.like)
+                        await viewModel.toggleReaction(.like)
                     }
                 } label: {
                     Label(
@@ -673,7 +494,7 @@ struct VideoDetailView: View {
 
                 Button {
                     Task {
-                        await toggleReaction(.dislike)
+                        await viewModel.toggleReaction(.dislike)
                     }
                 } label: {
                     Label(
@@ -694,7 +515,7 @@ struct VideoDetailView: View {
 
                 Button {
                     Task {
-                        await toggleFavorite()
+                        await viewModel.toggleFavorite()
                     }
                 } label: {
                     Image(
@@ -711,82 +532,21 @@ struct VideoDetailView: View {
                 )
             }
             .disabled(
-                isReacting || isTogglingFavorite
+                viewModel.isReacting || viewModel.isTogglingFavorite
             )
             .font(.title3)
 
-            if let reactionErrorMessage {
+            if let reactionErrorMessage = viewModel.reactionErrorMessage {
                 Text(reactionErrorMessage)
                     .font(.caption)
                     .foregroundStyle(.red)
             }
 
-            if let favoriteErrorMessage {
+            if let favoriteErrorMessage = viewModel.favoriteErrorMessage {
                 Text(favoriteErrorMessage)
                     .font(.caption)
                     .foregroundStyle(.red)
             }
         }
-    }
-
-    @MainActor
-    private func toggleReaction(
-        _ reaction: VideoReactionType
-    ) async {
-        guard let video else {
-            return
-        }
-
-        isReacting = true
-        reactionErrorMessage = nil
-
-        do {
-            let updatedVideo =
-                video.myReaction == reaction
-                ? try await service.removeReaction(
-                    videoId: video.id
-                )
-                : try await service.setReaction(
-                    videoId: video.id,
-                    reaction: reaction
-                )
-
-            self.video = updatedVideo
-
-        } catch {
-            reactionErrorMessage =
-                error.localizedDescription
-        }
-
-        isReacting = false
-    }
-
-    @MainActor
-    private func toggleFavorite() async {
-        guard let video else {
-            return
-        }
-
-        isTogglingFavorite = true
-        favoriteErrorMessage = nil
-
-        do {
-            let updatedVideo =
-                video.isFavorited
-                ? try await service.removeFavorite(
-                    videoId: video.id
-                )
-                : try await service.addFavorite(
-                    videoId: video.id
-                )
-
-            self.video = updatedVideo
-
-        } catch {
-            favoriteErrorMessage =
-                error.localizedDescription
-        }
-
-        isTogglingFavorite = false
     }
 }

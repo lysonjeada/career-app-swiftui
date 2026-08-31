@@ -40,7 +40,11 @@ enum PurchaseServiceError: LocalizedError {
 }
 
 protocol PurchaseServiceProtocol {
-    func fetchProducts() async throws -> [Product]
+    /// Retorna já mapeado para `AICreditPackageDisplay` — o ViewModel
+    /// não deveria enxergar `StoreKit.Product` (que sequer tem
+    /// inicializador público, então não dá para fabricar um fake em
+    /// testes/Previews) só para exibir id/preço.
+    func fetchProducts() async throws -> [AICreditPackageDisplay]
 
     /// Busca o `Product` correspondente a `productID` e inicia a
     /// compra — a resolução do `Product` real do StoreKit fica aqui
@@ -62,10 +66,11 @@ protocol PurchaseServiceProtocol {
 
 final class PurchaseService: PurchaseServiceProtocol {
 
-    func fetchProducts() async throws -> [Product] {
+    func fetchProducts() async throws -> [AICreditPackageDisplay] {
         try await Product.products(
             for: AICreditProduct.allProductIDs
         )
+        .compactMap(AICreditPackageDisplay.init(product:))
     }
 
     func purchase(productID: String) async throws -> PurchaseResult {
@@ -136,5 +141,21 @@ final class PurchaseService: PurchaseServiceProtocol {
                 finish: { await transaction.finish() }
             )
         }
+    }
+}
+
+extension AICreditPackageDisplay {
+    init?(product: Product) {
+        guard let creditProduct = AICreditProduct(
+            rawValue: product.id
+        ) else {
+            return nil
+        }
+
+        self.init(
+            id: product.id,
+            credits: creditProduct.credits,
+            priceText: product.displayPrice
+        )
     }
 }

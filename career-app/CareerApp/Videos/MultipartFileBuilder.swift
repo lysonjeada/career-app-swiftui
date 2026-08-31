@@ -171,4 +171,43 @@ enum MultipartFileBuilder {
             boundary
         )
     }
+
+    /// Para corpos pequenos e inteiramente em memória (ex.: trocar só a
+    /// thumbnail de um vídeo) — mesmo formato de wire do `build(...)`
+    /// acima, só que sem passar por um arquivo temporário.
+    static func buildSinglePart(
+        name: String,
+        fileName: String,
+        contentType: String,
+        data: Data
+    ) -> (body: Data, boundary: String) {
+        let boundary =
+            "Boundary-\(UUID().uuidString)"
+
+        var body = Data()
+
+        body.append(
+            """
+            --\(boundary)\r
+            Content-Disposition: form-data; name="\(name)"; filename="\(fileName)"\r
+            Content-Type: \(contentType)\r
+            \r
+
+            """
+                .data(using: .utf8)!
+        )
+
+        body.append(data)
+
+        body.append(
+            """
+            \r
+            --\(boundary)--\r
+
+            """
+                .data(using: .utf8)!
+        )
+
+        return (body, boundary)
+    }
 }

@@ -126,6 +126,17 @@ struct LoginView: View {
             .padding(.top, 10)
             
             Button(action: {
+                // AuthSession (tokens/userId) é independente do
+                // isLoggedIn/currentUserId do Coordinator — se sobrou
+                // uma sessão real de um login anterior (ex.: o app foi
+                // desinstalado e reinstalado, o que apaga UserDefaults
+                // mas preserva o Keychain), sem isso o "sem login"
+                // silenciosamente reaproveita aquele token válido:
+                // Home/Candidaturas carregam os dados reais da conta
+                // antiga, mas Profile fica em branco porque currentUserId
+                // nunca é setado nesse fluxo. Limpar garante que "sem
+                // login" seja sempre um convidado de verdade.
+                AuthSession.shared.clear()
                 coordinator.isLoggedIn = true // Entrar sem login
                 coordinator.popToRoot()
             }) {
@@ -141,12 +152,12 @@ struct LoginView: View {
             
             HStack {
                 Button("Esqueceu a senha?") {
-                    coordinator.push(page: .forgotPassword)
+                    coordinator.auth.push(.forgotPassword)
                 }
                 .foregroundColor(.persianBlue)
                 Spacer()
                 Button("Cadastre-se") {
-                    coordinator.push(page: .signUp)
+                    coordinator.auth.push(.signUp)
                 }
                 .foregroundColor(.persianBlue)
             }

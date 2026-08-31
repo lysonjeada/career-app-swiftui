@@ -36,6 +36,19 @@ final class ProfileViewModel:
     @Published private(set)
     var deletionErrorMessage: String?
 
+    // MARK: - Perfil local (Core Data)
+
+    @Published var name = ""
+    @Published var experience = ""
+    @Published var institution = ""
+    @Published var githubLink = ""
+    @Published var portfolioLink = ""
+
+    @Published private(set) var profileImageData: Data?
+
+    @Published private(set) var isSavingLocalProfile = false
+    @Published private(set) var localProfileErrorMessage: String?
+
     private var profileTask:
         Task<Void, Never>?
 
@@ -45,11 +58,17 @@ final class ProfileViewModel:
     private let service:
         ProfileServiceProtocol
 
+    private let localProfileService:
+        LocalProfileServiceProtocol
+
     init(
         service: ProfileServiceProtocol =
-            ProfileService()
+            ProfileService(),
+        localProfileService: LocalProfileServiceProtocol =
+            LocalProfileService()
     ) {
         self.service = service
+        self.localProfileService = localProfileService
     }
 
     func fetchProfile(
@@ -152,6 +171,85 @@ final class ProfileViewModel:
 
     func clearDeletionError() {
         deletionErrorMessage = nil
+    }
+
+    func loadLocalProfile() {
+        guard let data = localProfileService.loadProfile() else {
+            return
+        }
+
+        name = data.name
+        experience = data.experience
+        institution = data.institution
+        githubLink = data.githubLink
+        portfolioLink = data.portfolioLink
+        profileImageData = data.imageData
+    }
+
+    func saveLocalProfile(imageData: Data?) {
+        isSavingLocalProfile = true
+
+        let data = LocalProfileData(
+            name: name,
+            experience: experience,
+            institution: institution,
+            githubLink: githubLink,
+            portfolioLink: portfolioLink,
+            imageData: imageData
+        )
+
+        do {
+            try localProfileService.saveProfile(data)
+            profileImageData = imageData
+
+        } catch {
+            print("Erro ao salvar: \(error)")
+        }
+
+        isSavingLocalProfile = false
+    }
+
+    func deleteProfileImage() {
+        profileImageData = nil
+
+        do {
+            try localProfileService.deleteProfileImage()
+            print("Imagem removida com sucesso")
+
+        } catch {
+            print(
+                "Erro ao remover imagem: \(error.localizedDescription)"
+            )
+
+            localProfileErrorMessage = "Erro ao remover imagem"
+        }
+    }
+
+    func deleteLocalProfile() {
+        do {
+            try localProfileService.deleteProfile()
+
+            profileImageData = nil
+            name = ""
+            experience = ""
+            institution = ""
+            githubLink = ""
+            portfolioLink = ""
+
+        } catch {
+            /*
+             A conta já foi excluída no servidor.
+             Um erro local não deve manter o usuário logado.
+             */
+            print(
+                "❌ Erro ao limpar perfil local:",
+                error.localizedDescription
+            )
+        }
+    }
+
+    func clearLocalProfileError() {
+        localProfileErrorMessage = nil
     }
 
     deinit {

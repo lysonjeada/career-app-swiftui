@@ -14,8 +14,7 @@ struct UploadVideoView: View {
     private var viewModel =
         UploadVideoViewModel()
 
-    @StateObject
-    var coordinator: Coordinator
+    let coordinator: VideosCoordinator
 
     @State
     private var selectedItem:

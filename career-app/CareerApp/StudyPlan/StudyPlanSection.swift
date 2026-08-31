@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StudyPlanSection: View {
+    let interviewAssistant: InterviewAssistantCoordinator
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -20,8 +21,8 @@ struct StudyPlanSection: View {
                     alignment: .center
                 )
 
-            NavigationLink {
-                StudyPlanFlowView()
+            Button {
+                interviewAssistant.push(.studyPlan)
             } label: {
                 StudyPlanLauncherCard()
             }
