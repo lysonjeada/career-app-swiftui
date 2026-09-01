@@ -15,7 +15,6 @@ struct ResumeFeedbackView: View {
 
     @State private var importing = false
     @State private var resumeFileURL: URL?
-    @State private var isLoading = false
     @State private var didExportResume = false
     @State private var showingFeedbackSheet = false
     @State private var showReadyAlert = false
@@ -58,7 +57,9 @@ struct ResumeFeedbackView: View {
             )
         }
         .onChange(of: viewModel.viewState) {
-            updateLoadingState()
+            if case .loaded = viewModel.viewState {
+                showReadyAlert = true
+            }
         }
         .padding(.horizontal)
     }
@@ -99,21 +100,12 @@ struct ResumeFeedbackView: View {
         }
     }
 
-    private func updateLoadingState() {
+    private var isLoading: Bool {
         switch viewModel.viewState {
-        case .loaded:
-            showReadyAlert = true
-            isLoading = false
-
         case .loading, .polling:
-            isLoading = true
-
-        case .idle:
-            isLoading = false
-        case .error:
-            isLoading = false
-        case .insufficientCredits:
-            isLoading = false
+            return true
+        case .idle, .loaded, .error, .insufficientCredits:
+            return false
         }
     }
 }

@@ -119,7 +119,6 @@
 		7084D412302F8DEB009F5DB9 /* UploadVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */; };
 		7084D414302F8DF9009F5DB9 /* VideoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D413302F8DF5009F5DB9 /* VideoDetailView.swift */; };
 		7084D416302F8E92009F5DB9 /* HomeVideosCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7084D415302F8E8E009F5DB9 /* HomeVideosCarousel.swift */; };
-		70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C832D77BCF000C5B709 /* CareerAppModule.swift */; };
 		70A76C8A2D77C00A00C5B709 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C892D77C00700C5B709 /* Coordinator.swift */; };
 		70A76C8C2D77C04F00C5B709 /* CoordinatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C8B2D77C04900C5B709 /* CoordinatorPresenter.swift */; };
 		70A76C8F2D7928E400C5B709 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A76C8E2D7928E000C5B709 /* MenuView.swift */; };
@@ -352,7 +351,6 @@
 		7084D411302F8DE5009F5DB9 /* UploadVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoView.swift; sourceTree = "<group>"; };
 		7084D413302F8DF5009F5DB9 /* VideoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailView.swift; sourceTree = "<group>"; };
 		7084D415302F8E8E009F5DB9 /* HomeVideosCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideosCarousel.swift; sourceTree = "<group>"; };
-		70A76C832D77BCF000C5B709 /* CareerAppModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerAppModule.swift; sourceTree = "<group>"; };
 		70A76C892D77C00700C5B709 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		70A76C8B2D77C04900C5B709 /* CoordinatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorPresenter.swift; sourceTree = "<group>"; };
 		70A76C8E2D7928E000C5B709 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -648,6 +646,10 @@
 				70E5D5B23023C83E00BC0103 /* EmailVerification */,
 				70BC021C2D862E910069A179 /* Login */,
 				640824AC71C528A3405B5898 /* AuthCoordinator.swift */,
+				70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */,
+				70056D5F2E2C202A006EA1A1 /* AuthenticationLoginRequest.swift */,
+				70056D5B2E2C127D006EA1A1 /* AuthenticationRegisterRequest.swift */,
+				70056D592E2C117C006EA1A1 /* AuthenticationSignUpService.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -819,10 +821,6 @@
 				47781AEB22E3F895C9BF6EFE /* AICredits */,
 				70CE6A4C3010010C006C7846 /* InterviewSimulation */,
 				70056D652E2C21AE006EA1A1 /* Authentication */,
-				70056D632E2C217A006EA1A1 /* AuthenticationLoginResponse.swift */,
-				70056D5F2E2C202A006EA1A1 /* AuthenticationLoginRequest.swift */,
-				70056D5B2E2C127D006EA1A1 /* AuthenticationRegisterRequest.swift */,
-				70056D592E2C117C006EA1A1 /* AuthenticationSignUpService.swift */,
 				703CD7DF2E13300700778C76 /* ForgotPassword */,
 				703CD7DE2E132F8C00778C76 /* Register */,
 				244DDABE2C7B9810007FB768 /* Interview */,
@@ -831,7 +829,6 @@
 				244DDAB62C7A7299007FB768 /* Home */,
 				70A76C902D7A8BFF00C5B709 /* ArticleDetail */,
 				70A76C8D2D7928D700C5B709 /* Menu */,
-				70A76C832D77BCF000C5B709 /* CareerAppModule.swift */,
 				243CF7B82CD0553500685B91 /* Track */,
 			);
 			path = CareerApp;
@@ -1268,7 +1265,6 @@
 				7084D3F1302D0CCA009F5DB9 /* TutorCard.swift in Sources */,
 				70056D552E2BDE0E006EA1A1 /* Loadable.swift in Sources */,
 				701CBC1D2D3F3F9F003F6F86 /* ImagePicker.swift in Sources */,
-				70A76C842D77BCF700C5B709 /* CareerAppModule.swift in Sources */,
 				700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */,
 				70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */,
 				70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */,

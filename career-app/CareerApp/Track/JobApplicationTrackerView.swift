@@ -8,19 +8,9 @@
 import SwiftUI
 
 struct JobApplicationTrackerView: View {
-    @State private var jobApplications: [JobApplication] = [] // Mudei para tipo correto
     @StateObject var listViewModel: JobApplicationTrackerListViewModel
-    @State private var newCompany = ""
-    @State private var newLevel = ""
-    @State private var newRole = ""
-    @State private var newLastInterview = ""
-    @State private var newNextInterview = ""
-    @State private var newTechnicalSkills = [""]
-    @State private var showAddForm = false
-    @State private var isAnimating = false
     @State private var isEditingMode = false
     let coordinator: TrackCoordinator
-    @State private var shouldRefresh = false
 
     var body: some View {
         NavigationStack {
@@ -52,7 +42,6 @@ struct JobApplicationTrackerView: View {
 
                     FloatingActionButtons(
                         isEditingMode: $isEditingMode,
-                        showAddForm: $showAddForm,
                         coordinator: coordinator
                     )
                 }
@@ -86,15 +75,6 @@ struct JobApplicationTrackerView: View {
 
     func editJob(_ job: JobApplication) {
         coordinator.push(.editJob(job))
-    }
-
-    // Limpar os inputs após o cadastro (mantenha essa função, embora não seja chamada diretamente aqui)
-    func clearForm() {
-        newCompany = ""
-        newLevel = ""
-        newLastInterview = ""
-        newNextInterview = ""
-        newTechnicalSkills = [""]
     }
 }
 
@@ -195,7 +175,6 @@ private struct ApplicationsListView: View {
 
 private struct FloatingActionButtons: View {
     @Binding var isEditingMode: Bool
-    @Binding var showAddForm: Bool
     let coordinator: TrackCoordinator
 
     var body: some View {

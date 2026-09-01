@@ -13,10 +13,10 @@ struct InterviewAssistantView: View {
     @ObservedObject var interviewAssistant: InterviewAssistantCoordinator
 
     @StateObject var viewModel:
-        GenerateQuestionsViewModel
+        GenerateQuestionsViewModel = GenerateQuestionsViewModel()
 
     @StateObject var resumeFeedbackViewModel:
-        ResumeFeedbackViewModel
+        ResumeFeedbackViewModel = ResumeFeedbackViewModel()
 
     var body: some View {
         NavigationStack(path: $interviewAssistant.path) {
