@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AddJobApplicationForm: View {
     @State private var company = ""
-    @State private var level = ""
     @State private var jobTitle = ""
     @State private var lastInterview = ""
     @State private var nextInterview = ""
@@ -28,11 +27,10 @@ struct AddJobApplicationForm: View {
     @FocusState private var focusedField: Field?
 
     enum Field: Hashable {
-        case company, level, jobTitle, location, notes
+        case company, jobTitle, location, notes
     }
 
     let seniorityLevels = ["Intern", "Junior", "Mid-level", "Senior", "Lead", "Manager"]
-    let roleList = ["iOS Developer", "Backend Developer", "Frontend Developer"]
 
     var body: some View {
         ScrollView {
@@ -45,8 +43,8 @@ struct AddJobApplicationForm: View {
                 textField("Nome da empresa", text: $company, field: .company)
 
                 // Cargo e Senioridade
-                menuWithFallback(title: "Cargo", selected: $selectedRole, options: roleList, fallbackText: $jobTitle, fallbackField: .jobTitle)
-                menuWithFallback(title: "Senioridade", selected: $selectedSeniority, options: seniorityLevels, fallbackText: $level, fallbackField: .level)
+                menuWithFallback(title: "Cargo", selected: $selectedRole, fallbackText: $jobTitle, fallbackField: .jobTitle)
+                menuWithFallback(title: "Senioridade", selected: $selectedSeniority, options: seniorityLevels, allowsFallbackText: false)
 
                 // Localização e Notas (opcional)
                 textField("Localização", text: $location, field: .location)
@@ -97,36 +95,40 @@ struct AddJobApplicationForm: View {
     func menuWithFallback(
         title: String,
         selected: Binding<String>,
-        options: [String],
-        fallbackText: Binding<String>,
-        fallbackField: Field
+        options: [String] = [],
+        fallbackText: Binding<String>? = nil,
+        fallbackField: Field? = nil,
+        allowsFallbackText: Bool = true
     ) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.headline)
 
-            Menu {
-                ForEach(options, id: \.self) { option in
-                    Button(option) {
-                        selected.wrappedValue = option
+            if !options.isEmpty {
+                Menu {
+                    ForEach(options, id: \.self) { option in
+                        Button(option) {
+                            selected.wrappedValue = option
+                        }
                     }
+                } label: {
+                    HStack {
+                        Text(selected.wrappedValue.isEmpty ? "Selecionar..." : selected.wrappedValue)
+                            .foregroundColor(.persianBlue)
+                        Spacer()
+                        Image(systemName: "chevron.down")
+                    }
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.persianBlue, lineWidth: 1)
+                    )
                 }
-            } label: {
-                HStack {
-                    Text(selected.wrappedValue.isEmpty ? "Selecionar..." : selected.wrappedValue)
-                        .foregroundColor(.persianBlue)
-                    Spacer()
-                    Image(systemName: "chevron.down")
-                }
-                .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.persianBlue, lineWidth: 1)
-                )
             }
 
-            if selected.wrappedValue.isEmpty {
-                textField("Outro (digite aqui)", text: fallbackText, field: fallbackField)
+            if allowsFallbackText, selected.wrappedValue.isEmpty,
+               let fallbackText, let fallbackField {
+                textField("Ex: iOS Developer", text: fallbackText, field: fallbackField)
             }
         }
     }
@@ -186,7 +188,7 @@ struct AddJobApplicationForm: View {
         let success = await viewModel.addInterview(
             companyName: company,
             jobTitle: selectedRole.isEmpty ? jobTitle : selectedRole,
-            jobSeniority: selectedSeniority.isEmpty ? level : selectedSeniority,
+            jobSeniority: selectedSeniority,
             lastInterview: lastInterview,
             nextInterview: nextInterview,
             location: location,

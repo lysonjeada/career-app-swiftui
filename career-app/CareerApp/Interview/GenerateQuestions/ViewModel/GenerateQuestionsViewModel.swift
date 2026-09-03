@@ -41,12 +41,16 @@ final class GenerateQuestionsViewModel: ObservableObject {
 
     @Published private(set) var generatedQuestions: [String] = []
     @Published private(set) var viewState: State = .idle
+    @Published private(set) var saveQuestionsState: SaveGeneratedQuestionsState = .idle
 
     private(set) var steps: [QuestionsGeneratorStep.Step]
+    private(set) var lastJobTitle = ""
+    private(set) var lastSeniority = ""
 
     private var task: Task<Void, Never>?
 
     private let service: GenerateQuestionsServiceProtocol
+    private let interviewSimulationService: InterviewSimulationServiceProtocol
 
     enum State: Equatable {
         case idle
@@ -56,8 +60,12 @@ final class GenerateQuestionsViewModel: ObservableObject {
         case insufficientCredits
     }
 
-    init(service: GenerateQuestionsServiceProtocol = GenerateQuestionsService()) {
+    init(
+        service: GenerateQuestionsServiceProtocol = GenerateQuestionsService(),
+        interviewSimulationService: InterviewSimulationServiceProtocol = InterviewSimulationService()
+    ) {
         self.service = service
+        self.interviewSimulationService = interviewSimulationService
         self.steps = [
             .init(
                 title: "Selecione cargo e senioridade",
@@ -112,6 +120,9 @@ final class GenerateQuestionsViewModel: ObservableObject {
 
         generatedQuestions = []
         viewState = .loading
+        saveQuestionsState = .idle
+        lastJobTitle = normalizedJobTitle
+        lastSeniority = normalizedSeniority
 
         task = Task { [weak self] in
             guard let self else { return }
@@ -163,6 +174,56 @@ final class GenerateQuestionsViewModel: ObservableObject {
     func cancelGeneration() {
         task?.cancel()
         task = nil
+    }
+
+    func saveGeneratedQuestions() async {
+        if case .saving = saveQuestionsState {
+            return
+        }
+
+        if case .saved = saveQuestionsState {
+            return
+        }
+
+        guard !generatedQuestions.isEmpty else {
+            saveQuestionsState = .error(
+                "Nenhuma pergunta foi gerada para salvar."
+            )
+            return
+        }
+
+        guard !lastJobTitle.isEmpty else {
+            saveQuestionsState = .error(
+                "O cargo da entrevista não foi encontrado."
+            )
+            return
+        }
+
+        guard !lastSeniority.isEmpty else {
+            saveQuestionsState = .error(
+                "A senioridade da entrevista não foi encontrada."
+            )
+            return
+        }
+
+        saveQuestionsState = .saving
+
+        do {
+            let response = try await interviewSimulationService.saveGeneratedQuestions(
+                jobTitle: lastJobTitle,
+                seniority: lastSeniority,
+                questions: generatedQuestions
+            )
+
+            saveQuestionsState = .saved(
+                response.savedCount
+            )
+
+        } catch {
+            saveQuestionsState = .error(
+                error.localizedDescription
+            )
+        }
     }
 
     private func isValidJobTitle(_ jobTitle: String) -> Bool {

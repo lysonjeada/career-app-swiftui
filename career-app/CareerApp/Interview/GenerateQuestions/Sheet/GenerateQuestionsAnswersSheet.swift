@@ -70,17 +70,14 @@ struct GenerateQuestionsAnswersSheet: View {
                 }
                 
                 Divider()
-                
-                HStack(spacing: 16) {
-                    Button("Gerar Mais") {
-                        
+
+                SaveGeneratedQuestionsCard(
+                    questionsCount: viewModel.generatedQuestions.count,
+                    state: viewModel.saveQuestionsState
+                ) {
+                    Task {
+                        await viewModel.saveGeneratedQuestions()
                     }
-                    .buttonStyle(.borderedProminent)
-                    
-                    Button("Salvar Todas") {
-                        
-                    }
-                    .buttonStyle(.bordered)
                 }
                 .padding()
             case .error(_):

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02FC616C8972D65DB9F46A83 /* SavedQuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D5881B592CBE155AA32E5 /* SavedQuestionsViewModel.swift */; };
 		09A3393C34FB655DDEA017C0 /* AICreditsTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915F00C3862B6743E112BDC /* AICreditsTransactionObserver.swift */; };
 		162A1B35649972BA93AB980A /* AICreditsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */; };
 		1C612CBE2A81EBB676A68153 /* AICreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFD4771FECCE33F724CA47E /* AICreditsView.swift */; };
@@ -40,6 +41,7 @@
 		59A1BD141916B46709558D90 /* FavoriteArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E5AC0D66F2E2D7D27850B /* FavoriteArticlesView.swift */; };
 		59E0D060BA3CACDE137F68E4 /* AICreditsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */; };
 		5CE00DAF29318A6EAD1E8F40 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FE0124D3F03F5E13169761 /* FavoritesView.swift */; };
+		60BB911715032913CBEC1243 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640824AC71C528A3405B5898 /* AuthCoordinator.swift */; };
 		6534AFABA3AD6C180524993B /* VerifyPasswordResetCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D12A54DC741FF3C05006E2 /* VerifyPasswordResetCodeView.swift */; };
 		700512F82DFB38AF008CF3AF /* CareerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F72DFB38A7008CF3AF /* CareerAPI.swift */; };
 		700512FA2DFB38C4008CF3AF /* CareerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700512F92DFB38BE008CF3AF /* CareerURL.swift */; };
@@ -130,11 +132,6 @@
 		70B08FD12E0A1B15002D8FE2 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 70B08FD02E0A1B15002D8FE2 /* CropViewController */; };
 		70B08FD32E0A1B15002D8FE2 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 70B08FD22E0A1B15002D8FE2 /* TOCropViewController */; };
 		70BC021E2D862EA10069A179 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC021D2D862E9F0069A179 /* LoginView.swift */; };
-		60BB911715032913CBEC1243 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640824AC71C528A3405B5898 /* AuthCoordinator.swift */; };
-		D0D20AA30979CC39B3799CFB /* TrackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E78E9BF197E7E2D8A0150B /* TrackCoordinator.swift */; };
-		8A513CFD3D559CA3886068A3 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A825B32EB46B507EE9F9852 /* ProfileCoordinator.swift */; };
-		91AD7F7BA5CD38DCD865CF76 /* VideosCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4EC32320C7ED7667E006EF /* VideosCoordinator.swift */; };
-		FABCFF935AD0BCE446F24D87 /* InterviewAssistantCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E56DCA14F462640FD0A500C /* InterviewAssistantCoordinator.swift */; };
 		70BC02242D9467850069A179 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BC02232D9467810069A179 /* CoordinatorView.swift */; };
 		70C6F9362D35D46A00984CF7 /* JobApplicationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */; };
 		70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C6F9372D35E6B400984CF7 /* DateInputField.swift */; };
@@ -195,14 +192,20 @@
 		70E5D5BC3023C87700BC0103 /* EmailVerificationView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */; };
 		70E5D5BE3023CB2000BC0103 /* AuthenticationRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */; };
 		7B74A142AB23DE50A16CF294 /* FavoriteVideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */; };
+		8A513CFD3D559CA3886068A3 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A825B32EB46B507EE9F9852 /* ProfileCoordinator.swift */; };
 		8B9326B351914A85AC4CBDA9 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A851556DDD672F5FD341C9 /* ResetPasswordView.swift */; };
 		8EFE6FA1BFBDCAB4ED40F5D3 /* VideoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5813587B0D9559C43F16FB /* VideoDetailViewModel.swift */; };
+		91AD7F7BA5CD38DCD865CF76 /* VideosCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4EC32320C7ED7667E006EF /* VideosCoordinator.swift */; };
+		9B4F9F96AABAD7CB396B0468 /* SavedQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821929B46B2BC2DEF2EA3D1A /* SavedQuestionsView.swift */; };
 		A23B5D9829603AC9CF1CCF9D /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */; };
 		A660568744626A43662DC173 /* VideoPlaybackAudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */; };
 		A6FF3D300AF7AAD1EAFF24D5 /* FavoriteVideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC1B9CC1AAF2504BCE6047 /* FavoriteVideosViewModel.swift */; };
 		AD0764D7AC4BA4EA91EB7662 /* AICreditProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653106DAC1007BD8A077DF1E /* AICreditProduct.swift */; };
+		BE46DC5FF19D7181B67F94D8 /* SavedQuestionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C5C1C36BD807FA300B397D /* SavedQuestionSet.swift */; };
 		C844C9AD3AD6D507ABEDBB5B /* PasswordResetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F8181182FD3D29CB4BBF3 /* PasswordResetModels.swift */; };
+		D0D20AA30979CC39B3799CFB /* TrackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E78E9BF197E7E2D8A0150B /* TrackCoordinator.swift */; };
 		D88C7ABA1CAF1E46787779F8 /* PasswordResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C807C3E9201C61C6D72319F /* PasswordResetViewModel.swift */; };
+		FABCFF935AD0BCE446F24D87 /* InterviewAssistantCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E56DCA14F462640FD0A500C /* InterviewAssistantCoordinator.swift */; };
 		FB415A154E2C7451D8166394 /* LocalProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3838040C6D43130544CCE6 /* LocalProfileService.swift */; };
 		FCDEFB5A3A9E816F329D8AF6 /* GenerateQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4EE19E3C1814DA6F60785 /* GenerateQuestionsService.swift */; };
 /* End PBXBuildFile section */
@@ -267,11 +270,14 @@
 		249240612CC86F3C0081E887 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		249240632CC9871D0081E887 /* OpenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAPIResponse.swift; sourceTree = "<group>"; };
 		24D89C4D2C81834800995945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		25E78E9BF197E7E2D8A0150B /* TrackCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCoordinator.swift; sourceTree = "<group>"; };
 		28D12A54DC741FF3C05006E2 /* VerifyPasswordResetCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasswordResetCodeView.swift; sourceTree = "<group>"; };
+		38C5C1C36BD807FA300B397D /* SavedQuestionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedQuestionSet.swift; sourceTree = "<group>"; };
 		436CA32C6435DDFBE55F077B /* FavoriteArticlesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArticlesViewModel.swift; sourceTree = "<group>"; };
 		4A34453E425496930D6398FD /* JobApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplication.swift; sourceTree = "<group>"; };
 		53523DC91210BB058F965D57 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		5A3C7C73780F9A1FCDCBC3B3 /* AICreditsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsService.swift; sourceTree = "<group>"; };
+		640824AC71C528A3405B5898 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		653106DAC1007BD8A077DF1E /* AICreditProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditProduct.swift; sourceTree = "<group>"; };
 		65A851556DDD672F5FD341C9 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		6B192CCF15135A7FF3DC519E /* VideoPlaybackAudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaybackAudioSession.swift; sourceTree = "<group>"; };
@@ -360,11 +366,6 @@
 		70A76C972D7A8F1D00C5B709 /* ArticleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetail.swift; sourceTree = "<group>"; };
 		70B08FCD2E09D7FF002D8FE2 /* CareerApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CareerApp.xcdatamodel; sourceTree = "<group>"; };
 		70BC021D2D862E9F0069A179 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		640824AC71C528A3405B5898 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		25E78E9BF197E7E2D8A0150B /* TrackCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCoordinator.swift; sourceTree = "<group>"; };
-		8A825B32EB46B507EE9F9852 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
-		DC4EC32320C7ED7667E006EF /* VideosCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosCoordinator.swift; sourceTree = "<group>"; };
-		7E56DCA14F462640FD0A500C /* InterviewAssistantCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAssistantCoordinator.swift; sourceTree = "<group>"; };
 		70BC02232D9467810069A179 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		70C6F9352D35D45C00984CF7 /* JobApplicationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobApplicationCard.swift; sourceTree = "<group>"; };
 		70C6F9372D35E6B400984CF7 /* DateInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInputField.swift; sourceTree = "<group>"; };
@@ -424,6 +425,10 @@
 		70E5D5B93023C86C00BC0103 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		70E5D5BB3023C87600BC0103 /* EmailVerificationView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmailVerificationView+Preview.swift"; sourceTree = "<group>"; };
 		70E5D5BD3023CB1700BC0103 /* AuthenticationRegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRegisterResponse.swift; sourceTree = "<group>"; };
+		7E56DCA14F462640FD0A500C /* InterviewAssistantCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewAssistantCoordinator.swift; sourceTree = "<group>"; };
+		821929B46B2BC2DEF2EA3D1A /* SavedQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedQuestionsView.swift; sourceTree = "<group>"; };
+		8A825B32EB46B507EE9F9852 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		9A1D5881B592CBE155AA32E5 /* SavedQuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedQuestionsViewModel.swift; sourceTree = "<group>"; };
 		9B5813587B0D9559C43F16FB /* VideoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailViewModel.swift; sourceTree = "<group>"; };
 		A3CCB6D8CF26E90460966F73 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		B0FE0124D3F03F5E13169761 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
@@ -432,6 +437,7 @@
 		CAFD4771FECCE33F724CA47E /* AICreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsView.swift; sourceTree = "<group>"; };
 		CF3838040C6D43130544CCE6 /* LocalProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalProfileService.swift; sourceTree = "<group>"; };
 		DA632E16FB85023ABED139A3 /* VideoThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailGenerator.swift; sourceTree = "<group>"; };
+		DC4EC32320C7ED7667E006EF /* VideosCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosCoordinator.swift; sourceTree = "<group>"; };
 		E18F8181182FD3D29CB4BBF3 /* PasswordResetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetModels.swift; sourceTree = "<group>"; };
 		EC24194A8A96C5DC9BB21DAC /* FavoriteVideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVideosView.swift; sourceTree = "<group>"; };
 		EC26EC2CD42056A1497357C3 /* AICreditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICreditsViewModel.swift; sourceTree = "<group>"; };
@@ -897,6 +903,9 @@
 				70E5D593301242B200BC0103 /* EvaluationScoreRow.swift */,
 				70E5D5913012428E00BC0103 /* SaveGeneratedQuestionsCard.swift */,
 				70E5D58F3012417B00BC0103 /* SaveGeneratedQuestionsResponse.swift */,
+				38C5C1C36BD807FA300B397D /* SavedQuestionSet.swift */,
+				9A1D5881B592CBE155AA32E5 /* SavedQuestionsViewModel.swift */,
+				821929B46B2BC2DEF2EA3D1A /* SavedQuestionsView.swift */,
 				70CE6A5F301002E6006C7846 /* InterviewSimulationResultView.swift */,
 				70CE6A5D30100294006C7846 /* InterviewSimulationComponents.swift */,
 				70CE6A5B30100266006C7846 /* InterviewSimulationSessionView.swift */,
@@ -1269,6 +1278,9 @@
 				70C6F9382D35E6B900984CF7 /* DateInputField.swift in Sources */,
 				70D2884A2D1B63FE004E9033 /* HomeService.swift in Sources */,
 				70E5D5903012417D00BC0103 /* SaveGeneratedQuestionsResponse.swift in Sources */,
+				BE46DC5FF19D7181B67F94D8 /* SavedQuestionSet.swift in Sources */,
+				02FC616C8972D65DB9F46A83 /* SavedQuestionsViewModel.swift in Sources */,
+				9B4F9F96AABAD7CB396B0468 /* SavedQuestionsView.swift in Sources */,
 				70E5D57C301164BB00BC0103 /* StudyPlanSection.swift in Sources */,
 				70E5D5B63023C85F00BC0103 /* EmailVerificationService.swift in Sources */,
 				24D89C4E2C81834800995945 /* AppDelegate.swift in Sources */,
@@ -1502,6 +1514,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "career-app/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tech Step";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Este app precisa acessar dispositivos da rede local para funcionar corretamente.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Precisamos do acesso ao microfone para captar seu áudio.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1533,6 +1547,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "career-app/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tech Step";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Este app precisa acessar dispositivos da rede local para funcionar corretamente.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Precisamos do acesso ao microfone para captar seu áudio.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

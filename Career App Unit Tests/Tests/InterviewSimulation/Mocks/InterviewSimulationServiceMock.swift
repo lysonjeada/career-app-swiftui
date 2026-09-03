@@ -9,6 +9,7 @@ import Foundation
 final class InterviewSimulationServiceMock: InterviewSimulationServiceProtocol {
     var isSuccess: Bool
     var shouldThrowInsufficientCredits = false
+    var savedQuestionSetsResult: [SavedQuestionSet] = []
     private(set) var receivedJobTitle: String?
     private(set) var receivedSeniority: String?
 
@@ -65,5 +66,13 @@ final class InterviewSimulationServiceMock: InterviewSimulationServiceProtocol {
         }
 
         return try JSONLoader.load("interview-simulation-save-questions-response")
+    }
+
+    func fetchSavedQuestions() async throws -> [SavedQuestionSet] {
+        guard isSuccess else {
+            throw URLError(.badServerResponse)
+        }
+
+        return savedQuestionSetsResult
     }
 }

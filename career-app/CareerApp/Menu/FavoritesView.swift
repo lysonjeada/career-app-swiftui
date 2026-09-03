@@ -15,6 +15,7 @@ struct FavoritesView: View {
         
         case videos = "Vídeos"
         case articles = "Artigos"
+        case questions = "Perguntas"
         
         var id: String {
             rawValue
@@ -65,6 +66,9 @@ struct FavoritesView: View {
                             )
                         )
                     }
+
+                case .questions:
+                    SavedQuestionsView()
                 }
             }
             .frame(

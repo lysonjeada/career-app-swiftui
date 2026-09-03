@@ -29,6 +29,8 @@ protocol InterviewSimulationServiceProtocol {
         seniority: String,
         questions: [String]
     ) async throws -> SaveGeneratedQuestionsResponse
+
+    func fetchSavedQuestions() async throws -> [SavedQuestionSet]
 }
 
 final class InterviewSimulationService:
@@ -194,6 +196,28 @@ final class InterviewSimulationService:
         return try await sendJSONRequest(
             path: "/interview-simulation/saved-questions",
             body: requestBody
+        )
+    }
+
+    func fetchSavedQuestions() async throws -> [SavedQuestionSet] {
+        guard let url = URL(
+            string: "\(APIConstants.pythonURL)/interview-simulation/saved-questions"
+        ) else {
+            throw InterviewSimulationServiceError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let (data, response) = try await AuthenticatedHTTPClient.shared.data(
+            for: request
+        )
+
+        try validate(response: response, data: data)
+
+        return try JSONDecoder().decode(
+            [SavedQuestionSet].self,
+            from: data
         )
     }
 }
