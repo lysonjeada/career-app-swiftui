@@ -28,14 +28,17 @@ struct ProfileView: View {
     @State private var errorMessage = ""
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                profileImageSection
-                personalInfoSection
-                linksSection
-                actionButtons
+        Group {
+            switch profilePresentation {
+            case .loading:
+                loadingView
+
+            case .error:
+                errorView
+
+            case .content:
+                profileContent
             }
-            .padding(.vertical)
         }
         .background(Color.backgroundLightGray)
         .navigationConfig(
@@ -118,9 +121,74 @@ struct ProfileView: View {
             perform: loadProfile
         )
     }
-    
+
+    // MARK: - Presentation state
+
+    private enum ProfilePresentation {
+        case loading
+        case error
+        case content
+    }
+
+    private var profilePresentation: ProfilePresentation {
+        guard userId != nil else {
+            return .content
+        }
+
+        switch viewModel.viewState {
+        case .idle, .loading:
+            return .loading
+
+        case .error:
+            return .error
+
+        case .loaded:
+            return .content
+        }
+    }
+
+    private var loadingView: some View {
+        VStack(spacing: 16) {
+            MinimalSpinner()
+                .frame(width: 60, height: 60)
+
+            Text("Carregando perfil...")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var errorView: some View {
+        ContentUnavailableView {
+            Label(
+                "Não foi possível carregar o perfil",
+                systemImage: "person.crop.circle.badge.exclamationmark"
+            )
+        } actions: {
+            Button("Tentar novamente") {
+                if let userId {
+                    viewModel.fetchProfile(userId: userId)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var profileContent: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                profileImageSection
+                personalInfoSection
+                linksSection
+                actionButtons
+            }
+            .padding(.vertical)
+        }
+    }
+
     // MARK: - Subviews
-    
+
     private var profileImageSection: some View {
         ZStack(alignment: .bottomLeading) {  // Alterado para .bottomLeading
             Button(action: { showImagePicker.toggle() }) {
@@ -157,11 +225,6 @@ struct ProfileView: View {
                         .clipShape(Circle())
                         .offset(x: -10, y: 4)  // Ajuste do offset para posicionar corretamente
                 }
-            }
-        }
-        .onAppear {
-            if let userId {
-                viewModel.fetchProfile(userId: userId)
             }
         }
         .padding(.top, 24)
@@ -226,6 +289,10 @@ struct ProfileView: View {
     // MARK: - Perfil local
 
     private func loadProfile() {
+        if let userId {
+            viewModel.fetchProfile(userId: userId)
+        }
+
         viewModel.loadLocalProfile()
 
         guard let savedImageData = viewModel.profileImageData,
